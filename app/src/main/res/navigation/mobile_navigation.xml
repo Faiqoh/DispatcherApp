@@ -12,14 +12,26 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_detail"
         android:name="com.example.appdispatcher.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_detail"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_payment"
         android:name="com.example.appdispatcher.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_payment"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_message"
+        android:name="com.example.appdispatcher.ui.message.MessageFragment"
+        android:label="@string/title_message"
+        tools:layout="@layout/message_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.example.appdispatcher.ui.account.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/account_fragment" />
 </navigation>
