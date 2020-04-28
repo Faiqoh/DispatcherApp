@@ -14,16 +14,14 @@
   ~ limitations under the License.
   -->
 <resources>
-    <string-array name="title">
+    <string-array name="titlejob">
         <item>BackEnd Developer</item>
         <item>Ios Developer</item>
         <item>Android Developer</item>
-        <item>Frontend Developer</item>
     </string-array>
-    <array name="list_job">
+    <array name="recomend_job">
         <item>@drawable/code</item>
         <item>@drawable/ios</item>
         <item>@drawable/android</item>
-        <item>@drawable/css</item>
     </array>
 </resources>

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdispatcher.Adapter.JobListAdapter;
+import com.example.appdispatcher.Adapter.RecomenJobAdapter;
 import com.example.appdispatcher.R;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     ArrayList<HomeViewModel> mList = new ArrayList<>();
     JobListAdapter mAdapter;
+    ArrayList<RecomendJobViewModel> rList = new ArrayList<>();
+    RecomenJobAdapter rAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,13 +46,36 @@ public class HomeFragment extends Fragment {
         mAdapter = new JobListAdapter(mList);
         recyclerView.setAdapter(mAdapter);
         fillData();
+
+        RecyclerView recyclerView2 = root.findViewById(R.id.recyclerViewrecomendjob);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity());
+        recyclerView2.setLayoutManager(layoutManager2);
+        rAdapter = new RecomenJobAdapter(rList);
+        recyclerView2.setAdapter(rAdapter);
+        fillData2();
         return root;
+    }
+
+    private void fillData2() {
+        Resources resources = getResources();
+        String[] arJudul2 = resources.getStringArray(R.array.titlejob);
+        TypedArray a = resources.obtainTypedArray(R.array.recomend_job);
+        Drawable[] arFoto2 = new Drawable[a.length()];
+        for (int i = 0; i < arFoto2.length; i++) {
+            arFoto2[i] = a.getDrawable(i);
+        }
+        a.recycle();
+
+        for (int i = 0; i < arJudul2.length; i++) {
+            rList.add(new RecomendJobViewModel(arJudul2[i], arFoto2[i]));
+        }
+        rAdapter.notifyDataSetChanged();
     }
 
     private void fillData() {
         Resources resources = getResources();
         String[] arJudul = resources.getStringArray(R.array.title);
-        TypedArray a = resources.obtainTypedArray(R.array.places_picture);
+        TypedArray a = resources.obtainTypedArray(R.array.list_job);
         Drawable[] arFoto = new Drawable[a.length()];
         for (int i = 0; i < arFoto.length; i++) {
             arFoto[i] = a.getDrawable(i);
