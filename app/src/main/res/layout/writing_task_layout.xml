@@ -176,90 +176,28 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="420dp"
-                android:src="@drawable/home_7" />
-
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="425dp"
-                android:text="PT. Sinergy Informasi Pratama"
-                android:textSize="10sp" />
+                android:layout_height="40dp"
+                android:layout_marginLeft="270dp"
+                android:layout_marginTop="430dp"
+                android:background="@color/colorPrimary"
+                android:text="Note"
+                android:textSize="11sp" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="460dp"
-                android:src="@drawable/layer_4" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="465dp"
-                android:text="Jakarta Barat, Indonesia"
-                android:textSize="10sp" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="500dp"
-                android:src="@drawable/layer_3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="505dp"
-                android:text="Level 3"
-                android:textSize="10sp" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="540dp"
-                android:src="@drawable/layer_5" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="545dp"
-                android:text="1 Januari 2020 - 25 Mei 2020"
-                android:textSize="10sp" />
-
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="580dp"
-                android:src="@drawable/profile" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="585dp"
-                android:text="PIC: Tito Maulana"
-                android:textSize="10sp" />
-
+            <EditText
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="490dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="620dp"
+                android:layout_marginLeft="270dp"
+                android:layout_marginTop="720dp"
                 android:background="@color/colorPrimary"
-                android:text="Start"
+                android:text="Submit"
                 android:textSize="11sp" />
         </RelativeLayout>
 
