@@ -13,15 +13,15 @@
 
     <fragment
         android:id="@+id/navigation_detail"
-        android:name="com.example.appdispatcher.ui.dashboard.DashboardFragment"
+        android:name="com.example.appdispatcher.ui.detail.DetailFragment"
         android:label="@string/title_detail"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_detail" />
 
     <fragment
         android:id="@+id/navigation_payment"
-        android:name="com.example.appdispatcher.ui.notifications.NotificationsFragment"
+        android:name="com.example.appdispatcher.ui.payment.PaymentFragment"
         android:label="@string/title_payment"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_payment" />
 
     <fragment
         android:id="@+id/navigation_message"

@@ -1,4 +1,4 @@
-package com.example.appdispatcher.ui.dashboard;
+package com.example.appdispatcher.ui.detail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,15 +10,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.appdispatcher.R;
 
-public class DashboardFragment extends Fragment {
+public class DetailFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private DetailViewModel dashboardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         /*dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);*/
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+                ViewModelProviders.of(this).get(DetailViewModel.class);*/
+        View root = inflater.inflate(R.layout.fragment_detail, container, false);
         /*final TextView textView = root.findViewById(R.id.text_dashboard);
         dashboardViewModel.getText().observe(this, new Observer<String>() {
             @Override
