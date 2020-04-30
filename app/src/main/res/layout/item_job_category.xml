@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewJudul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewlistjob"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/imageViewlistjob"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerHorizontal="true"
+        android:src="@android:drawable/ic_menu_camera" />
+</RelativeLayout>

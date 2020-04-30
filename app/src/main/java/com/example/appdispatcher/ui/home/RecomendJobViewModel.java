@@ -6,8 +6,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
-
 public class RecomendJobViewModel extends ViewModel {
 
     public String judul;
@@ -19,7 +17,7 @@ public class RecomendJobViewModel extends ViewModel {
         this.foto = foto;
     }
 
-    public RecomendJobViewModel(ArrayList<RecomendJobViewModel> rList) {
+    public RecomendJobViewModel(Drawable rList) {
     }
 
     public LiveData<String> getText() {
