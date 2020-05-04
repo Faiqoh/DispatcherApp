@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageViewlist"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/textViewJudul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/imageViewlist"
+        android:layout_toRightOf="@+id/imageViewlist"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Judul" />
+
+    <TextView
+        android:id="@+id/textViewLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewJudul"
+        android:layout_alignStart="@+id/textViewJudul"
+        android:layout_alignLeft="@+id/textViewJudul"
+        android:ellipsize="end"
+        android:maxLines="2"
+        tools:text="Location" />
+
+</RelativeLayout>
