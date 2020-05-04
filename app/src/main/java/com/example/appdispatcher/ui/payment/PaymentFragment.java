@@ -4,32 +4,65 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.appdispatcher.Adapter.SectionPagerAdapterPayment;
 import com.example.appdispatcher.R;
+import com.google.android.material.tabs.TabLayout;
 
 public class PaymentFragment extends Fragment {
+
+
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     private PaymentViewModel notificationsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(PaymentViewModel.class);
         View root = inflater.inflate(R.layout.fragment_payment, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
+
+        viewPager = root.findViewById(R.id.viewPagerPayment);
+        tabLayout = root.findViewById(R.id.tabLayoutPayment);
+
+        return root;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setUpViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
-        return root;
+    }
+
+    private void setUpViewPager(ViewPager viewPager) {
+        SectionPagerAdapterPayment adapter = new SectionPagerAdapterPayment(getChildFragmentManager());
+
+        adapter.addFragment(new Payment_PaymentFragment(), "Payment");
+        adapter.addFragment(new Payment_ComplainFragment(), "Complain");
+
+        viewPager.setAdapter(adapter);
     }
 }
