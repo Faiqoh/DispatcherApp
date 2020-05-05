@@ -22,7 +22,7 @@ public class MessageFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         mViewModel =
                 ViewModelProviders.of(this).get(MessageViewModel.class);
-        View root = inflater.inflate(R.layout.message_fragment, container, false);
+        View root = inflater.inflate(R.layout.fragment_message, container, false);
         final TextView textView = root.findViewById(R.id.text_message);
         mViewModel.getText().observe(this, new Observer<String>() {
             @Override
