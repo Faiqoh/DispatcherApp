@@ -16,8 +16,8 @@
 
     <ImageView
         android:id="@+id/imageViewlistjob"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:src="@android:drawable/ic_menu_camera" />
+        android:src="@drawable/android" />
 </RelativeLayout>

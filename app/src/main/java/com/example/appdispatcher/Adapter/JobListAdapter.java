@@ -10,18 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.home.HomeFragment;
 import com.example.appdispatcher.ui.home.HomeViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHolder> {
 
-    ArrayList<HomeViewModel> jobList;
+    //    ArrayList<HomeViewModel> jobList;
+    List<HomeViewModel> jobList;
+    private HomeFragment context;
 
-
-    public JobListAdapter(ArrayList<HomeViewModel> jobList) {
+    public JobListAdapter(HomeFragment context, List<HomeViewModel> jobList) {
+//        this.jobList = jobList;
+        super();
         this.jobList = jobList;
+        this.context = context;
     }
 
     @NonNull
