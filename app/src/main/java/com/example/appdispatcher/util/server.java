@@ -6,5 +6,5 @@ public class server {
     public static final String getUser = "https://development.sinergy-dev.xyz:2096/dashboard/getDashboard/?id_user=1";
 
     //Halaman detail
-    public static final String getJobOpen = "";
+    public static final String getJobOpen = "https://development.sinergy-dev.xyz:2096/job/getJobOpen/?id_job=1";
 }
