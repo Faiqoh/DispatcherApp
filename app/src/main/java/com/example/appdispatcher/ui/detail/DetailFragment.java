@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 
@@ -26,12 +27,15 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
 public class DetailFragment extends Fragment {
 
+    ArrayList<DetailProgressViewModel> pList = new ArrayList<>();
+    ProgressTaskAdapter pAdapter;
     private DetailViewModel dashboardViewModel;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ImageView cat_backend;
@@ -39,6 +43,9 @@ public class DetailFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
+
+        return view;
         /*dashboardViewModel =
                 ViewModelProviders.of(this).get(DetailViewModel.class);*/
         View root = inflater.inflate(R.layout.fragment_detail, container, false);

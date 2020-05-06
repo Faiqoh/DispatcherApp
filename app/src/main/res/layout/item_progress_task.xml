@@ -11,21 +11,21 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
 
-        <ImageView
-            android:id="@+id/imageViewlistjob"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:scaleType="centerInside" />
+        <TextView
+            android:id="@+id/textViewDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Day 1" />
 
         <TextView
-            android:id="@+id/textViewJudul"
+            android:id="@+id/textViewDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/imageViewlistjob"
-            android:layout_toRightOf="@+id/imageViewlistjob"
+            android:layout_toEndOf="@+id/textViewDay"
+            android:layout_toRightOf="@+id/textViewDay"
             android:ellipsize="end"
             android:maxLines="1"
             tools:text="Judul" />
