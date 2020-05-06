@@ -8,24 +8,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.R;
+
+import java.util.ArrayList;
 
 public class DetailFragment extends Fragment {
 
-    private DetailViewModel dashboardViewModel;
+    ArrayList<DetailProgressViewModel> pList = new ArrayList<>();
+    ProgressTaskAdapter pAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        /*dashboardViewModel =
-                ViewModelProviders.of(this).get(DetailViewModel.class);*/
-        View root = inflater.inflate(R.layout.fragment_detail, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
-        return root;
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
+
+        return view;
     }
 }
