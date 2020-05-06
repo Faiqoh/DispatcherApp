@@ -1,5 +1,6 @@
 package com.example.appdispatcher.ui.home;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -26,6 +27,7 @@ import com.example.appdispatcher.Adapter.JobCategoryAdapter;
 import com.example.appdispatcher.Adapter.JobListAdapter;
 import com.example.appdispatcher.Adapter.RecomenJobAdapter;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail.DetailActivity;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONArray;
@@ -35,7 +37,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements JobListAdapter.JListAdapter {
 
     private HomeViewModel homeViewModel;
     //    ArrayList<HomeViewModel> mList = new ArrayList<>();
@@ -90,7 +92,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void fillAccountUser() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getUser, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.getUser + "/?id_user=" + 1, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -200,6 +202,11 @@ public class HomeFragment extends Fragment {
         requestQueue.add(strReq);
     }
 
+    @Override
+    public void doClick(int pos) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        startActivity(intent);
+    }
 
     private void fillData2() {
         Resources resources = getResources();

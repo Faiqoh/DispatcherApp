@@ -21,12 +21,14 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
     //    ArrayList<HomeViewModel> jobList;
     List<HomeViewModel> jobList;
     private HomeFragment context;
+    JListAdapter mJListAdapter;
 
     public JobListAdapter(HomeFragment context, List<HomeViewModel> jobList) {
 //        this.jobList = jobList;
         super();
         this.jobList = jobList;
         this.context = context;
+        mJListAdapter = context;
     }
 
     @NonNull
@@ -50,6 +52,10 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
         return 0;
     }
 
+    public interface JListAdapter {
+        void doClick(int pos);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
         TextView tvJudul;
@@ -58,6 +64,13 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlistjob);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mJListAdapter.doClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

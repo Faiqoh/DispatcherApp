@@ -41,7 +41,7 @@ public class DetailFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         /*dashboardViewModel =
                 ViewModelProviders.of(this).get(DetailViewModel.class);*/
-        View root = inflater.inflate(R.layout.fragment_detail_task, container, false);
+        View root = inflater.inflate(R.layout.fragment_detail, container, false);
         /*final TextView textView = root.findViewById(R.id.text_dashboard);
         dashboardViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -90,6 +90,7 @@ public class DetailFragment extends Fragment {
                     textloc.setText(job.getJSONObject("location").getString("location_name"));
                     textLevel.setText(job.getJSONObject("level").getString("level_name"));
                     textDate.setText(dateFormat.format(date_start) + " - " + dateFormat.format(date_end));
+                    textPIc.setText(job.getJSONObject("pic").getString("pic_name") + "(" + job.getJSONObject("pic").getString("pic_phone") + ")");
 
 
                 } catch (JSONException | ParseException e) {
