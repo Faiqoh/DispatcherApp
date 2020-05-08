@@ -11,6 +11,25 @@ public class HomeViewModel extends ViewModel {
     public String judul;
     public Drawable foto;
 
+    public String customer;
+    public String location;
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public boolean expended;
 
     public boolean isExpended() {

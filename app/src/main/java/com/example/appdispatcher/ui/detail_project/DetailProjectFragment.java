@@ -54,7 +54,7 @@ public class DetailProjectFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_detail, container, false);
+        View root = inflater.inflate(R.layout.fragment_detail_project, container, false);
 
         fillDetail();
         cat_backend = root.findViewById(R.id.cat_backend);

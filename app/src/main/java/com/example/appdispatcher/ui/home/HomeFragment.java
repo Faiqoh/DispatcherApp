@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     }
 
     private void fillDataListJob() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobList, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
@@ -128,14 +128,14 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 
                     if (response.length() > 0) {
                         for (int i = 0; i < jray.length(); i++) {
-                            JSONObject cat = jray.getJSONObject(i).getJSONObject("category");
-
-                            Log.i("category", cat.toString());
+                            JSONObject cat = jray.getJSONObject(i);
 
                             HomeViewModel itemCategory = new HomeViewModel();
 
-                            itemCategory.setJudul(cat.getString("category_name"));
+                            itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
                             itemCategory.setFoto(ResourcesCompat.getDrawable(getResources(), R.drawable.android, null));
+                            itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                            itemCategory.setLocation(cat.getJSONObject("location").getString("location_name"));
 
                             mList.add(itemCategory);
                         }

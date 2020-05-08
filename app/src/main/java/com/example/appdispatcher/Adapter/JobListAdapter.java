@@ -44,6 +44,8 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
         HomeViewModel joblist = jobList.get(position);
         holder.tvJudul.setText(joblist.judul);
         holder.ivFoto.setImageDrawable(joblist.foto);
+        holder.tvLocation.setText(joblist.location);
+        holder.tvCustomer.setText(joblist.customer);
         holder.expandabeLayout.setVisibility(View.GONE);
 
         boolean isExpended = jobList.get(position).isExpended();
@@ -63,7 +65,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto, ivRow;
-        TextView tvJudul;
+        TextView tvJudul, tvLocation, tvCustomer;
         LinearLayout expandabeLayout;
 
 
@@ -71,6 +73,9 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlistjob);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
+            tvCustomer = itemView.findViewById(R.id.customer);
+            tvLocation = itemView.findViewById(R.id.location);
+
             ivRow = itemView.findViewById(R.id.row_down);
             expandabeLayout = itemView.findViewById(R.id.expandableLayout);
 
