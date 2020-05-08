@@ -16,14 +16,11 @@
 <resources>
     <string-array name="title_job_done">
         <item>BackEnd Developer</item>
-        <item>Ios Developer</item>
     </string-array>
     <array name="drawable_job_done">
         <item>@drawable/code</item>
-        <item>@drawable/ios</item>
     </array>
     <string-array name="location_done">
         <item>Jakarta Barat</item>
-        <item>Surabaya</item>
     </string-array>
 </resources>
