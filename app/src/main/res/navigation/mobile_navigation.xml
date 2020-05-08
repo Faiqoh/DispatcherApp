@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_detail"
-        android:name="com.example.appdispatcher.ui.detail.DetailFragment"
+        android:name="com.example.appdispatcher.ui.detail.DetailFragment2"
         android:label="@string/title_detail"
-        tools:layout="@layout/fragment_detail_task" />
+        tools:layout="@layout/fragment_detail2" />
 
     <fragment
         android:id="@+id/navigation_payment"
