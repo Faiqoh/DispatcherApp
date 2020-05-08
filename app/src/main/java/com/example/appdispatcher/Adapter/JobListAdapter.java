@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,12 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
         HomeViewModel joblist = jobList.get(position);
         holder.tvJudul.setText(joblist.judul);
         holder.ivFoto.setImageDrawable(joblist.foto);
+        holder.tvLocation.setText(joblist.location);
+        holder.tvCustomer.setText(joblist.customer);
+        holder.expandabeLayout.setVisibility(View.GONE);
+
+        boolean isExpended = jobList.get(position).isExpended();
+        holder.expandabeLayout.setVisibility(isExpended ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -57,18 +64,34 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivFoto;
-        TextView tvJudul;
+        ImageView ivFoto, ivRow;
+        TextView tvJudul, tvLocation, tvCustomer;
+        LinearLayout expandabeLayout;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlistjob);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
+            tvCustomer = itemView.findViewById(R.id.customer);
+            tvLocation = itemView.findViewById(R.id.location);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            ivRow = itemView.findViewById(R.id.row_down);
+            expandabeLayout = itemView.findViewById(R.id.expandableLayout);
+
+            expandabeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mJListAdapter.doClick(getAdapterPosition());
+                }
+            });
+
+            tvJudul.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    HomeViewModel HVM = jobList.get(getAdapterPosition());
+                    HVM.setExpended(!HVM.isExpended());
+                    notifyItemChanged(getAdapterPosition());
                 }
             });
         }
