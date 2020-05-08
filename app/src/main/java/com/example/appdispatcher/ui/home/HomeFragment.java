@@ -135,7 +135,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                             itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
                             itemCategory.setFoto(ResourcesCompat.getDrawable(getResources(), R.drawable.android, null));
                             itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                            itemCategory.setLocation(cat.getJSONObject("location").getString("location_name"));
+                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
                             mList.add(itemCategory);
                         }
