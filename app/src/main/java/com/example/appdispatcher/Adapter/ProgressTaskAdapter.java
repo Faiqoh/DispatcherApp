@@ -3,11 +3,13 @@ package com.example.appdispatcher.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appdispatcher.Animations;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.DetailProgressViewModel;
 
@@ -51,5 +53,11 @@ public class ProgressTaskAdapter extends RecyclerView.Adapter<ProgressTaskAdapte
             tvDate = itemView.findViewById(R.id.textViewDate);
             tvDay = itemView.findViewById(R.id.textViewDay);
         }
+    }
+
+    private boolean toggleLayout(boolean isExpanded, View v, LinearLayout layoutExpand) {
+        Animations.toggleArrow(v, isExpanded);
+        return isExpanded;
+
     }
 }

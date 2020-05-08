@@ -11,6 +11,16 @@ public class HomeViewModel extends ViewModel {
     public String judul;
     public Drawable foto;
 
+    public boolean expended;
+
+    public boolean isExpended() {
+        return expended;
+    }
+
+    public void setExpended(boolean expended) {
+        this.expended = expended;
+    }
+
     public String getJudul() {
         return judul;
     }
@@ -27,10 +37,6 @@ public class HomeViewModel extends ViewModel {
         this.foto = foto;
     }
 
-//    public HomeViewModel(String judul, Drawable foto) {
-//        this.judul = judul;
-//        this.foto = foto;
-//    }
 //
 //    public LiveData<String> getText() {
 //        return mText;

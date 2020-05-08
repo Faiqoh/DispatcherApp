@@ -7,6 +7,7 @@
     android:padding="16dp">
 
     <RelativeLayout
+        android:id="@+id/head_sub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
@@ -18,6 +19,7 @@
             android:scaleType="centerInside" />
 
         <TextView
+            android:layout_marginTop="5dp"
             android:id="@+id/textViewJudul"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,15 +30,46 @@
             android:layout_toRightOf="@+id/imageViewlistjob"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textSize="12dp"
             tools:text="Judul" />
 
         <ImageView
+            android:id="@+id/row_down"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginLeft="300dp"
+            android:layout_marginLeft="290dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/path" />
-
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/expandableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="35dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:text="PT. Sinergy Informasi Pratama" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:text="Jakarta Barat, Indonesia" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="see more.."
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
