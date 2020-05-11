@@ -1,5 +1,6 @@
 package com.example.appdispatcher.Adapter;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,14 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
     //    ArrayList<JobCategoryViewModel> cList;
     List<JobCategoryViewModel> categoryList;
     private HomeFragment context;
+    CListAdapter mCListAdapter;
 
 
     public JobCategoryAdapter(HomeFragment context, List<JobCategoryViewModel> cList) {
         super();
         this.categoryList = cList;
         this.context = context;
+        mCListAdapter = context;
     }
 
     @NonNull
@@ -36,10 +39,10 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull JobCategoryAdapter.ViewHolder holder, int position) {
         JobCategoryViewModel clist = categoryList.get(position);
         holder.tvJudul.setText(clist.judul);
-        holder.ivFoto.setImageDrawable(clist.foto);
+        holder.ivFoto.setImageURI(Uri.parse(clist.foto));
     }
 
     @Override
@@ -49,14 +52,31 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
         return 0;
     }
 
+    public JobCategoryViewModel getItem(int pos) {
+        return categoryList.get(pos);
+    }
+
+
+    public interface CListAdapter {
+        void doClick(int pos);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
         TextView tvJudul;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             ivFoto = itemView.findViewById(R.id.imageViewlistjob);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
+
+            tvJudul.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mCListAdapter.doClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

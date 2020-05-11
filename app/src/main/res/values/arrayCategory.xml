@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="job_category">
-        <item>@drawable/category_android</item>
-        <item>@drawable/category_android</item>
-        <item>@drawable/category_android</item>
-        <item>@drawable/category_android</item>
-        <item>@drawable/category_android</item>
+    <array name="image_category">
+        <item>@drawable/code</item>
+        <item>@drawable/ios</item>
+        <item>@drawable/android</item>
+        <item>@drawable/css</item>
+        <item>@drawable/android</item>
+        <item>@drawable/css</item>
     </array>
 </resources>

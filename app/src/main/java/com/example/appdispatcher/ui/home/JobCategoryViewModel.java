@@ -1,13 +1,11 @@
 package com.example.appdispatcher.ui.home;
 
-import android.graphics.drawable.Drawable;
+import java.io.Serializable;
 
-import androidx.lifecycle.ViewModel;
-
-public class JobCategoryViewModel extends ViewModel {
+public class JobCategoryViewModel implements Serializable {
 
     public String judul;
-    public Drawable foto;
+    public String foto;
 
     public String getJudul() {
         return judul;
@@ -17,11 +15,11 @@ public class JobCategoryViewModel extends ViewModel {
         this.judul = judul;
     }
 
-    public Drawable getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(Drawable foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 

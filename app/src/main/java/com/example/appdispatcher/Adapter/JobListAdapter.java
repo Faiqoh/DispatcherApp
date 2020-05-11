@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -74,6 +75,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
         ImageView ivFoto, ivRow;
         TextView tvJudul, tvLocation, tvCustomer, tvIdJob;
         LinearLayout expandabeLayout;
+        RelativeLayout headsub;
 
 
         public ViewHolder(View itemView) {
@@ -86,6 +88,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
 
             ivRow = itemView.findViewById(R.id.row_down);
             expandabeLayout = itemView.findViewById(R.id.expandableLayout);
+            headsub = itemView.findViewById(R.id.head_sub);
 
             expandabeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,7 +97,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
                 }
             });
 
-            tvJudul.setOnClickListener(new View.OnClickListener() {
+            headsub.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     HomeViewModel HVM = jobList.get(getAdapterPosition());

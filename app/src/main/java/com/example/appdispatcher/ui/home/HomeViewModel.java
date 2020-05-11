@@ -8,7 +8,6 @@ public class HomeViewModel implements Serializable {
 
     public String judul;
     public String foto;
-
     public String customer;
     public String location;
     public String id_job;

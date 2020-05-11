@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,9 +37,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements JobListAdapter.JListAdapter {
+public class HomeFragment extends Fragment implements JobListAdapter.JListAdapter, JobCategoryAdapter.CListAdapter {
 
     public static final String ID_JOB = "id_job";
+    public static final String ID_JOB2 = "id_job1";
     private HomeViewModel homeViewModel;
     //    ArrayList<HomeViewModel> mList = new ArrayList<>();
     public List<HomeViewModel> mList = new ArrayList<>();
@@ -185,13 +185,21 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                     JSONArray jray = jObj.getJSONArray("job_category");
 
                     if (response.length() > 0) {
+                        Resources resources = getResources();
+
+                        TypedArray a = resources.obtainTypedArray(R.array.image_category);
+                        String[] arFotoku = new String[a.length()];
+
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject items = jray.getJSONObject(i);
 
                             JobCategoryViewModel itemCategory = new JobCategoryViewModel();
 
+                            int id = a.getResourceId(i, 0);
+                            arFotoku[i] = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                                    + resources.getResourcePackageName(id) + '/' + resources.getResourceTypeName(id) + '/' + resources.getResourceEntryName(id);
+                            itemCategory.setFoto(arFotoku[i]);
                             itemCategory.setJudul(items.getString("category_name"));
-                            itemCategory.setFoto(ResourcesCompat.getDrawable(getResources(), R.drawable.android, null));
 
                             cList.add(itemCategory);
                         }
@@ -215,8 +223,8 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     @Override
     public void doClick(int pos) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(ID_JOB2, cAdapter.getItem(pos));
         intent.putExtra(ID_JOB, mAdapter.getItem(pos));
-        intent.putExtra("get_id", "id");
         startActivity(intent);
     }
 
