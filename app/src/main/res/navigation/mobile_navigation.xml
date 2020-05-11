@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/navigation_account"
-        android:name="com.example.appdispatcher.ui.account.AccountFragment"
+        android:name="com.example.appdispatcher.ui.detail.WritingTaskFragment"
         android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/writing_task_layout" />
 </navigation>

@@ -23,6 +23,8 @@ import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.DetailProgressViewModel;
 import com.example.appdispatcher.ui.detail.DetailViewModel;
+import com.example.appdispatcher.ui.home.HomeFragment;
+import com.example.appdispatcher.ui.home.HomeViewModel;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONException;
@@ -56,7 +58,9 @@ public class DetailProjectFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_detail_project, container, false);
 
-        fillDetail();
+        HomeViewModel lead = (HomeViewModel) getActivity().getIntent().getSerializableExtra(HomeFragment.ID_JOB);
+
+        String id_job = lead.getId_job();
         cat_backend = root.findViewById(R.id.cat_backend);
         textJobdesc = root.findViewById(R.id.job_desc_detail);
         textViewjob = root.findViewById(R.id.text_view_job);
@@ -67,16 +71,19 @@ public class DetailProjectFragment extends Fragment {
         textDate = root.findViewById(R.id.date_job);
         textPIc = root.findViewById(R.id.pic_job);
 
+        fillDetail(id_job);
+
         return root;
 
     }
 
-    private void fillDetail() {
+    private void fillDetail(String id_job) {
+        Log.i(id_job, "fillDetail: ");
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
