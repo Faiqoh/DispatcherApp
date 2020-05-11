@@ -1,5 +1,6 @@
 package com.example.appdispatcher.ui.home;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -39,6 +40,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements JobListAdapter.JListAdapter {
 
+    public static final String ID_JOB = "id_job";
     private HomeViewModel homeViewModel;
     //    ArrayList<HomeViewModel> mList = new ArrayList<>();
     public List<HomeViewModel> mList = new ArrayList<>();
@@ -127,13 +129,21 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                     JSONArray jray = jObj.getJSONArray("job");
 
                     if (response.length() > 0) {
+                        Resources resources = getResources();
+
+                        TypedArray a = resources.obtainTypedArray(R.array.list_job);
+                        String[] arFoto = new String[a.length()];
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
                             HomeViewModel itemCategory = new HomeViewModel();
-
                             itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
-                            itemCategory.setFoto(ResourcesCompat.getDrawable(getResources(), R.drawable.android, null));
+                            itemCategory.setId_job(cat.getString("id"));
+//                            itemCategory.setFoto(ResourcesCompat(getResources(), R.drawable.android, null));
+                            int id = a.getResourceId(i, 0);
+                            arFoto[i] = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                                    + resources.getResourcePackageName(id) + '/' + resources.getResourceTypeName(id) + '/' + resources.getResourceEntryName(id);
+                            itemCategory.setFoto(arFoto[i]);
                             itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                             itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
@@ -205,6 +215,8 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     @Override
     public void doClick(int pos) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(ID_JOB, mAdapter.getItem(pos));
+        intent.putExtra("get_id", "id");
         startActivity(intent);
     }
 

@@ -1,5 +1,6 @@
 package com.example.appdispatcher.Adapter;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,10 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
     public void onBindViewHolder(@NonNull JobListAdapter.ViewHolder holder, int position) {
         HomeViewModel joblist = jobList.get(position);
         holder.tvJudul.setText(joblist.judul);
-        holder.ivFoto.setImageDrawable(joblist.foto);
+        holder.ivFoto.setImageURI(Uri.parse(joblist.foto));
         holder.tvLocation.setText(joblist.location);
         holder.tvCustomer.setText(joblist.customer);
+        holder.tvIdJob.setText(joblist.id_job);
         holder.expandabeLayout.setVisibility(View.GONE);
 
         boolean isExpended = jobList.get(position).isExpended();
@@ -60,13 +62,17 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
         return 0;
     }
 
+    public HomeViewModel getItem(int pos) {
+        return jobList.get(pos);
+    }
+
     public interface JListAdapter {
         void doClick(int pos);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto, ivRow;
-        TextView tvJudul, tvLocation, tvCustomer;
+        TextView tvJudul, tvLocation, tvCustomer, tvIdJob;
         LinearLayout expandabeLayout;
 
 
@@ -76,6 +82,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvCustomer = itemView.findViewById(R.id.customer);
             tvLocation = itemView.findViewById(R.id.location);
+            tvIdJob = itemView.findViewById(R.id.TvIdJob);
 
             ivRow = itemView.findViewById(R.id.row_down);
             expandabeLayout = itemView.findViewById(R.id.expandableLayout);

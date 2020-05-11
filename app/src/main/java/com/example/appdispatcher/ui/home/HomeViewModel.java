@@ -1,18 +1,25 @@
 package com.example.appdispatcher.ui.home;
 
-import android.graphics.drawable.Drawable;
+import java.io.Serializable;
 
-import androidx.lifecycle.ViewModel;
-
-public class HomeViewModel extends ViewModel {
+public class HomeViewModel implements Serializable {
 
 //    private MutableLiveData<String> mText;
 
     public String judul;
-    public Drawable foto;
+    public String foto;
 
     public String customer;
     public String location;
+    public String id_job;
+
+    public String getId_job() {
+        return id_job;
+    }
+
+    public void setId_job(String id_job) {
+        this.id_job = id_job;
+    }
 
     public String getCustomer() {
         return customer;
@@ -48,11 +55,11 @@ public class HomeViewModel extends ViewModel {
         this.judul = judul;
     }
 
-    public Drawable getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(Drawable foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
