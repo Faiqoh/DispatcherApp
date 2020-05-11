@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_detail"
-        android:name="com.example.appdispatcher.ui.detail.DetailFragment"
-        android:label="Detail "
-        tools:layout="@layout/fragment_detail_project" />
+        android:name="com.example.appdispatcher.ui.detail.DetailFragment2"
+        android:label="@string/title_detail"
+        tools:layout="@layout/fragment_detail2" />
 
     <fragment
         android:id="@+id/navigation_payment"
@@ -25,9 +25,9 @@
 
     <fragment
         android:id="@+id/navigation_message"
-        android:name="com.example.appdispatcher.ui.detail.DetailProgressTaskFragment"
+        android:name="com.example.appdispatcher.ui.message.MessageFragment"
         android:label="@string/title_message"
-        tools:layout="@layout/fragment_detail_progress_task" />
+        tools:layout="@layout/fragment_message" />
 
     <fragment
         android:id="@+id/navigation_account"
