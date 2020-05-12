@@ -10,16 +10,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail.PendingFragment;
 import com.example.appdispatcher.ui.detail.PendingViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.ViewHolder> {
 
-    ArrayList<PendingViewModel> pendingJobList;
+    List<PendingViewModel> pendingJobList;
+    PListAdapter pJListAdapter;
+    private PendingFragment context;
 
     public JobPendingAdapter(ArrayList<PendingViewModel> pendingJobList) {
         this.pendingJobList = pendingJobList;
+    }
+
+    public JobPendingAdapter(PendingFragment context, List<PendingViewModel> pList) {
+        super();
+        this.context = context;
+        pJListAdapter = context;
     }
 
     @NonNull
@@ -35,6 +45,10 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Vi
         holder.tvJudul.setText(pendingjoblist.judul);
         holder.ivFoto.setImageDrawable(pendingjoblist.foto);
         holder.tvLocation.setText(pendingjoblist.location);
+    }
+
+    public interface PListAdapter {
+        void doClick(int pos);
     }
 
     @Override

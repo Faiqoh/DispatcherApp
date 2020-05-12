@@ -1,5 +1,6 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -20,8 +21,9 @@ import com.example.appdispatcher.R;
 
 import java.util.ArrayList;
 
-public class PendingFragment extends Fragment {
+public class PendingFragment extends Fragment implements JobPendingAdapter.PListAdapter {
 
+    public static final String ID_JOB = "id_job";
     ArrayList<PendingViewModel> pList = new ArrayList<>();
     JobPendingAdapter pAdapter;
 
@@ -35,7 +37,7 @@ public class PendingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pending, container, false);
 
         RecyclerView recyclerViewPendingJobList = view.findViewById(R.id.recyclerViewPending);
-        LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity());
         recyclerViewPendingJobList.setLayoutManager(layoutManagerPendingJobList);
         fillDatJobPendingList();
         pAdapter = new JobPendingAdapter(pList);
@@ -61,4 +63,10 @@ public class PendingFragment extends Fragment {
         Log.e("dataLog", String.valueOf(pList.size()));
     }
 
+    @Override
+    public void doClick(int pos) {
+        Intent intent = new Intent(getContext(), DetailProgressProjectActivity.class);
+        intent.putExtra("detail_pending", "id");
+        startActivity(intent);
+    }
 }
