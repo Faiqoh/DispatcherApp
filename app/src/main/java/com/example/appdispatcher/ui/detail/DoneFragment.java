@@ -39,6 +39,7 @@ public class DoneFragment extends Fragment {
         RecyclerView recyclerViewDoneJobList = view.findViewById(R.id.recyclerViewDone);
         LinearLayoutManager layoutManagerDoneJobList = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewDoneJobList.setLayoutManager(layoutManagerDoneJobList);
+        dList.clear();
         fillDatJobPendingList();
         dAdapter = new JobDoneAdapter(dList);
         recyclerViewDoneJobList.setAdapter(dAdapter);

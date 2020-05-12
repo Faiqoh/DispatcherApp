@@ -39,6 +39,7 @@ public class PendingFragment extends Fragment implements JobPendingAdapter.PList
         RecyclerView recyclerViewPendingJobList = view.findViewById(R.id.recyclerViewPending);
         LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity());
         recyclerViewPendingJobList.setLayoutManager(layoutManagerPendingJobList);
+        pList.clear();
         fillDatJobPendingList();
         pAdapter = new JobPendingAdapter(pList);
         recyclerViewPendingJobList.setAdapter(pAdapter);
