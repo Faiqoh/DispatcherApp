@@ -1,6 +1,5 @@
 package com.example.appdispatcher.Adapter;
 
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.Animations;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.home.HomeFragment;
@@ -46,11 +46,13 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
     public void onBindViewHolder(@NonNull JobListAdapter.ViewHolder holder, int position) {
         HomeViewModel joblist = jobList.get(position);
         holder.tvJudul.setText(joblist.judul);
-        holder.ivFoto.setImageURI(Uri.parse(joblist.foto));
+//        holder.ivFoto.setImageURI(Uri.parse(joblist.foto));
         holder.tvLocation.setText(joblist.location);
         holder.tvCustomer.setText(joblist.customer);
         holder.tvIdJob.setText(joblist.id_job);
         holder.expandabeLayout.setVisibility(View.GONE);
+
+        Glide.with(context).load(joblist.getFoto()).into(holder.ivFoto);
 
         boolean isExpended = jobList.get(position).isExpended();
         holder.expandabeLayout.setVisibility(isExpended ? View.VISIBLE : View.GONE);

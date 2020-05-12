@@ -1,6 +1,5 @@
 package com.example.appdispatcher.ui.home;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -10,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     public List<JobCategoryViewModel> cList = new ArrayList<>();
     JobCategoryAdapter cAdapter;
     TextView name, detailUser;
+    ImageView imageViewOtof;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 
         name = root.findViewById(R.id.text_name);
         detailUser = root.findViewById(R.id.text_detail);
+        imageViewOtof = root.findViewById(R.id.imageViewlistjob);
 
         RecyclerView recyclerViewJobCategory = root.findViewById(R.id.recyclerViewJobCategory);
         LinearLayoutManager layoutManagerJobCategory = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -131,19 +133,19 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                     if (response.length() > 0) {
                         Resources resources = getResources();
 
-                        TypedArray a = resources.obtainTypedArray(R.array.list_job);
-                        String[] arFoto = new String[a.length()];
+//                        TypedArray a = resources.obtainTypedArray();
+//                        String[] arFoto = new String[a.length()];
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
+
+                            String url = cat.getJSONObject("category").getString("category_image_url");
+
+//                            String[] arFoto = new String[cat.getJSONObject("category").getString("category_image").length()];
 
                             HomeViewModel itemCategory = new HomeViewModel();
                             itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
                             itemCategory.setId_job(cat.getString("id"));
-//                            itemCategory.setFoto(ResourcesCompat(getResources(), R.drawable.android, null));
-                            int id = a.getResourceId(i, 0);
-                            arFoto[i] = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-                                    + resources.getResourcePackageName(id) + '/' + resources.getResourceTypeName(id) + '/' + resources.getResourceEntryName(id);
-                            itemCategory.setFoto(arFoto[i]);
+                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
                             itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                             itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
@@ -186,19 +188,20 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 
                     if (response.length() > 0) {
                         Resources resources = getResources();
-
-                        TypedArray a = resources.obtainTypedArray(R.array.image_category);
-                        String[] arFotoku = new String[a.length()];
+//
+//                        TypedArray a = resources.obtainTypedArray(R.array.image_category);
+//                        String[] arFotoku = new String[a.length()];
 
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject items = jray.getJSONObject(i);
 
                             JobCategoryViewModel itemCategory = new JobCategoryViewModel();
 
-                            int id = a.getResourceId(i, 0);
-                            arFotoku[i] = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-                                    + resources.getResourcePackageName(id) + '/' + resources.getResourceTypeName(id) + '/' + resources.getResourceEntryName(id);
-                            itemCategory.setFoto(arFotoku[i]);
+//                            int id = a.getResourceId(i, 0);
+//                            arFotoku[i] = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+//                                    + resources.getResourcePackageName(id) + '/' + resources.getResourceTypeName(id) + '/' + resources.getResourceEntryName(id);
+//                            itemCategory.setFoto(arFotoku[i]);
+                            itemCategory.setFoto(items.getString("category_image_url"));
                             itemCategory.setJudul(items.getString("category_name"));
 
                             cList.add(itemCategory);

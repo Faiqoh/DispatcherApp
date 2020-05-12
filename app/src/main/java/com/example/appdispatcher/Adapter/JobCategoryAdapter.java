@@ -1,6 +1,5 @@
 package com.example.appdispatcher.Adapter;
 
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.home.HomeFragment;
 import com.example.appdispatcher.ui.home.JobCategoryViewModel;
@@ -42,7 +42,8 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
     public void onBindViewHolder(@NonNull JobCategoryAdapter.ViewHolder holder, int position) {
         JobCategoryViewModel clist = categoryList.get(position);
         holder.tvJudul.setText(clist.judul);
-        holder.ivFoto.setImageURI(Uri.parse(clist.foto));
+//        holder.ivFoto.setImageURI(Uri.parse(clist.foto));
+        Glide.with(context).load(clist.getFoto()).into(holder.ivFoto);
     }
 
     @Override

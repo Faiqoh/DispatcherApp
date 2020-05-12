@@ -6,10 +6,15 @@
     android:orientation="vertical"
     tools:context=".ui.detail.DetailActivity">
 
-    <fragment
-        android:id="@+id/detailProjectFragment"
-        android:name="com.example.appdispatcher.ui.detail_project.DetailProjectFragment"
+    <FrameLayout
+        android:id="@+id/fragmentDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"></FrameLayout>
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/detailProjectFragment"-->
+    <!--        android:name="com.example.appdispatcher.ui.detail_project.DetailProjectFragment"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
 
 </LinearLayout>
