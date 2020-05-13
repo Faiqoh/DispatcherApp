@@ -39,9 +39,11 @@ public class OnProgressFragment extends Fragment {
         RecyclerView recyclerViewProgressJobList = view.findViewById(R.id.recyclerViewProgress);
         LinearLayoutManager layoutManagerProgressJobList = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewProgressJobList.setLayoutManager(layoutManagerProgressJobList);
+        pList.clear();
         fillDatJobPendingList();
         pAdapter = new JobOnProgressAdapter(pList);
         recyclerViewProgressJobList.setAdapter(pAdapter);
+
 
         return view;
     }
