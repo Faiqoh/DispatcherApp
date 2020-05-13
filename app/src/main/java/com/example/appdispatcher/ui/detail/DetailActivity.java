@@ -34,7 +34,7 @@ public class DetailActivity extends AppCompatActivity {
             // atau ft.add(R.id.your_placeholder, new FooFragment());
             // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
             ft.commit();
-            getSupportActionBar().setTitle("Job List");
+            getSupportActionBar().setTitle(leadJobCat.judul);
         } else if (getJob.equals("id_list")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             // mengganti isi container dengan fragment baru

@@ -202,6 +202,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 //                            itemCategory.setFoto(arFotoku[i]);
                             itemCategory.setFoto(items.getString("category_image_url"));
                             itemCategory.setJudul(items.getString("category_name"));
+                            itemCategory.setId_category(items.getInt("id"));
 
                             cList.add(itemCategory);
                         }

@@ -9,17 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.home.RecomendJobViewModel;
+import com.example.appdispatcher.ui.home.HomeViewModel;
+import com.example.appdispatcher.ui.home.ListJobCategory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCategoryAdapter.ViewHolder> {
-    ArrayList<RecomendJobViewModel> recomendJob;
+
+    List<HomeViewModel> categoryJob;
+    JobCategoryAdapter.CListAdapter mCListAdapter;
+    private ListJobCategory context;
 
 
-    public DetailJobCategoryAdapter(ArrayList<RecomendJobViewModel> recomendJob) {
-        this.recomendJob = recomendJob;
+    public DetailJobCategoryAdapter(ArrayList<HomeViewModel> recomendJob, ListJobCategory context) {
+        this.categoryJob = recomendJob;
+        this.context = context;
     }
 
     @NonNull
@@ -31,16 +38,16 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
 
     @Override
     public void onBindViewHolder(@NonNull DetailJobCategoryAdapter.ViewHolder holder, int position) {
-        RecomendJobViewModel recomend = recomendJob.get(position);
-        holder.tvJudul.setText(recomend.judul);
-        holder.ivFoto.setImageDrawable(recomend.foto);
+        HomeViewModel recomend = categoryJob.get(position);
+        holder.tvJudul.setText(recomend.customer);
+        Glide.with(context).load(recomend.getFoto()).into(holder.ivFoto);
         holder.tvLocation.setText(recomend.location);
     }
 
     @Override
     public int getItemCount() {
-        if (recomendJob != null)
-            return recomendJob.size();
+        if (categoryJob != null)
+            return categoryJob.size();
         return 0;
     }
 
