@@ -2,8 +2,6 @@ package com.example.appdispatcher.ui.home;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +39,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 
     public static final String ID_JOB = "id_job";
     public static final String ID_JOB2 = "id_job1";
+    public static final String GET_ID_JOB = "get_id_job";
     private HomeViewModel homeViewModel;
     //    ArrayList<HomeViewModel> mList = new ArrayList<>();
     public List<HomeViewModel> mList = new ArrayList<>();
@@ -91,7 +90,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         recyclerView2.setLayoutManager(layoutManager2);
         rAdapter = new RecomenJobAdapter(rList);
         recyclerView2.setAdapter(rAdapter);
-        fillData2();
+//        fillData2();
         return root;
     }
 
@@ -226,26 +225,33 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     @Override
     public void doClick(int pos) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra(ID_JOB2, cAdapter.getItem(pos));
         intent.putExtra(ID_JOB, mAdapter.getItem(pos));
+        intent.putExtra(GET_ID_JOB, "id_list");
         startActivity(intent);
     }
 
-    private void fillData2() {
-        Resources resources = getResources();
-        String[] arJudul2 = resources.getStringArray(R.array.titlejob);
-        TypedArray a = resources.obtainTypedArray(R.array.recomend_job);
-        Drawable[] arFoto2 = new Drawable[a.length()];
-        for (int i = 0; i < arFoto2.length; i++) {
-            arFoto2[i] = a.getDrawable(i);
-        }
-        a.recycle();
-
-        for (int i = 0; i < arJudul2.length; i++) {
-            rList.add(new RecomendJobViewModel(arJudul2[i], arFoto2[i]));
-        }
-        rAdapter.notifyDataSetChanged();
+    public void doClickCategory(int pos) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(ID_JOB2, cAdapter.getItem(pos));
+        intent.putExtra(GET_ID_JOB, "id_category");
+        startActivity(intent);
     }
+
+//    private void fillData2() {
+//        Resources resources = getResources();
+//        String[] arJudul2 = resources.getStringArray(R.array.titlejob);
+//        TypedArray a = resources.obtainTypedArray(R.array.recomend_job);
+//        Drawable[] arFoto2 = new Drawable[a.length()];
+//        for (int i = 0; i < arFoto2.length; i++) {
+//            arFoto2[i] = a.getDrawable(i);
+//        }
+//        a.recycle();
+//
+//        for (int i = 0; i < arJudul2.length; i++) {
+//            rList.add(new RecomendJobViewModel(arJudul2[i], arFoto2[i]));
+//        }
+//        rAdapter.notifyDataSetChanged();
+//    }
 
 //    private void fillData() {
 //        Resources resources = getResources();

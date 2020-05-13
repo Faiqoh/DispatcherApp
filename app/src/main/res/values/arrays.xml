@@ -20,6 +20,12 @@
         <item>Android Developer</item>
         <item>Frontend Developer</item>
     </string-array>
+    <string-array name="long_location">
+        <item>Kembangan - Jakarta Barat - Jawa</item>
+        <item>Bandung - Jawa Barat - Jawa</item>
+        <item>Pati - Jawa Tengah - Jawa</item>
+        <item>Bandung - Jawa Barat - Jawa</item>
+    </string-array>
     <array name="list_job">
         <item>@drawable/code</item>
         <item>@drawable/ios</item>

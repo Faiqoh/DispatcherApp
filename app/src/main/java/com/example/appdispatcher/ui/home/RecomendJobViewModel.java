@@ -9,16 +9,26 @@ import androidx.lifecycle.ViewModel;
 public class RecomendJobViewModel extends ViewModel {
 
     public String judul;
+
+    public String location;
+
+    public RecomendJobViewModel(String judul, String location, Drawable foto) {
+        this.judul = judul;
+        this.foto = foto;
+        this.location = location;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
     public Drawable foto;
     private MutableLiveData<String> mText;
 
-    public RecomendJobViewModel(String judul, Drawable foto) {
-        this.judul = judul;
-        this.foto = foto;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public RecomendJobViewModel(Drawable rList) {
-    }
 
     public LiveData<String> getText() {
         return mText;

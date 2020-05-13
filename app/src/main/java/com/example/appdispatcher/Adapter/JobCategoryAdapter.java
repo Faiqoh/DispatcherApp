@@ -59,7 +59,7 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
 
 
     public interface CListAdapter {
-        void doClick(int pos);
+        void doClickCategory(int pos);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -72,10 +72,10 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
             ivFoto = itemView.findViewById(R.id.imageViewlistjob);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
 
-            tvJudul.setOnClickListener(new View.OnClickListener() {
+            ivFoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mCListAdapter.doClick(getAdapterPosition());
+                    mCListAdapter.doClickCategory(getAdapterPosition());
                 }
             });
         }

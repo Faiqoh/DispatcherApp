@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail_project.DetailProjectFragment;
 import com.example.appdispatcher.ui.home.HomeFragment;
 import com.example.appdispatcher.ui.home.HomeViewModel;
 import com.example.appdispatcher.ui.home.JobCategoryViewModel;
@@ -20,19 +21,30 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        // Memulai transaksi
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // mengganti isi container dengan fragment baru
-        ft.replace(R.id.fragmentDetail, new ListJobCategory());
-        // atau ft.add(R.id.your_placeholder, new FooFragment());
-        // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
-        ft.commit();
-
         HomeViewModel leadJobList = (HomeViewModel) getIntent().getSerializableExtra(HomeFragment.ID_JOB);
-
         JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
 
-        getSupportActionBar().setTitle("Detail Job");
+        String getJob = getIntent().getStringExtra(HomeFragment.GET_ID_JOB);
+
+        if (getJob.equals("id_category")) {
+            // Memulai transaksi
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // mengganti isi container dengan fragment baru
+            ft.replace(R.id.fragmentDetail, new ListJobCategory());
+            // atau ft.add(R.id.your_placeholder, new FooFragment());
+            // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
+            ft.commit();
+            getSupportActionBar().setTitle("Job List");
+        } else if (getJob.equals("id_list")) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // mengganti isi container dengan fragment baru
+            ft.replace(R.id.fragmentDetail, new DetailProjectFragment());
+            // atau ft.add(R.id.your_placeholder, new FooFragment());
+            // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
+            ft.commit();
+            getSupportActionBar().setTitle("Detail Job");
+        }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
