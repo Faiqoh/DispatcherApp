@@ -9,17 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail.DoneFragment;
 import com.example.appdispatcher.ui.detail.DoneViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class JobDoneAdapter extends RecyclerView.Adapter<JobDoneAdapter.ViewHolder> {
 
-    ArrayList<DoneViewModel> doneJobList;
+    List<DoneViewModel> djList;
+    DJListAdapter dJListAdapter;
+    private DoneFragment context;
 
-    public JobDoneAdapter(ArrayList<DoneViewModel> doneJobList) {
-        this.doneJobList = doneJobList;
+    public JobDoneAdapter(DoneFragment context, List<DoneViewModel> pjList) {
+        super();
+        this.djList = pjList;
+        this.context = context;
+        dJListAdapter = context;
     }
 
     @NonNull
@@ -31,29 +38,36 @@ public class JobDoneAdapter extends RecyclerView.Adapter<JobDoneAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DoneViewModel donejoblist = doneJobList.get(position);
+        DoneViewModel donejoblist = djList.get(position);
         holder.tvJudul.setText(donejoblist.judul);
-        holder.ivFoto.setImageDrawable(donejoblist.foto);
         holder.tvLocation.setText(donejoblist.location);
+        holder.tvCustomer.setText(donejoblist.customer);
+        Glide.with(context).load(donejoblist.getFoto()).into(holder.ivFoto);
     }
 
     @Override
     public int getItemCount() {
-        if (doneJobList != null)
-            return doneJobList.size();
+        if (djList != null)
+            return djList.size();
         return 0;
+    }
+
+    public interface DJListAdapter {
+        void doClick(int pos);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
         TextView tvJudul;
         TextView tvLocation;
+        TextView tvCustomer;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlist);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvLocation = itemView.findViewById(R.id.textViewLocation);
+            tvCustomer = itemView.findViewById(R.id.textViewCustomer);
         }
     }
 }

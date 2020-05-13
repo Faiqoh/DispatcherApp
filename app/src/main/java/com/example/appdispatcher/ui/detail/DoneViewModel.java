@@ -1,17 +1,51 @@
 package com.example.appdispatcher.ui.detail;
 
-import android.graphics.drawable.Drawable;
-
 import androidx.lifecycle.ViewModel;
 
 public class DoneViewModel extends ViewModel {
     public String judul;
-    public Drawable foto;
+    public String foto;
     public String location;
+    public String id_job;
+    public String customer;
 
-    public DoneViewModel(String judul, Drawable foto, String location) {
-        this.judul = judul;
-        this.foto = foto;
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getId_job() {
+        return id_job;
+    }
+
+    public void setId_job(String id_job) {
+        this.id_job = id_job;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }
