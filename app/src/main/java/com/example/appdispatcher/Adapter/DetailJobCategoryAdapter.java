@@ -4,22 +4,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.home.RecomendJobViewModel;
+import com.example.appdispatcher.ui.home.HomeViewModel;
+import com.example.appdispatcher.ui.home.ListJobCategory;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCategoryAdapter.ViewHolder> {
-    ArrayList<RecomendJobViewModel> recomendJob;
+
+    List<HomeViewModel> categoryJob;
+    DetailJobCategoryAdapter.CListAdapter mCListAdapter;
+    private ListJobCategory context;
 
 
-    public DetailJobCategoryAdapter(ArrayList<RecomendJobViewModel> recomendJob) {
-        this.recomendJob = recomendJob;
+    public DetailJobCategoryAdapter(ListJobCategory context, List<HomeViewModel> recomendJob) {
+        super();
+        this.categoryJob = recomendJob;
+        this.context = context;
+        mCListAdapter = context;
     }
 
     @NonNull
@@ -31,28 +40,48 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
 
     @Override
     public void onBindViewHolder(@NonNull DetailJobCategoryAdapter.ViewHolder holder, int position) {
-        RecomendJobViewModel recomend = recomendJob.get(position);
-        holder.tvJudul.setText(recomend.judul);
-        holder.ivFoto.setImageDrawable(recomend.foto);
+        HomeViewModel recomend = categoryJob.get(position);
+        holder.tvJudul.setText(recomend.customer);
+        Glide.with(context).load(recomend.getFoto()).into(holder.ivFoto);
         holder.tvLocation.setText(recomend.location);
+        holder.tvIdJob.setText(recomend.id_job);
     }
 
     @Override
     public int getItemCount() {
-        if (recomendJob != null)
-            return recomendJob.size();
+        if (categoryJob != null)
+            return categoryJob.size();
         return 0;
+    }
+
+    public HomeViewModel getItem(int pos) {
+        return categoryJob.get(pos);
+    }
+
+    public interface CListAdapter {
+        void doClick(int pos);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvLocation;
+        TextView tvJudul, tvLocation, tvIdJob;
+        RelativeLayout RLlistjob;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlistjob);
             tvJudul = itemView.findViewById(R.id.customer);
             tvLocation = itemView.findViewById(R.id.location);
+            RLlistjob = itemView.findViewById(R.id.list_job);
+            tvIdJob = itemView.findViewById(R.id.TvIdJob);
+
+            RLlistjob.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mCListAdapter.doClick(getAdapterPosition());
+                }
+            });
+
         }
     }
 }

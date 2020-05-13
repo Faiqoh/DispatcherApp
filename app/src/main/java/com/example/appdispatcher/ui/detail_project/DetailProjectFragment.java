@@ -25,6 +25,7 @@ import com.example.appdispatcher.ui.detail.DetailProgressViewModel;
 import com.example.appdispatcher.ui.detail.DetailViewModel;
 import com.example.appdispatcher.ui.home.HomeFragment;
 import com.example.appdispatcher.ui.home.HomeViewModel;
+import com.example.appdispatcher.ui.home.ListJobCategory;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONException;
@@ -60,7 +61,8 @@ public class DetailProjectFragment extends Fragment {
 
         HomeViewModel lead = (HomeViewModel) getActivity().getIntent().getSerializableExtra(HomeFragment.ID_JOB);
 
-        String id_job = lead.getId_job();
+        HomeViewModel lead2 = (HomeViewModel) getActivity().getIntent().getSerializableExtra(ListJobCategory.ID_JOB);
+
         cat_backend = root.findViewById(R.id.cat_backend);
         textJobdesc = root.findViewById(R.id.job_desc_detail);
         textViewjob = root.findViewById(R.id.text_view_job);
@@ -71,7 +73,13 @@ public class DetailProjectFragment extends Fragment {
         textDate = root.findViewById(R.id.date_job);
         textPIc = root.findViewById(R.id.pic_job);
 
-        fillDetail(id_job);
+        if (lead != null) {
+            String id_job = lead.getId_job();
+            fillDetail(id_job);
+        } else if (lead2 != null) {
+            String id_job = lead2.getId_job();
+            fillDetail(id_job);
+        }
 
         return root;
 

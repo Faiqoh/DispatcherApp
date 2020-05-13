@@ -44,6 +44,7 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
         holder.tvJudul.setText(clist.judul);
 //        holder.ivFoto.setImageURI(Uri.parse(clist.foto));
         Glide.with(context).load(clist.getFoto()).into(holder.ivFoto);
+        holder.tvidCat.setText(String.valueOf(clist.id_category));
     }
 
     @Override
@@ -64,13 +65,14 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul;
+        TextView tvJudul, tvidCat;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ivFoto = itemView.findViewById(R.id.imageViewlistjob);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
+            tvidCat = itemView.findViewById(R.id.TvIdCat);
 
             ivFoto.setOnClickListener(new View.OnClickListener() {
                 @Override
