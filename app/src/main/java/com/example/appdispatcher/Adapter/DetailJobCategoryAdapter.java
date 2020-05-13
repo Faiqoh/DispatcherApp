@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,19 +15,20 @@ import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.home.HomeViewModel;
 import com.example.appdispatcher.ui.home.ListJobCategory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCategoryAdapter.ViewHolder> {
 
     List<HomeViewModel> categoryJob;
-    JobCategoryAdapter.CListAdapter mCListAdapter;
+    DetailJobCategoryAdapter.CListAdapter mCListAdapter;
     private ListJobCategory context;
 
 
-    public DetailJobCategoryAdapter(ArrayList<HomeViewModel> recomendJob, ListJobCategory context) {
+    public DetailJobCategoryAdapter(ListJobCategory context, List<HomeViewModel> recomendJob) {
+        super();
         this.categoryJob = recomendJob;
         this.context = context;
+        mCListAdapter = context;
     }
 
     @NonNull
@@ -42,6 +44,7 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
         holder.tvJudul.setText(recomend.customer);
         Glide.with(context).load(recomend.getFoto()).into(holder.ivFoto);
         holder.tvLocation.setText(recomend.location);
+        holder.tvIdJob.setText(recomend.id_job);
     }
 
     @Override
@@ -51,15 +54,34 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
         return 0;
     }
 
+    public HomeViewModel getItem(int pos) {
+        return categoryJob.get(pos);
+    }
+
+    public interface CListAdapter {
+        void doClick(int pos);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvLocation;
+        TextView tvJudul, tvLocation, tvIdJob;
+        RelativeLayout RLlistjob;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlistjob);
             tvJudul = itemView.findViewById(R.id.customer);
             tvLocation = itemView.findViewById(R.id.location);
+            RLlistjob = itemView.findViewById(R.id.list_job);
+            tvIdJob = itemView.findViewById(R.id.TvIdJob);
+
+            RLlistjob.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mCListAdapter.doClick(getAdapterPosition());
+                }
+            });
+
         }
     }
 }

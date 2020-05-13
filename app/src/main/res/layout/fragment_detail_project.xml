@@ -21,7 +21,7 @@
             <ImageView
                 android:layout_width="135dp"
                 android:layout_height="125dp"
-                android:layout_marginLeft="125dp"
+                android:layout_alignParentRight="true"
                 android:src="@drawable/header" />
 
             <ImageView
@@ -39,6 +39,7 @@
                 android:src="@drawable/code" />
 
             <TextView
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:id="@+id/text_view_job"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

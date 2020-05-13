@@ -1,5 +1,6 @@
 package com.example.appdispatcher.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.DetailJobCategoryAdapter;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail.DetailActivity;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONArray;
@@ -29,8 +31,11 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListJobCategory extends Fragment {
+public class ListJobCategory extends Fragment implements DetailJobCategoryAdapter.CListAdapter {
 
+    public static final String ID_JOB = "id_job";
+    public static final String GET_ID_JOB_CATEGORY = "get_id_job_category";
+    public static final String GET_ID_JOB = "get_id_job";
     ArrayList<HomeViewModel> cList = new ArrayList<>();
     DetailJobCategoryAdapter cAdapter;
 
@@ -52,7 +57,7 @@ public class ListJobCategory extends Fragment {
         RecyclerView recyclerView2 = root.findViewById(R.id.recyclerViewlistJobCategory);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity());
         recyclerView2.setLayoutManager(layoutManager2);
-        cAdapter = new DetailJobCategoryAdapter(cList, this);
+        cAdapter = new DetailJobCategoryAdapter(this, cList);
         recyclerView2.setAdapter(cAdapter);
         fillData2(id_category);
         return root;
@@ -99,5 +104,13 @@ public class ListJobCategory extends Fragment {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
+    }
+
+
+    public void doClick(int pos) {
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        intent.putExtra(ID_JOB, cAdapter.getItem(pos));
+        intent.putExtra(GET_ID_JOB, "id_job");
+        startActivity(intent);
     }
 }
