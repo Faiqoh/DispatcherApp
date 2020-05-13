@@ -58,20 +58,6 @@ public class PendingFragment extends Fragment implements JobPendingAdapter.PJLis
     }
 
     private void fillDatJobPendingList() {
-//        Resources resources = getResources();
-//        String[] arJudul = resources.getStringArray(R.array.title_job_pending);
-//        String[] arLocation = resources.getStringArray(R.array.location_pending);
-//        TypedArray a = resources.obtainTypedArray(R.array.drawable_job_pending);
-//        Drawable[] arFoto = new Drawable[a.length()];
-//        for (int i = 0; i < arFoto.length; i++) {
-//            arFoto[i] = a.getDrawable(i);
-//        }
-//        a.recycle();
-//
-//        for (int i = 0; i < arJudul.length; i++) {
-//            pList.add(new PendingViewModel(arJudul[i], arFoto[i], arLocation[i]));
-//        }
-//        Log.e("dataLog", String.valueOf(pList.size()));
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
             @Override
