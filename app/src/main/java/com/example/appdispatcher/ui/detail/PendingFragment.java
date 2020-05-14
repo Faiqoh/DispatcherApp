@@ -97,7 +97,7 @@ public class PendingFragment extends Fragment implements JobPendingAdapter.PJLis
     @Override
     public void doClick(int pos) {
         Intent intent = new Intent(getContext(), DetailProgressProjectActivity.class);
-        intent.putExtra(ID_JOB, String.valueOf(pAdapter.getItem(pos)));
+        intent.putExtra(ID_JOB, pAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_list");
         startActivity(intent);
     }

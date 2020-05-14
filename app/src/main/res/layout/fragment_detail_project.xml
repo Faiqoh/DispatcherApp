@@ -60,7 +60,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="170dp"
                     android:text="Job Description"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -70,7 +70,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="- Developing a highly-concurrent and distributed system"
                     android:minLines="1"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:layout_marginTop="10dp"
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:text="Requirements"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -88,7 +88,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="- Experience with building HTTP and RPC based services"
                     android:minLines="1"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:id="@+id/build_image"

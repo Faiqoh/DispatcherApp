@@ -17,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 
@@ -27,16 +26,12 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
 public class DetailFragment extends Fragment {
 
-    ArrayList<DetailProgressViewModel> pList = new ArrayList<>();
-    ProgressTaskAdapter pAdapter;
-    private DetailViewModel dashboardViewModel;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ImageView cat_backend;
     TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc;
@@ -45,7 +40,7 @@ public class DetailFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        fillDetail();
+        PendingViewModel detail = (PendingViewModel) getActivity().getIntent().getSerializableExtra(PendingFragment.ID_JOB);
 
         cat_backend = root.findViewById(R.id.cat_backend);
         textJobdesc = root.findViewById(R.id.job_desc_detail);
@@ -57,15 +52,26 @@ public class DetailFragment extends Fragment {
         textDate = root.findViewById(R.id.date_job);
         textPIc = root.findViewById(R.id.pic_job);
 
+//        if (lead != null) {
+//            String id_job = lead.getId_job();
+//            fillDetail(id_job);
+//        }
+
+        if (detail != null) {
+            String id_job = detail.getId_job();
+            fillDetail(id_job);
+        }
+
+
         return root;
     }
 
-    private void fillDetail() {
+    private void fillDetail(String id_job) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
