@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailProgressProjectActivity">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/pending_fragment"
         android:name="com.example.appdispatcher.ui.detail.DetailProgressTaskFragment"
         android:layout_width="match_parent"

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,15 +54,21 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Vi
         return 0;
     }
 
+    public PendingViewModel getItem(int pos) {
+        return pjList.get(pos);
+    }
+
     public interface PJListAdapter {
         void doClick(int pos);
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
         TextView tvJudul;
         TextView tvLocation;
         TextView tvcustomer;
+        RelativeLayout headsub;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -69,6 +76,14 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Vi
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvLocation = itemView.findViewById(R.id.textViewLocation);
             tvcustomer = itemView.findViewById(R.id.textViewCustomer);
+            headsub = itemView.findViewById(R.id.head_sub);
+
+            headsub.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    pJListAdapter.doClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

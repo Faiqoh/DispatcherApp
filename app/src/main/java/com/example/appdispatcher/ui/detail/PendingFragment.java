@@ -1,7 +1,6 @@
 package com.example.appdispatcher.ui.detail;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,12 +33,9 @@ import java.util.List;
 public class PendingFragment extends Fragment implements JobPendingAdapter.PJListAdapter {
 
     public static final String ID_JOB = "id_job";
+    public static final String GET_ID_JOB = "get_id_job";
     public List<PendingViewModel> pList = new ArrayList<>();
     JobPendingAdapter pAdapter;
-
-    public static PendingFragment newInstance() {
-        return new PendingFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -68,16 +64,9 @@ public class PendingFragment extends Fragment implements JobPendingAdapter.PJLis
                     JSONArray jray = jObj.getJSONArray("job");
 
                     if (response.length() > 0) {
-                        Resources resources = getResources();
 
-//                        TypedArray a = resources.obtainTypedArray();
-//                        String[] arFoto = new String[a.length()];
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
-
-                            String url = cat.getJSONObject("category").getString("category_image_url");
-
-//                            String[] arFoto = new String[cat.getJSONObject("category").getString("category_image").length()];
 
                             PendingViewModel itemCategory = new PendingViewModel();
                             itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
@@ -108,7 +97,8 @@ public class PendingFragment extends Fragment implements JobPendingAdapter.PJLis
     @Override
     public void doClick(int pos) {
         Intent intent = new Intent(getContext(), DetailProgressProjectActivity.class);
-        intent.putExtra("detail_pending", "id");
+        intent.putExtra(ID_JOB, String.valueOf(pAdapter.getItem(pos)));
+        intent.putExtra(GET_ID_JOB, "id_list");
         startActivity(intent);
     }
 }

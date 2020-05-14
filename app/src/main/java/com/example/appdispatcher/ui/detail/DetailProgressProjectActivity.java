@@ -1,10 +1,11 @@
 package com.example.appdispatcher.ui.detail;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.appdispatcher.R;
@@ -16,21 +17,35 @@ public class DetailProgressProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_progress_project);
 
-        String detail_pending = getIntent().getStringExtra("detail_pending");
-        String detail_progress = getIntent().getStringExtra("detail_progress");
-        if (detail_pending != null) {
-            Fragment androidFragment = new DetailFragment();
-            replaceFragment(androidFragment);
-        } else if (detail_progress != null) {
-            Fragment androidFragment2 = new DetailProgressTaskFragment();
-            replaceFragment(androidFragment2);
+//        JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
+
+        Bundle extras = getIntent().getExtras();
+
+        String getJob = extras.getString("get_id_job");
+
+
+        Log.i(String.valueOf(getJob), "isi getJob2 ");
+
+        if (getJob.equals("id_list")) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // mengganti isi container dengan fragment baru
+            ft.replace(R.id.pending_fragment, new DetailFragment());
+            // atau ft.add(R.id.your_placeholder, new FooFragment());
+            // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
+            ft.commit();
+            getSupportActionBar().setTitle("Detail Job");
         }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void replaceFragment(Fragment destFragment) {
-        FragmentManager fragmentManager = this.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.pending_fragment, destFragment);
-        fragmentTransaction.commit();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
