@@ -1,5 +1,6 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,12 +29,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OnProgressFragment extends Fragment implements JobOnProgressAdapter.ProJListAdapter {
 
     private OnProgressViewModel mViewModel;
 
-    ArrayList<OnProgressViewModel> pList = new ArrayList<>();
+    public static final String ID_JOB = "id_job";
+    public static final String GET_ID_JOB = "get_id_job";
+    public List<OnProgressViewModel> pList = new ArrayList<>();
     JobOnProgressAdapter pAdapter;
 
     public static OnProgressFragment newInstance() {
@@ -69,14 +73,8 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
                     if (response.length() > 0) {
                         Resources resources = getResources();
 
-//                        TypedArray a = resources.obtainTypedArray();
-//                        String[] arFoto = new String[a.length()];
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
-
-                            String url = cat.getJSONObject("category").getString("category_image_url");
-
-//                            String[] arFoto = new String[cat.getJSONObject("category").getString("category_image").length()];
 
                             OnProgressViewModel itemCategory = new OnProgressViewModel();
                             itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
@@ -106,6 +104,9 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
 
     @Override
     public void doClick(int pos) {
-
+        Intent intent = new Intent(getContext(), DetailProgressProjectActivity.class);
+        intent.putExtra(ID_JOB, pAdapter.getItem(pos));
+        intent.putExtra(GET_ID_JOB, "id_job_progress");
+        startActivity(intent);
     }
 }

@@ -1,8 +1,8 @@
 package com.example.appdispatcher.ui.detail;
 
-import androidx.lifecycle.ViewModel;
+import java.io.Serializable;
 
-public class OnProgressViewModel extends ViewModel {
+public class OnProgressViewModel implements Serializable {
     public String judul;
     public String foto;
     public String location;

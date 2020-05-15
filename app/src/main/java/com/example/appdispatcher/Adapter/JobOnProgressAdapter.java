@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,6 +53,10 @@ public class JobOnProgressAdapter extends RecyclerView.Adapter<JobOnProgressAdap
         return 0;
     }
 
+    public OnProgressViewModel getItem(int pos) {
+        return projList.get(pos);
+    }
+
     public interface ProJListAdapter {
         void doClick(int pos);
     }
@@ -61,6 +66,7 @@ public class JobOnProgressAdapter extends RecyclerView.Adapter<JobOnProgressAdap
         TextView tvJudul;
         TextView tvLocation;
         TextView tvcustomer;
+        RelativeLayout headsub;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -68,6 +74,14 @@ public class JobOnProgressAdapter extends RecyclerView.Adapter<JobOnProgressAdap
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvLocation = itemView.findViewById(R.id.textViewLocation);
             tvcustomer = itemView.findViewById(R.id.textViewCustomer);
+            headsub = itemView.findViewById(R.id.head_sub);
+
+            headsub.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ProJListAdapter.doClick(getAdapterPosition());
+                }
+            });
         }
     }
 }
