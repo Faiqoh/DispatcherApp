@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,9 +23,9 @@ public class JobDoneAdapter extends RecyclerView.Adapter<JobDoneAdapter.ViewHold
     DJListAdapter dJListAdapter;
     private DoneFragment context;
 
-    public JobDoneAdapter(DoneFragment context, List<DoneViewModel> pjList) {
+    public JobDoneAdapter(DoneFragment context, List<DoneViewModel> djList) {
         super();
-        this.djList = pjList;
+        this.djList = djList;
         this.context = context;
         dJListAdapter = context;
     }
@@ -52,6 +53,10 @@ public class JobDoneAdapter extends RecyclerView.Adapter<JobDoneAdapter.ViewHold
         return 0;
     }
 
+    public DoneViewModel getItem(int pos) {
+        return djList.get(pos);
+    }
+
     public interface DJListAdapter {
         void doClick(int pos);
     }
@@ -61,6 +66,7 @@ public class JobDoneAdapter extends RecyclerView.Adapter<JobDoneAdapter.ViewHold
         TextView tvJudul;
         TextView tvLocation;
         TextView tvCustomer;
+        RelativeLayout headsub;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -68,6 +74,14 @@ public class JobDoneAdapter extends RecyclerView.Adapter<JobDoneAdapter.ViewHold
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvLocation = itemView.findViewById(R.id.textViewLocation);
             tvCustomer = itemView.findViewById(R.id.textViewCustomer);
+            headsub = itemView.findViewById(R.id.head_sub);
+
+            headsub.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dJListAdapter.doClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

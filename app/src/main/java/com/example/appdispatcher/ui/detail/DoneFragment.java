@@ -1,5 +1,6 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,8 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
 
     public List<DoneViewModel> dList = new ArrayList<>();
     JobDoneAdapter dAdapter;
+    public static final String ID_JOB = "id_job";
+    public static final String GET_ID_JOB = "get_id_job";
 
     public static DoneFragment newInstance() {
         return new DoneFragment();
@@ -106,6 +109,9 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
 
     @Override
     public void doClick(int pos) {
-
+        Intent intent = new Intent(getContext(), DetailProgressProjectActivity.class);
+        intent.putExtra(ID_JOB, dAdapter.getItem(pos));
+        intent.putExtra(GET_ID_JOB, "id_job_done");
+        startActivity(intent);
     }
 }
