@@ -49,9 +49,9 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_list_job_category, container, false);
 
-        JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getActivity().getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
+        Bundle extras = getActivity().getIntent().getExtras();
 
-        Integer id_category = leadJobCat.id_category;
+        String getJob = extras.getString("get_id_job");
 
         // Inflate the layout for this fragment
         RecyclerView recyclerView2 = root.findViewById(R.id.recyclerViewlistJobCategory);
@@ -59,8 +59,55 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
         recyclerView2.setLayoutManager(layoutManager2);
         cAdapter = new DetailJobCategoryAdapter(this, cList);
         recyclerView2.setAdapter(cAdapter);
-        fillData2(id_category);
+        if (getJob.equals("id_category")) {
+            JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getActivity().getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
+            Integer id_category = leadJobCat.id_category;
+            fillData2(id_category);
+        } else {
+            fillData();
+        }
+
         return root;
+    }
+
+    private void fillData() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("response job list", response.toString());
+                JSONObject jObj = response;
+                try {
+                    JSONArray jray = jObj.getJSONArray("job");
+
+                    if (response.length() > 0) {
+                        for (int i = 0; i < jray.length(); i++) {
+                            JSONObject cat = jray.getJSONObject(i);
+
+                            HomeViewModel itemCategory = new HomeViewModel();
+                            if (cat.getString("job_status").equals("Open")) {
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+
+                                cList.add(itemCategory);
+                            }
+                        }
+                        cAdapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(strReq);
     }
 
     private void fillData2(final Integer id_category) {

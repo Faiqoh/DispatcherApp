@@ -101,7 +101,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/text_see_all2"
+                android:id="@+id/text_see_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="310dp"
@@ -131,7 +131,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/text_see_all"
+                android:id="@+id/text_see_all2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="310dp"
@@ -172,12 +172,12 @@
 
                     <TextView
                         android:id="@+id/text_see_all3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="310dp"
                         android:text="See All"
                         android:textColor="#ff9900"
-                        android:textSize="9sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
