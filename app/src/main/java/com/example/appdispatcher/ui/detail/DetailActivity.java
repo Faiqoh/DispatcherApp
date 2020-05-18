@@ -1,7 +1,6 @@
 package com.example.appdispatcher.ui.detail;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -21,15 +20,10 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
-
         Bundle extras = getIntent().getExtras();
 
         String getJob = extras.getString("get_id_job");
-
-
-        Log.i(String.valueOf(getJob), "isi getJob2 ");
-
+//
         if (getJob.equals("id_category")) {
             // Memulai transaksi
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -38,6 +32,9 @@ public class DetailActivity extends AppCompatActivity {
             // atau ft.add(R.id.your_placeholder, new FooFragment());
             // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
             ft.commit();
+
+            JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
+
             getSupportActionBar().setTitle(leadJobCat.judul);
         } else if (getJob.equals("id_list") || getJob.equals("id_job")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -47,6 +44,18 @@ public class DetailActivity extends AppCompatActivity {
             // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
             ft.commit();
             getSupportActionBar().setTitle("Detail Job");
+        } else if (getJob.equals("id_all_category")) {
+            // Memulai transaksi
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // mengganti isi container dengan fragment baru
+            ft.replace(R.id.fragmentDetail, new ListJobCategory());
+            // atau ft.add(R.id.your_placeholder, new FooFragment());
+            // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
+            ft.commit();
+
+            String getcategory = extras.getString("category_name");
+
+            getSupportActionBar().setTitle(getcategory);
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

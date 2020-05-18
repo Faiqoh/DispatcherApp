@@ -1,6 +1,8 @@
 package com.example.appdispatcher.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail.DetailActivity;
 import com.example.appdispatcher.ui.home.JobCategoryViewModel;
 
 import java.util.List;
 
 public class ChildAllCategoryAdapter extends RecyclerView.Adapter<ChildAllCategoryAdapter.ViewHolder> {
-
+    public static final String CATEGORY_NAME = "category_name";
     List<JobCategoryViewModel> categoryList;
     Context context;
 //    private AllFragmentCategory context;
@@ -37,10 +40,29 @@ public class ChildAllCategoryAdapter extends RecyclerView.Adapter<ChildAllCatego
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        JobCategoryViewModel childlist = categoryList.get(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        final String ID_JOB_1 = "id_job_1";
+        final String GET_ID_JOB = "get_id_job";
+
+        final JobCategoryViewModel childlist = categoryList.get(position);
         Glide.with(context).load(childlist.getFoto()).into(holder.ivFoto);
         holder.tvJudul.setText(childlist.judul);
+        holder.tvidCat.setText(String.valueOf(childlist.id_category));
+
+        holder.ivFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("tess", holder.tvidCat.toString());
+                Intent intent = new Intent(context, DetailActivity.class);
+                int id_category = categoryList.get(position).getId_category();
+                String category_name = categoryList.get(position).getJudul();
+                intent.putExtra(ID_JOB_1, id_category);
+                intent.putExtra(GET_ID_JOB, "id_all_category");
+                intent.putExtra(CATEGORY_NAME, category_name);
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -63,6 +63,9 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
             JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getActivity().getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
             Integer id_category = leadJobCat.id_category;
             fillData2(id_category);
+        } else if (getJob.equals("id_all_category")) {
+            Integer id_category = extras.getInt("id_job_1");
+            fillData2(id_category);
         } else {
             fillData();
         }

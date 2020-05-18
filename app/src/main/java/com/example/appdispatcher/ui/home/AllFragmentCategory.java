@@ -101,6 +101,7 @@ public class AllFragmentCategory extends Fragment {
 
                                 itemsdetail.setFoto(det_cat.getString("category_image_url"));
                                 itemsdetail.setJudul(det_cat.getString("category_name"));
+                                itemsdetail.setId_category(det_cat.getInt("id"));
 
                                 details.add(itemsdetail);
                             }

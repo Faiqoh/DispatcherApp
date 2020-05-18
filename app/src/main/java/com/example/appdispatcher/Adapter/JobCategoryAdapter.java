@@ -58,7 +58,6 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
         return categoryList.get(pos);
     }
 
-
     public interface CListAdapter {
         void doClickCategory(int pos);
     }

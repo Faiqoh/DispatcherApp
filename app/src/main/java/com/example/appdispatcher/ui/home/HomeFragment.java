@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     //    ArrayList<JobCategoryViewModel>  = new ArrayList<>();
     public List<JobCategoryViewModel> cList = new ArrayList<>();
     JobCategoryAdapter cAdapter;
-    TextView name, detailUser, tvSeeAllJobCategory, tvSeeAllCategory, tvSeeAllJobList;
+    TextView name, detailUser, tvSeeAllJob, tvSeeAllJobCategory, tvSeeAllJobList;
     ImageView imageViewOtof;
 
 
@@ -66,15 +66,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
             }
         });*/
         fillAccountUser();
-
-        tvSeeAllCategory = root.findViewById(R.id.text_see_all2);
-        tvSeeAllCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SeeAllActivity.class);
-                startActivity(intent);
-            }
-        });
 
         tvSeeAllJobCategory = root.findViewById(R.id.text_see_all);
         tvSeeAllJobList = root.findViewById(R.id.text_see_all2);
