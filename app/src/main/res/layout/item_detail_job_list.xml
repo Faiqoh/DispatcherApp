@@ -31,7 +31,7 @@
             tools:text="Judul" />
 
         <TextView
-            android:id="@+id/textViewLocation"
+            android:id="@+id/textViewCustomer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewJudul"
@@ -39,14 +39,25 @@
             android:layout_alignLeft="@+id/textViewJudul"
             android:ellipsize="end"
             android:maxLines="2"
+            tools:text="Judul" />
+
+        <TextView
+            android:id="@+id/textViewLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCustomer"
+            android:layout_alignStart="@+id/textViewCustomer"
+            android:layout_alignLeft="@+id/textViewCustomer"
+            android:ellipsize="end"
+            android:maxLines="3"
             tools:text="Location" />
 
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginLeft="300dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/path" />
+        <!--        <ImageView-->
+        <!--            android:layout_width="15dp"-->
+        <!--            android:layout_height="15dp"-->
+        <!--            android:layout_marginLeft="300dp"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:src="@drawable/path" />-->
 
     </RelativeLayout>
 

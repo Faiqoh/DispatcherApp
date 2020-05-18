@@ -9,17 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail.OnProgressFragment;
 import com.example.appdispatcher.ui.detail.OnProgressViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class JobOnProgressAdapter extends RecyclerView.Adapter<JobOnProgressAdapter.ViewHolder> {
 
-    ArrayList<OnProgressViewModel> progressJobList;
+    List<OnProgressViewModel> projList;
+    ProJListAdapter ProJListAdapter;
+    private OnProgressFragment context;
 
-    public JobOnProgressAdapter(ArrayList<OnProgressViewModel> progressJobList) {
-        this.progressJobList = progressJobList;
+    public JobOnProgressAdapter(OnProgressFragment context, List<OnProgressViewModel> projList) {
+        super();
+        this.projList = projList;
+        this.context = context;
+        ProJListAdapter = context;
     }
 
     @NonNull
@@ -31,29 +38,36 @@ public class JobOnProgressAdapter extends RecyclerView.Adapter<JobOnProgressAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        OnProgressViewModel progressjoblist = progressJobList.get(position);
+        OnProgressViewModel progressjoblist = projList.get(position);
         holder.tvJudul.setText(progressjoblist.judul);
-        holder.ivFoto.setImageDrawable(progressjoblist.foto);
         holder.tvLocation.setText(progressjoblist.location);
+        holder.tvcustomer.setText(progressjoblist.customer);
+        Glide.with(context).load(progressjoblist.getFoto()).into(holder.ivFoto);
     }
 
     @Override
     public int getItemCount() {
-        if (progressJobList != null)
-            return progressJobList.size();
+        if (projList != null)
+            return projList.size();
         return 0;
+    }
+
+    public interface ProJListAdapter {
+        void doClick(int pos);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
         TextView tvJudul;
         TextView tvLocation;
+        TextView tvcustomer;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlist);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvLocation = itemView.findViewById(R.id.textViewLocation);
+            tvcustomer = itemView.findViewById(R.id.textViewCustomer);
         }
     }
 }
