@@ -102,13 +102,13 @@
 
             <TextView
                 android:id="@+id/text_see_all2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="310dp"
                 android:layout_marginTop="180dp"
                 android:text="See All"
                 android:textColor="#ff9900"
-                android:textSize="9sp" />
+                android:textSize="12sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewJobCategory"
@@ -132,13 +132,13 @@
 
             <TextView
                 android:id="@+id/text_see_all"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="310dp"
                 android:layout_marginTop="305dp"
                 android:text="See All"
                 android:textColor="#ff9900"
-                android:textSize="9sp" />
+                android:textSize="12sp" />
 
 
             <LinearLayout

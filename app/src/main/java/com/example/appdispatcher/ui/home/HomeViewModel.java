@@ -12,6 +12,18 @@ public class HomeViewModel implements Serializable {
     public String location;
     public String id_job;
 
+    public static final int TEXT_TYPE = 0;
+    public static final int IMAGE_TYPE = 0;
+    private int viewType;
+
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
     public String getId_job() {
         return id_job;
     }

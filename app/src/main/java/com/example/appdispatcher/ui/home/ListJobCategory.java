@@ -76,18 +76,17 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
-                            String url = cat.getJSONObject("category").getString("category_image_url");
-
                             HomeViewModel itemCategory = new HomeViewModel();
                             if (cat.getInt("id_category") == id_category) {
-                                itemCategory.setId_job(cat.getString("id"));
-                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                                if (cat.getString("job_status").equals("Open")) {
+                                    itemCategory.setId_job(cat.getString("id"));
+                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                cList.add(itemCategory);
+                                    cList.add(itemCategory);
+                                }
                             }
-
                         }
                         cAdapter.notifyDataSetChanged();
                     }

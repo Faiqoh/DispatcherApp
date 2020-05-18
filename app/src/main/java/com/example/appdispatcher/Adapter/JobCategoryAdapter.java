@@ -65,7 +65,7 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvidCat;
+        TextView tvJudul, tvidCat, tvSeeAll;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +73,7 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
             ivFoto = itemView.findViewById(R.id.imageViewlistjob);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvidCat = itemView.findViewById(R.id.TvIdCat);
+            tvSeeAll = itemView.findViewById(R.id.text_see_all2);
 
             ivFoto.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,6 +81,7 @@ public class JobCategoryAdapter extends RecyclerView.Adapter<JobCategoryAdapter.
                     mCListAdapter.doClickCategory(getAdapterPosition());
                 }
             });
+
         }
     }
 }

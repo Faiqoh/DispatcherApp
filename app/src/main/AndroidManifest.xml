@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.detail.DetailProgressProjectActivity"></activity>
+        <activity android:name=".ui.home.SeeAllActivity"></activity>
+        <activity android:name=".ui.detail.DetailProgressProjectActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
         <activity
             android:name=".MainActivity"

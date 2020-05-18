@@ -49,8 +49,9 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     //    ArrayList<JobCategoryViewModel>  = new ArrayList<>();
     public List<JobCategoryViewModel> cList = new ArrayList<>();
     JobCategoryAdapter cAdapter;
-    TextView name, detailUser;
+    TextView name, detailUser, tvSeeAllJob, tvSeeAllCategory;
     ImageView imageViewOtof;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +66,25 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
             }
         });*/
         fillAccountUser();
+
+        tvSeeAllCategory = root.findViewById(R.id.text_see_all2);
+        tvSeeAllCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SeeAllActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvSeeAllJob = root.findViewById(R.id.text_see_all);
+        tvSeeAllJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("asdfasd10", "sdfasdfads");
+                Intent intent = new Intent(getActivity(), SeeAllActivity.class);
+                startActivity(intent);
+            }
+        });
 
         name = root.findViewById(R.id.text_name);
         detailUser = root.findViewById(R.id.text_detail);
@@ -142,13 +162,15 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 //                            String[] arFoto = new String[cat.getJSONObject("category").getString("category_image").length()];
 
                             HomeViewModel itemCategory = new HomeViewModel();
-                            itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
-                            itemCategory.setId_job(cat.getString("id"));
-                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                            itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            if (cat.getString("job_status").equals("Open")) {
+                                itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                            mList.add(itemCategory);
+                                mList.add(itemCategory);
+                            }
                         }
                         mAdapter.notifyDataSetChanged();
                     }
