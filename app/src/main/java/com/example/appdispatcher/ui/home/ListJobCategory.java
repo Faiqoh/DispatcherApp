@@ -89,6 +89,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                             HomeViewModel itemCategory = new HomeViewModel();
                             if (cat.getString("job_status").equals("Open")) {
                                 itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setCategory_name(cat.getJSONObject("category").getString("category_name"));
                                 itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
                                 itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                 itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
@@ -130,6 +131,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                             if (cat.getInt("id_category") == id_category) {
                                 if (cat.getString("job_status").equals("Open")) {
                                     itemCategory.setId_job(cat.getString("id"));
+                                    itemCategory.setCategory_name(cat.getJSONObject("category").getString("category_name"));
                                     itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
                                     itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));

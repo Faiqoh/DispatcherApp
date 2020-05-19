@@ -12,6 +12,16 @@ public class HomeViewModel implements Serializable {
     public String location;
     public String id_job;
 
+    public String category_name;
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
     public static final int TEXT_TYPE = 0;
     public static final int IMAGE_TYPE = 0;
     private int viewType;

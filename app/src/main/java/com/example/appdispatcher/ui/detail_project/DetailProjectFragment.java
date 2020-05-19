@@ -1,5 +1,6 @@
 package com.example.appdispatcher.ui.detail_project;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -91,10 +92,20 @@ public class DetailProjectFragment extends Fragment {
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
+        final ProgressDialog progress = new ProgressDialog(getActivity());
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
+                progress.dismiss();
+
                 try {
+
                     JSONObject job = response.getJSONObject("job");
 
                     JSONObject category = job.getJSONObject("category");
