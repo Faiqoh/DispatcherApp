@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.detail.DetailProgressTaskFragment;
 import com.example.appdispatcher.ui.detail.DetailProgressViewModel;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class ProgressTaskAdapter extends RecyclerView.Adapter<ProgressTaskAdapte
     ProgressTaskAdapter pTaskAdapter;
     private ProgressTaskAdapter context;
 
-    public ProgressTaskAdapter(DetailProgressTaskFragment detailProgressTaskFragment, List<DetailProgressViewModel> pList) {
+    public ProgressTaskAdapter(List<DetailProgressViewModel> pList) {
         super();
         this.TaskList = pList;
         this.context = context;

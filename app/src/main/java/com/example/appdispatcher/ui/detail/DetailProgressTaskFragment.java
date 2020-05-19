@@ -55,60 +55,61 @@ public class DetailProgressTaskFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail_progress_task, container, false);
 
+        DoneViewModel detail = (DoneViewModel) getActivity().getIntent().getSerializableExtra(DoneFragment.ID_JOB);
+
         textJobdesc = view.findViewById(R.id.job_desc_detail);
         textViewjob = view.findViewById(R.id.text_view_job);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewprogresstask);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        pAdapter = new ProgressTaskAdapter(this, pList);
+        pAdapter = new ProgressTaskAdapter(pList);
         recyclerView.setAdapter(pAdapter);
-        fillData();
+        if (detail != null) {
+            String id_job = detail.getId_job();
+            fillData(id_job);
+        }
 
         return view;
     }
 
-    private void fillData() {
+    private void fillData(String id_job) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobProgress, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject job = response.getJSONObject("job");
+
+                    JSONObject category = job.getJSONObject("category");
+
+                    Log.i("job", category.toString());
+
+                    textViewjob.setText(category.getString("category_name"));
+                    textJobdesc.setText(job.getString("job_description"));
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(StrReq);
+
+        JsonObjectRequest strReq2 = new JsonObjectRequest(Request.Method.GET, server.getJobProgress, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job progress", response.toString());
                 JSONObject jObj = response;
-
-                JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject job = response.getJSONObject("job");
-
-                            JSONObject category = job.getJSONObject("category");
-
-                            Log.i("job", category.toString());
-
-                            Date date_start = inputFormat.parse(job.getString("date_start"));
-                            Date date_end = inputFormat.parse(job.getString("date_end"));
-
-                            textViewjob.setText(category.getString("category_name"));
-                            textJobdesc.setText(job.getString("job_description"));
-
-
-                        } catch (JSONException | ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                requestQueue.add(StrReq);
-
                 try {
                     JSONArray jray = jObj.getJSONObject("job").getJSONArray("progress");
                     if (response.length() > 0) {
@@ -144,7 +145,7 @@ public class DetailProgressTaskFragment extends Fragment {
 
             }
         });
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
+        RequestQueue requestQueue2 = Volley.newRequestQueue(getContext());
+        requestQueue2.add(strReq2);
     }
 }

@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,11 +24,17 @@ import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +42,7 @@ import java.util.List;
 public class WritingTaskFragment extends Fragment {
 
     public List<DetailProgressViewModel> pList = new ArrayList<>();
+    public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ImageView cat_backend;
     TextView textViewjob, textJobdesc, textRequirement;
     EditText etTask;
@@ -64,6 +73,11 @@ public class WritingTaskFragment extends Fragment {
             }
         });
 
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        pAdapter = new ProgressTaskAdapter(pList);
+        recyclerView.setAdapter(pAdapter);
         if (detail != null) {
             String id_job = detail.getId_job();
             fillDetail(id_job);
@@ -73,6 +87,8 @@ public class WritingTaskFragment extends Fragment {
     }
 
     private void fillDetail(String id_job) {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
+        final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
@@ -102,42 +118,44 @@ public class WritingTaskFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(StrReq);
 
-//        JsonObjectRequest StrReq2 = new JsonObjectRequest(Request.Method.GET, server.getJobProgress + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Log.i("response job list", response.toString());
-//                JSONObject jObj = response;
-//                try {
-//                    JSONArray jray = jObj.getJSONArray("job");
-//
-//                    if (response.length() > 0) {
-//                        Resources resources = getResources();
-//
-//                        for (int i = 0; i < jray.length(); i++) {
-//                            JSONObject cat = jray.getJSONObject(i);
-//
-//                            DetailProgressViewModel itemCategory = new OnProgressViewModel();
-//                            itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
-//                            itemCategory.setId_job(cat.getString("id"));
-//                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-//                            itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-//                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
-//
-//                            pList.add(itemCategory);
-//                        }
-//                        pAdapter.notifyDataSetChanged();
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//        RequestQueue requestQueue2 = Volley.newRequestQueue(getContext());
-//        requestQueue2.add(StrReq2);
+        JsonObjectRequest StrReq2 = new JsonObjectRequest(Request.Method.GET, server.getJobProgress, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("response job list", response.toString());
+                JSONObject jObj = response;
+                try {
+                    JSONArray jray = jObj.getJSONObject("job").getJSONArray("progress");
+                    if (response.length() > 0) {
+                        int no = 1;
+                        for (int i = 0; i < jray.length(); i++) {
+                            JSONObject task = jray.getJSONObject(i);
+                            if (task.getInt("id_activity") == 5) {
+
+                                DetailProgressViewModel progress = new DetailProgressViewModel();
+
+                                Date date_submit = inputFormat.parse(task.getString("date_time"));
+
+                                progress.setDay("Day " + no++);
+                                progress.setDate(dateFormat.format(date_submit));
+
+                                pList.add(progress);
+
+                            }
+
+                            pAdapter.notifyDataSetChanged();
+                        }
+                    }
+                } catch (JSONException | ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestQueue requestQueue2 = Volley.newRequestQueue(getContext());
+        requestQueue2.add(StrReq2);
     }
 }
