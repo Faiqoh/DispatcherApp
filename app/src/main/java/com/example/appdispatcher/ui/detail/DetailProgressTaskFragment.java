@@ -105,7 +105,7 @@ public class DetailProgressTaskFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(StrReq);
 
-        JsonObjectRequest strReq2 = new JsonObjectRequest(Request.Method.GET, server.getJobProgress, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq2 = new JsonObjectRequest(Request.Method.GET, server.getJobProgress + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job progress", response.toString());

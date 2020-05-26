@@ -53,14 +53,14 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
         LinearLayoutManager layoutManagerDoneJobList = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewDoneJobList.setLayoutManager(layoutManagerDoneJobList);
         dList.clear();
-        fillDatJobPendingList();
+        fillDataJobDoneList();
         dAdapter = new JobDoneAdapter(this, dList);
         recyclerViewDoneJobList.setAdapter(dAdapter);
 
         return view;
     }
 
-    private void fillDatJobPendingList() {
+    private void fillDataJobDoneList() {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

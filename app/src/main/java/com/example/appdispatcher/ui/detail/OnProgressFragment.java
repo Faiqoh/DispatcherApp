@@ -53,7 +53,7 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
         LinearLayoutManager layoutManagerProgressJobList = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewProgressJobList.setLayoutManager(layoutManagerProgressJobList);
         pList.clear();
-        fillDatJobPendingList();
+        fillDataJobProgressList();
         pAdapter = new JobOnProgressAdapter(this, pList);
         recyclerViewProgressJobList.setAdapter(pAdapter);
 
@@ -61,7 +61,7 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
         return view;
     }
 
-    private void fillDatJobPendingList() {
+    private void fillDataJobProgressList() {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

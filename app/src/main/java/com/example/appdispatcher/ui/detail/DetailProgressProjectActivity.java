@@ -1,7 +1,6 @@
 package com.example.appdispatcher.ui.detail;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -17,14 +16,9 @@ public class DetailProgressProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_progress_project);
 
-//        JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
-
         Bundle extras = getIntent().getExtras();
 
         String getJob = extras.getString("get_id_job");
-
-
-        Log.i(String.valueOf(getJob), "isi getJob2 ");
 
         if (getJob.equals("id_list")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
