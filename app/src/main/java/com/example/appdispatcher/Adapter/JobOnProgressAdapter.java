@@ -63,9 +63,7 @@ public class JobOnProgressAdapter extends RecyclerView.Adapter<JobOnProgressAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul;
-        TextView tvLocation;
-        TextView tvcustomer;
+        TextView tvJudul, tvLocation, tvcustomer;
         RelativeLayout headsub;
 
         public ViewHolder(View itemView) {

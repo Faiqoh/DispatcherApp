@@ -3,6 +3,9 @@ package com.example.appdispatcher.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +42,12 @@ public class ProgressTaskAdapter extends RecyclerView.Adapter<ProgressTaskAdapte
         DetailProgressViewModel progresslist = TaskList.get(position);
         holder.tvDate.setText(progresslist.date);
         holder.tvDay.setText(progresslist.day);
+        holder.tvIdJob.setText(progresslist.id_job);
+        holder.expandabeLayout.setVisibility(View.GONE);
+        holder.tvdetail.setText(progresslist.detail_activity);
+
+        boolean isExpended = TaskList.get(position).isExpended();
+        holder.expandabeLayout.setVisibility(isExpended ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -48,14 +57,39 @@ public class ProgressTaskAdapter extends RecyclerView.Adapter<ProgressTaskAdapte
         return 0;
     }
 
+    public DetailProgressViewModel getItem(int pos) {
+        return TaskList.get(pos);
+    }
+
+    public interface PListAdapter {
+        void doClick(int pos);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDate;
-        TextView tvDay;
+        TextView tvDate, tvDay, tvIdJob, tvdetail;
+        LinearLayout expandabeLayout;
+        RelativeLayout headsub;
+        ImageView ivRow;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvDate = itemView.findViewById(R.id.textViewDate);
             tvDay = itemView.findViewById(R.id.textViewDay);
+            tvIdJob = itemView.findViewById(R.id.TvIdJob);
+            tvdetail = itemView.findViewById(R.id.detail_activity);
+
+            ivRow = itemView.findViewById(R.id.row_down);
+            expandabeLayout = itemView.findViewById(R.id.expandableLayout);
+            headsub = itemView.findViewById(R.id.head_sub);
+
+            headsub.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DetailProgressViewModel DPVM = TaskList.get(getAdapterPosition());
+                    DPVM.setExpended(!DPVM.isExpended());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
         }
     }
 

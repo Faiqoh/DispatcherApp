@@ -121,6 +121,7 @@ public class DetailProgressTaskFragment extends Fragment {
                                 DetailProgressViewModel progress = new DetailProgressViewModel();
 
                                 Date date_submit = inputFormat.parse(task.getString("date_time"));
+                                progress.setDetail_activity(task.getString("detail_activity"));
 
                                 progress.setDay("Day " + no++);
                                 progress.setDate(dateFormat.format(date_submit));
