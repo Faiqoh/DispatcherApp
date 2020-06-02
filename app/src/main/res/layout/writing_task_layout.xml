@@ -108,7 +108,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/roundedbutton"
+                android:backgroundTint="@color/colorPrimary"
                 android:text="Note"
                 android:layout_marginRight="20dp"
                 android:textSize="11sp" />
@@ -138,7 +139,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/roundedbutton"
+                android:backgroundTint="@color/colorPrimary"
                 android:visibility="gone"
                 android:text="Submit"
                 android:textSize="11sp" />

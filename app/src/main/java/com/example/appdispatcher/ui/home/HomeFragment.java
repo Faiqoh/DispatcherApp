@@ -25,7 +25,7 @@ import com.example.appdispatcher.Adapter.JobCategoryAdapter;
 import com.example.appdispatcher.Adapter.JobListAdapter;
 import com.example.appdispatcher.Adapter.RecomenJobAdapter;
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.detail.DetailActivity;
+import com.example.appdispatcher.ui.detail.ScrollingActivityDetail;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONArray;
@@ -248,14 +248,14 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 
     @Override
     public void doClick(int pos) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
+        Intent intent = new Intent(getContext(), ScrollingActivityDetail.class);
         intent.putExtra(ID_JOB, mAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_list");
         startActivity(intent);
     }
 
     public void doClickCategory(int pos) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
+        Intent intent = new Intent(getContext(), ScrollingActivityDetail.class);
         intent.putExtra(ID_JOB2, cAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_category");
         startActivity(intent);
