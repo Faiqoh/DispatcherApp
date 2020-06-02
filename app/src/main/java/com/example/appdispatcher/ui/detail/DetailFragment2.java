@@ -59,7 +59,7 @@ public class DetailFragment2 extends Fragment {
         SectionPagerAdapterPayment adapter = new SectionPagerAdapterPayment(getChildFragmentManager());
 
         adapter.addFragment(new PendingFragment(), "Pending");
-        adapter.addFragment(new OnProgressFragment(), "OnProgress");
+        adapter.addFragment(new OnProgressFragment(), "Progress");
         adapter.addFragment(new DoneFragment(), "Done");
 
         viewPager.setAdapter(adapter);
