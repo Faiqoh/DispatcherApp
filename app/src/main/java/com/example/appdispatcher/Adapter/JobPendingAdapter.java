@@ -44,6 +44,7 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Vi
         holder.tvJudul.setText(pendingjoblist.judul);
         holder.tvLocation.setText(pendingjoblist.location);
         holder.tvcustomer.setText(pendingjoblist.customer);
+        holder.tvId_job.setText(pendingjoblist.id_job);
         Glide.with(context).load(pendingjoblist.getFoto()).into(holder.ivFoto);
     }
 
@@ -65,9 +66,7 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul;
-        TextView tvLocation;
-        TextView tvcustomer;
+        TextView tvJudul, tvLocation, tvcustomer, tvId_job;
         RelativeLayout headsub;
 
         public ViewHolder(View itemView) {
@@ -76,6 +75,7 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Vi
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvLocation = itemView.findViewById(R.id.textViewLocation);
             tvcustomer = itemView.findViewById(R.id.textViewCustomer);
+            tvId_job = itemView.findViewById(R.id.TvIdJob);
             headsub = itemView.findViewById(R.id.head_sub);
 
             headsub.setOnClickListener(new View.OnClickListener() {
