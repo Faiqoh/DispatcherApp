@@ -109,7 +109,7 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
 
     @Override
     public void doClick(int pos) {
-        Intent intent = new Intent(getContext(), DetailProgressProjectActivity.class);
+        Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
         intent.putExtra(ID_JOB, dAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_job_done");
         startActivity(intent);
