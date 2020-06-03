@@ -69,13 +69,15 @@ public class PendingFragment extends Fragment implements JobPendingAdapter.PJLis
                             JSONObject cat = jray.getJSONObject(i);
 
                             PendingViewModel itemCategory = new PendingViewModel();
-                            itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
-                            itemCategory.setId_job(cat.getString("id"));
-                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                            itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            if (cat.getString("job_status").equals("Open")) {
+                                itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                            pList.add(itemCategory);
+                                pList.add(itemCategory);
+                            }
                         }
                         pAdapter.notifyDataSetChanged();
                     }
