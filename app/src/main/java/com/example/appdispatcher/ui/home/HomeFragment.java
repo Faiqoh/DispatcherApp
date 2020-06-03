@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         tvSeeAllJobCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SeeAllActivity.class);
+                Intent intent = new Intent(getActivity(), ScrollingActivityDetail.class);
                 intent.putExtra(GET_ID_JOB, "job_category");
                 startActivity(intent);
             }
@@ -255,7 +255,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     }
 
     public void doClickCategory(int pos) {
-        Intent intent = new Intent(getContext(), ScrollingActivityDetail.class);
+        Intent intent = new Intent(getActivity(), SeeAllActivity.class);
         intent.putExtra(ID_JOB2, cAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_category");
         startActivity(intent);

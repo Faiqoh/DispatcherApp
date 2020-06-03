@@ -19,11 +19,11 @@
 
             <TextView
                 android:id="@+id/textViewHead"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Software Engineer"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView

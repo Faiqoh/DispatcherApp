@@ -31,6 +31,18 @@ public class SeeAllActivity extends AppCompatActivity {
             // atau ft.add(R.id.your_placeholder, new FooFragment());
             // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
             ft.commit();
+        } else if (getJob.equals("id_category")) {
+            // Memulai transaksi
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // mengganti isi container dengan fragment baru
+            ft.replace(R.id.fragmentAllCategory, new ListJobCategory());
+            // atau ft.add(R.id.your_placeholder, new FooFragment());
+            // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
+            ft.commit();
+
+            JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
+
+            getSupportActionBar().setTitle(leadJobCat.judul);
         } else {
             // Memulai transaksi
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

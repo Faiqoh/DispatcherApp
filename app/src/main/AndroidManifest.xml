@@ -13,10 +13,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.detail.ScrollingActivityDetail"
-            android:label="@string/title_activity_scrolling_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".ScrollingActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ui.home.SeeAllActivity" />

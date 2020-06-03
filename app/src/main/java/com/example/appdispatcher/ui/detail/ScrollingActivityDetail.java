@@ -10,8 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail_project.DetailProjectFragment;
-import com.example.appdispatcher.ui.home.HomeFragment;
-import com.example.appdispatcher.ui.home.JobCategoryViewModel;
+import com.example.appdispatcher.ui.home.AllFragmentCategory;
 import com.example.appdispatcher.ui.home.ListJobCategory;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -30,18 +29,16 @@ public class ScrollingActivityDetail extends AppCompatActivity {
 
         String getJob = extras.getString("get_id_job");
 //
-        if (getJob.equals("id_category")) {
+        if (getJob.equals("job_category")) {
             // Memulai transaksi
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             // mengganti isi container dengan fragment baru
-            ft.replace(R.id.fragmentDetail, new ListJobCategory());
+            ft.replace(R.id.fragmentDetail, new AllFragmentCategory());
             // atau ft.add(R.id.your_placeholder, new FooFragment());
             // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
             ft.commit();
-
-            JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
-
-            getSupportActionBar().setTitle(leadJobCat.judul);
+//            JobCategoryViewModel leadJobCat = (JobCategoryViewModel) getIntent().getSerializableExtra(HomeFragment.ID_JOB2);
+            getSupportActionBar().setTitle("Job Category");
         } else if (getJob.equals("id_list") || getJob.equals("id_job")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             // mengganti isi container dengan fragment baru

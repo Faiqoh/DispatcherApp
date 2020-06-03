@@ -9,48 +9,35 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:background="@color/colorPrimary" />
-
-            <ImageView
-                android:layout_width="135dp"
-                android:layout_height="125dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/header" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="110dp"
-                android:background="@color/white" />
 
             <ImageView
                 android:id="@+id/cat_backend"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/code" />
 
             <TextView
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="65dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:id="@+id/text_view_job"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:layout_marginTop="135dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
                 android:text="Backend Developer" />
 
             <LinearLayout
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:layout_below="@+id/text_view_job"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -58,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="170dp"
+                    android:layout_marginTop="3dp"
                     android:text="Job Description"
                     android:textSize="14sp"
                     android:textStyle="bold" />

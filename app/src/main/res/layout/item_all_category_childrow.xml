@@ -7,14 +7,14 @@
 
     <ImageView
         android:id="@+id/imageViewlistjob"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/android" />
 
     <TextView
         android:id="@+id/textViewJudul"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageViewlistjob"
         android:layout_centerHorizontal="true"
