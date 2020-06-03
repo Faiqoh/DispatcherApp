@@ -13,4 +13,7 @@ public class server {
 
     //Job progress
     public static final String getJobProgress = "https://development.sinergy-dev.xyz:2096/job/getJobProgress";
+
+    //job aplly
+    public static final String applyjob = "https://development.sinergy-dev.xyz:2096/job/postJobApply";
 }

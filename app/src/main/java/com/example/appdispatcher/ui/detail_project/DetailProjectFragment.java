@@ -1,19 +1,23 @@
 package com.example.appdispatcher.ui.detail_project;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
+import com.example.appdispatcher.MainActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.DetailProgressViewModel;
 import com.example.appdispatcher.ui.detail.DetailViewModel;
@@ -46,7 +51,9 @@ public class DetailProjectFragment extends Fragment {
     ArrayList<DetailProgressViewModel> pList = new ArrayList<>();
     ProgressTaskAdapter pAdapter;
     ImageView cat_backend;
-    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc;
+    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvname, tv_idjob;
+    Button btn_apply;
+    String id_user, id_job;
     private DetailViewModel dashboardViewModel;
 
     private DetailProjectViewModel mViewModel;
@@ -60,7 +67,7 @@ public class DetailProjectFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_detail_project, container, false);
 
-        HomeViewModel lead = (HomeViewModel) getActivity().getIntent().getSerializableExtra(HomeFragment.ID_JOB);
+        final HomeViewModel lead = (HomeViewModel) getActivity().getIntent().getSerializableExtra(HomeFragment.ID_JOB);
 
         HomeViewModel lead2 = (HomeViewModel) getActivity().getIntent().getSerializableExtra(ListJobCategory.ID_JOB);
 
@@ -73,6 +80,9 @@ public class DetailProjectFragment extends Fragment {
         textLevel = root.findViewById(R.id.level);
         textDate = root.findViewById(R.id.date_job);
         textPIc = root.findViewById(R.id.pic_job);
+        btn_apply = root.findViewById(R.id.btn_apply);
+        tvname = root.findViewById(R.id.tv_name);
+        tv_idjob = root.findViewById(R.id.tv_idjob);
 
         if (lead != null) {
             String id_job = lead.getId_job();
@@ -82,8 +92,44 @@ public class DetailProjectFragment extends Fragment {
             fillDetail(id_job);
         }
 
+        fillAccountUser();
+
+        btn_apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                id_user = tvname.getText().toString().trim();
+                id_job = tv_idjob.getText().toString().trim();
+                applyjob();
+            }
+        });
+
         return root;
 
+    }
+
+    private void fillAccountUser() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.getUser + "/?id_user=" + 1, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject jUser = response.getJSONObject("users");
+
+                    Log.i("users", jUser.toString());
+
+                    tvname.setText(jUser.getString("id"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(strReq);
     }
 
     private void fillDetail(String id_job) {
@@ -115,6 +161,7 @@ public class DetailProjectFragment extends Fragment {
                     Date date_start = inputFormat.parse(job.getString("date_start"));
                     Date date_end = inputFormat.parse(job.getString("date_end"));
 
+                    tv_idjob.setText(job.getString("id"));
                     textViewjob.setText(category.getString("category_name"));
                     textJobdesc.setText(job.getString("job_description"));
                     textRequirement.setText(job.getString("job_requrment"));
@@ -138,6 +185,46 @@ public class DetailProjectFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(StrReq);
 
+    }
+
+    private void applyjob() {
+        final JSONObject jobj = new JSONObject();
+        try {
+            jobj.put("id_engineer", id_user);
+            jobj.put("id_job", id_job);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.applyjob, jobj, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("response", response.toString());
+                JSONObject jObj = response;
+                Toast.makeText(getActivity(), "Job Applied :)", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                        }
+                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(strReq);
     }
 
     @Override
