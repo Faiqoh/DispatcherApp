@@ -232,6 +232,7 @@
                     android:background="@drawable/roundedbutton"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="Apply"
+                    android:id="@+id/btn_apply"
                     android:textSize="11sp" />
 
             </LinearLayout>
