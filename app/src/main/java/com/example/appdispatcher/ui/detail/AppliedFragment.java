@@ -71,7 +71,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                             JSONObject cat = jray.getJSONObject(i);
 
                             AppliedViewModel itemCategory = new AppliedViewModel();
-                            itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
+                            itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                            itemCategory.setJudul(cat.getString("job_name"));
                             itemCategory.setId_job(cat.getString("id"));
                             itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
                             itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));

@@ -44,6 +44,7 @@ public class JobOnProgressAdapter extends RecyclerView.Adapter<JobOnProgressAdap
         holder.tvLocation.setText(progressjoblist.location);
         holder.tvcustomer.setText(progressjoblist.customer);
         holder.tvId_job.setText(progressjoblist.id_job);
+        holder.tvCategory.setText(progressjoblist.category);
         Glide.with(context).load(progressjoblist.getFoto()).into(holder.ivFoto);
     }
 
@@ -64,7 +65,7 @@ public class JobOnProgressAdapter extends RecyclerView.Adapter<JobOnProgressAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvLocation, tvcustomer, tvId_job;
+        TextView tvJudul, tvLocation, tvcustomer, tvId_job, tvCategory;
         RelativeLayout headsub;
 
         public ViewHolder(View itemView) {
@@ -75,6 +76,7 @@ public class JobOnProgressAdapter extends RecyclerView.Adapter<JobOnProgressAdap
             tvcustomer = itemView.findViewById(R.id.textViewCustomer);
             tvId_job = itemView.findViewById(R.id.TvIdJob);
             headsub = itemView.findViewById(R.id.head_sub);
+            tvCategory = itemView.findViewById(R.id.textViewCategory);
 
             headsub.setOnClickListener(new View.OnClickListener() {
                 @Override

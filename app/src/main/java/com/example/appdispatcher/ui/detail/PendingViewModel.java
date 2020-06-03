@@ -8,6 +8,15 @@ public class PendingViewModel implements Serializable {
     public String location;
     public String id_job;
     public String customer;
+    public String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public String getCustomer() {
         return customer;

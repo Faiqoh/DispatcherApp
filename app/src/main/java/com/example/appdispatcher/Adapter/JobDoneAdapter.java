@@ -44,6 +44,7 @@ public class JobDoneAdapter extends RecyclerView.Adapter<JobDoneAdapter.ViewHold
         holder.tvLocation.setText(donejoblist.location);
         holder.tvCustomer.setText(donejoblist.customer);
         holder.tvId_job.setText(donejoblist.id_job);
+        holder.tvCategory.setText(donejoblist.category);
         Glide.with(context).load(donejoblist.getFoto()).into(holder.ivFoto);
     }
 
@@ -64,7 +65,7 @@ public class JobDoneAdapter extends RecyclerView.Adapter<JobDoneAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvLocation, tvCustomer, tvId_job;
+        TextView tvJudul, tvLocation, tvCustomer, tvId_job, tvCategory;
         RelativeLayout headsub;
 
         public ViewHolder(View itemView) {
@@ -75,6 +76,7 @@ public class JobDoneAdapter extends RecyclerView.Adapter<JobDoneAdapter.ViewHold
             tvCustomer = itemView.findViewById(R.id.textViewCustomer);
             tvId_job = itemView.findViewById(R.id.TvIdJob);
             headsub = itemView.findViewById(R.id.head_sub);
+            tvCategory = itemView.findViewById(R.id.textViewCategory);
 
             headsub.setOnClickListener(new View.OnClickListener() {
                 @Override
