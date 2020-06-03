@@ -9,7 +9,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -18,17 +18,16 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
                 android:src="@drawable/code" />
 
             <TextView
                 android:layout_gravity="center_vertical|right"
                 android:layout_marginLeft="65dp"
+                android:layout_marginTop="5dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:id="@+id/text_view_job"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="Backend Developer" />
 
