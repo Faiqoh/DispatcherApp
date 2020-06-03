@@ -82,7 +82,7 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
 //                            String[] arFoto = new String[cat.getJSONObject("category").getString("category_image").length()];
 
                             DoneViewModel itemCategory = new DoneViewModel();
-                            if (cat.getString("job_status").equals("Progress")) {
+                            if (cat.getString("job_status").equals("Done")) {
                                 itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
                                 itemCategory.setId_job(cat.getString("id"));
                                 itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
