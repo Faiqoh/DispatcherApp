@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class DetailFragment extends Fragment {
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ImageView cat_backend;
     TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc;
+    Button btn_start;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class DetailFragment extends Fragment {
         textLevel = root.findViewById(R.id.level);
         textDate = root.findViewById(R.id.date_job);
         textPIc = root.findViewById(R.id.pic_job);
+        btn_start = root.findViewById(R.id.btn_start);
 
         if (getJob.equals("id_list")) {
             PendingViewModel detail = (PendingViewModel) getActivity().getIntent().getSerializableExtra(PendingFragment.ID_JOB);
@@ -61,6 +64,7 @@ public class DetailFragment extends Fragment {
         } else {
             AppliedViewModel detail2 = (AppliedViewModel) getActivity().getIntent().getSerializableExtra(AppliedFragment.ID_JOB);
             String id_job = detail2.getId_job();
+            btn_start.setVisibility(View.GONE);
             fillDetail(id_job);
         }
 

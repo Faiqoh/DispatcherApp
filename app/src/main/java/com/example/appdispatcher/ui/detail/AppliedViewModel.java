@@ -9,6 +9,15 @@ public class AppliedViewModel implements Serializable {
     public String id_job;
     public String customer;
     public String category;
+    public String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getCategory() {
         return category;

@@ -202,6 +202,7 @@
                     android:background="@drawable/roundedbutton"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="Start"
+                    android:id="@+id/btn_start"
                     android:textSize="11sp" />
 
             </LinearLayout>
