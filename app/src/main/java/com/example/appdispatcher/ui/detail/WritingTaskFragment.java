@@ -101,7 +101,7 @@ public class WritingTaskFragment extends Fragment {
 
                     Log.i("job", category.toString());
 
-                    textViewjob.setText(category.getString("category_name"));
+                    textViewjob.setText(job.getString("job_name"));
                     textJobdesc.setText(job.getString("job_description"));
                     textRequirement.setText(job.getString("job_requrment"));
 

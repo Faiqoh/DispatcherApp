@@ -4,32 +4,43 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:paddingTop="10dp"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp">
 
-            <ImageView
-                android:id="@+id/cat_backend"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/code" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_gravity="center_vertical|right"
-                android:layout_marginLeft="65dp"
-                android:layout_marginTop="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:id="@+id/text_view_job"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Backend Developer" />
+                <ImageView
+                    android:id="@+id/cat_backend"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:paddingTop="17dp"
+                    android:src="@drawable/code" />
+
+                <TextView
+                    android:id="@+id/text_view_job"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Backend Developer"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp">
 
             <TextView
                 android:id="@+id/tv_idjob"
@@ -43,11 +54,10 @@
                 android:visibility="gone" />
 
             <LinearLayout
-                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/text_view_job"
-                android:layout_width="match_parent"
                 android:paddingBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -55,7 +65,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="3dp"
                     android:text="Job Description"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -67,7 +76,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="- Developing a highly-concurrent and distributed system"
                     android:minLines="1"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_marginTop="10dp"
@@ -85,7 +94,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="- Experience with building HTTP and RPC based services"
                     android:minLines="1"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
 
                 <LinearLayout
                     android:id="@+id/build_image"
@@ -214,41 +223,19 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <!--<Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="center|bottom"
-                        android:background="@drawable/roundedbutton"
-                        android:backgroundTint="@color/white"
-                        android:text="Cancel"
-                        android:textSize="11sp" />-->
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="center|bottom"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/roundedbutton"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:text="Apply"
-                        android:id="@+id/btn_apply"
-                        android:textSize="11sp" />
-
-                </LinearLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundedbutton"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Apply"
+                    android:textSize="11sp" />
 
             </LinearLayout>
-
-        </RelativeLayout>
-
-    </ScrollView>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 </LinearLayout>
