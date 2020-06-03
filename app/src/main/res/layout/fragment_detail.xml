@@ -28,8 +28,8 @@
                 android:id="@+id/text_view_job"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Backend Developer"
                 android:layout_marginLeft="65dp"
+                android:text="Backend Developer"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <LinearLayout
@@ -37,7 +37,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/text_view_job"
                 android:layout_width="match_parent"
-                android:paddingBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -45,6 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="170dp"
                     android:text="Job Description"
                     android:textSize="14sp"
                     android:textStyle="bold" />

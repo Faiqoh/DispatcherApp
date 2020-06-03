@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.detail.ScrollingActivityDetail"
+            android:name=".ui.detail.ScrollingActivityDetailTask"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.detail.ScrollingActivityDetail"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.home.SeeAllActivity" />
         <activity android:name=".ui.detail.DetailProgressProjectActivity" />
         <activity android:name=".ui.detail.DetailActivity" />

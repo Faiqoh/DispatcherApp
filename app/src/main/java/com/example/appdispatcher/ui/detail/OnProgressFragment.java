@@ -104,7 +104,7 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
 
     @Override
     public void doClick(int pos) {
-        Intent intent = new Intent(getContext(), DetailProgressProjectActivity.class);
+        Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
         intent.putExtra(ID_JOB, pAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_job_progress");
         startActivity(intent);
