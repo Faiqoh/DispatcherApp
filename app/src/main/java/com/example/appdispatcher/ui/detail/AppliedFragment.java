@@ -101,7 +101,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     public void doClick(int pos) {
         Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
         intent.putExtra(ID_JOB, aAdapter.getItem(pos));
-        intent.putExtra(GET_ID_JOB, "id_list");
+        intent.putExtra(GET_ID_JOB, "id_job_applied");
         startActivity(intent);
     }
 }

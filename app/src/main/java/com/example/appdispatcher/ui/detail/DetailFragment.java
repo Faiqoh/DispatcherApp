@@ -40,7 +40,9 @@ public class DetailFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        PendingViewModel detail = (PendingViewModel) getActivity().getIntent().getSerializableExtra(PendingFragment.ID_JOB);
+        Bundle extras = getActivity().getIntent().getExtras();
+
+        String getJob = extras.getString("get_id_job");
 
         cat_backend = root.findViewById(R.id.cat_backend);
         textJobdesc = root.findViewById(R.id.job_desc_detail);
@@ -52,13 +54,13 @@ public class DetailFragment extends Fragment {
         textDate = root.findViewById(R.id.date_job);
         textPIc = root.findViewById(R.id.pic_job);
 
-//        if (lead != null) {
-//            String id_job = lead.getId_job();
-//            fillDetail(id_job);
-//        }
-
-        if (detail != null) {
+        if (getJob.equals("id_list")) {
+            PendingViewModel detail = (PendingViewModel) getActivity().getIntent().getSerializableExtra(PendingFragment.ID_JOB);
             String id_job = detail.getId_job();
+            fillDetail(id_job);
+        } else {
+            AppliedViewModel detail2 = (AppliedViewModel) getActivity().getIntent().getSerializableExtra(AppliedFragment.ID_JOB);
+            String id_job = detail2.getId_job();
             fillDetail(id_job);
         }
 
