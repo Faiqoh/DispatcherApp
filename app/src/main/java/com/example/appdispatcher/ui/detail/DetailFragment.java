@@ -84,7 +84,7 @@ public class DetailFragment extends Fragment {
                     Date date_start = inputFormat.parse(job.getString("date_start"));
                     Date date_end = inputFormat.parse(job.getString("date_end"));
 
-                    textViewjob.setText(category.getString("category_name"));
+                    textViewjob.setText(job.getString("job_name"));
                     textJobdesc.setText(job.getString("job_description"));
                     textRequirement.setText(job.getString("job_requrment"));
                     textBuilding.setText(job.getJSONObject("customer").getString("customer_name"));
