@@ -55,7 +55,8 @@ public class ProgressDoneFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_progress_done, container, false);
 
-        OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
+        Bundle extras = getActivity().getIntent().getExtras();
+        String getJob = extras.getString("get_id_job");
 
         cat_backend = root.findViewById(R.id.cat_backend);
         textJobdesc = root.findViewById(R.id.job_desc_detail);
@@ -65,13 +66,23 @@ public class ProgressDoneFragment extends Fragment {
         btn_submit = root.findViewById(R.id.btnSubmit);
         btn_note = root.findViewById(R.id.btnAddNote);
 
-        btn_note.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                etTask.setVisibility(View.VISIBLE);
-                btn_submit.setVisibility(View.VISIBLE);
-            }
-        });
+        if (getJob.equals("id_job_progress")) {
+            OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
+            String id_job = detail.getId_job();
+            fillDetail(id_job);
+            btn_note.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    etTask.setVisibility(View.VISIBLE);
+                    btn_submit.setVisibility(View.VISIBLE);
+                }
+            });
+        } else {
+            DoneViewModel detail = (DoneViewModel) getActivity().getIntent().getSerializableExtra(DoneFragment.ID_JOB);
+            String id_job = detail.getId_job();
+            fillDetail(id_job);
+            btn_note.setVisibility(View.GONE);
+        }
 
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
@@ -79,10 +90,6 @@ public class ProgressDoneFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         pAdapter = new ProgressTaskAdapter(pList);
         recyclerView.setAdapter(pAdapter);
-        if (detail != null) {
-            String id_job = detail.getId_job();
-            fillDetail(id_job);
-        }
 
         return root;
     }

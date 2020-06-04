@@ -20,7 +20,6 @@
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.home.SeeAllActivity" />
-        <activity android:name=".ui.detail.DetailProgressProjectActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
         <activity
             android:name=".MainActivity"
