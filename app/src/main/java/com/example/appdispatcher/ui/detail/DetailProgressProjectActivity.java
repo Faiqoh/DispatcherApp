@@ -23,7 +23,7 @@ public class DetailProgressProjectActivity extends AppCompatActivity {
         if (getJob.equals("id_list")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             // mengganti isi container dengan fragment baru
-            ft.replace(R.id.pending_fragment, new DetailFragment());
+            ft.replace(R.id.pending_fragment, new AppliedAcceptFragment());
             // atau ft.add(R.id.your_placeholder, new FooFragment());
             // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
             ft.commit();
@@ -31,7 +31,7 @@ public class DetailProgressProjectActivity extends AppCompatActivity {
         } else if (getJob.equals("id_job_progress")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             // mengganti isi container dengan fragment baru
-            ft.replace(R.id.pending_fragment, new WritingTaskFragment());
+            ft.replace(R.id.pending_fragment, new ProgressDoneFragment());
             // atau ft.add(R.id.your_placeholder, new FooFragment());
             // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
             ft.commit();

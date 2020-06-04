@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class DetailFragment extends Fragment {
+public class AppliedAcceptFragment extends Fragment {
 
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ImageView cat_backend;
@@ -40,7 +40,7 @@ public class DetailFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_detail, container, false);
+        View root = inflater.inflate(R.layout.fragment_applied_accept, container, false);
 
         Bundle extras = getActivity().getIntent().getExtras();
 

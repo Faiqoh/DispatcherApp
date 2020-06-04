@@ -44,7 +44,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.applied_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_applied, container, false);
 
         RecyclerView recyclerViewPendingJobList = view.findViewById(R.id.recyclerViewApplied);
         LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity());

@@ -39,7 +39,7 @@ import java.util.Locale;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WritingTaskFragment extends Fragment {
+public class ProgressDoneFragment extends Fragment {
 
     public List<DetailProgressViewModel> pList = new ArrayList<>();
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
@@ -53,7 +53,7 @@ public class WritingTaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.writing_task_layout, container, false);
+        View root = inflater.inflate(R.layout.fragment_progress_done, container, false);
 
         OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
 
