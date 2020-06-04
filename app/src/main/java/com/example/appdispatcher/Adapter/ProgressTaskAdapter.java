@@ -12,18 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.detail.DetailProgressViewModel;
+import com.example.appdispatcher.ui.detail.ProgressDoneViewModel;
 
 import java.util.List;
 
 public class ProgressTaskAdapter extends RecyclerView.Adapter<ProgressTaskAdapter.ViewHolder> {
 
     //    ArrayList<DetailProgressViewModel> progressList;
-    List<DetailProgressViewModel> TaskList;
+    List<ProgressDoneViewModel> TaskList;
     ProgressTaskAdapter pTaskAdapter;
     private ProgressTaskAdapter context;
 
-    public ProgressTaskAdapter(List<DetailProgressViewModel> pList) {
+    public ProgressTaskAdapter(List<ProgressDoneViewModel> pList) {
         super();
         this.TaskList = pList;
         this.context = context;
@@ -39,7 +39,7 @@ public class ProgressTaskAdapter extends RecyclerView.Adapter<ProgressTaskAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DetailProgressViewModel progresslist = TaskList.get(position);
+        ProgressDoneViewModel progresslist = TaskList.get(position);
         holder.tvDate.setText(progresslist.date);
         holder.tvDay.setText(progresslist.day);
         holder.tvIdJob.setText(progresslist.id_job);
@@ -57,7 +57,7 @@ public class ProgressTaskAdapter extends RecyclerView.Adapter<ProgressTaskAdapte
         return 0;
     }
 
-    public DetailProgressViewModel getItem(int pos) {
+    public ProgressDoneViewModel getItem(int pos) {
         return TaskList.get(pos);
     }
 
@@ -85,7 +85,7 @@ public class ProgressTaskAdapter extends RecyclerView.Adapter<ProgressTaskAdapte
             headsub.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DetailProgressViewModel DPVM = TaskList.get(getAdapterPosition());
+                    ProgressDoneViewModel DPVM = TaskList.get(getAdapterPosition());
                     DPVM.setExpended(!DPVM.isExpended());
                     notifyItemChanged(getAdapterPosition());
                 }

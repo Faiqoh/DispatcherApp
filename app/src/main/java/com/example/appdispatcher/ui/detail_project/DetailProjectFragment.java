@@ -27,8 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.MainActivity;
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.detail.DetailProgressViewModel;
-import com.example.appdispatcher.ui.detail.DetailViewModel;
+import com.example.appdispatcher.ui.detail.ProgressDoneViewModel;
 import com.example.appdispatcher.ui.home.HomeFragment;
 import com.example.appdispatcher.ui.home.HomeViewModel;
 import com.example.appdispatcher.ui.home.ListJobCategory;
@@ -48,7 +47,7 @@ import java.util.TimeZone;
 public class DetailProjectFragment extends Fragment {
 
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
-    ArrayList<DetailProgressViewModel> pList = new ArrayList<>();
+    ArrayList<ProgressDoneViewModel> pList = new ArrayList<>();
     ProgressTaskAdapter pAdapter;
     ImageView cat_backend;
     TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvname, tv_idjob;

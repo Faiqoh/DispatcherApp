@@ -13,7 +13,7 @@ import com.example.appdispatcher.Adapter.SectionPagerAdapterPayment;
 import com.example.appdispatcher.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class DetailFragment2 extends Fragment {
+public class DetailFragment extends Fragment {
 
     ViewPager viewPager;
     TabLayout tabLayout;
@@ -22,7 +22,7 @@ public class DetailFragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_detail2, container, false);
+        View root = inflater.inflate(R.layout.fragment_detail, container, false);
 
         viewPager = root.findViewById(R.id.viewPagerDetail);
         tabLayout = root.findViewById(R.id.tabLayoutDetail);

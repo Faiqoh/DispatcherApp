@@ -41,7 +41,7 @@ import java.util.Locale;
  */
 public class ProgressDoneFragment extends Fragment {
 
-    public List<DetailProgressViewModel> pList = new ArrayList<>();
+    public List<ProgressDoneViewModel> pList = new ArrayList<>();
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ImageView cat_backend;
     TextView textViewjob, textJobdesc, textRequirement;
@@ -139,7 +139,7 @@ public class ProgressDoneFragment extends Fragment {
                             JSONObject task = jray.getJSONObject(i);
                             if (task.getInt("id_activity") == 5) {
 
-                                DetailProgressViewModel progress = new DetailProgressViewModel();
+                                ProgressDoneViewModel progress = new ProgressDoneViewModel();
 
                                 Date date_submit = inputFormat.parse(task.getString("date_time"));
                                 progress.setDetail_activity(task.getString("detail_activity"));

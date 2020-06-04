@@ -2,7 +2,7 @@ package com.example.appdispatcher.ui.detail;
 
 import java.io.Serializable;
 
-public class DetailProgressViewModel implements Serializable {
+public class ProgressDoneViewModel implements Serializable {
 
     public String date;
     public String day;
