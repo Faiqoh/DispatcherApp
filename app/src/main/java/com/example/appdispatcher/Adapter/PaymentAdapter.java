@@ -9,17 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.payment.PaymentViewModel;
+import com.example.appdispatcher.ui.payment.Payment_PaymentFragment;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
-    ArrayList<PaymentViewModel> paymentList;
+    List<PaymentViewModel> paymentList;
+    PayListAdapter payListAdapter;
+    private Payment_PaymentFragment context;
 
-    public PaymentAdapter(ArrayList<PaymentViewModel> paymentList) {
+    public PaymentAdapter(Payment_PaymentFragment context, List<PaymentViewModel> paymentList) {
+        super();
         this.paymentList = paymentList;
+        this.context = context;
+        payListAdapter = context;
     }
 
     @NonNull
@@ -33,8 +40,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PaymentViewModel paymentlist = paymentList.get(position);
         holder.tvJudul.setText(paymentlist.judul);
-        holder.ivFoto.setImageDrawable(paymentlist.foto);
         holder.tvLocation.setText(paymentlist.location);
+        holder.tv_IdJob.setText(paymentlist.id_job);
+        Glide.with(context).load(paymentlist.getFoto()).into(holder.ivFoto);
     }
 
     @Override
@@ -44,16 +52,25 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         return 0;
     }
 
+
+    public PaymentViewModel getItem(int pos) {
+        return paymentList.get(pos);
+    }
+
+    public interface PayListAdapter {
+        void doClick(int pos);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul;
-        TextView tvLocation;
+        TextView tvJudul, tvLocation, tv_IdJob;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlist);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvLocation = itemView.findViewById(R.id.textViewLocation);
+            tv_IdJob = itemView.findViewById(R.id.TvIdJob);
         }
     }
 }

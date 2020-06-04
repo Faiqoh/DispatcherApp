@@ -53,7 +53,6 @@ public class DetailProjectFragment extends Fragment {
     TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvname, tv_idjob;
     Button btn_apply;
     String id_user, id_job;
-    private DetailViewModel dashboardViewModel;
 
     private DetailProjectViewModel mViewModel;
 

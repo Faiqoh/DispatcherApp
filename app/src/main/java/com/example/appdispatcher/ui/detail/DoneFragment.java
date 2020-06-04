@@ -71,25 +71,22 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
 
                     if (response.length() > 0) {
                         Resources resources = getResources();
-
-//                        TypedArray a = resources.obtainTypedArray();
-//                        String[] arFoto = new String[a.length()];
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
                             String url = cat.getJSONObject("category").getString("category_image_url");
 
-//                            String[] arFoto = new String[cat.getJSONObject("category").getString("category_image").length()];
-
                             DoneViewModel itemCategory = new DoneViewModel();
-                            itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                            itemCategory.setJudul(cat.getString("job_name"));
-                            itemCategory.setId_job(cat.getString("id"));
-                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                            itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            if (cat.getString("job_status").equals("Done")) {
+                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                itemCategory.setJudul(cat.getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                            dList.add(itemCategory);
+                                dList.add(itemCategory);
+                            }
                         }
                         dAdapter.notifyDataSetChanged();
                     }
