@@ -14,7 +14,8 @@
         <activity
             android:name=".ui.detail.ScrollingActivityDetailTask"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".ui.detail.ScrollingActivityDetail"
             android:label=""

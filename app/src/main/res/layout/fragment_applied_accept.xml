@@ -44,6 +44,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp">
 
+                <TextView
+                    android:id="@+id/tv_idjob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginLeft="245dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -204,6 +215,14 @@
                             android:layout_marginTop="15dp"
                             android:text="PIC: Tito Maulana"
                             android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tv_id_user"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="15dp"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                 <Button

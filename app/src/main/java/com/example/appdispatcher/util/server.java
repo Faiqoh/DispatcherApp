@@ -16,5 +16,9 @@ public class server {
 
     //job aplly
     public static final String applyjob = "https://development.sinergy-dev.xyz:2096/job/postJobApply";
+
     public static final String getstatusjob = "https://development.sinergy-dev.xyz:2096/job/getJobByCategory";
+
+    //job start
+    public static final String startjob = "https://development.sinergy-dev.xyz:2096/job/postJobStart";
 }
