@@ -18,11 +18,12 @@ public class server {
     public static final String applyjob = "https://development.sinergy-dev.xyz:2096/job/postJobApply";
     public static final String getJobStatus = "https://development.sinergy-dev.xyz:2096/job/getJobByCategory";
 
-    public static final String getstatusjob = "https://development.sinergy-dev.xyz:2096/job/getJobByCategory";
-
     //job start
     public static final String startjob = "https://development.sinergy-dev.xyz:2096/job/postJobStart";
 
     //progress job
-    public static final String progreejob = "https://development.sinergy-dev.xyz:2096/job/postJobUpdate";
+    public static final String progreesjob = "https://development.sinergy-dev.xyz:2096/job/postJobUpdate";
+
+    //job done
+    public static final String jobdone = "https://development.sinergy-dev.xyz:2096/job/postJobFinish";
 }

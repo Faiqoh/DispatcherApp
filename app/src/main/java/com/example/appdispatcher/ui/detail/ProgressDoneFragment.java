@@ -50,7 +50,7 @@ public class ProgressDoneFragment extends Fragment {
     ImageView cat_backend;
     TextView textViewjob, textJobdesc, textRequirement, tvidUser, tvidJob;
     EditText etTask;
-    Button btn_note, btn_submit;
+    Button btn_note, btn_submit, btn_done;
     ProgressTaskAdapter pAdapter;
     String id_user, id_job, detail_activity;
 
@@ -72,6 +72,7 @@ public class ProgressDoneFragment extends Fragment {
         btn_note = root.findViewById(R.id.btnAddNote);
         tvidJob = root.findViewById(R.id.tv_idjob);
         tvidUser = root.findViewById(R.id.tv_id_user);
+        btn_done = root.findViewById(R.id.btnDone);
 
         if (getJob.equals("id_job_progress")) {
             OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
@@ -84,11 +85,13 @@ public class ProgressDoneFragment extends Fragment {
                     btn_submit.setVisibility(View.VISIBLE);
                 }
             });
+            btn_done.setVisibility(View.GONE);
         } else {
             DoneViewModel detail = (DoneViewModel) getActivity().getIntent().getSerializableExtra(DoneFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
             btn_note.setVisibility(View.GONE);
+            btn_done.setVisibility(View.GONE);
         }
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +101,15 @@ public class ProgressDoneFragment extends Fragment {
                 id_job = tvidJob.getText().toString().trim();
                 detail_activity = etTask.getText().toString().trim();
                 progressjob();
+            }
+        });
+
+        btn_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                id_user = tvidUser.getText().toString().trim();
+                id_job = tvidJob.getText().toString().trim();
+                donejob();
             }
         });
 
@@ -189,10 +201,24 @@ public class ProgressDoneFragment extends Fragment {
                                 progress.setDetail_activity(task.getString("detail_activity"));
                                 progress.setDay("Day " + no++);
                                 progress.setDate(dateFormat.format(date_submit));
+                                btn_done.setVisibility(View.VISIBLE);
+                                btn_note.setVisibility(View.VISIBLE);
 
                                 pList.add(progress);
 
+                            } else if (task.getInt("id_activity") == 6) {
+                                ProgressDoneViewModel progress = new ProgressDoneViewModel();
+
+                                Date date_submit = inputFormat.parse(task.getString("date_time"));
+                                progress.setDetail_activity(task.getString("detail_activity"));
+                                progress.setDay("Day " + no++);
+                                progress.setDate(dateFormat.format(date_submit));
+                                btn_done.setVisibility(View.GONE);
+                                btn_note.setVisibility(View.GONE);
+
+                                pList.add(progress);
                             }
+
 
                             pAdapter.notifyDataSetChanged();
                         }
@@ -221,7 +247,46 @@ public class ProgressDoneFragment extends Fragment {
             e.printStackTrace();
         }
 
-        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.progreejob, jobj, new Response.Listener<JSONObject>() {
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.progreesjob, jobj, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("response", response.toString());
+                JSONObject jObj = response;
+                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                        }
+                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(strReq);
+    }
+
+    private void donejob() {
+        final JSONObject jobj = new JSONObject();
+        try {
+            jobj.put("id_engineer", id_user);
+            jobj.put("id_job", id_job);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.jobdone, jobj, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
