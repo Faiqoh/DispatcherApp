@@ -12,18 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.detail.PendingFragment;
-import com.example.appdispatcher.ui.detail.PendingViewModel;
+import com.example.appdispatcher.ui.detail.AcceptedFragment;
+import com.example.appdispatcher.ui.detail.AcceptedViewModel;
 
 import java.util.List;
 
-public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.ViewHolder> {
+public class JobAcceptedAdapter extends RecyclerView.Adapter<JobAcceptedAdapter.ViewHolder> {
 
-    List<PendingViewModel> pjList;
-    private PendingFragment context;
+    List<AcceptedViewModel> pjList;
+    private AcceptedFragment context;
     PJListAdapter pJListAdapter;
 
-    public JobPendingAdapter(PendingFragment context, List<PendingViewModel> pjList) {
+    public JobAcceptedAdapter(AcceptedFragment context, List<AcceptedViewModel> pjList) {
         super();
         this.pjList = pjList;
         this.context = context;
@@ -40,7 +40,7 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PendingViewModel pendingjoblist = pjList.get(position);
+        AcceptedViewModel pendingjoblist = pjList.get(position);
         holder.tvJudul.setText(pendingjoblist.judul);
         holder.tvLocation.setText(pendingjoblist.location);
         holder.tvcustomer.setText(pendingjoblist.customer);
@@ -56,7 +56,7 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Vi
         return 0;
     }
 
-    public PendingViewModel getItem(int pos) {
+    public AcceptedViewModel getItem(int pos) {
         return pjList.get(pos);
     }
 

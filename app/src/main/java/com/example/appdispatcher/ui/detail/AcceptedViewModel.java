@@ -2,7 +2,7 @@ package com.example.appdispatcher.ui.detail;
 
 import java.io.Serializable;
 
-public class PendingViewModel implements Serializable {
+public class AcceptedViewModel implements Serializable {
     public String judul;
     public String foto;
     public String location;
