@@ -57,7 +57,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     }
 
     private void fillDataJobAppliedList() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobStatus, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
@@ -66,21 +66,30 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                     JSONArray jray = jObj.getJSONArray("job");
 
                     if (response.length() > 0) {
-
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
-                            AppliedViewModel itemCategory = new AppliedViewModel();
-                            itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                            itemCategory.setJudul(cat.getString("job_name"));
-                            itemCategory.setId_job(cat.getString("id"));
-                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                            itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            JSONArray japplied = cat.getJSONArray("apply_engineer");
+                            for (int j = 0; j < japplied.length(); j++) {
+                                JSONObject applied = japplied.getJSONObject(j);
+                                AppliedViewModel itemCategory = new AppliedViewModel();
 
-                            aList.add(itemCategory);
+                                if (applied.getInt("id_engineer") == 1 && applied.getString("status").equals("Pending")) {
+                                    itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                    itemCategory.setJudul(cat.getString("job_name"));
+                                    itemCategory.setId_job(cat.getString("id"));
+                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+
+                                    aList.add(itemCategory);
+                                }
+
+                            }
+                            aAdapter.notifyDataSetChanged();
                         }
-                        aAdapter.notifyDataSetChanged();
+
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
