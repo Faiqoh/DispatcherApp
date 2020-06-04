@@ -88,6 +88,24 @@
                     android:minLines="1"
                     android:text="- Experience with building HTTP and RPC based services"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_id_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_idjob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:visibility="gone" />
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

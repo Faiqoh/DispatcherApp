@@ -21,4 +21,7 @@ public class server {
 
     //job start
     public static final String startjob = "https://development.sinergy-dev.xyz:2096/job/postJobStart";
+
+    //progress job
+    public static final String progreejob = "https://development.sinergy-dev.xyz:2096/job/postJobUpdate";
 }
