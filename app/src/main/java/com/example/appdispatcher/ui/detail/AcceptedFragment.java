@@ -19,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.appdispatcher.Adapter.JobPendingAdapter;
+import com.example.appdispatcher.Adapter.JobAcceptedAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 
@@ -30,24 +30,24 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PendingFragment extends Fragment implements JobPendingAdapter.PJListAdapter {
+public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJListAdapter {
 
     public static final String ID_JOB = "id_job";
     public static final String GET_ID_JOB = "get_id_job";
-    public List<PendingViewModel> pList = new ArrayList<>();
-    JobPendingAdapter pAdapter;
+    public List<AcceptedViewModel> pList = new ArrayList<>();
+    JobAcceptedAdapter pAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pending, container, false);
+        View view = inflater.inflate(R.layout.fragment_accepted, container, false);
 
         RecyclerView recyclerViewPendingJobList = view.findViewById(R.id.recyclerViewPending);
         LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity());
         recyclerViewPendingJobList.setLayoutManager(layoutManagerPendingJobList);
         pList.clear();
         fillDatJobPendingList();
-        pAdapter = new JobPendingAdapter(this, pList);
+        pAdapter = new JobAcceptedAdapter(this, pList);
         recyclerViewPendingJobList.setAdapter(pAdapter);
 
         return view;
@@ -55,7 +55,7 @@ public class PendingFragment extends Fragment implements JobPendingAdapter.PJLis
 
     private void fillDatJobPendingList() {
 
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobStatus, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
@@ -68,17 +68,23 @@ public class PendingFragment extends Fragment implements JobPendingAdapter.PJLis
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
-                            PendingViewModel itemCategory = new PendingViewModel();
-                            if (cat.getString("job_status").equals("Open")) {
-                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                                itemCategory.setJudul(cat.getString("job_name"));
-                                itemCategory.setId_job(cat.getString("id"));
-                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            JSONArray japplied = cat.getJSONArray("apply_engineer");
+                            for (int j = 0; j < japplied.length(); j++) {
+                                JSONObject applied = japplied.getJSONObject(j);
 
-                                pList.add(itemCategory);
+                                AcceptedViewModel itemCategory = new AcceptedViewModel();
+                                if (applied.getInt("id_engineer") == 1 && applied.getString("status").equals("Accept") && cat.getString("job_status").equals("Open")) {
+                                    itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                    itemCategory.setJudul(cat.getString("job_name"));
+                                    itemCategory.setId_job(cat.getString("id"));
+                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+
+                                    pList.add(itemCategory);
+                                }
                             }
+
                         }
                         pAdapter.notifyDataSetChanged();
                     }

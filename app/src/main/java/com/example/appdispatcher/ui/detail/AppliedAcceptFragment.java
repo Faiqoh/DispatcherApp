@@ -65,7 +65,7 @@ public class AppliedAcceptFragment extends Fragment {
         tvidJob = root.findViewById(R.id.tv_idjob);
 
         if (getJob.equals("id_list")) {
-            PendingViewModel detail = (PendingViewModel) getActivity().getIntent().getSerializableExtra(PendingFragment.ID_JOB);
+            AcceptedViewModel detail = (AcceptedViewModel) getActivity().getIntent().getSerializableExtra(AcceptedFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
         } else {

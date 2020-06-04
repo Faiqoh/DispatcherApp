@@ -74,7 +74,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                                 JSONObject applied = japplied.getJSONObject(j);
                                 AppliedViewModel itemCategory = new AppliedViewModel();
 
-                                if (applied.getInt("id_engineer") == 1 && applied.getString("status").equals("Pending")) {
+                                if (applied.getInt("id_engineer") == 1 && applied.getString("status").equals("Pending") && cat.getString("job_status").equals("Open")) {
                                     itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
                                     itemCategory.setJudul(cat.getString("job_name"));
                                     itemCategory.setId_job(cat.getString("id"));
