@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.payment.PaymentViewModel;
 import com.example.appdispatcher.ui.payment.Payment_PaymentFragment;
@@ -42,7 +41,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         holder.tvJudul.setText(paymentlist.judul);
         holder.tvLocation.setText(paymentlist.status_payment);
         holder.tv_IdJob.setText(paymentlist.id_job);
-        Glide.with(context).load(paymentlist.getFoto()).into(holder.ivFoto);
+        holder.ivFoto.setImageDrawable(paymentlist.foto);
     }
 
     @Override

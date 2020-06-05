@@ -1,10 +1,12 @@
 package com.example.appdispatcher.ui.payment;
 
+import android.graphics.drawable.Drawable;
+
 import java.io.Serializable;
 
 public class PaymentViewModel implements Serializable {
     public String judul;
-    public String foto;
+    public Drawable foto;
     public String location;
     public boolean expended;
     public String id_job;
@@ -42,11 +44,11 @@ public class PaymentViewModel implements Serializable {
         this.location = location;
     }
 
-    public String getFoto() {
+    public Drawable getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(Drawable foto) {
         this.foto = foto;
     }
 

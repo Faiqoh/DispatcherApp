@@ -72,12 +72,28 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
-                            PaymentViewModel itemCategory = new PaymentViewModel();
-                            itemCategory.setJudul(cat.getJSONObject("job").getString("job_name"));
-                            itemCategory.setId_job(cat.getString("id_job"));
-                            itemCategory.setStatus_payment(cat.getJSONObject("lastest_progress").getString("activity"));
 
-                            pList.add(itemCategory);
+                            PaymentViewModel itemCategory = new PaymentViewModel();
+                            if (cat.getJSONObject("lastest_progress").getString("activity").equals("Make Payment")) {
+                                itemCategory.setJudul(cat.getJSONObject("job").getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id_job"));
+                                itemCategory.setStatus_payment(cat.getJSONObject("lastest_progress").getString("activity"));
+                                itemCategory.setFoto(getResources().getDrawable(R.drawable.make_payment));
+                                pList.add(itemCategory);
+                            } else if (cat.getJSONObject("lastest_progress").getString("activity").equals("Update Payment")) {
+                                itemCategory.setJudul(cat.getJSONObject("job").getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id_job"));
+                                itemCategory.setStatus_payment(cat.getJSONObject("lastest_progress").getString("activity"));
+                                itemCategory.setFoto(getResources().getDrawable(R.drawable.payment_update));
+                                pList.add(itemCategory);
+                            } else if (cat.getJSONObject("lastest_progress").getString("activity").equals("Confirm Payment")) {
+                                itemCategory.setJudul(cat.getJSONObject("job").getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id_job"));
+                                itemCategory.setStatus_payment(cat.getJSONObject("lastest_progress").getString("activity"));
+                                itemCategory.setFoto(getResources().getDrawable(R.drawable.payment_complete));
+                                pList.add(itemCategory);
+                            }
+
                         }
                         payAdapter.notifyDataSetChanged();
                     }
