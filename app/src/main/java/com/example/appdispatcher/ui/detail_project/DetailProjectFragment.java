@@ -160,7 +160,7 @@ public class DetailProjectFragment extends Fragment {
                     Date date_end = inputFormat.parse(job.getString("date_end"));
 
                     tv_idjob.setText(job.getString("id"));
-                    textViewjob.setText(category.getString("category_name"));
+                    textViewjob.setText(job.getString("job_name"));
                     textJobdesc.setText(job.getString("job_description"));
                     textRequirement.setText(job.getString("job_requrment"));
                     textBuilding.setText(job.getJSONObject("customer").getString("customer_name"));

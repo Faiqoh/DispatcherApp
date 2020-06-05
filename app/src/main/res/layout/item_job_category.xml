@@ -3,11 +3,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/textViewJudul"
-        android:layout_width="80dp"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageViewlistjob"
         android:layout_centerHorizontal="true"
