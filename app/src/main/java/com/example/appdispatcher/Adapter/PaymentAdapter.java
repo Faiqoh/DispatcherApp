@@ -40,7 +40,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PaymentViewModel paymentlist = paymentList.get(position);
         holder.tvJudul.setText(paymentlist.judul);
-        holder.tvLocation.setText(paymentlist.location);
+        holder.tvLocation.setText(paymentlist.status_payment);
         holder.tv_IdJob.setText(paymentlist.id_job);
         Glide.with(context).load(paymentlist.getFoto()).into(holder.ivFoto);
     }

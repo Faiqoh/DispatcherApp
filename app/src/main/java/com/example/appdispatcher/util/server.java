@@ -26,4 +26,6 @@ public class server {
 
     //job done
     public static final String jobdone = "https://development.sinergy-dev.xyz:2096/job/postJobFinish";
+
+    public static final String getpayment = "https://development.sinergy-dev.xyz:2096/payment/getJobPayment";
 }

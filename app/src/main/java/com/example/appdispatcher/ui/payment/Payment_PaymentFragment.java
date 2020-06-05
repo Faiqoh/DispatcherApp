@@ -58,13 +58,14 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
     }
 
     private void fillDataPaymentList() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getpayment + "/?id_engineer=" + 1, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
                 try {
-                    JSONArray jray = jObj.getJSONArray("job");
+                    JSONArray jray = jObj.getJSONArray("payment");
+                    Log.i("response payment", jray.toString());
 
                     if (response.length() > 0) {
 
@@ -72,10 +73,9 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
                             JSONObject cat = jray.getJSONObject(i);
 
                             PaymentViewModel itemCategory = new PaymentViewModel();
-                            itemCategory.setJudul(cat.getString("job_name"));
-                            itemCategory.setId_job(cat.getString("id"));
-                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            itemCategory.setJudul(cat.getJSONObject("job").getString("job_name"));
+                            itemCategory.setId_job(cat.getString("id_job"));
+                            itemCategory.setStatus_payment(cat.getJSONObject("lastest_progress").getString("activity"));
 
                             pList.add(itemCategory);
                         }
