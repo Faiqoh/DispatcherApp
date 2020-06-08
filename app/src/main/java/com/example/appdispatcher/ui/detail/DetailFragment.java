@@ -14,7 +14,6 @@ import com.example.appdispatcher.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class DetailFragment extends Fragment {
-
     ViewPager viewPager;
     TabLayout tabLayout;
 
@@ -25,7 +24,10 @@ public class DetailFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_detail, container, false);
 
         viewPager = root.findViewById(R.id.viewPagerDetail);
+
         tabLayout = root.findViewById(R.id.tabLayoutDetail);
+
+//        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
 
         return root;
     }
