@@ -71,20 +71,11 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                     }
                 }, 2000);
 
-                refreshApplied();
+                aList.clear();
+                fillDataJobAppliedList();
             }
         });
         return view;
-    }
-
-    private void refreshApplied() {
-        ArrayList<AppliedViewModel> refreshApplied = new ArrayList<>();
-        for (AppliedViewModel item : aList) {
-            refreshApplied.add(item);
-        }
-
-        Log.i("refresh", String.valueOf(refreshApplied));
-        aAdapter.appliedList(refreshApplied);
     }
 
     private void fillDataJobAppliedList() {
