@@ -39,9 +39,9 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
     PaymentAdapter pAdapter;
     public List<PaymentViewModel> pList = new ArrayList<>();
     PaymentAdapter payAdapter;
-    public static final String ID_JOB = "id_job";
-    public static final String GET_ID_JOB = "get_id_job";
-    TextView tvidpayment;
+//    public static final String ID_JOB = "id_job";
+public static final String GET_ID_JOB = "get_id_job";
+    TextView idpayment;
 
     public Payment_PaymentFragment() {
         // Required empty public constructor
@@ -61,7 +61,7 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
         payAdapter = new PaymentAdapter(this, pList);
         recyclerViewPaymentList.setAdapter(payAdapter);
 
-        tvidpayment = root.findViewById(R.id.idPayment);
+        idpayment = root.findViewById(R.id.idPayment);
 
         return root;
     }
@@ -84,14 +84,13 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
                             PaymentViewModel itemCategory = new PaymentViewModel();
                             itemCategory.setId_payment(cat.getString("id"));
                             itemCategory.setJudul(cat.getJSONObject("job").getString("job_name"));
-                            itemCategory.setId_job(cat.getString("id_job"));
                             itemCategory.setStatus_payment(cat.getJSONObject("lastest_progress").getString("activity"));
                             if (cat.getJSONObject("lastest_progress").getString("activity").equals("Make Payment")) {
-                                itemCategory.setFoto(getResources().getDrawable(R.drawable.make_payment));
+                                itemCategory.setFoto(R.drawable.make_payment);
                             } else if (cat.getJSONObject("lastest_progress").getString("activity").equals("Update Payment")) {
-                                itemCategory.setFoto(getResources().getDrawable(R.drawable.payment_update));
+                                itemCategory.setFoto(R.drawable.payment_update);
                             } else if (cat.getJSONObject("lastest_progress").getString("activity").equals("Confirm Payment")) {
-                                itemCategory.setFoto(getResources().getDrawable(R.drawable.payment_complete));
+                                itemCategory.setFoto(R.drawable.payment_complete);
                             }
                             pList.add(itemCategory);
                         }
@@ -113,9 +112,9 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
     }
 
     @Override
-    public void doClick(int tvidpayment) {
+    public void doClick(int pos) {
         Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
-        intent.putExtra(GET_ID_PAYMENT, tvidpayment);
+        intent.putExtra(GET_ID_PAYMENT, payAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_payment");
         startActivity(intent);
     }

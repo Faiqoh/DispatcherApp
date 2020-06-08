@@ -2,19 +2,37 @@ package com.example.appdispatcher.ui.payment;
 
 import android.graphics.drawable.Drawable;
 
-import androidx.lifecycle.ViewModel;
+import java.io.Serializable;
 
-public class DetailPaymentViewModel extends ViewModel {
+public class DetailPaymentViewModel implements Serializable {
     String ft_transfer;
-    String Status;
+    String status;
     Drawable icon;
+    String date;
+    String id_payment;
+
+    public String getId_payment() {
+        return id_payment;
+    }
+
+    public void setId_payment(String id_payment) {
+        this.id_payment = id_payment;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getFt_transfer() {

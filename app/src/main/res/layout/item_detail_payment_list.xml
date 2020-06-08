@@ -45,13 +45,13 @@
             android:textSize="12dp" />
 
         <TextView
-            android:id="@+id/TvIdJob"
+            android:id="@+id/TvIdPayment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvStatus"
             android:layout_marginLeft="32dp"
             android:layout_marginBottom="5dp"
-            android:text="id_job"
+            android:text="id_payment"
             android:textStyle="bold" />
 
     </RelativeLayout>

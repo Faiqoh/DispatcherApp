@@ -4,10 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdispatcher.R;
@@ -21,7 +22,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     List<PaymentViewModel> paymentList;
     PayListAdapter payListAdapter;
     private Payment_PaymentFragment context;
-
     public PaymentAdapter(Payment_PaymentFragment context, List<PaymentViewModel> paymentList) {
         super();
         this.paymentList = paymentList;
@@ -41,8 +41,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         PaymentViewModel paymentlist = paymentList.get(position);
         holder.tvJudul.setText(paymentlist.judul);
         holder.tvStatus.setText(paymentlist.status_payment);
-        holder.ivFoto.setImageDrawable(paymentlist.foto);
         holder.tvidPayment.setText(paymentlist.id_payment);
+        ContextCompat.getDrawable(context.getContext(), paymentlist.foto);
+        holder.ivFoto.setImageResource(paymentlist.foto);
     }
 
     @Override
@@ -57,20 +58,20 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     }
 
     public interface PayListAdapter {
-        void doClick(int tvidpayment);
+        void doClick(int pos);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
         TextView tvJudul, tvStatus, tvidPayment;
-        RelativeLayout head_sub;
+        LinearLayout head_sub;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlist);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvStatus = itemView.findViewById(R.id.textViewLocation);
-            head_sub = itemView.findViewById(R.id.head_sub);
+            head_sub = itemView.findViewById(R.id.expandableLayout);
             tvidPayment = itemView.findViewById(R.id.idPayment);
 
             head_sub.setOnClickListener(new View.OnClickListener() {
