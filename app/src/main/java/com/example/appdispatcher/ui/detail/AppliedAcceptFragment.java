@@ -1,6 +1,5 @@
 package com.example.appdispatcher.ui.detail;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -21,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.appdispatcher.MainActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 
@@ -77,17 +76,22 @@ public class AppliedAcceptFragment extends Fragment {
 
         fillAccountUser();
 
+
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 id_user = tvidUser.getText().toString().trim();
                 id_job = tvidJob.getText().toString().trim();
                 startjob();
+                /*Fragment newFragment = AcceptedFragment.newInstance();
+                getFragmentManager().beginTransaction().detach(newFragment).attach(newFragment).commit();*/
+
             }
         });
 
         return root;
     }
+
 
     private void fillAccountUser() {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.getUser + "/?id_user=" + 1, null, new Response.Listener<JSONObject>() {
@@ -175,8 +179,15 @@ public class AppliedAcceptFragment extends Fragment {
                 Log.i("response", response.toString());
                 JSONObject jObj = response;
                 Toast.makeText(getActivity(), "Job Started :)", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);*/
+                getActivity().finish();
+                Fragment frg = null;
+                frg = getFragmentManager().findFragmentById(R.id.pending_fragment);
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(frg);
+                ft.attach(frg);
+                ft.commit();
 
             }
         },
