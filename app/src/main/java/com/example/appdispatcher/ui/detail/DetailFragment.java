@@ -41,6 +41,7 @@ public class DetailFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
+
             }
 
             @Override
