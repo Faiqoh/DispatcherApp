@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,9 +40,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PaymentViewModel paymentlist = paymentList.get(position);
         holder.tvJudul.setText(paymentlist.judul);
-        holder.tvLocation.setText(paymentlist.status_payment);
-        holder.tv_IdJob.setText(paymentlist.id_job);
+        holder.tvStatus.setText(paymentlist.status_payment);
         holder.ivFoto.setImageDrawable(paymentlist.foto);
+        holder.tvidPayment.setText(paymentlist.id_payment);
     }
 
     @Override
@@ -51,25 +52,33 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         return 0;
     }
 
-
     public PaymentViewModel getItem(int pos) {
         return paymentList.get(pos);
     }
 
     public interface PayListAdapter {
-        void doClick(int pos);
+        void doClick(int tvidpayment);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvLocation, tv_IdJob;
+        TextView tvJudul, tvStatus, tvidPayment;
+        RelativeLayout head_sub;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlist);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
-            tvLocation = itemView.findViewById(R.id.textViewLocation);
-            tv_IdJob = itemView.findViewById(R.id.TvIdJob);
+            tvStatus = itemView.findViewById(R.id.textViewLocation);
+            head_sub = itemView.findViewById(R.id.head_sub);
+            tvidPayment = itemView.findViewById(R.id.idPayment);
+
+            head_sub.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    payListAdapter.doClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

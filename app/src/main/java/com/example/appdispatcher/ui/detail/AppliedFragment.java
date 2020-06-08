@@ -108,9 +108,18 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
     @Override
     public void doClick(int pos) {
+        int LAUNCH_SECOND_ACTIVITY = 1;
         Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
         intent.putExtra(ID_JOB, aAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_job_applied");
-        startActivity(intent);
+        startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+//        startActivity(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        fillDataJobAppliedList();
     }
 }
