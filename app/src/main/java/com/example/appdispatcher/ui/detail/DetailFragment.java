@@ -27,8 +27,6 @@ public class DetailFragment extends Fragment {
 
         tabLayout = root.findViewById(R.id.tabLayoutDetail);
 
-//        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
-
         return root;
     }
 

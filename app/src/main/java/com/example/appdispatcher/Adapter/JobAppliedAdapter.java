@@ -15,6 +15,7 @@ import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.AppliedFragment;
 import com.example.appdispatcher.ui.detail.AppliedViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobAppliedAdapter extends RecyclerView.Adapter<JobAppliedAdapter.ViewHolder> {
@@ -85,5 +86,10 @@ public class JobAppliedAdapter extends RecyclerView.Adapter<JobAppliedAdapter.Vi
                 }
             });
         }
+    }
+
+    public void appliedList(ArrayList<AppliedViewModel> appliedList) {
+        ajList = appliedList;
+        notifyDataSetChanged();
     }
 }
