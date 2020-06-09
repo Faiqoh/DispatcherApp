@@ -28,5 +28,9 @@ public class server {
     public static final String jobdone = "https://development.sinergy-dev.xyz:2096/job/postJobFinish";
 
     public static final String getpayment = "https://development.sinergy-dev.xyz:2096/payment/getJobPayment";
+
+    // Link API With Token
+    public static final String getUser_withToken = "https://development.sinergy-dev.xyz:2096/api/dashboard/getDashboard";
+
     public static final String getdetailpayment = "https://development.sinergy-dev.xyz:2096/payment/getJobPaymentDetail";
 }

@@ -1,6 +1,7 @@
 package com.example.appdispatcher.ui.detail;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,9 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +32,7 @@ import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.MainActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +59,10 @@ public class ProgressDoneFragment extends Fragment {
     Button btn_note, btn_submit, btn_done;
     ProgressTaskAdapter pAdapter;
     String id_user, id_job, detail_activity;
+    ProgressBar progressBar;
+    CardView cvdesc, cvspec;
+    RelativeLayout relativelayoutprogress;
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +83,12 @@ public class ProgressDoneFragment extends Fragment {
         tvidJob = root.findViewById(R.id.tv_idjob);
         tvidUser = root.findViewById(R.id.tv_id_user);
         btn_done = root.findViewById(R.id.btnDone);
+        progressBar = root.findViewById(R.id.progressBarDone);
+        shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
+        cvdesc = root.findViewById(R.id.cvdesc);
+        cvspec = root.findViewById(R.id.spec);
+        relativelayoutprogress = root.findViewById(R.id.relativelayoutprogress);
+
 
         if (getJob.equals("id_job_progress")) {
             OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
@@ -154,9 +169,21 @@ public class ProgressDoneFragment extends Fragment {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
+        progressBar.getIndeterminateDrawable().setColorFilter(getActivity().getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
+
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                progressBar.setVisibility(View.GONE);
+
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+
+                cvdesc.setVisibility(View.VISIBLE);
+                cvspec.setVisibility(View.VISIBLE);
+                relativelayoutprogress.setVisibility(View.VISIBLE);
+
                 try {
                     JSONObject job = response.getJSONObject("job");
 
@@ -316,5 +343,17 @@ public class ProgressDoneFragment extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 }

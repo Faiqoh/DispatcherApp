@@ -1,6 +1,8 @@
 package com.example.appdispatcher.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,16 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,13 +36,16 @@ import com.example.appdispatcher.Adapter.RecomenJobAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetail;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment implements JobListAdapter.JListAdapter, JobCategoryAdapter.CListAdapter {
 
@@ -55,6 +63,9 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     JobCategoryAdapter cAdapter;
     TextView name, detailUser, tvSeeAllJob, tvSeeAllJobCategory, tvSeeAllJobList;
     ImageView imageViewOtof;
+    ShimmerFrameLayout shimmerFrameLayout;
+    RelativeLayout relativeLayoutHome;
+    NestedScrollView nestedhome;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -69,7 +80,17 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                 textView.setText(s);
             }
         });*/
+
+        SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mSetting.edit();
+        editor.putString("Token", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+        editor.apply();
+        Log.i("preferences_setting", String.valueOf(mSetting));
+        Log.i("preferences_setting", mSetting.getString("Token", "missing"));
         fillAccountUser();
+        relativeLayoutHome = root.findViewById(R.id.headerhome);
+        nestedhome = root.findViewById(R.id.nestedhome);
+        shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
 
         final SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -91,26 +112,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                 ft.attach(frg);
                 ft.commit();
 
-            }
-        });
-
-        tvSeeAllJobCategory = root.findViewById(R.id.text_see_all);
-        tvSeeAllJobList = root.findViewById(R.id.text_see_all2);
-        tvSeeAllJobCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScrollingActivityDetail.class);
-                intent.putExtra(GET_ID_JOB, "job_category");
-                startActivity(intent);
-            }
-        });
-
-        tvSeeAllJobList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SeeAllActivity.class);
-                intent.putExtra(GET_ID_JOB, "job_list");
-                startActivity(intent);
             }
         });
 
@@ -139,13 +140,39 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         rAdapter = new RecomenJobAdapter(rList);
         recyclerView2.setAdapter(rAdapter);
 //        fillData2();
+
+        tvSeeAllJobCategory = root.findViewById(R.id.text_see_all);
+        tvSeeAllJobList = root.findViewById(R.id.text_see_all2);
+        tvSeeAllJobCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScrollingActivityDetail.class);
+                intent.putExtra(GET_ID_JOB, "job_category");
+                startActivity(intent);
+            }
+        });
+
+        tvSeeAllJobList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SeeAllActivity.class);
+                intent.putExtra(GET_ID_JOB, "job_list");
+                startActivity(intent);
+            }
+        });
         return root;
     }
 
     private void fillAccountUser() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.getUser + "/?id_user=" + 1, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getUser_withToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
+                relativeLayoutHome.setVisibility(View.VISIBLE);
+                nestedhome.setVisibility(View.VISIBLE);
+
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONObject jUser = response.getJSONObject("users");
 
@@ -163,7 +190,24 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
     }
@@ -180,8 +224,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                     if (response.length() > 0) {
                         Resources resources = getResources();
 
-//                        TypedArray a = resources.obtainTypedArray();
-//                        String[] arFoto = new String[a.length()];
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
@@ -246,10 +288,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 
                             JobCategoryViewModel itemCategory = new JobCategoryViewModel();
 
-//                            int id = a.getResourceId(i, 0);
-//                            arFotoku[i] = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-//                                    + resources.getResourcePackageName(id) + '/' + resources.getResourceTypeName(id) + '/' + resources.getResourceEntryName(id);
-//                            itemCategory.setFoto(arFotoku[i]);
                             itemCategory.setFoto(items.getString("category_image_url"));
                             itemCategory.setJudul(items.getString("category_name"));
                             itemCategory.setId_category(items.getInt("id"));
@@ -286,6 +324,18 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         intent.putExtra(ID_JOB2, cAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_category");
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 
 //    private void fillData2() {
