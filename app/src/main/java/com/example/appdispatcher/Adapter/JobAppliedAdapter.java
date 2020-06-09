@@ -86,4 +86,5 @@ public class JobAppliedAdapter extends RecyclerView.Adapter<JobAppliedAdapter.Vi
             });
         }
     }
+
 }

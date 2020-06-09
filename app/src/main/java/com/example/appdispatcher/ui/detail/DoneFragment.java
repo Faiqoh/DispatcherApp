@@ -3,16 +3,19 @@ package com.example.appdispatcher.ui.detail;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -56,6 +59,24 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
         fillDataJobDoneList();
         dAdapter = new JobDoneAdapter(this, dList);
         recyclerViewDoneJobList.setAdapter(dAdapter);
+
+        final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshdone);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+
+                dList.clear();
+                fillDataJobDoneList();
+            }
+        });
 
         return view;
     }

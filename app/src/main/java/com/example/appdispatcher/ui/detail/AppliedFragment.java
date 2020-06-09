@@ -2,16 +2,19 @@ package com.example.appdispatcher.ui.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,8 +54,27 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
         recyclerViewPendingJobList.setLayoutManager(layoutManagerPendingJobList);
         aList.clear();
         fillDataJobAppliedList();
+
         aAdapter = new JobAppliedAdapter(this, aList);
         recyclerViewPendingJobList.setAdapter(aAdapter);
+
+        final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshApplied);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+
+                aList.clear();
+                fillDataJobAppliedList();
+            }
+        });
         return view;
     }
 

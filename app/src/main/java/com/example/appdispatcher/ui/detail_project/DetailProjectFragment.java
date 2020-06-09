@@ -1,7 +1,7 @@
 package com.example.appdispatcher.ui.detail_project;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class DetailProjectFragment extends Fragment {
     TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvname, tv_idjob;
     Button btn_apply;
     String id_user, id_job;
+    ProgressBar progressBar;
 
     private DetailProjectViewModel mViewModel;
 
@@ -81,6 +83,7 @@ public class DetailProjectFragment extends Fragment {
         btn_apply = root.findViewById(R.id.btn_apply);
         tvname = root.findViewById(R.id.tv_name);
         tv_idjob = root.findViewById(R.id.tv_idjob);
+        progressBar = root.findViewById(R.id.progressBar1);
 
         if (lead != null) {
             String id_job = lead.getId_job();
@@ -100,6 +103,7 @@ public class DetailProjectFragment extends Fragment {
                 applyjob();
             }
         });
+
 
         return root;
 
@@ -136,17 +140,20 @@ public class DetailProjectFragment extends Fragment {
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        final ProgressDialog progress = new ProgressDialog(getActivity());
-        progress.setTitle("Loading");
-        progress.setMessage("Wait while loading...");
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        progress.show();
+//        final ProgressDialog progress = new ProgressDialog(getActivity());
+//        progress.setTitle("Loading");
+//        progress.setMessage("Wait while loading...");
+//        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+//        progress.show();
+
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
 
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
-                progress.dismiss();
+                progressBar.setVisibility(View.GONE);
 
                 try {
 
