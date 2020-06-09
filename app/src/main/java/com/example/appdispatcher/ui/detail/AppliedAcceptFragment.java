@@ -1,5 +1,6 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -23,6 +26,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +45,9 @@ public class AppliedAcceptFragment extends Fragment {
     TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvidUser, tvidJob;
     Button btn_start;
     String id_user, id_job;
+    ProgressBar progressBar;
+    ShimmerFrameLayout shimmerFrameLayout;
+    CardView cardViewApplied;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +69,10 @@ public class AppliedAcceptFragment extends Fragment {
         btn_start = root.findViewById(R.id.btn_start);
         tvidUser = root.findViewById(R.id.tv_id_user);
         tvidJob = root.findViewById(R.id.tv_idjob);
+        progressBar = root.findViewById(R.id.progressBarApplied);
+        shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
+        cardViewApplied = root.findViewById(R.id.cardviewApplied);
+
 
         if (getJob.equals("id_list")) {
             AcceptedViewModel detail = (AcceptedViewModel) getActivity().getIntent().getSerializableExtra(AcceptedFragment.ID_JOB);
@@ -123,9 +134,17 @@ public class AppliedAcceptFragment extends Fragment {
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
+        progressBar.getIndeterminateDrawable().setColorFilter(getActivity().getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
+
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                progressBar.setVisibility(View.GONE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                cardViewApplied.setVisibility(View.VISIBLE);
+
                 try {
                     JSONObject job = response.getJSONObject("job");
 
@@ -207,5 +226,17 @@ public class AppliedAcceptFragment extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 }
