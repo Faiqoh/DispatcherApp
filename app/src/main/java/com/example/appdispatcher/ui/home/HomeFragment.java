@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 
         SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mSetting.edit();
-        editor.putString("Token", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+        editor.putString("Token", "Bearer 8aed12c5154117ed4c184a5b58f2ebcc51ad43f720754a7dd5f5a90f3e1e1f94");
         editor.apply();
         Log.i("preferences_setting", String.valueOf(mSetting));
         Log.i("preferences_setting", mSetting.getString("Token", "missing"));
@@ -222,24 +222,20 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                     JSONArray jray = jObj.getJSONArray("job");
 
                     if (response.length() > 0) {
-                        Resources resources = getResources();
-
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
-                            String url = cat.getJSONObject("category").getString("category_image_url");
-
-//                            String[] arFoto = new String[cat.getJSONObject("category").getString("category_image").length()];
-
                             HomeViewModel itemCategory = new HomeViewModel();
                             if (cat.getString("job_status").equals("Open")) {
-                                itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
-                                itemCategory.setId_job(cat.getString("id"));
-                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                                if (mList.size() < 5) {
+                                    itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
+                                    itemCategory.setId_job(cat.getString("id"));
+                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                mList.add(itemCategory);
+                                    mList.add(itemCategory);
+                                }
                             }
                         }
                         mAdapter.notifyDataSetChanged();

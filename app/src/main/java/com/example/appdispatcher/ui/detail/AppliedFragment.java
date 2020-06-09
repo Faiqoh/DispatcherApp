@@ -52,8 +52,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
         RecyclerView recyclerViewPendingJobList = view.findViewById(R.id.recyclerViewApplied);
         LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity());
         recyclerViewPendingJobList.setLayoutManager(layoutManagerPendingJobList);
-        aList.clear();
         fillDataJobAppliedList();
+        aList.clear();
 
         aAdapter = new JobAppliedAdapter(this, aList);
         recyclerViewPendingJobList.setAdapter(aAdapter);
