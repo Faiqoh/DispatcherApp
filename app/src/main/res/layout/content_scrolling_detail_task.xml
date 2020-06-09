@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/white"
     tools:showIn="@layout/activity_scrolling_detail">
 
     <FrameLayout
         android:id="@+id/pending_fragment"
         android:name="com.example.appdispatcher.ui.detail.DetailProgressTaskFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:background="@color/white" />
 
 </androidx.core.widget.NestedScrollView>
