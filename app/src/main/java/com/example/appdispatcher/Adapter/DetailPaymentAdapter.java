@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdispatcher.R;
@@ -29,17 +30,18 @@ public class DetailPaymentAdapter extends RecyclerView.Adapter<DetailPaymentAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_payment_list, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail_payment_list, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DetailPaymentViewModel detaillist = dpList.get(position);
-        holder.tvDate.setText(detaillist.getDate());
-        holder.tvStatus.setText(detaillist.getStatus());
-        holder.ivFoto.setImageDrawable(detaillist.getIcon());
-        holder.tvidPayment.setText(detaillist.getId_payment());
+        holder.tvDate.setText(detaillist.date);
+        holder.tvStatus.setText(detaillist.status);
+        holder.tvidPayment.setText(detaillist.id_payment);
+        ContextCompat.getDrawable(context.getContext(), detaillist.icon);
+        holder.ivFoto.setImageResource(detaillist.icon);
     }
 
     @Override
@@ -63,7 +65,7 @@ public class DetailPaymentAdapter extends RecyclerView.Adapter<DetailPaymentAdap
             ivFoto = itemView.findViewById(R.id.imageViewlist);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvStatus = itemView.findViewById(R.id.tvStatus);
-            tvidPayment = itemView.findViewById(R.id.idPayment);
+            tvidPayment = itemView.findViewById(R.id.TvIdPayment);
         }
     }
 }

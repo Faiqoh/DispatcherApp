@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.Adapter.DetailPaymentAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
@@ -93,28 +94,29 @@ public class DetailPaymentFragment extends Fragment {
                     JSONObject job = payment.getJSONObject("job");
 
                     tvjob.setText(job.getString("job_name"));
+                    tv_idpayment.setText(payment.getString("id"));
                     DetailPaymentViewModel detail = new DetailPaymentViewModel();
                     detail.setFt_transfer(payment.getString("payment_invoice_URL"));
+                    Glide.with(getActivity()).load(payment.getString("payment_invoice_URL")).into(iv_tf);
 
                     JSONArray progress = payment.getJSONArray("progress");
 
-                    if (response.length() > 0) {
+                    if (progress.length() > 0) {
 
                         for (int i = 0; i < progress.length(); i++) {
+                            DetailPaymentViewModel detail2 = new DetailPaymentViewModel();
                             JSONObject items = progress.getJSONObject(i);
-
                             Date date_submit = inputFormat.parse(items.getString("date_time"));
-                            detail.setDate(dateFormat.format(date_submit));
-                            detail.setStatus(items.getString("activity"));
+                            detail2.setDate(dateFormat.format(date_submit));
+                            detail2.setStatus(items.getString("activity"));
                             if (items.getString("activity").equals("Make Payment")) {
-                                detail.setIcon(getResources().getDrawable(R.drawable.make_payment));
+                                detail2.setIcon(R.drawable.make_payment);
                             } else if (items.getString("activity").equals("Update Payment")) {
-                                detail.setIcon(getResources().getDrawable(R.drawable.payment_update));
+                                detail2.setIcon(R.drawable.payment_update);
                             } else if (items.getString("activity").equals("Confirm Payment")) {
-                                detail.setIcon(getResources().getDrawable(R.drawable.payment_complete));
+                                detail2.setIcon(R.drawable.payment_complete);
                             }
-
-                            dpList.add(detail);
+                            dpList.add(detail2);
                         }
                         dpAdapter.notifyDataSetChanged();
                     }

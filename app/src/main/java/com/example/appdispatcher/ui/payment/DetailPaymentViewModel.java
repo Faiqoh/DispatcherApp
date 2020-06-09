@@ -1,15 +1,13 @@
 package com.example.appdispatcher.ui.payment;
 
-import android.graphics.drawable.Drawable;
-
 import java.io.Serializable;
 
 public class DetailPaymentViewModel implements Serializable {
-    String ft_transfer;
-    String status;
-    Drawable icon;
-    String date;
-    String id_payment;
+    public String ft_transfer;
+    public String status;
+    public int icon;
+    public String date;
+    public String id_payment;
 
     public String getId_payment() {
         return id_payment;
@@ -43,11 +41,11 @@ public class DetailPaymentViewModel implements Serializable {
         this.ft_transfer = ft_transfer;
     }
 
-    public Drawable getIcon() {
+    public int getIcon() {
         return icon;
     }
 
-    public void setIcon(Drawable icon) {
+    public void setIcon(int icon) {
         this.icon = icon;
     }
 }
