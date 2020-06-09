@@ -81,12 +81,12 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
             }
         });*/
 
-        SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = mSetting.edit();
-        editor.putString("Token", "Bearer 8aed12c5154117ed4c184a5b58f2ebcc51ad43f720754a7dd5f5a90f3e1e1f94");
-        editor.apply();
-        Log.i("preferences_setting", String.valueOf(mSetting));
-        Log.i("preferences_setting", mSetting.getString("Token", "missing"));
+//        SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = mSetting.edit();
+//        editor.putString("Token", "Bearer 8aed12c5154117ed4c184a5b58f2ebcc51ad43f720754a7dd5f5a90f3e1e1f94");
+//        editor.apply();
+//        Log.i("preferences_setting", String.valueOf(mSetting));
+//        Log.i("preferences_setting", mSetting.getString("Token", "missing"));
         fillAccountUser();
         relativeLayoutHome = root.findViewById(R.id.headerhome);
         nestedhome = root.findViewById(R.id.nestedhome);
