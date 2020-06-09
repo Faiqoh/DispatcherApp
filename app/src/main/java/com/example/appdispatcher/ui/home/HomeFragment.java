@@ -222,24 +222,20 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                     JSONArray jray = jObj.getJSONArray("job");
 
                     if (response.length() > 0) {
-                        Resources resources = getResources();
-
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
-                            String url = cat.getJSONObject("category").getString("category_image_url");
-
-//                            String[] arFoto = new String[cat.getJSONObject("category").getString("category_image").length()];
-
                             HomeViewModel itemCategory = new HomeViewModel();
                             if (cat.getString("job_status").equals("Open")) {
-                                itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
-                                itemCategory.setId_job(cat.getString("id"));
-                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                                if (mList.size() < 5) {
+                                    itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
+                                    itemCategory.setId_job(cat.getString("id"));
+                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                mList.add(itemCategory);
+                                    mList.add(itemCategory);
+                                }
                             }
                         }
                         mAdapter.notifyDataSetChanged();

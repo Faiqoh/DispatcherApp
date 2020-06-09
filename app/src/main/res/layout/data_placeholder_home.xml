@@ -21,8 +21,8 @@
                 android:background="@color/white" />
 
             <View
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
@@ -45,7 +45,7 @@
                 android:background="@color/background" />
         </RelativeLayout>
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/headerhome">
@@ -57,7 +57,7 @@
                 <View
                     android:id="@+id/title_1"
                     android:layout_width="120dp"
-                    android:layout_height="30dp"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/background" />
@@ -76,37 +76,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/background" />
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/background" />
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/background" />
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/background" />
 
@@ -116,10 +116,10 @@
                 <View
                     android:id="@+id/title_2"
                     android:layout_width="120dp"
-                    android:layout_height="30dp"
+                    android:layout_height="20dp"
                     android:layout_below="@id/linear1"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:background="@color/background" />
 
                 <View
@@ -128,12 +128,13 @@
                     android:layout_height="10dp"
                     android:layout_below="@id/linear1"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@color/background"
                     android:text="See All" />
 
                 <LinearLayout
+                    android:id="@+id/linear2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_2"
@@ -141,7 +142,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_height="10dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
@@ -149,7 +150,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_height="10dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
@@ -157,7 +158,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_height="10dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
@@ -165,7 +166,100 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/background" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/background" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/background" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/title_3"
+                    android:layout_width="120dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@id/linear2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/background" />
+
+                <View
+                    android:id="@+id/text_see_all3"
+                    android:layout_width="70dp"
+                    android:layout_height="10dp"
+                    android:layout_below="@id/linear2"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/background"
+                    android:text="See All" />
+
+                <LinearLayout
+                    android:id="@+id/linear3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_3"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/background" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/background" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/background" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/background" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/background" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
@@ -175,7 +269,7 @@
 
             </RelativeLayout>
 
-        </ScrollView>
+        </RelativeLayout>
 
     </RelativeLayout>
 </LinearLayout>
