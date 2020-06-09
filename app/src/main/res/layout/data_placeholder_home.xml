@@ -76,37 +76,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/background" />
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/background" />
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@color/background" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/background" />
 
@@ -138,6 +130,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_2"
                     android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/background" />
 
                     <View
                         android:layout_width="match_parent"
