@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,7 @@ import com.example.appdispatcher.Adapter.PaymentAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,9 +41,11 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
     PaymentAdapter pAdapter;
     public List<PaymentViewModel> pList = new ArrayList<>();
     PaymentAdapter payAdapter;
-//    public static final String ID_JOB = "id_job";
-public static final String GET_ID_JOB = "get_id_job";
+    //    public static final String ID_JOB = "id_job";
+    public static final String GET_ID_JOB = "get_id_job";
+    ShimmerFrameLayout shimmerFrameLayout;
     TextView idpayment;
+    ScrollView scrollView;
 
     public Payment_PaymentFragment() {
         // Required empty public constructor
@@ -62,6 +66,8 @@ public static final String GET_ID_JOB = "get_id_job";
         recyclerViewPaymentList.setAdapter(payAdapter);
 
         idpayment = root.findViewById(R.id.idPayment);
+        shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
+        scrollView = root.findViewById(R.id.scroll_payment);
 
         return root;
     }
@@ -72,9 +78,13 @@ public static final String GET_ID_JOB = "get_id_job";
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
+                scrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONArray jray = jObj.getJSONArray("payment");
                     Log.i("response payment", jray.toString());
+
 
                     if (response.length() > 0) {
 
@@ -117,5 +127,17 @@ public static final String GET_ID_JOB = "get_id_job";
         intent.putExtra(GET_ID_PAYMENT, payAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_payment");
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 }
