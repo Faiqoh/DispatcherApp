@@ -1,5 +1,8 @@
 package com.example.appdispatcher;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,11 +26,20 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     private RequestQueue mQueue;
+    public SharedPreferences mSetting;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("asdfasd","sdfasdfads");
+        Log.i("asdfasd", "sdfasdfads");
         super.onCreate(savedInstanceState);
+        mSetting = this.getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        String Token_account = mSetting.getString("Token", "missing");
+        if (Token_account.equals("missing")) {
+            startActivity(new Intent(getApplicationContext(), LayoutActivity.class));
+        } else {
+            Log.i("Token", Token_account);
+        }
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
