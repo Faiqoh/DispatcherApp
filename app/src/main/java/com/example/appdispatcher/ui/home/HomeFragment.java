@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 
         SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mSetting.edit();
-        editor.putString("Token", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+        editor.putString("Token", "Bearer 8aed12c5154117ed4c184a5b58f2ebcc51ad43f720754a7dd5f5a90f3e1e1f94");
         editor.apply();
         Log.i("preferences_setting", String.valueOf(mSetting));
         Log.i("preferences_setting", mSetting.getString("Token", "missing"));
