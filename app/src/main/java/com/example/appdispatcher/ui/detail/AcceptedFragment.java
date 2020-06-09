@@ -130,14 +130,14 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
         Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
         intent.putExtra(ID_JOB, pAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_list");
-//        startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY);
-        startActivity(intent);
+        startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+//        startActivity(intent);
     }
 
-    /*@Override
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         fillDatJobPendingList();
-    }*/
+    }
 }

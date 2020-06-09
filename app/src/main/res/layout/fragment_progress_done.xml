@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white"
-    android:paddingBottom="90dp">
+    android:background="@color/white">
 
     <RelativeLayout
         android:paddingBottom="20dp"

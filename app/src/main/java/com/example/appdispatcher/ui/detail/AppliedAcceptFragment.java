@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -201,12 +200,12 @@ public class AppliedAcceptFragment extends Fragment {
                 /*Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);*/
                 getActivity().finish();
-                Fragment frg = null;
+                /*Fragment frg = null;
                 frg = getFragmentManager().findFragmentById(R.id.pending_fragment);
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.detach(frg);
                 ft.attach(frg);
-                ft.commit();
+                ft.commit();*/
 
             }
         },

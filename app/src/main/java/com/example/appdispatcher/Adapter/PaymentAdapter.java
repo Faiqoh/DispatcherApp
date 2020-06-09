@@ -4,9 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdispatcher.R;
@@ -20,7 +22,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     List<PaymentViewModel> paymentList;
     PayListAdapter payListAdapter;
     private Payment_PaymentFragment context;
-
     public PaymentAdapter(Payment_PaymentFragment context, List<PaymentViewModel> paymentList) {
         super();
         this.paymentList = paymentList;
@@ -39,9 +40,10 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PaymentViewModel paymentlist = paymentList.get(position);
         holder.tvJudul.setText(paymentlist.judul);
-        holder.tvLocation.setText(paymentlist.status_payment);
-        holder.tv_IdJob.setText(paymentlist.id_job);
-        holder.ivFoto.setImageDrawable(paymentlist.foto);
+        holder.tvStatus.setText(paymentlist.status_payment);
+        holder.tvidPayment.setText(paymentlist.id_payment);
+        ContextCompat.getDrawable(context.getContext(), paymentlist.foto);
+        holder.ivFoto.setImageResource(paymentlist.foto);
     }
 
     @Override
@@ -50,7 +52,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
             return paymentList.size();
         return 0;
     }
-
 
     public PaymentViewModel getItem(int pos) {
         return paymentList.get(pos);
@@ -62,14 +63,23 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvLocation, tv_IdJob;
+        TextView tvJudul, tvStatus, tvidPayment;
+        LinearLayout head_sub;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivFoto = itemView.findViewById(R.id.imageViewlist);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
-            tvLocation = itemView.findViewById(R.id.textViewLocation);
-            tv_IdJob = itemView.findViewById(R.id.TvIdJob);
+            tvStatus = itemView.findViewById(R.id.textViewLocation);
+            head_sub = itemView.findViewById(R.id.expandableLayout);
+            tvidPayment = itemView.findViewById(R.id.idPayment);
+
+            head_sub.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    payListAdapter.doClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

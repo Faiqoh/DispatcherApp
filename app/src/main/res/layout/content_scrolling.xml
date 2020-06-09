@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.detail.ScrollingActivityDetail"
+    android:background="@color/white"
     tools:showIn="@layout/activity_scrolling_detail">
 
     <FrameLayout
         android:id="@+id/fragmentDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"
+        android:background="@color/white" />
 
 </androidx.core.widget.NestedScrollView>
