@@ -159,8 +159,6 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
 
 
     public void doClick(int pos) {
-        Log.i("ID_JOB2", String.valueOf(cAdapter.getItem(pos)));
-        Log.i("GET_ID_JOB2", "id_job");
         Intent intent = new Intent(getActivity(), DetailActivity.class);
         intent.putExtra(ID_JOB, cAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_job");
