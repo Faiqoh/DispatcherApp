@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -163,6 +164,7 @@ public class AppliedAcceptFragment extends Fragment {
                     textDate.setText(dateFormat.format(date_start) + " - " + dateFormat.format(date_end));
                     textPIc.setText(job.getJSONObject("pic").getString("pic_name") + "(" + job.getJSONObject("pic").getString("pic_phone") + ")");
                     tvidJob.setText(job.getString("id"));
+                    Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
 
 
                 } catch (JSONException | ParseException e) {

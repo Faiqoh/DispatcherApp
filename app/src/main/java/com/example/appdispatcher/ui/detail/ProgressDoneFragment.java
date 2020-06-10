@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.MainActivity;
 import com.example.appdispatcher.R;
@@ -194,6 +195,7 @@ public class ProgressDoneFragment extends Fragment {
                     textJobdesc.setText(job.getString("job_description"));
                     textRequirement.setText(job.getString("job_requrment"));
                     tvidJob.setText(job.getString("id"));
+                    Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
 
 
                 } catch (JSONException e) {
