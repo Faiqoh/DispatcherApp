@@ -84,7 +84,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     }
 
     private void fillDataJobAppliedList() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobStatus, null, new Response.Listener<JSONObject>() {
+        SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
