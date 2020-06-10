@@ -1,7 +1,6 @@
 package com.example.appdispatcher.ui.detail;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -91,7 +90,6 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
                     JSONArray jray = jObj.getJSONArray("job");
 
                     if (response.length() > 0) {
-                        Resources resources = getResources();
 
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);

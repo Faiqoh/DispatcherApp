@@ -1,6 +1,8 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,7 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJListAdapter {
 
@@ -84,6 +89,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
+
+
                 try {
                     JSONArray jray = jObj.getJSONArray("job");
 
@@ -96,7 +103,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                                 JSONObject applied = japplied.getJSONObject(j);
                                 AppliedViewModel itemCategory = new AppliedViewModel();
 
-                                if (applied.getInt("id_engineer") == 1 && applied.getString("status").equals("Pending") && cat.getString("job_status").equals("Open")) {
+                                if (applied.getString("status").equals("Pending") && cat.getString("job_status").equals("Open")) {
                                     itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
                                     itemCategory.setJudul(cat.getString("job_name"));
                                     itemCategory.setId_job(cat.getString("id"));
@@ -119,11 +126,25 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
             }
         }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
     }
