@@ -1,7 +1,6 @@
 package com.example.appdispatcher.ui.detail;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,6 @@ public class DetailActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         String getJob = extras.getString("get_id_job");
-        Log.i("ID_CATEGORy", getJob);
 //
         if (getJob.equals("id_category")) {
             // Memulai transaksi

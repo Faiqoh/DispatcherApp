@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail_project.DetailProjectFragment;
 import com.example.appdispatcher.ui.payment.DetailPaymentFragment;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -42,6 +43,11 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             ft.replace(R.id.pending_fragment, new DetailPaymentFragment());
             ft.commit();
             getSupportActionBar().setTitle("Detail Payment");
+        } else if (getJob.equals("id_job")) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.pending_fragment, new DetailProjectFragment());
+            ft.commit();
+            getSupportActionBar().setTitle("Detail Job");
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

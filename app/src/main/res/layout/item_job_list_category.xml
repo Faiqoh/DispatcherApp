@@ -66,6 +66,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:visibility="gone"
                     android:textStyle="bold"
                     android:id="@+id/TvIdJob"
                     android:layout_width="match_parent"

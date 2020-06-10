@@ -94,7 +94,7 @@ public class DetailProjectFragment extends Fragment {
         tv_idjob = root.findViewById(R.id.tv_idjob);
         progressBar = root.findViewById(R.id.progressBar1);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
-        cardViewApplied = root.findViewById(R.id.cardviewApplied);
+        cardViewApplied = root.findViewById(R.id.cardviewdetailapply);
 
         if (lead != null) {
             String id_job = lead.getId_job();

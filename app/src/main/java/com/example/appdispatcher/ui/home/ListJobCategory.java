@@ -19,7 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.DetailJobCategoryAdapter;
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.detail.DetailActivity;
+import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONArray;
@@ -159,7 +159,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
 
 
     public void doClick(int pos) {
-        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        Intent intent = new Intent(getActivity(), ScrollingActivityDetailTask.class);
         intent.putExtra(ID_JOB, cAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_job");
         startActivity(intent);
