@@ -74,6 +74,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/TvIdJob"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,8 +82,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:text="id_job"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

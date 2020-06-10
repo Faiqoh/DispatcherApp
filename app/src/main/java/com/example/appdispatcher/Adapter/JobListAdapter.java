@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.appdispatcher.Animations;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.home.HomeFragment;
 import com.example.appdispatcher.ui.home.HomeViewModel;
@@ -113,9 +112,4 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
         }
     }
 
-    private boolean toggleLayout(boolean isExpanded, View v, LinearLayout layoutExpand) {
-        Animations.toggleArrow(v, isExpanded);
-        return isExpanded;
-
-    }
 }

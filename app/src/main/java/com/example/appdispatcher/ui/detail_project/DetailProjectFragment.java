@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -36,6 +37,7 @@ import com.example.appdispatcher.ui.home.HomeFragment;
 import com.example.appdispatcher.ui.home.HomeViewModel;
 import com.example.appdispatcher.ui.home.ListJobCategory;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +62,8 @@ public class DetailProjectFragment extends Fragment {
     Button btn_apply;
     String id_user, id_job;
     ProgressBar progressBar;
+    ShimmerFrameLayout shimmerFrameLayout;
+    CardView cardViewApplied;
 
     private DetailProjectViewModel mViewModel;
 
@@ -89,6 +93,8 @@ public class DetailProjectFragment extends Fragment {
         tvname = root.findViewById(R.id.tv_name);
         tv_idjob = root.findViewById(R.id.tv_idjob);
         progressBar = root.findViewById(R.id.progressBar1);
+        shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
+        cardViewApplied = root.findViewById(R.id.cardviewdetailapply);
 
         if (lead != null) {
             String id_job = lead.getId_job();
@@ -122,6 +128,10 @@ public class DetailProjectFragment extends Fragment {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getUser_withToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+
+                cardViewApplied.setVisibility(View.VISIBLE);
                 try {
                     JSONObject jUser = response.getJSONObject("users");
 
@@ -257,6 +267,18 @@ public class DetailProjectFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(DetailProjectViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 
 }
