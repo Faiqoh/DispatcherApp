@@ -39,6 +39,13 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
+        <ImageView
+            android:id="@+id/imgNotFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/not_found"
+            android:visibility="gone" />
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_accept"
             android:layout_width="match_parent"

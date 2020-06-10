@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     JobAppliedAdapter aAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
+    ImageView imageViewNotFound;
 
     public static AppliedFragment newInstance() {
         return new AppliedFragment();
@@ -68,6 +70,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         nestedScrollView = view.findViewById(R.id.nested_accept);
+        imageViewNotFound = view.findViewById(R.id.imgNotFound);
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshApplied);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -124,6 +127,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
                                     aList.add(itemCategory);
                                 }
+
+                                imageViewNotFound.setVisibility(View.VISIBLE);
 
                             }
                             aAdapter.notifyDataSetChanged();

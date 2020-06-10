@@ -85,6 +85,8 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
                 }, 2000);
 
                 pList.clear();
+                nestedScrollView.setVisibility(View.GONE);
+                shimmerFrameLayout.startShimmerAnimation();
                 fillDataJobProgressList();
             }
         });
@@ -177,5 +179,17 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
         super.onActivityResult(requestCode, resultCode, data);
 
         fillDataJobProgressList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 }
