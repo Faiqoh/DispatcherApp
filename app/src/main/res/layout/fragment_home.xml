@@ -72,6 +72,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:layout_alignParentRight="true"
                     android:id="@+id/text_see_all"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,6 +104,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:layout_alignParentRight="true"
                     android:id="@+id/text_see_all2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
