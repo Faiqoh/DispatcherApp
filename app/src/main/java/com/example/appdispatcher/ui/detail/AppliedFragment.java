@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.JobAppliedAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +41,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     public static final String GET_ID_JOB = "get_id_job";
     public List<AppliedViewModel> aList = new ArrayList<>();
     JobAppliedAdapter aAdapter;
+    ShimmerFrameLayout shimmerFrameLayout;
+    NestedScrollView nestedScrollView;
 
     public static AppliedFragment newInstance() {
         return new AppliedFragment();
@@ -57,6 +61,9 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
         aAdapter = new JobAppliedAdapter(this, aList);
         recyclerViewPendingJobList.setAdapter(aAdapter);
+
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
+        nestedScrollView = view.findViewById(R.id.nested_accept);
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshApplied);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -84,6 +91,9 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
+                nestedScrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONArray jray = jObj.getJSONArray("job");
 

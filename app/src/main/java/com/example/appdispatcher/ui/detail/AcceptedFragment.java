@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.JobAcceptedAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +41,8 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
     public static final String GET_ID_JOB = "get_id_job";
     public List<AcceptedViewModel> pList = new ArrayList<>();
     JobAcceptedAdapter pAdapter;
+    ShimmerFrameLayout shimmerFrameLayout;
+    NestedScrollView nestedScrollView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -71,6 +75,9 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
             }
         });
 
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
+        nestedScrollView = view.findViewById(R.id.nested_accept);
+
         return view;
     }
 
@@ -81,6 +88,9 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
+                nestedScrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONArray jray = jObj.getJSONArray("job");
 
@@ -139,5 +149,17 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
         super.onActivityResult(requestCode, resultCode, data);
 
         fillDatJobPendingList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 }

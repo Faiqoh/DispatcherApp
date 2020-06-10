@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.JobOnProgressAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +44,8 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
     public static final String GET_ID_JOB = "get_id_job";
     public List<OnProgressViewModel> pList = new ArrayList<>();
     JobOnProgressAdapter pAdapter;
+    ShimmerFrameLayout shimmerFrameLayout;
+    NestedScrollView nestedScrollView;
 
     public static OnProgressFragment newInstance() {
         return new OnProgressFragment();
@@ -59,6 +63,9 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
         fillDataJobProgressList();
         pAdapter = new JobOnProgressAdapter(this, pList);
         recyclerViewProgressJobList.setAdapter(pAdapter);
+
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
+        nestedScrollView = view.findViewById(R.id.nested_accept);
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshProgress);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -87,6 +94,9 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
+                nestedScrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONArray jray = jObj.getJSONArray("job");
 
