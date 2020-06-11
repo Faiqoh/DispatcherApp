@@ -1,6 +1,5 @@
 package com.example.appdispatcher.ui.detail;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +28,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
-import com.example.appdispatcher.MainActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -283,8 +281,10 @@ public class ProgressDoneFragment extends Fragment {
                 Log.i("response", response.toString());
                 JSONObject jObj = response;
                 Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+
+                /*Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);*/
+                getActivity().finish();
 
             }
         },
@@ -322,8 +322,9 @@ public class ProgressDoneFragment extends Fragment {
                 Log.i("response", response.toString());
                 JSONObject jObj = response;
                 Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);*/
+                getActivity().finish();
 
             }
         },

@@ -176,4 +176,16 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
 
         fillDataJobDoneList();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
+    }
 }

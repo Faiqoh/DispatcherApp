@@ -20,7 +20,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_margin="30dp"
+                android:layout_margin="20dp"
                 android:id="@+id/imageViewlistjob"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

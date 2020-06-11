@@ -186,4 +186,16 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
         fillDataJobAppliedList();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
+    }
 }
