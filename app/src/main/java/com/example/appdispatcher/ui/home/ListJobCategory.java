@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.example.appdispatcher.Adapter.DetailJobCategoryAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +40,8 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     public static final String GET_ID_JOB = "get_id_job";
     ArrayList<HomeViewModel> cList = new ArrayList<>();
     DetailJobCategoryAdapter cAdapter;
+    ShimmerFrameLayout shimmerFrameLayout;
+    NestedScrollView nestedScrollView;
 
     public ListJobCategory() {
         // Required empty public constructor
@@ -52,6 +56,9 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
         Bundle extras = getActivity().getIntent().getExtras();
 
         String getJob = extras.getString("get_id_job");
+
+        shimmerFrameLayout = root.findViewById(R.id.shimer_view_detail_job_list);
+        nestedScrollView = root.findViewById(R.id.nested_detail_job_list);
 
         // Inflate the layout for this fragment
         RecyclerView recyclerView2 = root.findViewById(R.id.recyclerViewlistJobCategory);
@@ -79,6 +86,9 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
+                nestedScrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONArray jray = jObj.getJSONArray("job");
 

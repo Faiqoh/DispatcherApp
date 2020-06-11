@@ -66,7 +66,7 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
         recyclerViewPaymentList.setAdapter(payAdapter);
 
         idpayment = root.findViewById(R.id.idPayment);
-        shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
+        shimmerFrameLayout = root.findViewById(R.id.shimmer_view_payment);
         scrollView = root.findViewById(R.id.scroll_payment);
 
         return root;
