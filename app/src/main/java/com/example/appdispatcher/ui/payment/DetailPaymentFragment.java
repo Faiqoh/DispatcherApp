@@ -108,6 +108,7 @@ public class DetailPaymentFragment extends Fragment {
                     DetailPaymentViewModel detail = new DetailPaymentViewModel();
                     detail.setFt_transfer(payment.getString("payment_invoice_URL"));
                     Glide.with(getActivity()).load(payment.getString("payment_invoice_URL")).into(iv_tf);
+                    Glide.with(getActivity()).load(payment.getString("job_category_image")).into(iv_cat);
 
                     JSONArray progress = payment.getJSONArray("progress");
 
