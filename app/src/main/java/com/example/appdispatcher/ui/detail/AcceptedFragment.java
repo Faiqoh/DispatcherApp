@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -49,8 +48,7 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
     JobAcceptedAdapter pAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
-    ImageView imgViewNotFound;
-    RelativeLayout rvAccepted;
+    RelativeLayout rvAccepted, rvNotFound;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -86,7 +84,7 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
 
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         nestedScrollView = view.findViewById(R.id.nested_accept);
-        imgViewNotFound = view.findViewById(R.id.imgNotFound);
+        rvNotFound = view.findViewById(R.id.RvNotFound);
         rvAccepted = view.findViewById(R.id.relativeLayoutAccepted);
 
         return view;
@@ -124,15 +122,20 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
                                     itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
+                                    pList.clear();
                                     pList.add(itemCategory);
                                 }
 
-                                imgViewNotFound.setVisibility(View.VISIBLE);
+                                rvNotFound.setVisibility(View.VISIBLE);
                                 rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+
                             }
 
                         }
+
                         pAdapter.notifyDataSetChanged();
+                    } else {
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

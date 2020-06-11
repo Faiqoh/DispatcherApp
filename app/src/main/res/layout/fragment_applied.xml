@@ -75,7 +75,6 @@
 
         </RelativeLayout>
 
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_accept"
             android:layout_width="match_parent"
