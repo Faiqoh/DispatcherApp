@@ -35,10 +35,10 @@
 
                         <ImageView
                             android:id="@+id/cat_backend"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginLeft="20dp"
-                            android:paddingTop="17dp"
+                            android:layout_width="37dp"
+                            android:layout_height="37dp"
+                            android:layout_marginLeft="22dp"
+                            android:paddingTop="9dp"
                             android:src="@drawable/code" />
 
                         <TextView
