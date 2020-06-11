@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.example.appdispatcher.Adapter.DetailPaymentAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +46,8 @@ public class DetailPaymentFragment extends Fragment {
     DetailPaymentAdapter dpAdapter;
     ImageView iv_cat, iv_tf;
     TextView tvjob, tv_idpayment;
+    ShimmerFrameLayout shimmerFrameLayout;
+    ScrollView scrollView;
 
     public static DetailPaymentFragment newInstance() {
         return new DetailPaymentFragment();
@@ -56,13 +60,16 @@ public class DetailPaymentFragment extends Fragment {
 
         Bundle extras = getActivity().getIntent().getExtras();
 
-        String getJob = extras.getString("get_id_payment");
+//        String getJob = extras.getString("get_id_payment");
 
 
         iv_cat = view.findViewById(R.id.cat_backend);
         iv_tf = view.findViewById(R.id.iv_payment);
         tvjob = view.findViewById(R.id.text_view_job);
         tv_idpayment = view.findViewById(R.id.tv_idpayment);
+
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_detail_payment);
+        scrollView = view.findViewById(R.id.scroll_detail_payment);
 
         RecyclerView recyclerViewdetailpaymentList = view.findViewById(R.id.recyclerviewdetailpayment);
         LinearLayoutManager layoutManagerdetailpaymentList = new LinearLayoutManager(getActivity());
@@ -88,6 +95,9 @@ public class DetailPaymentFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
+                scrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONObject payment = jObj.getJSONObject("payment");
 
@@ -133,6 +143,18 @@ public class DetailPaymentFragment extends Fragment {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 
 }

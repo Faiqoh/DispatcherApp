@@ -178,4 +178,16 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
 
         fillDataJobProgressList();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
+    }
 }
