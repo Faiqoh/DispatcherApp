@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
     ImageView imageViewNotFound;
+    SwipeRefreshLayout swipeRefreshLayout;
+    RelativeLayout rvApplied;
 
     public static AppliedFragment newInstance() {
         return new AppliedFragment();
@@ -71,8 +74,9 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         nestedScrollView = view.findViewById(R.id.nested_accept);
         imageViewNotFound = view.findViewById(R.id.imgNotFound);
+        rvApplied = view.findViewById(R.id.relativeLayoutApplied);
 
-        final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshApplied);
+        swipeRefreshLayout = view.findViewById(R.id.refreshApplied);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -129,6 +133,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                                 }
 
                                 imageViewNotFound.setVisibility(View.VISIBLE);
+                                swipeRefreshLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                                rvApplied.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
                             }
                             aAdapter.notifyDataSetChanged();

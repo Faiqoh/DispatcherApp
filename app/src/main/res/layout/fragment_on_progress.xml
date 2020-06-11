@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/refreshProgress"
-    android:paddingBottom="60dp">
+    android:id="@+id/refreshProgress">
 
     <RelativeLayout
         android:layout_width="match_parent"

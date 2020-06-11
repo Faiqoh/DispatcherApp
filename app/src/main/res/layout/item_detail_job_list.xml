@@ -4,10 +4,12 @@
     android:id="@+id/cardview"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:elevation="100dp"
+    android:layout_margin="10dp"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="6dp"
+    card_view:cardMaxElevation="10dp"
     card_view:cardBackgroundColor="@android:color/white"
-    card_view:cardCornerRadius="8dp">
+    card_view:contentPadding="25dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,17 +25,14 @@
                 android:layout_width="50dp"
                 android:id="@+id/imageViewlist"
                 android:layout_height="50dp"
-                android:layout_margin="30dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/android" />
 
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="60dp"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp">
+                android:paddingLeft="30dp">
 
                 <TextView
                     android:id="@+id/textViewCategory"

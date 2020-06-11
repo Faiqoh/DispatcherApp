@@ -8,6 +8,7 @@
     android:paddingBottom="60dp">
 
     <RelativeLayout
+        android:id="@+id/relativeLayoutApplied"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
@@ -41,6 +42,7 @@
 
         <ImageView
             android:id="@+id/imgNotFound"
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/not_found"
