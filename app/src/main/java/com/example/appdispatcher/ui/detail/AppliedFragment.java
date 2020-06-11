@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,23 +90,25 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     }
 
     private void fillDataJobAppliedList() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobStatus, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("response job list", response.toString());
                 JSONObject jObj = response;
                 nestedScrollView.setVisibility(View.VISIBLE);
                 shimmerFrameLayout.stopShimmerAnimation();
                 shimmerFrameLayout.setVisibility(View.GONE);
-
-
                 try {
                     JSONArray jray = jObj.getJSONArray("job");
-
                     if (response.length() > 0) {
+
+                        if (aList != null) {
+                            aList.clear();
+                        } else {
+                            aList = new ArrayList<>();
+                        }
+
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
-
                             JSONArray japplied = cat.getJSONArray("apply_engineer");
                             for (int j = 0; j < japplied.length(); j++) {
                                 JSONObject applied = japplied.getJSONObject(j);
@@ -173,5 +174,17 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
         super.onActivityResult(requestCode, resultCode, data);
 
         fillDataJobAppliedList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 }
