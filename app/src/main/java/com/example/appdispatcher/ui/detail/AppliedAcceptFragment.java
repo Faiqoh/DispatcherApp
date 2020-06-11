@@ -105,7 +105,7 @@ public class AppliedAcceptFragment extends Fragment {
 
 
     private void fillAccountUser() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.getUser + "/?id_user=" + 1, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getUser + "/?id_user=" + 1, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
