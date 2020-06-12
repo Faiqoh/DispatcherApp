@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/textViewJudul"
-        android:layout_width="65dp"
+        android:layout_width="68dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageViewlistjob"
         android:layout_centerHorizontal="true"
