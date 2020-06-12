@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         mSetting = this.getSharedPreferences("Setting", Context.MODE_PRIVATE);
         String Token_account = mSetting.getString("Token", "missing");
         if (Token_account.equals("missing")) {
-            startActivity(new Intent(getApplicationContext(), LayoutActivity.class));
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         } else {
             Log.i("Token", Token_account);
         }

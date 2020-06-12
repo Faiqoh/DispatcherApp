@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".ui.payment.DetailPaymentFragment">
@@ -13,17 +12,17 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <ScrollView
+        <RelativeLayout
             android:id="@+id/scroll_detail_payment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:visibility="gone">
+            android:background="@color/white">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -57,7 +56,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp">
+                    android:id="@+id/cardviewimage">
 
                     <TextView
                         android:id="@+id/tv_idpayment"
@@ -65,10 +64,23 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|right"
                         android:layout_marginLeft="245dp"
-                        android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/iv_payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/make_payment" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardviewimage">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -76,12 +88,6 @@
                         android:layout_marginTop="10dp"
                         android:orientation="vertical"
                         android:paddingBottom="10dp">
-
-                        <ImageView
-                            android:id="@+id/iv_payment"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/make_payment" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerviewdetailpayment"
@@ -92,18 +98,19 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-            </RelativeLayout>
-        </ScrollView>
 
-        <com.facebook.shimmer.ShimmerFrameLayout
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!--<com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_detail_payment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical"
             shimmer:duration="800">
 
-            <!-- Adding 7 rows of placeholders -->
+            &lt;!&ndash; Adding 7 rows of placeholders &ndash;&gt;
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,6 +119,7 @@
                 <include layout="@layout/data_placeholder_detail_payment" />
             </LinearLayout>
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>-->
+
     </RelativeLayout>
 </LinearLayout>

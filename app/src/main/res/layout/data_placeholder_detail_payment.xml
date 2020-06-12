@@ -17,6 +17,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                android:id="@+id/cardview_judul"
                 android:layout_height="50dp">
 
                 <RelativeLayout
@@ -47,7 +48,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp">
+                android:id="@+id/cardviewimage"
+                android:layout_below="@+id/cardview_judul">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -70,7 +72,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="240dp"
+                android:id="@+id/cardview1"
+                android:layout_below="@+id/cardviewimage"
                 android:padding="10dp">
 
                 <LinearLayout
@@ -104,7 +107,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="280dp"
+                android:id="@+id/cardview2"
+                android:layout_below="@+id/cardview1"
                 android:padding="10dp">
 
                 <LinearLayout
@@ -138,7 +142,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="320dp"
+                android:layout_below="@+id/cardview2"
                 android:padding="10dp">
 
                 <LinearLayout

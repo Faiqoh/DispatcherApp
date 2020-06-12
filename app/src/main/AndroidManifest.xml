@@ -23,7 +23,7 @@
         <activity android:name=".ui.home.SeeAllActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
 
-        <activity android:name=".LayoutActivity"></activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
