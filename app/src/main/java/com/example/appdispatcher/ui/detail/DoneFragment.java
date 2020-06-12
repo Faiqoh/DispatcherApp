@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,7 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
     public static final String GET_ID_JOB = "get_id_job";
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
+    RelativeLayout rvNotFound, rvProgress;
 
     public static DoneFragment newInstance() {
         return new DoneFragment();
@@ -70,6 +72,8 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
 
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         nestedScrollView = view.findViewById(R.id.nested_accept);
+        rvNotFound = view.findViewById(R.id.RvNotFound);
+        rvProgress = view.findViewById(R.id.relativelayoutDone);
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshdone);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -110,6 +114,7 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
                         } else {
                             dList = new ArrayList<>();
                         }
+
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
@@ -127,6 +132,11 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
                                     dList.add(itemCategory);
+                                    rvNotFound.setVisibility(View.GONE);
+                                } else {
+                                    rvNotFound.setVisibility(View.VISIBLE);
+                                    rvProgress.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+
                                 }
                             }
                         }

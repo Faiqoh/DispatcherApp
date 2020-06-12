@@ -122,10 +122,12 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
 
                                 pList.clear();
                                 pList.add(itemCategory);
-                            }
 
-                            rvNotFound.setVisibility(View.VISIBLE);
-                            rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                                rvNotFound.setVisibility(View.GONE);
+                            } else {
+                                rvNotFound.setVisibility(View.VISIBLE);
+                                rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                            }
 
 //                            JSONArray japplied = cat.getJSONArray("apply_engineer");
 //                            for (int j = 0; j < japplied.length(); j++) {

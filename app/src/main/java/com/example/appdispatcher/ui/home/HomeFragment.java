@@ -53,12 +53,10 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     public static final String ID_JOB2 = "id_job1";
     public static final String GET_ID_JOB = "get_id_job";
     private HomeViewModel homeViewModel;
-    //    ArrayList<HomeViewModel> mList = new ArrayList<>();
     public List<HomeViewModel> mList = new ArrayList<>();
     JobListAdapter mAdapter;
     ArrayList<RecomendJobViewModel> rList = new ArrayList<>();
     RecomenJobAdapter rAdapter;
-    //    ArrayList<JobCategoryViewModel>  = new ArrayList<>();
     public List<JobCategoryViewModel> cList = new ArrayList<>();
     JobCategoryAdapter cAdapter;
     TextView name, detailUser, tvSeeAllJob, tvSeeAllJobCategory, tvSeeAllJobList;
@@ -91,29 +89,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         relativeLayoutHome = root.findViewById(R.id.headerhome);
         nestedhome = root.findViewById(R.id.nestedhome);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
-
-        final SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                }, 2000);
-
-                Fragment frg = null;
-                frg = getFragmentManager().findFragmentById(R.id.nav_host_fragment);
-                final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.detach(frg);
-                ft.attach(frg);
-                ft.commit();
-
-            }
-        });
 
         name = root.findViewById(R.id.text_name);
         detailUser = root.findViewById(R.id.text_detail);
@@ -158,6 +133,33 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                 Intent intent = new Intent(getActivity(), SeeAllActivity.class);
                 intent.putExtra(GET_ID_JOB, "job_list");
                 startActivity(intent);
+            }
+        });
+
+        final SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+
+                Fragment frg = null;
+                frg = getFragmentManager().findFragmentById(R.id.nav_host_fragment);
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(frg);
+                ft.attach(frg);
+                ft.commit();
+
+                mList.clear();
+
+                cList.clear();
+
             }
         });
         return root;

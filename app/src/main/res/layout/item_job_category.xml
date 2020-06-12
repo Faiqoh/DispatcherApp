@@ -12,6 +12,8 @@
         android:layout_below="@+id/imageViewlistjob"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
+        android:maxLines="2"
+        android:minLines="1"
         android:text="TextView" />
 
     <ImageView

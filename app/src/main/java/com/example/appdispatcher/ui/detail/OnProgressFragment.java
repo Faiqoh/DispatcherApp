@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,8 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
     JobOnProgressAdapter pAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
+    RelativeLayout rvNotFound, rvProgress;
+
 
     public static OnProgressFragment newInstance() {
         return new OnProgressFragment();
@@ -70,6 +73,9 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
 
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         nestedScrollView = view.findViewById(R.id.nested_accept);
+
+        rvNotFound = view.findViewById(R.id.RvNotFound);
+        rvProgress = view.findViewById(R.id.relativelayoutprogress);
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshProgress);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -128,8 +134,12 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
 
                                 pList.clear();
                                 pList.add(itemCategory);
-                            }
 
+                                rvNotFound.setVisibility(View.GONE);
+                            } else {
+                                rvNotFound.setVisibility(View.VISIBLE);
+                                rvProgress.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                            }
 //                            JSONArray japplied = cat.getJSONArray("apply_engineer");
 //                            for (int j = 0; j < japplied.length(); j++) {
 //                                JSONObject applied = japplied.getJSONObject(j);
