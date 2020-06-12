@@ -7,12 +7,7 @@
         android:id="@+id/logo"
         android:layout_width="190dp"
         android:layout_height="100dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="110dp"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="300dp"
+        android:layout_centerInParent="true"
         android:background="@drawable/freelance_logoaja"
         android:paddingTop="50dp" />
 
@@ -41,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextTextEmailAddress"
         android:id="@+id/editTextTextPassword"
+        android:inputType="textPassword"
         android:layout_centerHorizontal="true"
         android:hint="Password" />
 
@@ -49,8 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_width="250dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="560dp"
         android:background="#ffc548"
+        android:layout_below="@+id/editTextTextPassword"
         android:text="Login" />
 
 
