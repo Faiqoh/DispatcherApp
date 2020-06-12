@@ -22,7 +22,7 @@ import com.example.appdispatcher.util.server;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LayoutActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     public static final String ID_JOB = "id_job";
     public static final String GET_ID_JOB = "get_id_job";
@@ -33,7 +33,7 @@ public class LayoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_layout);
+        setContentView(R.layout.activity_login);
 
         b1 = (Button) findViewById(R.id.buttonSubmitLogin);
         ed1 = (EditText) findViewById(R.id.editTextTextEmailAddress);
