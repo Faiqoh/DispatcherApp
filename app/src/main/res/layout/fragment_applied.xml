@@ -8,6 +8,7 @@
     android:paddingBottom="60dp">
 
     <RelativeLayout
+        android:id="@+id/relativeLayoutApplied"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
@@ -38,6 +39,41 @@
             </LinearLayout>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/RvNotFound"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imgNotFound"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_found" />
+
+            <TextView
+                android:id="@+id/textNotfound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imgNotFound"
+                android:layout_marginHorizontal="80dp"
+                android:text="Nothing Job Applied...."
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textNotfound"
+                android:layout_marginHorizontal="80dp"
+                android:text="Please Apply On Your Jobdesk"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_accept"

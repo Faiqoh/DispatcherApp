@@ -1,5 +1,7 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,8 +44,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -127,8 +132,6 @@ public class ProgressDoneFragment extends Fragment {
             }
         });
 
-        fillAccountUser();
-
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -138,41 +141,18 @@ public class ProgressDoneFragment extends Fragment {
         return root;
     }
 
-    private void fillAccountUser() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.getUser + "/?id_user=" + 1, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONObject jUser = response.getJSONObject("users");
-
-                    Log.i("users", jUser.toString());
-
-                    tvidUser.setText(jUser.getString("id"));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
-    }
-
     private void fillDetail(String id_job) {
+        Log.i("id_jobku", id_job);
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
         progressBar.getIndeterminateDrawable().setColorFilter(getActivity().getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.VISIBLE);
 
-        JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getJobOpen + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.progreesjob_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.i("response bisa", String.valueOf(response));
                 progressBar.setVisibility(View.GONE);
 
                 shimmerFrameLayout.stopShimmerAnimation();
@@ -187,14 +167,13 @@ public class ProgressDoneFragment extends Fragment {
 
                     JSONObject category = job.getJSONObject("category");
 
-                    Log.i("job", category.toString());
+                    Log.i("saaaaaaaaaaaa", category.toString());
 
                     textViewjob.setText(job.getString("job_name"));
                     textJobdesc.setText(job.getString("job_description"));
                     textRequirement.setText(job.getString("job_requrment"));
                     tvidJob.setText(job.getString("id"));
                     Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -205,11 +184,28 @@ public class ProgressDoneFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(StrReq);
 
-        JsonObjectRequest StrReq2 = new JsonObjectRequest(Request.Method.GET, server.getJobProgress + "/?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest StrReq2 = new JsonObjectRequest(Request.Method.GET, server.progreesjob_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
@@ -259,7 +255,24 @@ public class ProgressDoneFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
         RequestQueue requestQueue2 = Volley.newRequestQueue(getContext());
         requestQueue2.add(StrReq2);
     }
@@ -267,14 +280,13 @@ public class ProgressDoneFragment extends Fragment {
     private void progressjob() {
         final JSONObject jobj = new JSONObject();
         try {
-            jobj.put("id_engineer", id_user);
             jobj.put("id_job", id_job);
             jobj.put("detail_activity", detail_activity);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.progreesjob, jobj, new Response.Listener<JSONObject>() {
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.postJobUpdate_withToken, jobj, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -300,7 +312,24 @@ public class ProgressDoneFragment extends Fragment {
                         }
                         Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
@@ -309,13 +338,12 @@ public class ProgressDoneFragment extends Fragment {
     private void donejob() {
         final JSONObject jobj = new JSONObject();
         try {
-            jobj.put("id_engineer", id_user);
             jobj.put("id_job", id_job);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.jobdone, jobj, new Response.Listener<JSONObject>() {
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.jobdone_withToken, jobj, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -340,7 +368,24 @@ public class ProgressDoneFragment extends Fragment {
                         }
                         Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);

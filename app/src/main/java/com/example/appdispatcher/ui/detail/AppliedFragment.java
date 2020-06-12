@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     JobAppliedAdapter aAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
+    SwipeRefreshLayout swipeRefreshLayout;
+    RelativeLayout rvApplied, rvNotFound;
 
     public static AppliedFragment newInstance() {
         return new AppliedFragment();
@@ -68,8 +71,10 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         nestedScrollView = view.findViewById(R.id.nested_accept);
+        rvNotFound = view.findViewById(R.id.RvNotFound);
+        rvApplied = view.findViewById(R.id.relativeLayoutApplied);
 
-        final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshApplied);
+        swipeRefreshLayout = view.findViewById(R.id.refreshApplied);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -109,23 +114,29 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
-                            JSONArray japplied = cat.getJSONArray("apply_engineer");
-                            for (int j = 0; j < japplied.length(); j++) {
-                                JSONObject applied = japplied.getJSONObject(j);
-                                AppliedViewModel itemCategory = new AppliedViewModel();
 
-                                if (applied.getString("status").equals("Pending") && cat.getString("job_status").equals("Open")) {
-                                    itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                                    itemCategory.setJudul(cat.getString("job_name"));
-                                    itemCategory.setId_job(cat.getString("id"));
-                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            AppliedViewModel itemCategory = new AppliedViewModel();
 
-                                    aList.add(itemCategory);
-                                }
+                            if (cat.getString("job_status").equals("Open")) {
+                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                itemCategory.setJudul(cat.getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
+                                aList.add(itemCategory);
                             }
+
+                            rvNotFound.setVisibility(View.VISIBLE);
+                            rvApplied.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+
+//                            JSONArray japplied = cat.getJSONArray("apply_engineer");
+//                            for (int j = 0; j < japplied.length(); j++) {
+//                                JSONObject applied = japplied.getJSONObject(j);
+//
+//
+//                            }
                             aAdapter.notifyDataSetChanged();
                         }
 

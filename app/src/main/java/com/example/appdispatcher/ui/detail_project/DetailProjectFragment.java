@@ -63,7 +63,7 @@ public class DetailProjectFragment extends Fragment {
     String id_user, id_job;
     ProgressBar progressBar;
     ShimmerFrameLayout shimmerFrameLayout;
-    CardView cardViewApplied;
+    CardView cardViewApplied, cardViewheader;
 
     private DetailProjectViewModel mViewModel;
 
@@ -95,6 +95,7 @@ public class DetailProjectFragment extends Fragment {
         progressBar = root.findViewById(R.id.progressBar1);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
         cardViewApplied = root.findViewById(R.id.cardviewdetailapply);
+        cardViewheader = root.findViewById(R.id.cardViewHeader);
 
         if (lead != null) {
             String id_job = lead.getId_job();
@@ -103,8 +104,6 @@ public class DetailProjectFragment extends Fragment {
             String id_job = lead2.getId_job();
             fillDetail(id_job);
         }
-
-        fillAccountUser();
 
         btn_apply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,58 +119,7 @@ public class DetailProjectFragment extends Fragment {
 
     }
 
-    private void fillAccountUser() {
-        SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-        Log.i("preferences_setting", mSetting.getString("Token", "missing"));
-
-//        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.getUser + "/?id_user=" + 1, null, new Response.Listener<JSONObject>() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getUser_withToken, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                shimmerFrameLayout.stopShimmerAnimation();
-                shimmerFrameLayout.setVisibility(View.GONE);
-
-                cardViewApplied.setVisibility(View.VISIBLE);
-                try {
-                    JSONObject jUser = response.getJSONObject("users");
-
-                    Log.i("users", jUser.toString());
-
-                    tvname.setText(jUser.getString("id"));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
-                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-                headers.put("Authorization", mSetting.getString("Token", "missing"));
-                return headers;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
-    }
-
     private void fillDetail(String id_job) {
-        Log.i(id_job, "fillDetail: ");
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -184,6 +132,11 @@ public class DetailProjectFragment extends Fragment {
             public void onResponse(JSONObject response) {
 
                 progressBar.setVisibility(View.GONE);
+
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                cardViewApplied.setVisibility(View.VISIBLE);
+                cardViewheader.setVisibility(View.VISIBLE);
 
                 try {
 
@@ -223,16 +176,7 @@ public class DetailProjectFragment extends Fragment {
     }
 
     private void applyjob() {
-        final JSONObject jobj = new JSONObject();
-        try {
-            jobj.put("id_engineer", id_user);
-            jobj.put("id_job", id_job);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.applyjob, jobj, new Response.Listener<JSONObject>() {
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.JobApply_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -256,7 +200,24 @@ public class DetailProjectFragment extends Fragment {
                         }
                         Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);

@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,7 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
     JobAcceptedAdapter pAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
+    RelativeLayout rvAccepted, rvNotFound;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -82,6 +84,8 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
 
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         nestedScrollView = view.findViewById(R.id.nested_accept);
+        rvNotFound = view.findViewById(R.id.RvNotFound);
+        rvAccepted = view.findViewById(R.id.relativeLayoutAccepted);
 
         return view;
     }
@@ -104,26 +108,42 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
                         }
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
+                            AcceptedViewModel itemCategory = new AcceptedViewModel();
+                            cat.getJSONObject("working_engineer").getString("id_engineer");
 
-                            JSONArray japplied = cat.getJSONArray("apply_engineer");
-                            for (int j = 0; j < japplied.length(); j++) {
-                                JSONObject applied = japplied.getJSONObject(j);
+                            if (cat.getString("job_status").equals("Ready") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
 
-                                AcceptedViewModel itemCategory = new AcceptedViewModel();
-                                if (applied.getString("status").equals("Accept") && cat.getString("job_status").equals("Open")) {
-                                    itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                                    itemCategory.setJudul(cat.getString("job_name"));
-                                    itemCategory.setId_job(cat.getString("id"));
-                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                itemCategory.setJudul(cat.getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                    pList.add(itemCategory);
-                                }
+                                pList.clear();
+                                pList.add(itemCategory);
                             }
 
+                            rvNotFound.setVisibility(View.VISIBLE);
+                            rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+
+//                            JSONArray japplied = cat.getJSONArray("apply_engineer");
+//                            for (int j = 0; j < japplied.length(); j++) {
+//                                JSONObject applied = japplied.getJSONObject(j);
+//
+//                                AcceptedViewModel itemCategory = new AcceptedViewModel();
+//                                if (applied.getString("status").equals("Accept") && cat.getString("job_status").equals("Open")) {
+//
+//                                }
+//
+//
+//                            }
+
                         }
+
                         pAdapter.notifyDataSetChanged();
+                    } else {
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
