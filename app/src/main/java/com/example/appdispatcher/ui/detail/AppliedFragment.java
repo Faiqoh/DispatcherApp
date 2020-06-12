@@ -114,26 +114,29 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
-                            JSONArray japplied = cat.getJSONArray("apply_engineer");
-                            for (int j = 0; j < japplied.length(); j++) {
-                                JSONObject applied = japplied.getJSONObject(j);
-                                AppliedViewModel itemCategory = new AppliedViewModel();
 
-                                if (applied.getString("status").equals("Pending") && cat.getString("job_status").equals("Open")) {
-                                    itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                                    itemCategory.setJudul(cat.getString("job_name"));
-                                    itemCategory.setId_job(cat.getString("id"));
-                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            AppliedViewModel itemCategory = new AppliedViewModel();
 
-                                    aList.add(itemCategory);
-                                }
+                            if (cat.getString("job_status").equals("Open")) {
+                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                itemCategory.setJudul(cat.getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                rvNotFound.setVisibility(View.VISIBLE);
-                                rvApplied.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
-
+                                aList.add(itemCategory);
                             }
+
+                            rvNotFound.setVisibility(View.VISIBLE);
+                            rvApplied.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+
+//                            JSONArray japplied = cat.getJSONArray("apply_engineer");
+//                            for (int j = 0; j < japplied.length(); j++) {
+//                                JSONObject applied = japplied.getJSONObject(j);
+//
+//
+//                            }
                             aAdapter.notifyDataSetChanged();
                         }
 

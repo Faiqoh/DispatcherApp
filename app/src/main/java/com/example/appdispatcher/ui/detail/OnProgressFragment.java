@@ -117,22 +117,25 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
-                            JSONArray japplied = cat.getJSONArray("apply_engineer");
-                            for (int j = 0; j < japplied.length(); j++) {
-                                JSONObject applied = japplied.getJSONObject(j);
+                            OnProgressViewModel itemCategory = new OnProgressViewModel();
+                            if (cat.getString("job_status").equals("Progress") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
+                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                itemCategory.setJudul(cat.getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                OnProgressViewModel itemCategory = new OnProgressViewModel();
-                                if (applied.getString("status").equals("Accept") && cat.getString("job_status").equals("Progress")) {
-                                    itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                                    itemCategory.setJudul(cat.getString("job_name"));
-                                    itemCategory.setId_job(cat.getString("id"));
-                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
-
-                                    pList.add(itemCategory);
-                                }
+                                pList.clear();
+                                pList.add(itemCategory);
                             }
+
+//                            JSONArray japplied = cat.getJSONArray("apply_engineer");
+//                            for (int j = 0; j < japplied.length(); j++) {
+//                                JSONObject applied = japplied.getJSONObject(j);
+//
+//
+//                            }
                         }
                         pAdapter.notifyDataSetChanged();
                     }
