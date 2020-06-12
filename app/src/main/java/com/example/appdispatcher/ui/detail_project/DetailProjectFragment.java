@@ -63,7 +63,7 @@ public class DetailProjectFragment extends Fragment {
     String id_user, id_job;
     ProgressBar progressBar;
     ShimmerFrameLayout shimmerFrameLayout;
-    CardView cardViewApplied;
+    CardView cardViewApplied, cardViewheader;
 
     private DetailProjectViewModel mViewModel;
 
@@ -95,6 +95,7 @@ public class DetailProjectFragment extends Fragment {
         progressBar = root.findViewById(R.id.progressBar1);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
         cardViewApplied = root.findViewById(R.id.cardviewdetailapply);
+        cardViewheader = root.findViewById(R.id.cardViewHeader);
 
         if (lead != null) {
             String id_job = lead.getId_job();
@@ -119,7 +120,6 @@ public class DetailProjectFragment extends Fragment {
     }
 
     private void fillDetail(String id_job) {
-        Log.i("id_jobku", id_job);
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -136,6 +136,7 @@ public class DetailProjectFragment extends Fragment {
                 shimmerFrameLayout.stopShimmerAnimation();
                 shimmerFrameLayout.setVisibility(View.GONE);
                 cardViewApplied.setVisibility(View.VISIBLE);
+                cardViewheader.setVisibility(View.VISIBLE);
 
                 try {
 
