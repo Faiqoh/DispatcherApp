@@ -12,4 +12,7 @@
     <dimen name="placeholderTextHeight">8dp</dimen>
     <dimen name="padding_10">10dp</dimen>
 
+    <!--Font Size-->
+    <dimen name="fontSmall">11px</dimen>
+
 </resources>
