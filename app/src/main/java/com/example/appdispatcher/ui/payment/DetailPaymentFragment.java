@@ -1,11 +1,13 @@
 package com.example.appdispatcher.ui.payment;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -50,6 +52,7 @@ public class DetailPaymentFragment extends Fragment {
     ShimmerFrameLayout shimmerFrameLayout;
     ScrollView scrollView;
     RelativeLayout relativePayment;
+    ProgressBar progressBar;
 
     public static DetailPaymentFragment newInstance() {
         return new DetailPaymentFragment();
@@ -68,6 +71,7 @@ public class DetailPaymentFragment extends Fragment {
         iv_tf = view.findViewById(R.id.iv_payment);
         tvjob = view.findViewById(R.id.text_view_job);
         tv_idpayment = view.findViewById(R.id.tv_idpayment);
+        progressBar = view.findViewById(R.id.progressBar1);
 
         /*shimmerFrameLayout = view.findViewById(R.id.shimmer_view_detail_payment);
         relativePayment = view.findViewById(R.id.scroll_detail_payment);*/
@@ -91,11 +95,16 @@ public class DetailPaymentFragment extends Fragment {
     private void fillDataDetailPaymentList(String id_payment) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
+
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getdetailpayment + "/?id_payment=" + id_payment, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
+                progressBar.setVisibility(View.GONE);
                 /*shimmerFrameLayout.stopShimmerAnimation();
                 shimmerFrameLayout.setVisibility(View.GONE);
 
