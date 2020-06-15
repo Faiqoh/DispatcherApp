@@ -29,6 +29,7 @@ import com.example.appdispatcher.Adapter.DetailPaymentAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,12 +48,13 @@ public class DetailPaymentFragment extends Fragment {
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     public List<DetailPaymentViewModel> dpList = new ArrayList<>();
     DetailPaymentAdapter dpAdapter;
-    ImageView iv_fto, iv_tf;
+    ImageView iv_fto;
     TextView tvjob, tv_idpayment;
     ShimmerFrameLayout shimmerFrameLayout;
     ScrollView scrollView;
     RelativeLayout relativePayment;
     ProgressBar progressBar;
+    PhotoView iv_tf;
 
     public static DetailPaymentFragment newInstance() {
         return new DetailPaymentFragment();
@@ -73,8 +75,7 @@ public class DetailPaymentFragment extends Fragment {
         tv_idpayment = view.findViewById(R.id.tv_idpayment);
         progressBar = view.findViewById(R.id.progressBar1);
 
-        /*shimmerFrameLayout = view.findViewById(R.id.shimmer_view_detail_payment);
-        relativePayment = view.findViewById(R.id.scroll_detail_payment);*/
+        iv_tf.setImageResource(R.drawable.bg_grey_awas_ae_sek_gak_iso);
 
         RecyclerView recyclerViewdetailpaymentList = view.findViewById(R.id.recyclerviewdetailpayment);
         LinearLayoutManager layoutManagerdetailpaymentList = new LinearLayoutManager(getActivity());
@@ -105,11 +106,6 @@ public class DetailPaymentFragment extends Fragment {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
                 progressBar.setVisibility(View.GONE);
-                /*shimmerFrameLayout.stopShimmerAnimation();
-                shimmerFrameLayout.setVisibility(View.GONE);
-
-                relativePayment.setVisibility(View.VISIBLE);
-                iv_tf.setVisibility(View.VISIBLE);*/
 
                 try {
                     JSONObject payment = jObj.getJSONObject("payment");
