@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -90,15 +91,14 @@ public class AppliedAcceptFragment extends Fragment {
             fillDetail(id_job);
         }
 
+        final NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getActivity());
+
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 id_user = tvidUser.getText().toString().trim();
                 id_job = tvidJob.getText().toString().trim();
                 startjob();
-                /*Fragment newFragment = AcceptedFragment.newInstance();
-                getFragmentManager().beginTransaction().detach(newFragment).attach(newFragment).commit();*/
-
             }
         });
 

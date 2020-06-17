@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.appdispatcher">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".FirebaseActivity"></activity>
         <activity
             android:name=".ui.detail.ScrollingActivityDetailTask"
             android:label=""
@@ -22,8 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.home.SeeAllActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
-
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -34,16 +36,20 @@
             </intent-filter>
         </activity>
 
-        <!--        <activity android:name=".MainActivity"></activity>-->
-        <!--        <activity-->
-        <!--            android:name=".LayoutActivity"-->
-        <!--            android:label="@string/app_name">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
+        <service
+            android:name=".FirebaseService"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/freelance_logoaja" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimary" />
     </application>
 
 </manifest>
