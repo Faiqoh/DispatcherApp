@@ -1,6 +1,7 @@
 package com.example.appdispatcher.ui.detail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
+import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -58,7 +60,10 @@ import java.util.Map;
 public class ProgressDoneFragment extends Fragment {
 
     public List<ProgressDoneViewModel> pList = new ArrayList<>();
+    //    ProgressTaskAdapter pAdapter;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
+    public static final String ID_JOB = "id_job";
+    public static final String GET_ID_JOB = "get_id_job";
     ImageView cat_backend;
     TextView textViewjob, textJobdesc, textRequirement, tvidUser, tvidJob, textview_mail, textview_share;
     EditText etTask;
@@ -111,7 +116,11 @@ public class ProgressDoneFragment extends Fragment {
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getContext(), FabActivity.class);
+                intent.putExtra(ID_JOB, tvidJob.getText().toString());
+                intent.putExtra(GET_ID_JOB, "id_job_progress");
+                startActivity(intent);
             }
         });
 
@@ -253,8 +262,8 @@ public class ProgressDoneFragment extends Fragment {
                                 progress.setDetail_activity(task.getString("detail_activity"));
                                 progress.setDay("Day " + no++);
                                 progress.setDate(dateFormat.format(date_submit));
-                                btn_done.setVisibility(View.GONE);
-                                btn_note.setVisibility(View.GONE);
+                                /*btn_done.setVisibility(View.GONE);
+                                btn_note.setVisibility(View.GONE);*/
 
                                 pList.add(progress);
                             }
@@ -419,4 +428,12 @@ public class ProgressDoneFragment extends Fragment {
         shimmerFrameLayout.stopShimmerAnimation();
         super.onPause();
     }
+
+    /*@Override
+    public void doClick(int pos) {
+        Intent intent = new Intent(getContext(), FabActivity.class);
+        intent.putExtra(ID_JOB, pAdapter.getItem(pos));
+        intent.putExtra(GET_ID_JOB, "id_job_progress");
+        startActivity(intent);
+    }*/
 }

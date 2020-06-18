@@ -59,6 +59,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:orientation="vertical"
+            android:visibility="gone"
             shimmer:duration="800">
 
             <!-- Adding 7 rows of placeholders -->
@@ -181,32 +182,6 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:scrollbars="vertical" />
 
-            <!--<Button
-                android:id="@+id/btnDone"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_below="@id/recyclerViewprogresstask"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/btnAddNote"
-                android:background="@drawable/roundedbutton"
-                android:backgroundTint="@color/colorPrimary"
-                android:text="Done"
-                android:textSize="11sp"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btnAddNote"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_below="@id/recyclerViewprogresstask"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/roundedbutton"
-                android:backgroundTint="@color/colorPrimary"
-                android:text="Note"
-                android:textSize="11sp"
-                android:visibility="gone" />-->
-
             <EditText
                 android:id="@+id/eTextTask"
                 android:layout_width="match_parent"
@@ -237,10 +212,13 @@
                 android:textSize="11sp"
                 android:visibility="gone" />
 
-            <include layout="@layout/fab_layout" />
-
         </RelativeLayout>
 
+        <include
+            layout="@layout/fab_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 
