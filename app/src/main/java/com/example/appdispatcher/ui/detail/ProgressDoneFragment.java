@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.github.clans.fab.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +51,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+//import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -57,15 +61,18 @@ public class ProgressDoneFragment extends Fragment {
     public List<ProgressDoneViewModel> pList = new ArrayList<>();
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ImageView cat_backend;
-    TextView textViewjob, textJobdesc, textRequirement, tvidUser, tvidJob;
+    TextView textViewjob, textJobdesc, textRequirement, tvidUser, tvidJob, textview_mail, textview_share;
     EditText etTask;
     Button btn_note, btn_submit, btn_done;
     ProgressTaskAdapter pAdapter;
     String id_user, id_job, detail_activity;
     ProgressBar progressBar;
-    CardView cvdesc, cvspec;
+    CardView cvdesc, cvspec, cardView1;
     RelativeLayout relativelayoutprogress;
     ShimmerFrameLayout shimmerFrameLayout;
+    Boolean isOpen = false;
+    private FloatingActionButton fab_main, fab1_mail, fab2_share;
+    private Animation fab_open, fab_close, fab_clock, fab_anticlock;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,6 +98,31 @@ public class ProgressDoneFragment extends Fragment {
         cvdesc = root.findViewById(R.id.cvdesc);
         cvspec = root.findViewById(R.id.spec);
         relativelayoutprogress = root.findViewById(R.id.relativelayoutprogress);
+        cardView1 = root.findViewById(R.id.cardview1);
+
+        FloatingActionButton Request = root.findViewById(R.id.request);
+        Request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Request Barang", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        FloatingActionButton Done = root.findViewById(R.id.done);
+        Done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        FloatingActionButton Progress = root.findViewById(R.id.progress);
+        Progress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Progress", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         if (getJob.equals("id_job_progress")) {
@@ -161,6 +193,7 @@ public class ProgressDoneFragment extends Fragment {
                 cvdesc.setVisibility(View.VISIBLE);
                 cvspec.setVisibility(View.VISIBLE);
                 relativelayoutprogress.setVisibility(View.VISIBLE);
+                cardView1.setVisibility(View.VISIBLE);
 
                 try {
                     JSONObject job = response.getJSONObject("job");

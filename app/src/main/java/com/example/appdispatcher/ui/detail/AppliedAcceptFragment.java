@@ -53,7 +53,7 @@ public class AppliedAcceptFragment extends Fragment {
     String id_user, id_job;
     ProgressBar progressBar;
     ShimmerFrameLayout shimmerFrameLayout;
-    CardView cardViewApplied;
+    CardView cardViewApplied, cardViewApplied2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +78,7 @@ public class AppliedAcceptFragment extends Fragment {
         progressBar = root.findViewById(R.id.progressBarApplied);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
         cardViewApplied = root.findViewById(R.id.cardviewApplied);
+        cardViewApplied2 = root.findViewById(R.id.cardviewApplied2);
 
 
         if (getJob.equals("id_list")) {
@@ -120,6 +121,7 @@ public class AppliedAcceptFragment extends Fragment {
                 shimmerFrameLayout.stopShimmerAnimation();
                 shimmerFrameLayout.setVisibility(View.GONE);
                 cardViewApplied.setVisibility(View.VISIBLE);
+                cardViewApplied2.setVisibility(View.VISIBLE);
 
                 try {
                     JSONObject job = response.getJSONObject("job");
