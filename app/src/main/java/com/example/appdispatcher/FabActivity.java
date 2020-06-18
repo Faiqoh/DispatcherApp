@@ -2,9 +2,6 @@ package com.example.appdispatcher;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +11,6 @@ import com.example.appdispatcher.ui.fab.DoneFabFragment;
 import com.example.appdispatcher.ui.fab.RequestFabFragment;
 
 public class FabActivity extends AppCompatActivity {
-
-    EditText etsum, etroot, etcounter;
-    TextView tvIdJob;
-    Button btn_upload;
-    String summary, root, counter, id_job;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
