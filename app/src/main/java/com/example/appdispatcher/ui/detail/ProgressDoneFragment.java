@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,7 +34,8 @@ import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.github.clans.fab.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +51,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-//import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,8 +70,7 @@ public class ProgressDoneFragment extends Fragment {
     RelativeLayout relativelayoutprogress;
     ShimmerFrameLayout shimmerFrameLayout;
     Boolean isOpen = false;
-    private FloatingActionButton fab_main, fab1_mail, fab2_share;
-    private Animation fab_open, fab_close, fab_clock, fab_anticlock;
+    FloatingActionsMenu floatingActionsMenu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,16 +87,17 @@ public class ProgressDoneFragment extends Fragment {
         textRequirement = root.findViewById(R.id.requirement_detail);
         etTask = root.findViewById(R.id.eTextTask);
         btn_submit = root.findViewById(R.id.btnSubmit);
-        btn_note = root.findViewById(R.id.btnAddNote);
+//        btn_note = root.findViewById(R.id.btnAddNote);
         tvidJob = root.findViewById(R.id.tv_idjob);
         tvidUser = root.findViewById(R.id.tv_id_user);
-        btn_done = root.findViewById(R.id.btnDone);
+//        btn_done = root.findViewById(R.id.btnDone);
         progressBar = root.findViewById(R.id.progressBarDone);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
         cvdesc = root.findViewById(R.id.cvdesc);
         cvspec = root.findViewById(R.id.spec);
         relativelayoutprogress = root.findViewById(R.id.relativelayoutprogress);
         cardView1 = root.findViewById(R.id.cardview1);
+        floatingActionsMenu = root.findViewById(R.id.fab_menu);
 
         FloatingActionButton Request = root.findViewById(R.id.request);
         Request.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +119,10 @@ public class ProgressDoneFragment extends Fragment {
         Progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Progress", Toast.LENGTH_SHORT).show();
+//                floatingActionsMenu.collapse();
+                floatingActionsMenu.setVisibility(View.GONE);
+                etTask.setVisibility(View.VISIBLE);
+                btn_submit.setVisibility(View.VISIBLE);
             }
         });
 
@@ -129,20 +131,10 @@ public class ProgressDoneFragment extends Fragment {
             OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
-            btn_note.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    etTask.setVisibility(View.VISIBLE);
-                    btn_submit.setVisibility(View.VISIBLE);
-                }
-            });
-            btn_done.setVisibility(View.GONE);
         } else {
             DoneViewModel detail = (DoneViewModel) getActivity().getIntent().getSerializableExtra(DoneFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
-            btn_note.setVisibility(View.GONE);
-            btn_done.setVisibility(View.GONE);
         }
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
@@ -155,14 +147,6 @@ public class ProgressDoneFragment extends Fragment {
             }
         });
 
-        btn_done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                id_user = tvidUser.getText().toString().trim();
-                id_job = tvidJob.getText().toString().trim();
-                donejob();
-            }
-        });
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -257,8 +241,8 @@ public class ProgressDoneFragment extends Fragment {
                                 progress.setDetail_activity(task.getString("detail_activity"));
                                 progress.setDay("Day " + no++);
                                 progress.setDate(dateFormat.format(date_submit));
-                                btn_done.setVisibility(View.VISIBLE);
-                                btn_note.setVisibility(View.VISIBLE);
+                                /*btn_done.setVisibility(View.VISIBLE);
+                                btn_note.setVisibility(View.VISIBLE);*/
 
                                 pList.add(progress);
 

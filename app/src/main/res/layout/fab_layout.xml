@@ -4,56 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.github.clans.fab.FloatingActionMenu
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/fab_margin"
-        app:fab_size="normal"
-        app:menu_backgroundColor="@android:color/transparent"
-        app:menu_colorNormal="@color/white"
-        app:menu_colorPressed="@color/colorPrimary"
-        app:menu_icon="@drawable/ic_baseline_add_24"
-        app:menu_labels_colorNormal="#FFFFFF"
-        app:menu_labels_colorPressed="#BDBDBD"
-        app:menu_labels_showShadow="true"
-        app:menu_labels_textColor="#000000"
-        app:menu_openDirection="up"
-        app:menu_showShadow="true">
+        app:fab_addButtonColorNormal="@color/white"
+        app:fab_addButtonColorPressed="@color/colorPrimary"
+        app:fab_addButtonPlusIconColor="#000000"
+        app:fab_labelStyle="@style/customFab">
 
-        <com.github.clans.fab.FloatingActionButton
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_email_24"
+            app:fab_icon="@drawable/ic_baseline_email_24"
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/colorPrimary"
-            app:fab_label="Request"
-            app:fab_size="mini" />
+            app:fab_size="mini"
+            app:fab_title="Request" />
 
-        <com.github.clans.fab.FloatingActionButton
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_email_24"
+            app:fab_icon="@drawable/ic_baseline_email_24"
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/colorPrimary"
-            app:fab_label="Job Done"
-            app:fab_size="mini" />
+            app:fab_size="mini"
+            app:fab_title="Job Done" />
 
-        <com.github.clans.fab.FloatingActionButton
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_share_24"
+            app:fab_icon="@drawable/ic_baseline_share_24"
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/colorPrimary"
-            app:fab_label="Progress"
-            app:fab_size="mini" />
+            app:fab_size="mini"
+            app:fab_title="Progress" />
 
-    </com.github.clans.fab.FloatingActionMenu>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </RelativeLayout>
