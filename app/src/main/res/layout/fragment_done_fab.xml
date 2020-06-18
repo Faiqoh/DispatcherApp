@@ -1,20 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".FabActivity">
 
-    <TextView
-        android:id="@+id/item_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:gravity="center_horizontal"
+                android:text="Summary"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/eTextTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/tvSummary"
+                android:layout_toRightOf="@+id/tvSummary"
+                android:background="@drawable/roundedblack"
+                android:hint="Add Summary Here..."
+                android:inputType="textMultiLine"
+                android:maxHeight="400dp"
+                android:minLines="2"
+                android:padding="20dp"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvRoot"
+                android:layout_width="50dp"
+                android:layout_height="90dp"
+                android:layout_below="@+id/eTextTask"
+                android:gravity="center_horizontal"
+                android:text="Root Cause"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/eTextTask2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/eTextTask"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/tvSummary"
+                android:layout_toRightOf="@+id/tvSummary"
+                android:background="@drawable/roundedblack"
+                android:hint="Add Root Cause Here..."
+                android:inputType="textMultiLine"
+                android:maxHeight="400dp"
+                android:minLines="2"
+                android:padding="20dp"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvCounter"
+                android:layout_width="60dp"
+                android:layout_height="90dp"
+                android:layout_below="@+id/eTextTask2"
+                android:gravity="center_horizontal"
+                android:text="Counter Measure"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/eTextTask3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/eTextTask2"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/tvCounter"
+                android:layout_toRightOf="@+id/tvCounter"
+                android:background="@drawable/roundedblack"
+                android:hint="Add Counter Measure Here..."
+                android:inputType="textMultiLine"
+                android:maxHeight="400dp"
+                android:minLines="2"
+                android:padding="20dp"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/eTextTask3"
+                android:layout_marginTop="20dp"
+                android:text=" Upload picture" />
+
+            <ImageView
+                android:id="@+id/IdProf"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@+id/eTextTask3"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/tvUpload"
+                android:layout_toRightOf="@+id/tvUpload"
+                android:src="@drawable/bg_grey_awas_ae_sek_gak_iso" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_id_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/IdProf"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_upload"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/IdProf"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/tvUpload"
+                android:layout_toRightOf="@+id/tvUpload"
+                android:text="Submit"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

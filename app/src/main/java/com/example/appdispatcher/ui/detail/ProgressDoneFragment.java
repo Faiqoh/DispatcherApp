@@ -69,7 +69,7 @@ public class ProgressDoneFragment extends Fragment {
     EditText etTask;
     Button btn_note, btn_submit, btn_done;
     ProgressTaskAdapter pAdapter;
-    String id_user, id_job, detail_activity;
+    String id_user, id_jobb, detail_activity;
     ProgressBar progressBar;
     CardView cvdesc, cvspec, cardView1;
     RelativeLayout relativelayoutprogress;
@@ -108,7 +108,10 @@ public class ProgressDoneFragment extends Fragment {
         Request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Request Barang", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), FabActivity.class);
+                intent.putExtra(ID_JOB, tvidJob.getText().toString());
+                intent.putExtra(GET_ID_JOB, "id_job_request");
+                startActivity(intent);
             }
         });
 
@@ -119,7 +122,7 @@ public class ProgressDoneFragment extends Fragment {
 
                 Intent intent = new Intent(getContext(), FabActivity.class);
                 intent.putExtra(ID_JOB, tvidJob.getText().toString());
-                intent.putExtra(GET_ID_JOB, "id_job_progress");
+                intent.putExtra(GET_ID_JOB, "id_job_done");
                 startActivity(intent);
             }
         });
@@ -150,7 +153,7 @@ public class ProgressDoneFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 id_user = tvidUser.getText().toString().trim();
-                id_job = tvidJob.getText().toString().trim();
+                id_jobb = tvidJob.getText().toString().trim();
                 detail_activity = etTask.getText().toString().trim();
                 progressjob();
             }
@@ -306,7 +309,7 @@ public class ProgressDoneFragment extends Fragment {
     private void progressjob() {
         final JSONObject jobj = new JSONObject();
         try {
-            jobj.put("id_job", id_job);
+            jobj.put("id_job", id_jobb);
             jobj.put("detail_activity", detail_activity);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -364,7 +367,7 @@ public class ProgressDoneFragment extends Fragment {
     private void donejob() {
         final JSONObject jobj = new JSONObject();
         try {
-            jobj.put("id_job", id_job);
+            jobj.put("id_job", id_jobb);
         } catch (JSONException e) {
             e.printStackTrace();
         }
