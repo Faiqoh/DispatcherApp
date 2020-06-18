@@ -1,14 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fab.RequestFabFragment">
+    android:background="@color/white"
+    tools:context=".FabActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvNama"
+                android:layout_width="70dp"
+                android:layout_height="90dp"
+                android:gravity="center_horizontal"
+                android:text="Nama Request"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/eTextTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/tvNama"
+                android:layout_toRightOf="@+id/tvNama"
+                android:background="@drawable/roundedblack"
+                android:hint="Add Name Product Here..."
+                android:inputType="textMultiLine"
+                android:maxHeight="400dp"
+                android:minLines="2"
+                android:padding="20dp"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvNominal"
+                android:layout_width="70dp"
+                android:layout_height="90dp"
+                android:layout_below="@+id/eTextTask"
+                android:gravity="center_horizontal"
+                android:text="Nominal"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/eTextTask2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/eTextTask"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/tvNominal"
+                android:layout_toRightOf="@+id/tvNominal"
+                android:background="@drawable/roundedblack"
+                android:hint="Add Nominal Here..."
+                android:minLines="2"
+                android:padding="5dp"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvAlasan"
+                android:layout_width="70dp"
+                android:layout_height="90dp"
+                android:layout_below="@+id/eTextTask2"
+                android:gravity="center_horizontal"
+                android:text="Reason"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/eTextTask3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/eTextTask2"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/tvAlasan"
+                android:layout_toRightOf="@+id/tvAlasan"
+                android:background="@drawable/roundedblack"
+                android:hint="Add Reason Here..."
+                android:inputType="textMultiLine"
+                android:maxHeight="400dp"
+                android:minLines="2"
+                android:padding="20dp"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/eTextTask3"
+                android:layout_marginTop="20dp"
+                android:text=" Upload picture" />
+
+            <ImageView
+                android:id="@+id/IdProf"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/eTextTask3"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/tvUpload"
+                android:layout_toRightOf="@+id/tvUpload"
+                android:src="@drawable/bg_grey_awas_ae_sek_gak_iso" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_id_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/IdProf"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_upload"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/IdProf"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/tvUpload"
+                android:layout_toRightOf="@+id/tvUpload"
+                android:text="Submit"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
