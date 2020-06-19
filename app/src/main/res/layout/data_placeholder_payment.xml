@@ -4,53 +4,66 @@
     android:id="@+id/cardview"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    card_view:contentPadding="20dp"
     android:elevation="100dp"
     card_view:cardBackgroundColor="@android:color/white"
     card_view:cardCornerRadius="8dp">
 
-    <RelativeLayout
-        android:id="@+id/head_sub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <View
-            android:id="@+id/imageViewlist"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/background"
-            android:scaleType="centerInside" />
-
-    </RelativeLayout>
-
     <LinearLayout
-        android:id="@+id/expandableLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="60dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <View
-            android:id="@+id/textViewJudul"
-            android:layout_width="250dp"
-            android:layout_height="10dp"
-            android:background="@color/background"
-            android:ellipsize="end"
-            android:maxLines="1" />
+        <RelativeLayout
+            android:id="@+id/head_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/textViewLocation"
-            android:layout_width="250dp"
-            android:layout_height="10dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/background"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="12dp" />
+            <View
+                android:id="@+id/imageViewlist"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/background"
+                android:scaleType="centerInside" />
+
+            <LinearLayout
+                android:id="@+id/expandableLayout"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical"
+                android:paddingBottom="15dp">
+
+                <View
+                    android:id="@+id/textViewJudul"
+                    android:layout_width="250dp"
+                    android:layout_height="10dp"
+                    android:background="@color/background"
+                    android:ellipsize="end"
+                    android:maxLines="1" />
+
+                <View
+                    android:id="@+id/textViewLocation"
+                    android:layout_width="250dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/background"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/background"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

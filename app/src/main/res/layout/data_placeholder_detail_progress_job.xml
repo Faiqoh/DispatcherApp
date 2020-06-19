@@ -4,7 +4,7 @@
     android:id="@+id/cardview"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    card_view:contentPadding="20dp"
     android:elevation="100dp"
     card_view:cardBackgroundColor="@android:color/white"
     card_view:cardCornerRadius="8dp">
@@ -23,51 +23,38 @@
                 android:id="@+id/imageViewlist"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_margin="30dp"
                 android:background="@color/background"
                 android:scaleType="centerInside"
                 android:src="@drawable/android" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
+                android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="60dp"
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp">
+                android:orientation="vertical">
 
                 <View
                     android:id="@+id/textViewCategory"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="0dp"
                     android:background="@color/background"
+                    android:layout_marginBottom="@dimen/padding_10"
                     android:textStyle="bold" />
 
                 <View
                     android:id="@+id/textViewJudul"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="@dimen/padding_10"
                     android:background="@color/background" />
 
                 <View
                     android:id="@+id/textViewCustomer"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="@dimen/padding_10"
                     android:background="@color/background" />
 
-                <View
-                    android:id="@+id/textViewLocation"
-                    android:layout_width="250dp"
-                    android:layout_height="10dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/background" />
 
             </LinearLayout>
 

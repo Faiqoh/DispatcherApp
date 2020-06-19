@@ -50,7 +50,10 @@
 
                 <include layout="@layout/data_placeholder_payment" />
 
-                <!--                <include layout="@layout/data_placeholder_payment" />-->
+                <include layout="@layout/data_placeholder_payment" />
+
+                <include layout="@layout/data_placeholder_payment" />
+
             </LinearLayout>
 
         </com.facebook.shimmer.ShimmerFrameLayout>

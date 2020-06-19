@@ -75,6 +75,7 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
         nestedScrollView = view.findViewById(R.id.nested_accept);
 
         rvNotFound = view.findViewById(R.id.RvNotFound);
+
         rvProgress = view.findViewById(R.id.relativelayoutprogress);
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshProgress);
@@ -124,29 +125,28 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
                             JSONObject cat = jray.getJSONObject(i);
 
                             OnProgressViewModel itemCategory = new OnProgressViewModel();
-                            if (cat.getString("job_status").equals("Progress") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
-                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                                itemCategory.setJudul(cat.getString("job_name"));
-                                itemCategory.setId_job(cat.getString("id"));
-                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            if (cat.getJSONObject("working_engineer").getString("id_engineer").equals("4")) {
+                                if (cat.getString("job_status").equals("Progress")) {
+                                    itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                    itemCategory.setJudul(cat.getString("job_name"));
+                                    itemCategory.setId_job(cat.getString("id"));
+                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                pList.clear();
-                                pList.add(itemCategory);
-
-                                rvNotFound.setVisibility(View.GONE);
-                            } else {
-                                rvNotFound.setVisibility(View.VISIBLE);
-                                rvProgress.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                                    pList.clear();
+                                    pList.add(itemCategory);
+                                }
                             }
-//                            JSONArray japplied = cat.getJSONArray("apply_engineer");
-//                            for (int j = 0; j < japplied.length(); j++) {
-//                                JSONObject applied = japplied.getJSONObject(j);
-//
-//
-//                            }
                         }
+
+                        if (pList.size() > 0) {
+                            rvNotFound.setVisibility(View.GONE);
+                            rvProgress.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                        } else {
+                            rvNotFound.setVisibility(View.VISIBLE);
+                        }
+
                         pAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {

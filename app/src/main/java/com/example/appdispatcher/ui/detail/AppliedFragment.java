@@ -127,17 +127,15 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
 
                                 aList.add(itemCategory);
 
+                            }
+
+                            if (aList.size() > 0) {
                                 rvNotFound.setVisibility(View.GONE);
+                                rvApplied.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
                             } else {
                                 rvNotFound.setVisibility(View.VISIBLE);
-                                rvApplied.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
                             }
-//                            JSONArray japplied = cat.getJSONArray("apply_engineer");
-//                            for (int j = 0; j < japplied.length(); j++) {
-//                                JSONObject applied = japplied.getJSONObject(j);
-//
-//
-//                            }
+
                             aAdapter.notifyDataSetChanged();
                         }
 
