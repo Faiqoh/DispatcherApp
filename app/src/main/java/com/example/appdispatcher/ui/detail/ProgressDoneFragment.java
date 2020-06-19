@@ -255,6 +255,7 @@ public class ProgressDoneFragment extends Fragment {
                                 progress.setDate(dateFormat.format(date_submit));
                                 /*btn_done.setVisibility(View.VISIBLE);
                                 btn_note.setVisibility(View.VISIBLE);*/
+                                floatingActionsMenu.collapse();
 
                                 pList.add(progress);
 
@@ -267,6 +268,7 @@ public class ProgressDoneFragment extends Fragment {
                                 progress.setDate(dateFormat.format(date_submit));
                                 /*btn_done.setVisibility(View.GONE);
                                 btn_note.setVisibility(View.GONE);*/
+//                                floatingActionsMenu.setVisibility(View.GONE);
 
                                 pList.add(progress);
                             }

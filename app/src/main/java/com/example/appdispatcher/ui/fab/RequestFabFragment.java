@@ -136,7 +136,7 @@ public class RequestFabFragment extends Fragment {
 
                 /*Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);*/
-//                getActivity().finish();
+                getActivity().finish();
 
             }
         },

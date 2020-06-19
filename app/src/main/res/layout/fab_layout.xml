@@ -17,6 +17,16 @@
         app:fab_labelStyle="@style/customFab">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/colorPrimary"
+            app:fab_icon="@drawable/ic_baseline_email_24"
+            app:fab_size="mini"
+            app:fab_title="Job Done" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,16 +35,6 @@
             app:fab_colorPressed="@color/colorPrimary"
             app:fab_size="mini"
             app:fab_title="Request" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/ic_baseline_email_24"
-            app:fab_colorNormal="@color/white"
-            app:fab_colorPressed="@color/colorPrimary"
-            app:fab_size="mini"
-            app:fab_title="Job Done" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/progress"
