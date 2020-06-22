@@ -40,7 +40,7 @@ public class server {
     public static final String JobApply_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobApply";
     public static final String progreesjob_withToken = "https://sinergy-dev.xyz:2096/api/job/getJobProgress";
     public static final String postJobUpdate_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobUpdate";
-//    public static final String jobdone_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobFinish";
-public static final String jobdone_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobFinish";
+    //    public static final String jobdone_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobFinish";
+    public static final String jobdone_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobFinish";
 
 }
