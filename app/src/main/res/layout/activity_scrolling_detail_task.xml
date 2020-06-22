@@ -43,4 +43,12 @@
 
     <include layout="@layout/content_scrolling_detail_task" />
 
+    <include
+        layout="@layout/fab_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

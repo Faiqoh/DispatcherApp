@@ -12,6 +12,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewHeader"
             android:visibility="gone"
+            shimmer:contentPadding="@dimen/padding_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -28,11 +29,11 @@
                     android:src="@drawable/code" />
 
                 <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="70dp"
                     android:id="@+id/text_view_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="70dp"
                     android:text="Backend Developer"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
@@ -51,6 +52,7 @@
             android:scaleY="4" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
+            android:visibility="gone"
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -70,11 +72,11 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.cardview.widget.CardView
+            android:layout_below="@+id/cardViewHeader"
             android:id="@+id/cardviewdetailapply"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_marginTop="60dp">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_idjob"
