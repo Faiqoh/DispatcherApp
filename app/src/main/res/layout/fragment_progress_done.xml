@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    app:ignore="NamespaceTypo">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
             android:id="@+id/cardview1"
-            android:layout_height="50dp"
-            android:visibility="gone">
-
-            <ProgressBar
-                android:id="@+id/progressBarDone"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="-2dp"
-                android:indeterminate="true"
-                android:scaleY="4" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            shimmer:contentPadding="@dimen/padding_10">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -34,8 +27,7 @@
                     android:id="@+id/cat_backend"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:paddingTop="10dp"
+                    android:layout_marginLeft="@dimen/padding_10"
                     android:scaleType="centerInside"
                     android:src="@drawable/code" />
 
@@ -43,14 +35,25 @@
                     android:id="@+id/text_view_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginLeft="65dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="70dp"
                     android:text="Backend Developer"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             </RelativeLayout>
+
         </androidx.cardview.widget.CardView>
+
+        <ProgressBar
+            android:id="@+id/progressBarDone"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@+id/cardview1"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="-2dp"
+            android:indeterminate="true"
+            android:scaleY="4" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_container"
@@ -81,6 +84,7 @@
             android:visibility="gone">
 
             <LinearLayout
+                android:id="@+id/viewBody"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
@@ -111,8 +115,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
                     android:text="Requirements"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -206,6 +210,7 @@
                 android:layout_below="@+id/eTextTask"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="@dimen/padding_10"
                 android:background="@drawable/roundedbutton"
                 android:backgroundTint="@color/colorPrimary"
                 android:text="Submit"
@@ -214,12 +219,6 @@
 
         </RelativeLayout>
 
-        <include
-            layout="@layout/fab_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
-
     </RelativeLayout>
 
-</LinearLayout>
+</FrameLayout>

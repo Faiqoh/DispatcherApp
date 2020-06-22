@@ -85,6 +85,7 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         nestedScrollView = view.findViewById(R.id.nested_accept);
         rvNotFound = view.findViewById(R.id.RvNotFound);
+
         rvAccepted = view.findViewById(R.id.relativeLayoutAccepted);
 
         return view;
@@ -123,29 +124,18 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
                                 pList.clear();
                                 pList.add(itemCategory);
 
-                                rvNotFound.setVisibility(View.GONE);
-                            } else {
-                                rvNotFound.setVisibility(View.VISIBLE);
-                                rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
                             }
-
-//                            JSONArray japplied = cat.getJSONArray("apply_engineer");
-//                            for (int j = 0; j < japplied.length(); j++) {
-//                                JSONObject applied = japplied.getJSONObject(j);
-//
-//                                AcceptedViewModel itemCategory = new AcceptedViewModel();
-//                                if (applied.getString("status").equals("Accept") && cat.getString("job_status").equals("Open")) {
-//
-//                                }
-//
-//
-//                            }
 
                         }
 
-                        pAdapter.notifyDataSetChanged();
-                    } else {
+                        if (pList.size() > 0) {
+                            rvNotFound.setVisibility(View.GONE);
+                            rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                        } else {
+                            rvNotFound.setVisibility(View.VISIBLE);
+                        }
 
+                        pAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

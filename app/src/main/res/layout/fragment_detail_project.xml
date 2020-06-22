@@ -12,18 +12,9 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewHeader"
             android:visibility="gone"
+            shimmer:contentPadding="@dimen/padding_10"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <ProgressBar
-                android:id="@+id/progressBar1"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="-2dp"
-                android:indeterminate="true"
-                android:scaleY="4" />
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -31,26 +22,37 @@
 
                 <ImageView
                     android:id="@+id/cat_backend"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="20dp"
-                    android:paddingTop="17dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="@dimen/padding_10"
+                    android:scaleType="centerInside"
                     android:src="@drawable/code" />
 
                 <TextView
                     android:id="@+id/text_view_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginLeft="65dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="70dp"
                     android:text="Backend Developer"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@+id/cardViewHeader"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="-2dp"
+            android:indeterminate="true"
+            android:scaleY="4" />
+
         <com.facebook.shimmer.ShimmerFrameLayout
+            android:visibility="gone"
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -70,11 +72,11 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.cardview.widget.CardView
+            android:layout_below="@+id/cardViewHeader"
             android:id="@+id/cardviewdetailapply"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_marginTop="60dp">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_idjob"

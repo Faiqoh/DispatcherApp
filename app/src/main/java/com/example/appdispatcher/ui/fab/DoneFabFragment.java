@@ -1,17 +1,28 @@
 package com.example.appdispatcher.ui.fab;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -23,23 +34,35 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.VolleyMultipartRequest;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A fragment representing a list of Items.
  */
 public class DoneFabFragment extends Fragment {
 
+    public static final String ROOT_URL = "http://seoforworld.com/api/v1/file-upload.php";
+    public static final int PICKFILE_RESULT_CODE = 1;
+    public static final int REQUEST_PERMISSIONS = 100;
     EditText etsum, etroot, etcounter;
-    TextView tvIdJob;
+    TextView tvIdJob, textViewSelected;
     Button btn_upload;
     String summary, root, counter, id_job;
+    ImageView imgIdProf;
+    private Bitmap bitmap;
+    private String filePath, filaName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,19 +78,137 @@ public class DoneFabFragment extends Fragment {
         etcounter = view.findViewById(R.id.eTextTask3);
         btn_upload = view.findViewById(R.id.btn_upload);
         tvIdJob = view.findViewById(R.id.tv_id_job);
+        imgIdProf = view.findViewById(R.id.IdProf);
+        textViewSelected = view.findViewById(R.id.textviewSelected);
         fillDetail(id_jobb);
-        btn_upload.setOnClickListener(new View.OnClickListener() {
+
+        imgIdProf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                summary = etsum.getText().toString().trim();
-                root = etroot.getText().toString().trim();
-                counter = etcounter.getText().toString().trim();
-                id_job = tvIdJob.getText().toString().trim();
-                submit();
+                if ((ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+                    if ((ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE))) {
+
+                    } else {
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                                REQUEST_PERMISSIONS);
+                    }
+                } else {
+                    Log.e("Else", "Else");
+                    showFileChooser();
+                }
+
+            }
+
+            private void showFileChooser() {
+                Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+                chooseFile.setType("*/*");
+                chooseFile = Intent.createChooser(chooseFile, "Choose a file");
+                startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri picUri = data.getData();
+            filePath = getPath(picUri);
+            File file = new File(filePath);
+            filaName = file.getName();
+            Log.i("fileName", filaName);
+            if (filePath != null) {
+                try {
+                    textViewSelected.setText("File Selected");
+                    Log.i("filePath", String.valueOf(filePath));
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), picUri);
+                    btn_upload.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            summary = etsum.getText().toString().trim();
+                            root = etroot.getText().toString().trim();
+                            counter = etcounter.getText().toString().trim();
+                            id_job = tvIdJob.getText().toString().trim();
+                            submit(bitmap);
+                        }
+                    });
+
+                    imgIdProf.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Toast.makeText(
+                        getActivity(), "no image selected",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+//    private void uploadBitmap(final Bitmap bitmap) {
+//        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ROOT_URL,
+//                new Response.Listener<NetworkResponse>() {
+//                    @Override
+//                    public void onResponse(NetworkResponse response) {
+//                        try {
+//                            JSONObject obj = new JSONObject(new String(response.data));
+//                            Toast.makeText(getActivity().getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+//                        Log.e("GotError",""+error.getMessage());
+//                    }
+//                }) {
+//
+//
+//            @Override
+//            protected Map<String, DataPart> getByteData() {
+//                Map<String, DataPart> params = new HashMap<>();
+//                long imagename = System.currentTimeMillis();
+//                params.put("image", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+//                return params;
+//            }
+//        };
+//
+//        //adding the request to volley
+//        Volley.newRequestQueue(getActivity()).add(volleyMultipartRequest);
+//    }
+
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    private String getPath(Uri picUri) {
+        Cursor cursor = getActivity().getContentResolver().query(picUri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getActivity().getContentResolver().query(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+
+        return path;
     }
 
     private void fillDetail(String id_job) {
@@ -114,7 +255,7 @@ public class DoneFabFragment extends Fragment {
         requestQueue.add(StrReq);
     }
 
-    private void submit() {
+    private void submit(final Bitmap bitmap) {
         final JSONObject jobj = new JSONObject();
         try {
             jobj.put("id_job", id_job);
@@ -125,18 +266,17 @@ public class DoneFabFragment extends Fragment {
             e.printStackTrace();
         }
 
-        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.jobdone_withToken, jobj, new Response.Listener<JSONObject>() {
-
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, server.jobdone_withToken, new Response.Listener<NetworkResponse>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(NetworkResponse response) {
                 Log.i("response", response.toString());
                 Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
 
                 /*Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);*/
                 getActivity().finish();
-
             }
+
         },
                 new Response.ErrorListener() {
                     @Override
@@ -156,13 +296,27 @@ public class DoneFabFragment extends Fragment {
              * Passing some request headers
              */
             @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id_job", id_job);
+                params.put("job_summary", summary);
+                params.put("job_rootcause", root);
+                params.put("job_countermeasure", counter);
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("job_documentation", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                return params;
+            }
+
+            @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
                 headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
                 SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 headers.put("Authorization", mSetting.getString("Token", "missing"));
                 return headers;
@@ -170,6 +324,6 @@ public class DoneFabFragment extends Fragment {
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
+        requestQueue.add(volleyMultipartRequest);
     }
 }

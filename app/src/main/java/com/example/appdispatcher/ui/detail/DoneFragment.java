@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,7 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
     public static final String GET_ID_JOB = "get_id_job";
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
+    RelativeLayout rvNotFound, rvDone;
 
     public static DoneFragment newInstance() {
         return new DoneFragment();
@@ -70,6 +72,8 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
 
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         nestedScrollView = view.findViewById(R.id.nested_accept);
+        rvNotFound = view.findViewById(R.id.RvNotFound);
+        rvDone = view.findViewById(R.id.relativelayoutDone);
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshdone);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -113,25 +117,36 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
-                            DoneViewModel itemCategory = new DoneViewModel();
-                            if (cat.getString("job_status").equals("Done") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
-                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                                itemCategory.setJudul(cat.getString("job_name"));
-                                itemCategory.setId_job(cat.getString("id"));
-                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            JSONArray japplied = cat.getJSONArray("apply_engineer");
+                            for (int j = 0; j < japplied.length(); j++) {
+                                JSONObject applied = japplied.getJSONObject(j);
 
-                                dList.add(itemCategory);
+                                DoneViewModel itemCategory = new DoneViewModel();
+
+                                if (cat.getString("job_status").equals("Done") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
+                                    itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                    itemCategory.setJudul(cat.getString("job_name"));
+                                    itemCategory.setId_job(cat.getString("id"));
+                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+
+
+                                    dList.add(itemCategory);
+                                    dList.clear();
+                                    dList.add(itemCategory);
+
+                                }
                             }
-
-//                            JSONArray japplied = cat.getJSONArray("apply_engineer");
-//                            for (int j = 0; j < japplied.length(); j++) {
-//                                JSONObject applied = japplied.getJSONObject(j);
-//
-//
-//                            }
                         }
+
+                        if (dList.size() > 0) {
+                            rvNotFound.setVisibility(View.GONE);
+                            rvDone.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                        } else {
+                            rvNotFound.setVisibility(View.VISIBLE);
+                        }
+
                         dAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {

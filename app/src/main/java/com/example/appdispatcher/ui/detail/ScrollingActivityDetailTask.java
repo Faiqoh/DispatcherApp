@@ -2,6 +2,7 @@ package com.example.appdispatcher.ui.detail;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,9 +12,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail_project.DetailProjectFragment;
 import com.example.appdispatcher.ui.payment.DetailPaymentFragment;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 public class ScrollingActivityDetailTask extends AppCompatActivity {
+    FloatingActionsMenu floatingActionsMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
         toolBarLayout.setTitle(getTitle());
 
         Bundle extras = getIntent().getExtras();
+        floatingActionsMenu = findViewById(R.id.fab_menu);
 
         String getJob = extras.getString("get_id_job");
 
@@ -33,6 +37,8 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             ft.replace(R.id.pending_fragment, new AppliedAcceptFragment());
             ft.commit();
             getSupportActionBar().setTitle("Detail Job");
+
+            floatingActionsMenu.setVisibility(View.GONE);
         } else if (getJob.equals("id_job_progress") || getJob.equals("id_job_done")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new ProgressDoneFragment());
@@ -43,14 +49,20 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             ft.replace(R.id.pending_fragment, new DetailPaymentFragment());
             ft.commit();
             getSupportActionBar().setTitle("Detail Payment");
+
+            floatingActionsMenu.setVisibility(View.GONE);
         } else if (getJob.equals("id_job")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new DetailProjectFragment());
             ft.commit();
             getSupportActionBar().setTitle("Detail Job");
+
+            floatingActionsMenu.setVisibility(View.GONE);
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
 
     @Override
