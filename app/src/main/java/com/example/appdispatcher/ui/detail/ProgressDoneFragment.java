@@ -190,6 +190,7 @@ public class ProgressDoneFragment extends Fragment {
                 cvspec.setVisibility(View.VISIBLE);
                 relativelayoutprogress.setVisibility(View.VISIBLE);
                 cardView1.setVisibility(View.VISIBLE);
+//                floatingActionsMenu.setVisibility(View.VISIBLE);
 
                 try {
                     JSONObject job = response.getJSONObject("job");
@@ -268,7 +269,7 @@ public class ProgressDoneFragment extends Fragment {
                                 progress.setDate(dateFormat.format(date_submit));
                                 /*btn_done.setVisibility(View.GONE);
                                 btn_note.setVisibility(View.GONE);*/
-//                                floatingActionsMenu.setVisibility(View.GONE);
+                                floatingActionsMenu.setVisibility(View.GONE);
 
                                 pList.add(progress);
                             }

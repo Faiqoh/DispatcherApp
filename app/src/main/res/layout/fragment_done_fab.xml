@@ -152,6 +152,8 @@
                         android:text="Submit"
                         android:textAppearance="?android:textAppearanceMedium"
                         android:textColor="@color/white"
+                        android:background="@drawable/roundedbutton"
+                        android:backgroundTint="@color/colorPrimary"
                         android:textStyle="bold" />
 
                 </LinearLayout>
