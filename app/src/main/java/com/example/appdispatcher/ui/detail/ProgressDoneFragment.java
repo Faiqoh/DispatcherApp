@@ -102,9 +102,9 @@ public class ProgressDoneFragment extends Fragment {
         cvspec = root.findViewById(R.id.spec);
         relativelayoutprogress = root.findViewById(R.id.relativelayoutprogress);
         cardView1 = root.findViewById(R.id.cardview1);
-        floatingActionsMenu = root.findViewById(R.id.fab_menu);
+        floatingActionsMenu = getActivity().findViewById(R.id.fab_menu);
 
-        FloatingActionButton Request = root.findViewById(R.id.request);
+        FloatingActionButton Request = getActivity().findViewById(R.id.request);
         Request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +115,7 @@ public class ProgressDoneFragment extends Fragment {
             }
         });
 
-        FloatingActionButton Done = root.findViewById(R.id.done);
+        FloatingActionButton Done = getActivity().findViewById(R.id.done);
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,7 +127,7 @@ public class ProgressDoneFragment extends Fragment {
             }
         });
 
-        FloatingActionButton Progress = root.findViewById(R.id.progress);
+        FloatingActionButton Progress = getActivity().findViewById(R.id.progress);
         Progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
