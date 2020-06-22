@@ -125,7 +125,7 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
                             JSONObject cat = jray.getJSONObject(i);
 
                             OnProgressViewModel itemCategory = new OnProgressViewModel();
-                            if (cat.getJSONObject("working_engineer").getString("id_engineer").equals("4")) {
+                            if (cat.getString("job_status").equals("Progress") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
                                 if (cat.getString("job_status").equals("Progress")) {
                                     itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
                                     itemCategory.setJudul(cat.getString("job_name"));
