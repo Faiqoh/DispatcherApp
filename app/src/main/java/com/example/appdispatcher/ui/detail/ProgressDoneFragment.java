@@ -1,6 +1,7 @@
 package com.example.appdispatcher.ui.detail;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -74,7 +76,7 @@ public class ProgressDoneFragment extends Fragment {
     Button btn_note, btn_submit, btn_done;
     ProgressTaskAdapter pAdapter;
     String id_user, id_jobb, detail_activity;
-    ProgressBar progressBar;
+    ProgressBar progressBar, progressBarSubmit;
     CardView cvdesc, cvspec, cardView1;
     RelativeLayout relativelayoutprogress;
     ShimmerFrameLayout shimmerFrameLayout;
@@ -82,6 +84,7 @@ public class ProgressDoneFragment extends Fragment {
     FloatingActionsMenu floatingActionsMenu;
     NestedScrollView NesteddetailTask;
     AppBarLayout appBarLayout;
+//    boolean processClick = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,13 +99,12 @@ public class ProgressDoneFragment extends Fragment {
         textJobdesc = root.findViewById(R.id.job_desc_detail);
         textViewjob = root.findViewById(R.id.text_view_job);
         textRequirement = root.findViewById(R.id.requirement_detail);
-        etTask = root.findViewById(R.id.eTextTask);
-        btn_submit = root.findViewById(R.id.btnSubmit);
 //        btn_note = root.findViewById(R.id.btnAddNote);
         tvidJob = root.findViewById(R.id.tv_idjob);
         tvidUser = root.findViewById(R.id.tv_id_user);
 //        btn_done = root.findViewById(R.id.btnDone);
         progressBar = root.findViewById(R.id.progressBarDone);
+        progressBarSubmit = root.findViewById(R.id.progressBarSubmit);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
         cvdesc = root.findViewById(R.id.cvdesc);
         cvspec = root.findViewById(R.id.spec);
@@ -111,6 +113,12 @@ public class ProgressDoneFragment extends Fragment {
         floatingActionsMenu = getActivity().findViewById(R.id.fab_menu);
         NesteddetailTask = getActivity().findViewById(R.id.Nested_detail_task);
         appBarLayout = getActivity().findViewById(R.id.app_bar);
+
+        final RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        pAdapter = new ProgressTaskAdapter(pList);
+        recyclerView.setAdapter(pAdapter);
 
         FloatingActionButton Request = getActivity().findViewById(R.id.request);
         Request.setOnClickListener(new View.OnClickListener() {
@@ -139,25 +147,64 @@ public class ProgressDoneFragment extends Fragment {
         Progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-//                floatingActionsMenu.collapse();
-//                floatingActionsMenu.setVisibility(View.GONE);
-                etTask.setVisibility(View.VISIBLE);
-                btn_submit.setVisibility(View.VISIBLE);
-                appBarLayout.setExpanded(false);
-                focusOnView();
+//                etTask.setVisibility(View.VISIBLE);
+//                btn_submit.setVisibility(View.VISIBLE);
+//                focusOnView();
+                //                appBarLayout.setExpanded(false);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+                View mView = getLayoutInflater().inflate(R.layout.activity_request, null);
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+                floatingActionsMenu.collapse();
+                btn_submit = mView.findViewById(R.id.btnSubmit);
+                etTask = mView.findViewById(R.id.eTextTask);
+
+
+                btn_submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        id_user = tvidUser.getText().toString().trim();
+                        id_jobb = tvidJob.getText().toString().trim();
+                        detail_activity = etTask.getText().toString().trim();
+                        dialog.dismiss();
+                        progressjob();
+//                        if (processClick) {
+//                            btn_submit.setEnabled(false);
+//                            btn_submit.setClickable(false);
+//                            btn_submit.setVisibility(View.GONE);
+//                            performTaskOnce();
+//                        }
+//                        processClick = false;
+
+                    }
+
+                    private void performTaskOnce() {
+                        id_user = tvidUser.getText().toString().trim();
+                        id_jobb = tvidJob.getText().toString().trim();
+                        detail_activity = etTask.getText().toString().trim();
+                        dialog.dismiss();
+                        progressjob();
+
+                    }
+                });
+
             }
 
-            private void focusOnView() {
+            public void focusOnView() {
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
+                        Log.i("cek nested", String.valueOf(NesteddetailTask));
+
+                        Log.i("cek recycle", String.valueOf(recyclerView));
                         NesteddetailTask.scrollTo(0, 1);
                         ObjectAnimator.ofInt(NesteddetailTask, "scrollY", etTask.getBottom(), btn_submit.getBottom()).setDuration(700).start();
+
                     }
                 });
             }
         });
-
 
         if (getJob.equals("id_job_progress")) {
             OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
@@ -169,37 +216,33 @@ public class ProgressDoneFragment extends Fragment {
             fillDetail(id_job);
         }
 
-        btn_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                id_user = tvidUser.getText().toString().trim();
-                id_jobb = tvidJob.getText().toString().trim();
-                detail_activity = etTask.getText().toString().trim();
-                progressjob();
-            }
-        });
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                if(dy > 0){
+//                    floatingActionsMenu.setVisibility(View.GONE);
+//                } else{
+//                    floatingActionsMenu.setVisibility(View.VISIBLE);
+//                }
+//
+//                super.onScrolled(recyclerView, dx, dy);
+//            }
+//        });
 
-        NesteddetailTask.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > oldScrollY) {
-                    floatingActionsMenu.setVisibility(View.GONE);
-                } else {
-                    floatingActionsMenu.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        pAdapter = new ProgressTaskAdapter(pList);
-        recyclerView.setAdapter(pAdapter);
+//        NesteddetailTask.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                if (scrollY > oldScrollY) {
+//                    floatingActionsMenu.setVisibility(View.GONE);
+//                } else {
+//                    floatingActionsMenu.setVisibility(View.VISIBLE);
+//                }
+//            }
+//
+//        });
 
         return root;
     }
-
 
     private void fillDetail(String id_job) {
         Log.i("id_jobku", id_job);
@@ -342,6 +385,9 @@ public class ProgressDoneFragment extends Fragment {
     }
 
     private void progressjob() {
+        progressBarSubmit.getIndeterminateDrawable().setColorFilter(getActivity().getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+        progressBarSubmit.setVisibility(View.VISIBLE);
+        floatingActionsMenu.setVisibility(View.GONE);
         final JSONObject jobj = new JSONObject();
         try {
             jobj.put("id_job", id_jobb);
@@ -351,15 +397,15 @@ public class ProgressDoneFragment extends Fragment {
         }
 
         final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.postJobUpdate_withToken, jobj, new Response.Listener<JSONObject>() {
-
             @Override
             public void onResponse(JSONObject response) {
+                progressBarSubmit.setVisibility(View.GONE);
                 Log.i("response", response.toString());
                 JSONObject jObj = response;
                 Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
 
-                /*Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);*/
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                startActivity(intent);
                 getActivity().finish();
 
             }
@@ -395,6 +441,10 @@ public class ProgressDoneFragment extends Fragment {
             }
         };
 
+        strReq.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
     }

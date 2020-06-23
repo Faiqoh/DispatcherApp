@@ -43,7 +43,8 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new ProgressDoneFragment());
             ft.commit();
-            getSupportActionBar().setTitle("Detail Job");
+            getSupportActionBar().setTitle("Job Progress Detail");
+
         } else if (getJob.equals("id_payment")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new DetailPaymentFragment());
