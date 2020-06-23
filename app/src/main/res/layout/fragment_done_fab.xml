@@ -128,7 +128,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_toEndOf="@+id/tvUpload"
                         android:layout_toRightOf="@+id/tvUpload"
-                        android:src="@drawable/bg_grey_awas_ae_sek_gak_iso" />
+                        android:src="@drawable/group_347" />
 
                     <TextView
                         android:id="@+id/textviewSelected"
@@ -137,20 +137,20 @@
                         android:layout_gravity="center"
                         android:gravity="center_horizontal"
                         android:hint="No Image Slected"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
 
                     <Button
                         android:id="@+id/btn_upload"
-                        android:layout_width="180dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/IdProf"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="bottom|center"
                         android:layout_marginTop="30dp"
                         android:text="Submit"
-                        android:textAppearance="?android:textAppearanceMedium"
+                        android:textAppearance="?android:textAppearanceSmall"
                         android:textColor="@color/white"
                         android:background="@drawable/roundedbutton"
                         android:backgroundTint="@color/colorPrimary"

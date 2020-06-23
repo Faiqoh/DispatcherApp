@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/colorPrimary"
-            app:fab_icon="@drawable/ic_baseline_email_24"
+            app:fab_icon="@drawable/job_done"
             app:fab_size="mini"
             app:fab_title="Job Done" />
 
@@ -32,7 +32,7 @@
             android:id="@+id/request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_icon="@drawable/ic_baseline_email_24"
+            app:fab_icon="@drawable/job_request"
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/colorPrimary"
             app:fab_size="mini"
@@ -42,7 +42,7 @@
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_icon="@drawable/ic_baseline_share_24"
+            app:fab_icon="@drawable/job_on_progress"
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/colorPrimary"
             app:fab_size="mini"
