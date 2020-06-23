@@ -128,6 +128,7 @@ public class ProgressDoneFragment extends Fragment {
                 intent.putExtra(ID_JOB, tvidJob.getText().toString());
                 intent.putExtra(GET_ID_JOB, "id_job_request");
                 startActivity(intent);
+                floatingActionsMenu.collapse();
             }
         });
 
@@ -140,6 +141,7 @@ public class ProgressDoneFragment extends Fragment {
                 intent.putExtra(ID_JOB, tvidJob.getText().toString());
                 intent.putExtra(GET_ID_JOB, "id_job_done");
                 startActivity(intent);
+                floatingActionsMenu.collapse();
             }
         });
 
