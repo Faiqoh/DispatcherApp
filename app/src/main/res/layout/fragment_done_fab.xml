@@ -136,8 +136,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center_horizontal"
-                        android:hint="No Image Slected"
+                        android:layout_marginTop="5dp"
                         android:textSize="15sp"
+                        android:hint="No Image Selected"
                         android:textStyle="bold" />
 
 

@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/roundedblack"
-                    android:hint="Add Name Product Here..."
+                    android:hint="Add Name Item Here..."
                     android:inputType="textMultiLine"
                     android:maxHeight="400dp"
                     android:minLines="2"
@@ -135,7 +135,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center_horizontal"
-                        android:hint="No Image Slected"
+                        android:layout_marginTop="5dp"
+                        android:hint="No Image Selected"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
