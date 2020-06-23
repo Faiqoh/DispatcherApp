@@ -1,10 +1,12 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +41,7 @@ import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.android.material.appbar.AppBarLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,6 +80,8 @@ public class ProgressDoneFragment extends Fragment {
     ShimmerFrameLayout shimmerFrameLayout;
     Boolean isOpen = false;
     FloatingActionsMenu floatingActionsMenu;
+    NestedScrollView NesteddetailTask;
+    AppBarLayout appBarLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,6 +109,8 @@ public class ProgressDoneFragment extends Fragment {
         relativelayoutprogress = root.findViewById(R.id.relativelayoutprogress);
         cardView1 = root.findViewById(R.id.cardview1);
         floatingActionsMenu = getActivity().findViewById(R.id.fab_menu);
+        NesteddetailTask = getActivity().findViewById(R.id.Nested_detail_task);
+        appBarLayout = getActivity().findViewById(R.id.app_bar);
 
         FloatingActionButton Request = getActivity().findViewById(R.id.request);
         Request.setOnClickListener(new View.OnClickListener() {
@@ -130,11 +138,23 @@ public class ProgressDoneFragment extends Fragment {
         FloatingActionButton Progress = getActivity().findViewById(R.id.progress);
         Progress.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
 //                floatingActionsMenu.collapse();
-                floatingActionsMenu.setVisibility(View.GONE);
+//                floatingActionsMenu.setVisibility(View.GONE);
                 etTask.setVisibility(View.VISIBLE);
                 btn_submit.setVisibility(View.VISIBLE);
+                appBarLayout.setExpanded(false);
+                focusOnView();
+            }
+
+            private void focusOnView() {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        NesteddetailTask.scrollTo(0, 1);
+                        ObjectAnimator.ofInt(NesteddetailTask, "scrollY", etTask.getBottom(), btn_submit.getBottom()).setDuration(700).start();
+                    }
+                });
             }
         });
 
@@ -159,6 +179,17 @@ public class ProgressDoneFragment extends Fragment {
             }
         });
 
+        NesteddetailTask.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+                    floatingActionsMenu.setVisibility(View.GONE);
+                } else {
+                    floatingActionsMenu.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -168,6 +199,7 @@ public class ProgressDoneFragment extends Fragment {
 
         return root;
     }
+
 
     private void fillDetail(String id_job) {
         Log.i("id_jobku", id_job);
