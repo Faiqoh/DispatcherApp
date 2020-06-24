@@ -104,7 +104,7 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
     }
 
     private void fillDataPaymentList() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getpayment_withToken + "/?id_engineer=" + 1, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getpayment_withToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
