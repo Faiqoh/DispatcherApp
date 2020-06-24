@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     app:ignore="NamespaceTypo">
 
     <RelativeLayout
@@ -192,16 +193,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/recyclerViewprogresstask"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_margin="@dimen/padding_10"
                 android:background="@drawable/roundedblack"
                 android:hint="Add Task Here..."
                 android:inputType="textMultiLine"
                 android:maxHeight="400dp"
                 android:minLines="2"
                 android:padding="20dp"
-                android:textSize="13dp"
-                android:visibility="gone" />
+                android:textSize="13dp" />
 
             <Button
                 android:id="@+id/btnSubmit"
@@ -214,11 +213,10 @@
                 android:background="@drawable/roundedbutton"
                 android:backgroundTint="@color/colorPrimary"
                 android:text="Submit"
-                android:textSize="11sp"
-                android:visibility="gone" />
+                android:textSize="11sp" />
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

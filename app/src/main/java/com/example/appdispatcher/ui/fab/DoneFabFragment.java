@@ -271,6 +271,10 @@ public class DoneFabFragment extends Fragment {
             public void onResponse(NetworkResponse response) {
                 Log.i("response", response.toString());
                 Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+
+                /*Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);*/
+                getActivity().finish();
             }
 
         },
