@@ -36,6 +36,41 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
+        <RelativeLayout
+            android:id="@+id/RvNotFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imgNotFound"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_found" />
+
+            <TextView
+                android:id="@+id/textNotfound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imgNotFound"
+                android:layout_marginHorizontal="70dp"
+                android:text="Nothing job at this page"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textNotfound"
+                android:layout_marginHorizontal="80dp"
+                android:text="Please waiting for this job..."
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_detail_job_list"
             android:layout_width="match_parent"

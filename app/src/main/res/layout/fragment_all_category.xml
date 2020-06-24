@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -12,13 +13,33 @@
             android:layout_height="wrap_content"
             android:paddingBottom="20dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewAllCategory"
+            <ProgressBar
+                android:id="@+id/progressBarApplied"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="false"
-                android:layout_centerVertical="false"
-                android:scrollbars="vertical" />
+                android:layout_height="4dp"
+                android:layout_below="@+id/cardviewApplied2"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="-2dp"
+                android:indeterminate="true"
+                android:scaleY="4" />
+
+            <LinearLayout
+                android:id="@+id/LlAllCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerviewAllCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="false"
+                    android:layout_centerVertical="false"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

@@ -132,7 +132,6 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
                                     dList.add(itemCategory);
-
                                 }
                             }
 

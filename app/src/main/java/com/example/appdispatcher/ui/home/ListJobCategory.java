@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -42,6 +43,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     DetailJobCategoryAdapter cAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
+    RelativeLayout rvNotFound;
 
     public ListJobCategory() {
         // Required empty public constructor
@@ -59,6 +61,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
 
         shimmerFrameLayout = root.findViewById(R.id.shimer_view_detail_job_list);
         nestedScrollView = root.findViewById(R.id.nested_detail_job_list);
+        rvNotFound = root.findViewById(R.id.RvNotFound);
 
         // Inflate the layout for this fragment
         RecyclerView recyclerView2 = root.findViewById(R.id.recyclerViewlistJobCategory);
@@ -130,6 +133,8 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONArray jray = jObj.getJSONArray("job");
 
@@ -147,10 +152,20 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
                                     cList.add(itemCategory);
+
+                                    Log.i("cek total list", String.valueOf(cList.size()));
+                                    if (cList.size() > 0) {
+                                        rvNotFound.setVisibility(View.GONE);
+                                        nestedScrollView.setVisibility(View.VISIBLE);
+                                    } else {
+                                        nestedScrollView.setVisibility(View.GONE);
+                                        rvNotFound.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
+                            cAdapter.notifyDataSetChanged();
                         }
-                        cAdapter.notifyDataSetChanged();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -173,5 +188,17 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
         intent.putExtra(ID_JOB, cAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_job");
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 }

@@ -1,10 +1,13 @@
 package com.example.appdispatcher.ui.home;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,6 +41,8 @@ public class AllFragmentCategory extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     ParentAllCategoryAdapter cAdapter;
     ChildAllCategoryAdapter childAdapter;
+    ProgressBar progressBar;
+    LinearLayout LlAllCategory;
 
     public AllFragmentCategory() {
         // Required empty public constructor
@@ -51,6 +56,8 @@ public class AllFragmentCategory extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_all_category, container, false);
 
+        progressBar = v.findViewById(R.id.progressBarApplied);
+        LlAllCategory = v.findViewById(R.id.LlAllCategory);
         RecyclerView recyclerViewJobAllCategory = v.findViewById(R.id.recyclerviewAllCategory);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewJobAllCategory.setLayoutManager(layoutManager);
@@ -67,11 +74,16 @@ public class AllFragmentCategory extends Fragment {
     }
 
     private void fillAllCategory() {
+        progressBar.getIndeterminateDrawable().setColorFilter(getActivity().getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
+        LlAllCategory.setVisibility(View.GONE);
         Log.i("!!", "Fill!!");
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getAllCategory, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("response all category", response.toString());
+
+                progressBar.setVisibility(View.GONE);
+                LlAllCategory.setVisibility(View.VISIBLE);
                 //iki isine piye?
                 //pdoo tapi mek nampilne judul e
                 //ono category ne pisan?
