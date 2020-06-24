@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,8 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
                 }, 2000);
 
                 pList.clear();
+                nestedScrollView.setVisibility(View.GONE);
+                shimmerFrameLayout.startShimmerAnimation();
                 fillDatJobPendingList();
 
             }
@@ -121,21 +124,20 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
                                 itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                 itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                pList.clear();
                                 pList.add(itemCategory);
-
                             }
 
+                            if (pList.size() > 0) {
+                                Log.i("tes leng plist", String.valueOf(pList.size()));
+                                rvNotFound.setVisibility(View.GONE);
+                                rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                            } else {
+                                rvNotFound.setVisibility(View.VISIBLE);
+                            }
+
+                            pAdapter.notifyDataSetChanged();
                         }
 
-                        if (pList.size() > 0) {
-                            rvNotFound.setVisibility(View.GONE);
-                            rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
-                        } else {
-                            rvNotFound.setVisibility(View.VISIBLE);
-                        }
-
-                        pAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

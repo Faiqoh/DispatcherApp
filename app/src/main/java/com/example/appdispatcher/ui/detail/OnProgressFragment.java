@@ -126,28 +126,25 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
 
                             OnProgressViewModel itemCategory = new OnProgressViewModel();
                             if (cat.getString("job_status").equals("Progress") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
-                                if (cat.getString("job_status").equals("Progress")) {
-                                    itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                                    itemCategory.setJudul(cat.getString("job_name"));
-                                    itemCategory.setId_job(cat.getString("id"));
-                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                                itemCategory.setJudul(cat.getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                    pList.clear();
-                                    pList.add(itemCategory);
-                                }
+                                pList.add(itemCategory);
                             }
-                        }
 
-                        if (pList.size() > 0) {
-                            rvNotFound.setVisibility(View.GONE);
-                            rvProgress.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
-                        } else {
-                            rvNotFound.setVisibility(View.VISIBLE);
-                        }
+                            if (pList.size() > 0) {
+                                rvNotFound.setVisibility(View.GONE);
+                                rvProgress.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                            } else {
+                                rvNotFound.setVisibility(View.VISIBLE);
+                            }
 
-                        pAdapter.notifyDataSetChanged();
+                            pAdapter.notifyDataSetChanged();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

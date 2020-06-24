@@ -177,10 +177,18 @@ public class DetailProjectFragment extends Fragment {
     }
 
     private void applyjob() {
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
+
+        cardViewApplied.setVisibility(View.GONE);
+        shimmerFrameLayout.startShimmerAnimation();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+
         final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.JobApply_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
+                progressBar.setVisibility(View.GONE);
                 Log.i("response", response.toString());
                 JSONObject jObj = response;
                 Toast.makeText(getActivity(), "Job Applied :)", Toast.LENGTH_LONG).show();

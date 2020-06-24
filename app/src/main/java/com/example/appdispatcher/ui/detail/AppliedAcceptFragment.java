@@ -162,6 +162,12 @@ public class AppliedAcceptFragment extends Fragment {
     }
 
     private void startjob() {
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
+
+        cardViewApplied.setVisibility(View.GONE);
+        shimmerFrameLayout.startShimmerAnimation();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
         final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.JobStart_WithToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
 
             @Override

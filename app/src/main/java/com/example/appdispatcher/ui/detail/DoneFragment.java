@@ -131,20 +131,17 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
                                     itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-
-                                    dList.add(itemCategory);
-                                    dList.clear();
                                     dList.add(itemCategory);
 
                                 }
                             }
-                        }
 
-                        if (dList.size() > 0) {
-                            rvNotFound.setVisibility(View.GONE);
-                            rvDone.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
-                        } else {
-                            rvNotFound.setVisibility(View.VISIBLE);
+                            if (dList.size() > 0) {
+                                rvNotFound.setVisibility(View.GONE);
+                                rvDone.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                            } else {
+                                rvNotFound.setVisibility(View.VISIBLE);
+                            }
                         }
 
                         dAdapter.notifyDataSetChanged();
