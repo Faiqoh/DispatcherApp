@@ -32,6 +32,8 @@ public class server {
     public static final String getdetailpayment = "https://development.sinergy-dev.xyz:2096/payment/getJobPaymentDetail";
 
     // Link API With Token
+    public static final String postSaveToken = "https://development.sinergy-dev.xyz:2096/api/api_token";
+
     public static final String getUser_withToken = "https://development.sinergy-dev.xyz:2096/api/dashboard/getDashboard";
     public static final String login_url = "https://development.sinergy-dev.xyz:2096/api/api_login";
     public static final String getJob_withToken = "https://sinergy-dev.xyz:2096/api/job/getJobByCategory";
