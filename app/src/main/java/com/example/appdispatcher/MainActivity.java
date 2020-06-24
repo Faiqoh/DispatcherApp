@@ -8,8 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,12 +29,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.example.appdispatcher.util.server.postSaveToken;
 
 public class MainActivity extends AppCompatActivity {
 
     private RequestQueue mQueue;
     public SharedPreferences mSetting;
+    public String msg;
 
 
     @Override
@@ -62,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
 //        String url = "http://117.102.120.152:8080/job/getJobProgress?id_job=1";
 //        Log.i("JsonLog","This is result of Json Request");
-        mQueue = Volley.newRequestQueue(this);
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -72,28 +77,45 @@ public class MainActivity extends AppCompatActivity {
         }
 
         getCurrentFirebaseToken();
+        mQueue = Volley.newRequestQueue(this);
+
 
     }
 
-    public void onClickButton(View view){
-        Log.i("JsonLog","This is result of Json Request");
-        String url = "http://117.102.120.152:8080/job/getJobProgress?id_job=1";
+    public void onFirebaseTokenSuccess(String token) {
+        Log.i("JsonLog", "This is result of Json Request");
+        String url = postSaveToken;
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("token", token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Log.i("JsonLog",response.toString());
+                        Log.i("JsonLog", response.toString());
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-
+                        Log.e("JsonLog", error.toString());
                     }
-                });
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                SharedPreferences mSetting = getApplicationContext().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Accept", "applicaion/json");
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
         mQueue.add(jsonObjectRequest);
     }
 
@@ -112,9 +134,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("currentToken", token);
 
                         // Log and toast
-                        String msg = getString(R.string.msg_token_fmt, token);
+                        msg = getString(R.string.msg_token_fmt, token);
                         Log.d("TAG", msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        onFirebaseTokenSuccess(token);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+
                     }
                 });
     }
