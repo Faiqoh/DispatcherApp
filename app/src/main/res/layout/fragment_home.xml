@@ -72,12 +72,14 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_alignParentRight="true"
                     android:id="@+id/text_see_all"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="310dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
                     android:text="See All"
                     android:textColor="#ff9900"
                     android:textSize="12sp" />
@@ -104,12 +106,14 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_alignParentRight="true"
                     android:id="@+id/text_see_all2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/recyclerViewJobCategory"
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="310dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right"
                     android:text="See All"
                     android:textColor="#ff9900"
                     android:textSize="12sp" />
@@ -145,9 +149,12 @@
 
                         <TextView
                             android:id="@+id/text_see_all3"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:layout_marginLeft="310dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="right"
                             android:text="See All"
                             android:textColor="#ff9900"
                             android:textSize="12sp" />
