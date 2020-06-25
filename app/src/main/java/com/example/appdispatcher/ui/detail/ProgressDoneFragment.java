@@ -257,7 +257,6 @@ public class ProgressDoneFragment extends Fragment {
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.progreesjob_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("response bisa", String.valueOf(response));
                 progressBar.setVisibility(View.GONE);
 
                 shimmerFrameLayout.stopShimmerAnimation();
@@ -301,9 +300,6 @@ public class ProgressDoneFragment extends Fragment {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 //headers.put("Content-Type", "application/json");
                 headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
                 SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 headers.put("Authorization", mSetting.getString("Token", "missing"));
                 return headers;
@@ -315,7 +311,6 @@ public class ProgressDoneFragment extends Fragment {
         JsonObjectRequest StrReq2 = new JsonObjectRequest(Request.Method.GET, server.progreesjob_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("response job list", response.toString());
                 JSONObject jObj = response;
                 try {
                     JSONArray jray = jObj.getJSONObject("job").getJSONArray("progress");
@@ -331,8 +326,6 @@ public class ProgressDoneFragment extends Fragment {
                                 progress.setDetail_activity(task.getString("detail_activity"));
                                 progress.setDay("Day " + no++);
                                 progress.setDate(dateFormat.format(date_submit));
-                                /*btn_done.setVisibility(View.VISIBLE);
-                                btn_note.setVisibility(View.VISIBLE);*/
                                 floatingActionsMenu.collapse();
 
                                 pList.add(progress);
@@ -344,14 +337,10 @@ public class ProgressDoneFragment extends Fragment {
                                 progress.setDetail_activity(task.getString("detail_activity"));
                                 progress.setDay("Day " + no++);
                                 progress.setDate(dateFormat.format(date_submit));
-                                /*btn_done.setVisibility(View.GONE);
-                                btn_note.setVisibility(View.GONE);*/
                                 floatingActionsMenu.setVisibility(View.GONE);
 
                                 pList.add(progress);
                             }
-
-
                             pAdapter.notifyDataSetChanged();
                         }
                     }
@@ -375,8 +364,6 @@ public class ProgressDoneFragment extends Fragment {
                 //headers.put("Content-Type", "application/json");
                 headers.put("Accept", "applicaion/json");
                 // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
                 SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 headers.put("Authorization", mSetting.getString("Token", "missing"));
                 return headers;
@@ -402,14 +389,10 @@ public class ProgressDoneFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 progressBarSubmit.setVisibility(View.GONE);
-                Log.i("response", response.toString());
                 JSONObject jObj = response;
                 Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
 //                startActivity(intent);
                 getActivity().finish();
-
             }
         },
                 new Response.ErrorListener() {

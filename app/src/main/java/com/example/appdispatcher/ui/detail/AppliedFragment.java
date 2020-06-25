@@ -1,13 +1,19 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -50,6 +56,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     NestedScrollView nestedScrollView;
     SwipeRefreshLayout swipeRefreshLayout;
     RelativeLayout rvApplied, rvNotFound;
+    ImageView imgClose;
 
     public static AppliedFragment newInstance() {
         return new AppliedFragment();
@@ -59,7 +66,6 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_applied, container, false);
-
         RecyclerView recyclerViewPendingJobList = view.findViewById(R.id.recyclerViewApplied);
         LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity());
         recyclerViewPendingJobList.setLayoutManager(layoutManagerPendingJobList);
@@ -93,6 +99,48 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
         });
         return view;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.filter_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.item_filter) {
+            final Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Light);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.activity_filter_layout_detail_task);
+            dialog.show();
+
+            imgClose = dialog.findViewById(R.id.dismissfilter);
+            imgClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+
+//            AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+//            View mView = getLayoutInflater().inflate(R.layout.activity_filter_layout_detail_task, null);
+//            mBuilder.setView(mView);
+
+//            Window window = dialog.getWindow();
+//            window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void fillDataJobAppliedList() {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken, null, new Response.Listener<JSONObject>() {
