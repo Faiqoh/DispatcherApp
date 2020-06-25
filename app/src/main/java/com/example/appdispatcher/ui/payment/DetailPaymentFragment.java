@@ -1,5 +1,7 @@
 package com.example.appdispatcher.ui.payment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,8 +43,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class DetailPaymentFragment extends Fragment {
 
@@ -94,13 +99,14 @@ public class DetailPaymentFragment extends Fragment {
     }
 
     private void fillDataDetailPaymentList(String id_payment) {
+        Log.i("id_payment", id_payment);
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.VISIBLE);
 
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getdetailpayment + "/?id_payment=" + id_payment, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getdetailpayment_withToken + "/?id_payment=" + id_payment, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
@@ -150,7 +156,20 @@ public class DetailPaymentFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
     }

@@ -47,5 +47,6 @@ public class server {
     public static final String request_item_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobRequestItem";
     //    public static final String jobdone_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobFinish";
     public static final String jobdone_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobFinish";
+    public static final String getdetailpayment_withToken = "https://sinergy-dev.xyz:2096/api/payment/getJobPaymentDetail";
 
 }
