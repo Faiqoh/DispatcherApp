@@ -46,6 +46,7 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
         holder.tvLocation.setText(recomend.location);
         holder.tvIdJob.setText(recomend.id_job);
         holder.tvNameCategory.setText(recomend.category_name);
+        holder.tvJobname.setText(recomend.job_name);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvLocation, tvIdJob, tvNameCategory;
+        TextView tvJudul, tvLocation, tvIdJob, tvNameCategory, tvJobname;
         RelativeLayout RLlistjob;
 
         public ViewHolder(View itemView) {
@@ -76,6 +77,7 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
             RLlistjob = itemView.findViewById(R.id.list_job);
             tvIdJob = itemView.findViewById(R.id.TvIdJob);
             tvNameCategory = itemView.findViewById(R.id.category_name);
+            tvJobname = itemView.findViewById(R.id.jobname);
 
             RLlistjob.setOnClickListener(new View.OnClickListener() {
                 @Override

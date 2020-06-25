@@ -44,12 +44,9 @@ public class SeeAllActivity extends AppCompatActivity {
 
             getSupportActionBar().setTitle(leadJobCat.judul);
         } else {
-            // Memulai transaksi
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            // mengganti isi container dengan fragment baru
             ft.replace(R.id.fragmentAllCategory, new ListJobCategory());
-            // atau ft.add(R.id.your_placeholder, new FooFragment());
-            // mulai melakukan hal di atas (jika belum di commit maka proses di atas belum dimulai)
+            getSupportActionBar().setTitle("Job List");
             ft.commit();
         }
 

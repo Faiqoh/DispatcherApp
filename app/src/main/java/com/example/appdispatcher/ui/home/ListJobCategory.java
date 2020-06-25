@@ -87,7 +87,6 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("response job list", response.toString());
                 JSONObject jObj = response;
                 nestedScrollView.setVisibility(View.VISIBLE);
                 shimmerFrameLayout.stopShimmerAnimation();
@@ -106,6 +105,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                                 itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
                                 itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                 itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                                itemCategory.setJob_name(cat.getString("job_name"));
 
                                 cList.add(itemCategory);
                             }
@@ -150,6 +150,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                                     itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
                                     itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                                    itemCategory.setJob_name(cat.getString("job_name"));
 
                                     cList.add(itemCategory);
 

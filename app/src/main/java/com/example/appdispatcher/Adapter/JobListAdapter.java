@@ -52,6 +52,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
         holder.tvCustomer.setText(joblist.customer);
         holder.tvIdJob.setText(joblist.id_job);
         holder.expandabeLayout.setVisibility(View.GONE);
+        holder.tvJobName.setText(joblist.job_name);
 
         Glide.with(context).load(joblist.getFoto()).into(holder.ivFoto);
 
@@ -76,7 +77,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto, ivRow;
-        TextView tvJudul, tvLocation, tvCustomer, tvIdJob;
+        TextView tvJudul, tvLocation, tvCustomer, tvIdJob, tvJobName;
         LinearLayout expandabeLayout;
         RelativeLayout headsub;
 
@@ -88,6 +89,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
             tvCustomer = itemView.findViewById(R.id.customer);
             tvLocation = itemView.findViewById(R.id.location);
             tvIdJob = itemView.findViewById(R.id.TvIdJob);
+            tvJobName = itemView.findViewById(R.id.jobname);
 
             ivRow = itemView.findViewById(R.id.row_down);
             expandabeLayout = itemView.findViewById(R.id.expandableLayout);

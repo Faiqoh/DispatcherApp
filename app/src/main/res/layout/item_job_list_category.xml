@@ -44,6 +44,13 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/jobname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:text="Upgrade PC KC Madura" />
+
+                <TextView
                     android:id="@+id/customer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

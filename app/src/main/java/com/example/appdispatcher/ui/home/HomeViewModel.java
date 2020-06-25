@@ -12,6 +12,16 @@ public class HomeViewModel implements Serializable {
     public String location;
     public String id_job;
 
+    public String job_name;
+
+    public String getJob_name() {
+        return job_name;
+    }
+
+    public void setJob_name(String job_name) {
+        this.job_name = job_name;
+    }
+
     public String category_name;
 
     public String getCategory_name() {
