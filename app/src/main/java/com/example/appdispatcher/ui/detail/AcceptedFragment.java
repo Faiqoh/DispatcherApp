@@ -31,6 +31,7 @@ import com.example.appdispatcher.Adapter.JobAcceptedAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +51,7 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
     RelativeLayout rvAccepted, rvNotFound;
+    BottomNavigationView navigation;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -63,6 +65,33 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
         fillDatJobPendingList();
         pAdapter = new JobAcceptedAdapter(this, pList);
         recyclerViewPendingJobList.setAdapter(pAdapter);
+        navigation = getActivity().findViewById(R.id.nav_view);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
+        nestedScrollView = view.findViewById(R.id.nested_accept);
+        rvNotFound = view.findViewById(R.id.RvNotFound);
+
+        rvAccepted = view.findViewById(R.id.relativeLayoutAccepted);
+
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            boolean isNavigationHide = false;
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY < oldScrollY) { // up
+                    animateNavigation(false);
+                }
+                if (scrollY > oldScrollY) { // down
+                    animateNavigation(true);
+                }
+            }
+
+            private void animateNavigation(boolean hide) {
+                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
+                isNavigationHide = hide;
+                int moveY = hide ? (2 * navigation.getHeight()) : 0;
+                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+            }
+        });
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshAccepted);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -84,12 +113,6 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
 
             }
         });
-
-        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
-        nestedScrollView = view.findViewById(R.id.nested_accept);
-        rvNotFound = view.findViewById(R.id.RvNotFound);
-
-        rvAccepted = view.findViewById(R.id.relativeLayoutAccepted);
 
         return view;
     }

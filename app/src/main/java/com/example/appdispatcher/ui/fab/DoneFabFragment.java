@@ -1,6 +1,7 @@
 package com.example.appdispatcher.ui.fab;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,12 +18,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -36,7 +39,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.VolleyMultipartRequest;
+import com.example.appdispatcher.ui.detail.ProgressDoneFragment;
+import com.example.appdispatcher.ui.detail.ProgressDoneViewModel;
 import com.example.appdispatcher.util.server;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +50,9 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
@@ -57,6 +65,7 @@ public class DoneFabFragment extends Fragment {
     public static final String ROOT_URL = "http://seoforworld.com/api/v1/file-upload.php";
     public static final int PICKFILE_RESULT_CODE = 1;
     public static final int REQUEST_PERMISSIONS = 100;
+    public List<ProgressDoneViewModel> pList = new ArrayList<>();
     EditText etsum, etroot, etcounter;
     TextView tvIdJob, textViewSelected;
     Button btn_upload;
@@ -64,6 +73,9 @@ public class DoneFabFragment extends Fragment {
     ImageView imgIdProf;
     private Bitmap bitmap;
     private String filePath, filaName;
+    FloatingActionButton floatingActionsMenu;
+    NestedScrollView nesteddetailtask;
+    ScrollView scrollviewdone;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +93,9 @@ public class DoneFabFragment extends Fragment {
         tvIdJob = view.findViewById(R.id.tv_id_job);
         imgIdProf = view.findViewById(R.id.IdProf);
         textViewSelected = view.findViewById(R.id.textviewSelected);
+        floatingActionsMenu = getActivity().findViewById(R.id.fab_menu);
+        nesteddetailtask = getActivity().findViewById(R.id.Nested_detail_task);
+        scrollviewdone = view.findViewById(R.id.scrollviewdone);
         fillDetail(id_jobb);
 
         imgIdProf.setOnClickListener(new View.OnClickListener() {
@@ -154,41 +169,6 @@ public class DoneFabFragment extends Fragment {
         }
     }
 
-//    private void uploadBitmap(final Bitmap bitmap) {
-//        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ROOT_URL,
-//                new Response.Listener<NetworkResponse>() {
-//                    @Override
-//                    public void onResponse(NetworkResponse response) {
-//                        try {
-//                            JSONObject obj = new JSONObject(new String(response.data));
-//                            Toast.makeText(getActivity().getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-//                        Log.e("GotError",""+error.getMessage());
-//                    }
-//                }) {
-//
-//
-//            @Override
-//            protected Map<String, DataPart> getByteData() {
-//                Map<String, DataPart> params = new HashMap<>();
-//                long imagename = System.currentTimeMillis();
-//                params.put("image", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
-//                return params;
-//            }
-//        };
-//
-//        //adding the request to volley
-//        Volley.newRequestQueue(getActivity()).add(volleyMultipartRequest);
-//    }
-
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
@@ -213,12 +193,9 @@ public class DoneFabFragment extends Fragment {
     }
 
     private void fillDetail(String id_job) {
-        Log.i("id_jobku", id_job);
-
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.progreesjob_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-//                Log.i("response bisa", String.valueOf(response));
 
                 try {
                     JSONObject job = response.getJSONObject("job");
@@ -244,9 +221,6 @@ public class DoneFabFragment extends Fragment {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 //headers.put("Content-Type", "application/json");
                 headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
                 SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 headers.put("Authorization", mSetting.getString("Token", "missing"));
                 return headers;
@@ -257,6 +231,14 @@ public class DoneFabFragment extends Fragment {
     }
 
     private void submit(final Bitmap bitmap) {
+
+        ProgressDialog pd = new ProgressDialog(getActivity(), R.style.MyTheme);
+        pd.setCancelable(false);
+        pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        pd.show();
+
+        scrollviewdone.setVisibility(View.GONE);
+
         final JSONObject jobj = new JSONObject();
         try {
             jobj.put("id_job", id_job);
@@ -271,10 +253,15 @@ public class DoneFabFragment extends Fragment {
             @Override
             public void onResponse(NetworkResponse response) {
                 Log.i("response", response.toString());
-                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+                ProgressDoneFragment.getInstance().fillDetail(id_job);
 
-                /*Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);*/
+//                int LAUNCH_SECOND_ACTIVITY = 1;
+//                Intent intent = new Intent(getActivity(), ScrollingActivityDetailTask.class);
+//                intent.putExtra(ID_JOB, id_job);
+//                intent.putExtra(GET_ID_JOB, "id_job_done");
+//                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+//                startActivity(intent);
                 getActivity().finish();
             }
 

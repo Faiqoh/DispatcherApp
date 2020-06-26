@@ -31,6 +31,7 @@ import com.example.appdispatcher.Adapter.JobOnProgressAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +53,7 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
     RelativeLayout rvNotFound, rvProgress;
-
+    BottomNavigationView navigation;
 
     public static OnProgressFragment newInstance() {
         return new OnProgressFragment();
@@ -77,6 +78,29 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
         rvNotFound = view.findViewById(R.id.RvNotFound);
 
         rvProgress = view.findViewById(R.id.relativelayoutprogress);
+
+        navigation = getActivity().findViewById(R.id.nav_view);
+
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            boolean isNavigationHide = false;
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY < oldScrollY) { // up
+                    animateNavigation(false);
+                }
+                if (scrollY > oldScrollY) { // down
+                    animateNavigation(true);
+                }
+            }
+
+            private void animateNavigation(boolean hide) {
+                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
+                isNavigationHide = hide;
+                int moveY = hide ? (2 * navigation.getHeight()) : 0;
+                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+            }
+        });
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshProgress);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

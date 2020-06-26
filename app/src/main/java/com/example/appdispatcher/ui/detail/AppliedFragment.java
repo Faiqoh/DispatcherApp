@@ -36,6 +36,7 @@ import com.example.appdispatcher.Adapter.JobAppliedAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +58,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     SwipeRefreshLayout swipeRefreshLayout;
     RelativeLayout rvApplied, rvNotFound;
     ImageView imgClose;
+    BottomNavigationView navigation;
 
     public static AppliedFragment newInstance() {
         return new AppliedFragment();
@@ -79,6 +81,28 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
         nestedScrollView = view.findViewById(R.id.nested_accept);
         rvNotFound = view.findViewById(R.id.RvNotFound);
         rvApplied = view.findViewById(R.id.relativeLayoutApplied);
+        navigation = getActivity().findViewById(R.id.nav_view);
+
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            boolean isNavigationHide = false;
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY < oldScrollY) { // up
+                    animateNavigation(false);
+                }
+                if (scrollY > oldScrollY) { // down
+                    animateNavigation(true);
+                }
+            }
+
+            private void animateNavigation(boolean hide) {
+                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
+                isNavigationHide = hide;
+                int moveY = hide ? (2 * navigation.getHeight()) : 0;
+                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+            }
+        });
 
         swipeRefreshLayout = view.findViewById(R.id.refreshApplied);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -94,6 +118,8 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                 }, 2000);
 
                 aList.clear();
+                nestedScrollView.setVisibility(View.GONE);
+                shimmerFrameLayout.startShimmerAnimation();
                 fillDataJobAppliedList();
             }
         });

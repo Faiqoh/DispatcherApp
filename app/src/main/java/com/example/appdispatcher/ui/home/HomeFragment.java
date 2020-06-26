@@ -37,6 +37,7 @@ import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetail;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,6 +65,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     ShimmerFrameLayout shimmerFrameLayout;
     RelativeLayout relativeLayoutHome;
     NestedScrollView nestedhome;
+    BottomNavigationView navigation;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -71,20 +73,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         /*homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);*/
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_name);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
-
-//        SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = mSetting.edit();
-//        editor.putString("Token", "Bearer 8aed12c5154117ed4c184a5b58f2ebcc51ad43f720754a7dd5f5a90f3e1e1f94");
-//        editor.apply();
-//        Log.i("preferences_setting", String.valueOf(mSetting));
-//        Log.i("preferences_setting", mSetting.getString("Token", "missing"));
         fillAccountUser();
         relativeLayoutHome = root.findViewById(R.id.headerhome);
         nestedhome = root.findViewById(R.id.nestedhome);
@@ -93,6 +81,28 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         name = root.findViewById(R.id.text_name);
         detailUser = root.findViewById(R.id.text_detail);
         imageViewOtof = root.findViewById(R.id.imageViewlistjob);
+        navigation = getActivity().findViewById(R.id.nav_view);
+
+        nestedhome.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            boolean isNavigationHide = false;
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY < oldScrollY) { // up
+                    animateNavigation(false);
+                }
+                if (scrollY > oldScrollY) { // down
+                    animateNavigation(true);
+                }
+            }
+
+            private void animateNavigation(boolean hide) {
+                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
+                isNavigationHide = hide;
+                int moveY = hide ? (2 * navigation.getHeight()) : 0;
+                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+            }
+        });
 
         RecyclerView recyclerViewJobCategory = root.findViewById(R.id.recyclerViewJobCategory);
         LinearLayoutManager layoutManagerJobCategory = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);

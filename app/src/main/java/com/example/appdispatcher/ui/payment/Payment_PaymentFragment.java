@@ -9,10 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +30,7 @@ import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +55,8 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
     ShimmerFrameLayout shimmerFrameLayout;
     SwipeRefreshLayout swipeRefreshLayout;
     TextView idpayment;
-    ScrollView scrollView;
+    NestedScrollView scrollView;
+    BottomNavigationView navigation;
 
     public Payment_PaymentFragment() {
         // Required empty public constructor
@@ -80,6 +82,28 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
         idpayment = root.findViewById(R.id.idPayment);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_payment);
         scrollView = root.findViewById(R.id.scroll_payment);
+        navigation = getActivity().findViewById(R.id.nav_view);
+
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            boolean isNavigationHide = false;
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY < oldScrollY) { // up
+                    animateNavigation(false);
+                }
+                if (scrollY > oldScrollY) { // down
+                    animateNavigation(true);
+                }
+            }
+
+            private void animateNavigation(boolean hide) {
+                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
+                isNavigationHide = hide;
+                int moveY = hide ? (2 * navigation.getHeight()) : 0;
+                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+            }
+        });
 
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -63,7 +64,10 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class ProgressDoneFragment extends Fragment {
+
+    private static ProgressDoneFragment instance = null;
 
     public List<ProgressDoneViewModel> pList = new ArrayList<>();
     //    ProgressTaskAdapter pAdapter;
@@ -85,6 +89,10 @@ public class ProgressDoneFragment extends Fragment {
     NestedScrollView NesteddetailTask;
     AppBarLayout appBarLayout;
 //    boolean processClick = true;
+
+    public static ProgressDoneFragment getInstance() {
+        return instance;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,19 +140,6 @@ public class ProgressDoneFragment extends Fragment {
             }
         });
 
-        FloatingActionButton Done = getActivity().findViewById(R.id.done);
-        Done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(getContext(), FabActivity.class);
-                intent.putExtra(ID_JOB, tvidJob.getText().toString());
-                intent.putExtra(GET_ID_JOB, "id_job_done");
-                startActivity(intent);
-                floatingActionsMenu.collapse();
-            }
-        });
-
         FloatingActionButton Progress = getActivity().findViewById(R.id.progress);
         Progress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,24 +166,8 @@ public class ProgressDoneFragment extends Fragment {
                         detail_activity = etTask.getText().toString().trim();
                         dialog.dismiss();
                         progressjob();
-//                        if (processClick) {
-//                            btn_submit.setEnabled(false);
-//                            btn_submit.setClickable(false);
-//                            btn_submit.setVisibility(View.GONE);
-//                            performTaskOnce();
-//                        }
-//                        processClick = false;
-
                     }
 
-                    private void performTaskOnce() {
-                        id_user = tvidUser.getText().toString().trim();
-                        id_jobb = tvidJob.getText().toString().trim();
-                        detail_activity = etTask.getText().toString().trim();
-                        dialog.dismiss();
-                        progressjob();
-
-                    }
                 });
 
             }
@@ -218,36 +197,29 @@ public class ProgressDoneFragment extends Fragment {
             fillDetail(id_job);
         }
 
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                if(dy > 0){
-//                    floatingActionsMenu.setVisibility(View.GONE);
-//                } else{
-//                    floatingActionsMenu.setVisibility(View.VISIBLE);
-//                }
-//
-//                super.onScrolled(recyclerView, dx, dy);
-//            }
-//        });
+        FloatingActionButton Done = getActivity().findViewById(R.id.done);
+        Done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-//        NesteddetailTask.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if (scrollY > oldScrollY) {
-//                    floatingActionsMenu.setVisibility(View.GONE);
-//                } else {
-//                    floatingActionsMenu.setVisibility(View.VISIBLE);
-//                }
-//            }
-//
-//        });
+                Intent intent = new Intent(getContext(), FabActivity.class);
+                intent.putExtra(ID_JOB, tvidJob.getText().toString());
+                intent.putExtra(GET_ID_JOB, "id_job_done");
+                startActivity(intent);
+                floatingActionsMenu.collapse();
+            }
+        });
 
         return root;
     }
 
-    private void fillDetail(String id_job) {
-        Log.i("id_jobku", id_job);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        instance = this;
+    }
+
+    public void fillDetail(String id_job) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
@@ -272,8 +244,6 @@ public class ProgressDoneFragment extends Fragment {
                     JSONObject job = response.getJSONObject("job");
 
                     JSONObject category = job.getJSONObject("category");
-
-                    Log.i("saaaaaaaaaaaa", category.toString());
 
                     textViewjob.setText(job.getString("job_name"));
                     textJobdesc.setText(job.getString("job_description"));
@@ -417,9 +387,6 @@ public class ProgressDoneFragment extends Fragment {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 //headers.put("Content-Type", "application/json");
                 headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
                 SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 headers.put("Authorization", mSetting.getString("Token", "missing"));
                 return headers;
@@ -477,9 +444,6 @@ public class ProgressDoneFragment extends Fragment {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 //headers.put("Content-Type", "application/json");
                 headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
                 SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 headers.put("Authorization", mSetting.getString("Token", "missing"));
                 return headers;

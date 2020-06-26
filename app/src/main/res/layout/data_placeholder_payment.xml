@@ -27,16 +27,16 @@
                 android:scaleType="centerInside" />
 
             <LinearLayout
-                android:id="@+id/expandableLayout"
-                android:layout_width="250dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/imageViewlist"
                 android:layout_alignParentRight="true"
-                android:orientation="vertical"
-                android:paddingBottom="15dp">
+                android:layout_marginLeft="70dp"
+                android:orientation="vertical">
 
                 <View
                     android:id="@+id/textViewJudul"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:background="@color/background"
                     android:ellipsize="end"
@@ -44,7 +44,7 @@
 
                 <View
                     android:id="@+id/textViewLocation"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_marginTop="4dp"
                     android:background="@color/background"
@@ -53,7 +53,7 @@
                     android:textSize="12dp" />
 
                 <View
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_marginTop="4dp"
                     android:background="@color/background"

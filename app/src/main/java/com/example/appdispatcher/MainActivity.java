@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("asdfasd", "sdfasdfads");
         super.onCreate(savedInstanceState);
         mSetting = this.getSharedPreferences("Setting", Context.MODE_PRIVATE);
         String Token_account = mSetting.getString("Token", "missing");
@@ -65,10 +64,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-//        String url = "http://117.102.120.152:8080/job/getJobProgress?id_job=1";
-//        Log.i("JsonLog","This is result of Json Request");
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("NotifApps", "NotifyApps", NotificationManager.IMPORTANCE_HIGH);

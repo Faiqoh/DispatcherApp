@@ -9,4 +9,5 @@
     <color name="colorBackgroundOne">#fae398</color>
     <color name="colorBackgroundTwo">#f7f7f7</color>
     <color name="Black">#2b332d</color>
+    <color name="transparent">#00000000</color>
 </resources>
