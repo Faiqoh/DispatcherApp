@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,6 +51,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
         holder.tvCustomer.setText(joblist.customer);
         holder.tvIdJob.setText(joblist.id_job);
         holder.expandabeLayout.setVisibility(View.GONE);
+        holder.tvPrice.setText(joblist.price);
 
         Glide.with(context).load(joblist.getFoto()).into(holder.ivFoto);
 
@@ -76,9 +76,8 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto, ivRow;
-        TextView tvJudul, tvLocation, tvCustomer, tvIdJob;
-        LinearLayout expandabeLayout;
-        RelativeLayout headsub;
+        TextView tvJudul, tvLocation, tvCustomer, tvIdJob, tvPrice;
+        RelativeLayout headsub, expandabeLayout;
 
 
         public ViewHolder(View itemView) {
@@ -88,6 +87,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
             tvCustomer = itemView.findViewById(R.id.customer);
             tvLocation = itemView.findViewById(R.id.location);
             tvIdJob = itemView.findViewById(R.id.TvIdJob);
+            tvPrice = itemView.findViewById(R.id.price);
 
             ivRow = itemView.findViewById(R.id.row_down);
             expandabeLayout = itemView.findViewById(R.id.expandableLayout);

@@ -18,21 +18,19 @@
 
         <com.google.android.material.tabs.TabLayout
             app:tabIndicatorColor="@color/colorPrimaryDark"
-                android:id="@+id/tabLayoutDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </com.google.android.material.tabs.TabLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPagerDetail"
+            android:id="@+id/tabLayoutDetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-        </androidx.viewpager.widget.ViewPager>
+        </com.google.android.material.tabs.TabLayout>
 
-    </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <!--</RelativeLayout>-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
+
+</LinearLayout><!--</RelativeLayout>-->

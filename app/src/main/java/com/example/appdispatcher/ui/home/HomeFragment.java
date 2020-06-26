@@ -42,9 +42,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class HomeFragment extends Fragment implements JobListAdapter.JListAdapter, JobCategoryAdapter.CListAdapter {
@@ -64,6 +67,8 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     ShimmerFrameLayout shimmerFrameLayout;
     RelativeLayout relativeLayoutHome;
     NestedScrollView nestedhome;
+    TextView tvPrice;
+    String price;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -214,7 +219,15 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         requestQueue.add(strReq);
     }
 
+    private static String formatNumber(String number) {
+        DecimalFormat format = new DecimalFormat("###.###.##0,00");
+        return format.format(Double.parseDouble(number));
+    }
+
     private void fillDataListJob() {
+        final Locale localeID = new Locale("in", "ID");
+        final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -235,6 +248,13 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                                     itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
                                     itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+//                                    itemCategory.setPrice(cat.getString("job_price"));
+
+
+                                    itemCategory.setPrice(formatRupiah.format((Double.parseDouble(cat.getString("job_price")))));
+
+
+//                                    itemCategory.setPrice(formatNumber(cat.getString("job_price")));
 
                                     mList.add(itemCategory);
                                 }
