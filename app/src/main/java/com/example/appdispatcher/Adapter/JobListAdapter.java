@@ -46,7 +46,6 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
     public void onBindViewHolder(@NonNull JobListAdapter.ViewHolder holder, int position) {
         HomeViewModel joblist = jobList.get(position);
         holder.tvJudul.setText(joblist.judul);
-//        holder.ivFoto.setImageURI(Uri.parse(joblist.foto));
         holder.tvLocation.setText(joblist.location);
         holder.tvCustomer.setText(joblist.customer);
         holder.tvIdJob.setText(joblist.id_job);
@@ -77,10 +76,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto, ivRow;
-        TextView tvJudul, tvLocation, tvCustomer, tvIdJob, tvJobName;
-        LinearLayout expandabeLayout;
-        RelativeLayout headsub;
-        TextView tvJudul, tvLocation, tvCustomer, tvIdJob, tvPrice;
+        TextView tvJudul, tvLocation, tvCustomer, tvIdJob, tvPrice, tvJobName;
         RelativeLayout headsub, expandabeLayout;
 
 

@@ -57,6 +57,7 @@
             android:text="Upgrade PT KC Madura" />
 
         <TextView
+            android:layout_below="@+id/jobname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
