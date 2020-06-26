@@ -11,6 +11,15 @@ public class HomeViewModel implements Serializable {
     public String customer;
     public String location;
     public String id_job;
+    public String price;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
     public String job_name;
 

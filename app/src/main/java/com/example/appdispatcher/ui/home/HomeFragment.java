@@ -47,9 +47,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class HomeFragment extends Fragment implements JobListAdapter.JListAdapter, JobCategoryAdapter.CListAdapter {
@@ -77,6 +80,20 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         /*homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);*/
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        /*final TextView textView = root.findViewById(R.id.text_name);
+        homeViewModel.getText().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                textView.setText(s);
+            }
+        });*/
+
+//        SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = mSetting.edit();
+//        editor.putString("Token", "Bearer 8aed12c5154117ed4c184a5b58f2ebcc51ad43f720754a7dd5f5a90f3e1e1f94");
+//        editor.apply();
+//        Log.i("preferences_setting", String.valueOf(mSetting));
+//        Log.i("preferences_setting", mSetting.getString("Token", "missing"));
         fillAccountUser();
         relativeLayoutHome = root.findViewById(R.id.headerhome);
         nestedhome = root.findViewById(R.id.nestedhome);
@@ -265,7 +282,15 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         requestQueue.add(strReq);
     }
 
+    private static String formatNumber(String number) {
+        DecimalFormat format = new DecimalFormat("###.###.##0,00");
+        return format.format(Double.parseDouble(number));
+    }
+
     private void fillDataListJob() {
+        final Locale localeID = new Locale("in", "ID");
+        final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -286,6 +311,13 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                                     itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
                                     itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+//                                    itemCategory.setPrice(cat.getString("job_price"));
+
+
+                                    itemCategory.setPrice(formatRupiah.format((Double.parseDouble(cat.getString("job_price")))));
+
+
+//                                    itemCategory.setPrice(formatNumber(cat.getString("job_price")));
                                     itemCategory.setJob_name(cat.getString("job_name"));
 
                                     mList.add(itemCategory);
