@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -173,6 +177,43 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
             }
         });
         return root;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.filter_menu, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item3 = menu.findItem(R.id.item_filter);
+        item3.setVisible(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.item_logout) {
+//            SharedPreferences blockSession = getActivity().getSharedPreferences("blockSession", 0);
+//            SharedPreferences.Editor blockEdit = blockSession.edit();
+//            blockEdit.clear();
+//            blockEdit.apply();
+//            //finish();       /****<-----commented out this line---****/
+//            Intent intent = new Intent(getActivity(), LoginActivity.class);
+//            startActivity(intent);
+//
+//            getActivity().finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void fillAccountUser() {

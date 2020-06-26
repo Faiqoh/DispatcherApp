@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,6 +61,7 @@ public class DetailPaymentFragment extends Fragment {
     RelativeLayout relativePayment;
     ProgressBar progressBar;
     PhotoView iv_tf;
+    CardView cvFoto;
 
     public static DetailPaymentFragment newInstance() {
         return new DetailPaymentFragment();
@@ -79,6 +81,7 @@ public class DetailPaymentFragment extends Fragment {
         tvjob = view.findViewById(R.id.text_view_job);
         tv_idpayment = view.findViewById(R.id.tv_idpayment);
         progressBar = view.findViewById(R.id.progressBar1);
+        cvFoto = view.findViewById(R.id.cardviewimage);
 
         iv_tf.setImageResource(R.drawable.bg_grey_awas_ae_sek_gak_iso);
 
@@ -99,12 +102,12 @@ public class DetailPaymentFragment extends Fragment {
     }
 
     private void fillDataDetailPaymentList(String id_payment) {
-        Log.i("id_payment", id_payment);
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.VISIBLE);
+        cvFoto.setVisibility(View.GONE);
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getdetailpayment_withToken + "/?id_payment=" + id_payment, null, new Response.Listener<JSONObject>() {
             @Override
@@ -112,6 +115,7 @@ public class DetailPaymentFragment extends Fragment {
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
                 progressBar.setVisibility(View.GONE);
+                cvFoto.setVisibility(View.VISIBLE);
 
                 try {
                     JSONObject payment = jObj.getJSONObject("payment");
