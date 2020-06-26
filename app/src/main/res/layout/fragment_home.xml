@@ -78,6 +78,7 @@
                     android:layout_margin="@dimen/padding_10"
                     android:layout_height="wrap_content"
                     android:text="See All"
+                    android:gravity="right"
                     android:textColor="#ff9900"
                     android:textSize="12sp" />
 

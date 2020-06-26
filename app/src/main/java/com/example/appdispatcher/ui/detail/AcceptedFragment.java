@@ -136,7 +136,7 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
                             AcceptedViewModel itemCategory = new AcceptedViewModel();
-                            cat.getJSONObject("working_engineer").getString("id_engineer");
+//                            cat.getJSONObject("working_engineer").getString("id_engineer");
 
                             if (cat.getString("job_status").equals("Ready") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
 
