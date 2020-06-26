@@ -39,7 +39,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.VolleyMultipartRequest;
-import com.example.appdispatcher.ui.detail.ProgressDoneFragment;
 import com.example.appdispatcher.ui.detail.ProgressDoneViewModel;
 import com.example.appdispatcher.util.server;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -254,7 +253,7 @@ public class DoneFabFragment extends Fragment {
             public void onResponse(NetworkResponse response) {
                 Log.i("response", response.toString());
 //                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-                ProgressDoneFragment.getInstance().fillDetail(id_job);
+                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
 
 //                int LAUNCH_SECOND_ACTIVITY = 1;
 //                Intent intent = new Intent(getActivity(), ScrollingActivityDetailTask.class);

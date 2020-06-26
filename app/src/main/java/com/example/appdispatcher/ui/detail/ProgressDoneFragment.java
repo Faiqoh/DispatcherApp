@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -88,11 +87,6 @@ public class ProgressDoneFragment extends Fragment {
     FloatingActionsMenu floatingActionsMenu;
     NestedScrollView NesteddetailTask;
     AppBarLayout appBarLayout;
-//    boolean processClick = true;
-
-    public static ProgressDoneFragment getInstance() {
-        return instance;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -144,10 +138,6 @@ public class ProgressDoneFragment extends Fragment {
         Progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-//                etTask.setVisibility(View.VISIBLE);
-//                btn_submit.setVisibility(View.VISIBLE);
-//                focusOnView();
-                //                appBarLayout.setExpanded(false);
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
                 View mView = getLayoutInflater().inflate(R.layout.activity_request, null);
                 mBuilder.setView(mView);
@@ -213,11 +203,6 @@ public class ProgressDoneFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        instance = this;
-    }
 
     public void fillDetail(String id_job) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
@@ -238,7 +223,6 @@ public class ProgressDoneFragment extends Fragment {
                 cvspec.setVisibility(View.VISIBLE);
                 relativelayoutprogress.setVisibility(View.VISIBLE);
                 cardView1.setVisibility(View.VISIBLE);
-//                floatingActionsMenu.setVisibility(View.VISIBLE);
 
                 try {
                     JSONObject job = response.getJSONObject("job");

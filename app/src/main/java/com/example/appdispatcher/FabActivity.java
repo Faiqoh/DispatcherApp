@@ -25,12 +25,12 @@ public class FabActivity extends AppCompatActivity {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fab_fragment, new DoneFabFragment());
             ft.commit();
-            getSupportActionBar().setTitle("Detail Job");
+            getSupportActionBar().setTitle("Form Job Done");
         } else if (getJob.equals("id_job_request")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fab_fragment, new RequestFabFragment());
             ft.commit();
-            getSupportActionBar().setTitle("Detail Job");
+            getSupportActionBar().setTitle("Form Job Request");
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

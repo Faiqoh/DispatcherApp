@@ -1,6 +1,7 @@
 package com.example.appdispatcher.ui.fab;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +61,7 @@ public class RequestFabFragment extends Fragment {
     Button btn_upload;
     String name, nominal, reason, id_job, id_user;
     ImageView imgIdProf;
+    ScrollView scrollView;
     private Bitmap bitmap;
     private String filePath, filaName;
 
@@ -79,6 +82,7 @@ public class RequestFabFragment extends Fragment {
         tvIdUser = view.findViewById(R.id.tv_id_user);
         imgIdProf = view.findViewById(R.id.IdProf);
         textViewSelected = view.findViewById(R.id.textviewSelected);
+        scrollView = view.findViewById(R.id.scrollingreqfab);
         fillDetail(id_jobb);
 
         imgIdProf.setOnClickListener(new View.OnClickListener() {
@@ -110,18 +114,6 @@ public class RequestFabFragment extends Fragment {
                 startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
             }
         });
-
-        /*btn_upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                name = etname.getText().toString().trim();
-                nominal = etnominal.getText().toString().trim();
-                reason = etreason.getText().toString().trim();
-                id_job = tvIdJob.getText().toString().trim();
-                id_user = tvIdUser.getText().toString().trim();
-                submit();
-            }
-        });*/
 
         return view;
 
@@ -190,8 +182,6 @@ public class RequestFabFragment extends Fragment {
 
 
     private void fillDetail(String id_job) {
-        Log.i("id_jobku", id_job);
-
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.progreesjob_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -234,6 +224,13 @@ public class RequestFabFragment extends Fragment {
     }
 
     private void submit(final Bitmap bitmap) {
+        ProgressDialog pd = new ProgressDialog(getActivity(), R.style.MyTheme);
+        pd.setCancelable(false);
+        pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        pd.show();
+
+        scrollView.setVisibility(View.GONE);
+
         final JSONObject jobj = new JSONObject();
         try {
             jobj.put("id_job", id_job);
