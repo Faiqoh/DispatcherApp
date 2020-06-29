@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,7 +50,7 @@ public class AppliedAcceptFragment extends Fragment {
 
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ImageView cat_backend;
-    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvidUser, tvidJob;
+    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvidUser, tvidJob, tv_price;
     Button btn_start;
     String id_user, id_job;
     ProgressBar progressBar;
@@ -80,6 +81,7 @@ public class AppliedAcceptFragment extends Fragment {
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
         cardViewApplied = root.findViewById(R.id.cardviewApplied);
         cardViewApplied2 = root.findViewById(R.id.cardviewApplied2);
+        tv_price = root.findViewById(R.id.tv_price);
 
 
         if (getJob.equals("id_list")) {
@@ -111,6 +113,8 @@ public class AppliedAcceptFragment extends Fragment {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        final Locale localeID = new Locale("in", "ID");
+        final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
         progressBar.getIndeterminateDrawable().setColorFilter(getActivity().getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.VISIBLE);
@@ -144,6 +148,7 @@ public class AppliedAcceptFragment extends Fragment {
                     textPIc.setText(job.getJSONObject("pic").getString("pic_name") + "(" + job.getJSONObject("pic").getString("pic_phone") + ")");
                     tvidJob.setText(job.getString("id"));
                     Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
+                    tv_price.setText(formatRupiah.format((Double.parseDouble(job.getString("job_price")))));
 
 
                 } catch (JSONException | ParseException e) {

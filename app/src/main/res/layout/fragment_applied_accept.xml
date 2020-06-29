@@ -28,6 +28,7 @@
                     android:layout_height="40dp"
                     android:scaleType="centerInside"
                     android:layout_marginLeft="@dimen/padding_10"
+                    android:layout_marginStart="@dimen/padding_10"
                     android:src="@drawable/code" />
 
                 <TextView
@@ -37,6 +38,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="70dp"
                     android:text="Backend Developer"
+                    android:layout_marginStart="70dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             </RelativeLayout>
@@ -91,7 +93,8 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:visibility="gone" />
+                android:layout_marginStart="245dp"
+                android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,6 +110,7 @@
                         android:layout_marginLeft="20dp"
                         android:text="Job Description"
                         android:textSize="14sp"
+                        android:layout_marginStart="20dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -117,6 +121,8 @@
                         android:layout_marginRight="10dp"
                         android:minLines="1"
                         android:text="- Developing a highly-concurrent and distributed system"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="10dp"
                         android:textSize="12sp" />
 
                     <TextView
@@ -126,6 +132,7 @@
                         android:layout_marginTop="10dp"
                         android:text="Requirements"
                         android:textSize="14sp"
+                        android:layout_marginStart="20dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -136,6 +143,8 @@
                         android:layout_marginRight="10dp"
                         android:minLines="1"
                         android:text="- Experience with building HTTP and RPC based services"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="10dp"
                         android:textSize="12sp" />
 
                     <LinearLayout
@@ -150,6 +159,7 @@
                             android:layout_below="@+id/requirement_detail"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="15dp"
+                            android:layout_marginStart="20dp"
                             android:src="@drawable/home_7" />
 
                         <TextView
@@ -159,6 +169,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="25dp"
                             android:text="PT. Sinergy Informasi Pratama"
+                            android:layout_marginStart="5dp"
                             android:textSize="11sp" />
 
                     </LinearLayout>
@@ -175,6 +186,7 @@
                             android:layout_below="@+id/build_image"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginStart="20dp"
                             android:src="@drawable/layer_4" />
 
                         <TextView
@@ -184,6 +196,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="15dp"
                             android:text="Jakarta Barat, Indonesia"
+                            android:layout_marginStart="5dp"
                             android:textSize="11sp" />
                     </LinearLayout>
 
@@ -199,6 +212,7 @@
                             android:layout_below="@+id/location_image"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginStart="20dp"
                             android:src="@drawable/layer_3" />
 
                         <TextView
@@ -208,6 +222,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="15dp"
                             android:text="Level 3"
+                            android:layout_marginStart="5dp"
                             android:textSize="11sp" />
 
                     </LinearLayout>
@@ -222,6 +237,7 @@
                             android:layout_height="30dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginStart="20dp"
                             android:src="@drawable/layer_5" />
 
                         <TextView
@@ -231,6 +247,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="15dp"
                             android:text="1 Januari 2020 - 25 Mei 2020"
+                            android:layout_marginStart="5dp"
                             android:textSize="11sp" />
 
                     </LinearLayout>
@@ -254,6 +271,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="15dp"
                             android:text="PIC: Tito Maulana"
+                            android:layout_marginStart="5dp"
                             android:textSize="11sp" />
 
                         <TextView
@@ -262,18 +280,44 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="15dp"
+                            android:layout_marginStart="5dp"
                             android:visibility="gone" />
                     </LinearLayout>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="center|bottom"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/roundedbutton"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="Start"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/path_money" />
+
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="15dp"
+                            android:text="1100000"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center|bottom"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/roundedbutton"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="Start"
                     android:id="@+id/btn_start"
                     android:textSize="11sp" />
 
