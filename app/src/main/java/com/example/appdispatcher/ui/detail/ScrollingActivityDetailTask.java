@@ -39,7 +39,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             getSupportActionBar().setTitle("Detail Job");
 
             floatingActionsMenu.setVisibility(View.GONE);
-        } else if (getJob.equals("id_job_progress") || getJob.equals("id_job_done")) {
+        } else if (getJob.equals("id_job_progress") || getJob.equals("id_job_done") || getJob.equals("id_job_req_fab")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new ProgressDoneFragment());
             ft.commit();

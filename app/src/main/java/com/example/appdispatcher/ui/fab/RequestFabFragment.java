@@ -36,8 +36,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.VolleyMultipartRequest;
+import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONException;
@@ -53,10 +55,13 @@ import static android.app.Activity.RESULT_OK;
 
 public class RequestFabFragment extends Fragment {
 
+    public static final String ID_JOB = "id_job";
+    public static final String GET_ID_JOB = "get_id_job";
     EditText etname, etnominal, etreason;
     public static final String ROOT_URL = "http://seoforworld.com/api/v1/file-upload.php";
     public static final int PICKFILE_RESULT_CODE = 1;
     public static final int REQUEST_PERMISSIONS = 100;
+    ProgressTaskAdapter pAdapter;
     TextView tvIdJob, tvIdUser, textViewSelected;
     Button btn_upload;
     String name, nominal, reason, id_job, id_user;
@@ -231,26 +236,15 @@ public class RequestFabFragment extends Fragment {
 
         scrollView.setVisibility(View.GONE);
 
-        final JSONObject jobj = new JSONObject();
-        try {
-            jobj.put("id_job", id_job);
-            jobj.put("name_item", name);
-            jobj.put("function_item", reason);
-            jobj.put("price_item", nominal);
-//            jobj.put("id_engineer", id_user);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, server.request_item_withToken, new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
                 Log.i("response", response.toString());
-                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-
-                /*Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);*/
-                getActivity().finish();
+                int LAUNCH_SECOND_ACTIVITY = 1;
+                Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
+                intent.putExtra(ID_JOB, id_job);
+                intent.putExtra(GET_ID_JOB, "id_job_req_fab");
+                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
             }
 
         },

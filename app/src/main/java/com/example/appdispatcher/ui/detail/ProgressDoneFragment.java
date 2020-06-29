@@ -1,13 +1,11 @@
 package com.example.appdispatcher.ui.detail;
 
-import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +37,7 @@ import com.bumptech.glide.Glide;
 import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.fab.RequestFabFragment;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -122,6 +121,7 @@ public class ProgressDoneFragment extends Fragment {
         pAdapter = new ProgressTaskAdapter(pList);
         recyclerView.setAdapter(pAdapter);
 
+
         FloatingActionButton Request = getActivity().findViewById(R.id.request);
         Request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,25 +162,16 @@ public class ProgressDoneFragment extends Fragment {
 
             }
 
-            public void focusOnView() {
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i("cek nested", String.valueOf(NesteddetailTask));
-
-                        Log.i("cek recycle", String.valueOf(recyclerView));
-                        NesteddetailTask.scrollTo(0, 1);
-                        ObjectAnimator.ofInt(NesteddetailTask, "scrollY", etTask.getBottom(), btn_submit.getBottom()).setDuration(700).start();
-
-                    }
-                });
-            }
         });
 
         if (getJob.equals("id_job_progress")) {
             OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
+        } else if (getJob.equals("id_job_req_fab")) {
+            String id_job = getActivity().getIntent().getStringExtra(RequestFabFragment.ID_JOB);
+            fillDetail(id_job);
+            Log.i("id_jobbsss", id_job);
         } else {
             DoneViewModel detail = (DoneViewModel) getActivity().getIntent().getSerializableExtra(DoneFragment.ID_JOB);
             String id_job = detail.getId_job();

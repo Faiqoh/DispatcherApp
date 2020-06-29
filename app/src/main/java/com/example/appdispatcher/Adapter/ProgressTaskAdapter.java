@@ -48,6 +48,7 @@ public class ProgressTaskAdapter extends RecyclerView.Adapter<ProgressTaskAdapte
 
         boolean isExpended = TaskList.get(position).isExpended();
         holder.expandabeLayout.setVisibility(isExpended ? View.VISIBLE : View.GONE);
+
     }
 
     @Override
