@@ -154,8 +154,13 @@ public class ProgressDoneFragment extends Fragment {
                         id_user = tvidUser.getText().toString().trim();
                         id_jobb = tvidJob.getText().toString().trim();
                         detail_activity = etTask.getText().toString().trim();
-                        dialog.dismiss();
-                        progressjob();
+                        if (etTask.getText().toString().length() == 0) {
+                            Log.i("panjang etask", String.valueOf(etTask.getText().toString().length()));
+                            etTask.setError("Task Should not be empty!");
+                        } else {
+                            progressjob();
+                            dialog.dismiss();
+                        }
                     }
 
                 });
@@ -337,6 +342,11 @@ public class ProgressDoneFragment extends Fragment {
                 JSONObject jObj = response;
                 Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
 //                startActivity(intent);
+//                int LAUNCH_SECOND_ACTIVITY = 1;
+//                Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
+//                intent.putExtra(ID_JOB, id_jobb);
+//                intent.putExtra(GET_ID_JOB, "id_job_req_fab");
+//                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
                 getActivity().finish();
             }
         },
@@ -439,6 +449,11 @@ public class ProgressDoneFragment extends Fragment {
     public void onPause() {
         shimmerFrameLayout.stopShimmerAnimation();
         super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     /*@Override
