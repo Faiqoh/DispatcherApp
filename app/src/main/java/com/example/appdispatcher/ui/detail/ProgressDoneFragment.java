@@ -154,8 +154,13 @@ public class ProgressDoneFragment extends Fragment {
                         id_user = tvidUser.getText().toString().trim();
                         id_jobb = tvidJob.getText().toString().trim();
                         detail_activity = etTask.getText().toString().trim();
-                        dialog.dismiss();
-                        progressjob();
+                        if (etTask.getText().toString().length() == 0) {
+                            Log.i("panjang etask", String.valueOf(etTask.getText().toString().length()));
+                            etTask.setError("Task Should not be empty!");
+                        } else {
+                            progressjob();
+                            dialog.dismiss();
+                        }
                     }
 
                 });
