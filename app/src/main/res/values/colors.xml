@@ -10,4 +10,6 @@
     <color name="colorBackgroundTwo">#f7f7f7</color>
     <color name="Black">#2b332d</color>
     <color name="transparent">#00000000</color>
+    <color name="blue">#48B0FF</color>
+    <color name="red">#FF4848</color>
 </resources>

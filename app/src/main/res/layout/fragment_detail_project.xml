@@ -3,18 +3,146 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    app:ignore="NamespaceTypo">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewHeader"
-            android:visibility="gone"
-            shimmer:contentPadding="@dimen/padding_10"
+        <LinearLayout
+            android:id="@+id/mykonten"
+            android:layout_width="340dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/bg_modal"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/overbox">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:text="Are you sure want to take this job?"
+                android:textColor="#343434"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_accept"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="128dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/roundedbutton"
+                    android:backgroundTint="@color/blue"
+                    android:text="Accept" />
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="128dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/roundedbutton"
+                    android:backgroundTint="@color/red"
+                    android:text="Cancel" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/modal_success"
+            android:layout_width="340dp"
+            android:layout_height="300dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/bg_modal"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/overbox">
+
+
+            <ImageView
+                android:id="@+id/logo_success"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/check2"
+                android:elevation="6dp"
+                android:src="@drawable/check2"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="155dp"
+                tools:layout_editor_absoluteY="180dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Job applied succes!!"
+                android:textColor="#343434"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="We'll notify you when the project is accepted by moderator"
+                android:textColor="#343434"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/overbox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="@drawable/overbox"
+            android:elevation="3dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewHeader"
+                shimmer:contentPadding="@dimen/padding_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--            android:visibility="gone">-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -71,22 +199,22 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <androidx.cardview.widget.CardView
-            android:layout_below="@+id/cardViewHeader"
-            android:id="@+id/cardviewdetailapply"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:visibility="gone">
+            <androidx.cardview.widget.CardView
+                android:layout_below="@+id/cardViewHeader"
+                android:id="@+id/cardviewdetailapply"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                <!--            android:visibility="gone">-->
 
-            <TextView
-                android:id="@+id/tv_idjob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
-                android:layout_marginLeft="245dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                <TextView
+                    android:id="@+id/tv_idjob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginLeft="245dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -274,6 +402,8 @@
                     android:textSize="11sp" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
     </RelativeLayout>
 </LinearLayout>
