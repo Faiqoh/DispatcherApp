@@ -52,11 +52,12 @@
             android:paddingBottom="20dp">
 
             <TextView
+                android:layout_marginRight="@dimen/padding_10"
                 android:id="@+id/textViewJudul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text="Judul"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="14dp" />
