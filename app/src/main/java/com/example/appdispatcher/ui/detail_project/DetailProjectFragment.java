@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,9 +62,11 @@ public class DetailProjectFragment extends Fragment {
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ArrayList<ProgressDoneViewModel> pList = new ArrayList<>();
     ProgressTaskAdapter pAdapter;
-    ImageView cat_backend;
+    ImageView cat_backend, logo_success;
     TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvname, tv_idjob, tv_price;
-    Button btn_apply;
+    Button btn_apply, btn_accept, btn_cancel;
+    Animation fromsmall, tonothing, fromnothing, forlogo;
+    LinearLayout mykonten, overbox, modal_success;
     String id_user, id_job;
     ProgressBar progressBar;
     ShimmerFrameLayout shimmerFrameLayout;
@@ -81,6 +86,24 @@ public class DetailProjectFragment extends Fragment {
         final HomeViewModel lead = (HomeViewModel) getActivity().getIntent().getSerializableExtra(HomeFragment.ID_JOB);
 
         HomeViewModel lead2 = (HomeViewModel) getActivity().getIntent().getSerializableExtra(ListJobCategory.ID_JOB);
+
+        btn_accept = root.findViewById(R.id.btn_accept);
+        btn_cancel = root.findViewById(R.id.btn_cancel);
+        mykonten = root.findViewById(R.id.mykonten);
+        modal_success = root.findViewById(R.id.modal_success);
+        overbox = root.findViewById(R.id.overbox);
+        logo_success = root.findViewById(R.id.logo_success);
+
+        fromsmall = AnimationUtils.loadAnimation(getActivity(), R.anim.fromsmall);
+        tonothing = AnimationUtils.loadAnimation(getActivity(), R.anim.tonothing);
+        fromnothing = AnimationUtils.loadAnimation(getActivity(), R.anim.fromnothing);
+        forlogo = AnimationUtils.loadAnimation(getActivity(), R.anim.forlogo);
+
+        mykonten.setAlpha(0);
+        overbox.setAlpha(0);
+        modal_success.setAlpha(0);
+        logo_success.setVisibility(View.GONE);
+
 
         cat_backend = root.findViewById(R.id.cat_backend);
         textJobdesc = root.findViewById(R.id.job_desc_detail);
@@ -111,12 +134,38 @@ public class DetailProjectFragment extends Fragment {
         btn_apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mykonten.setAlpha(1);
+                mykonten.startAnimation(fromsmall);
+
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mykonten.setAlpha(0);
+                mykonten.startAnimation(tonothing);
+            }
+        });
+
+        btn_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mykonten.setAlpha(0);
+                mykonten.startAnimation(tonothing);
+
+                modal_success.setAlpha(1);
+                modal_success.startAnimation(fromsmall);
+
+                logo_success.setVisibility(View.VISIBLE);
+                logo_success.startAnimation(forlogo);
+
                 id_user = tvname.getText().toString().trim();
                 id_job = tv_idjob.getText().toString().trim();
                 applyjob();
             }
         });
-
 
         return root;
 

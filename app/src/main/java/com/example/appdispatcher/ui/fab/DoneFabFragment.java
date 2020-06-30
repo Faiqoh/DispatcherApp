@@ -37,9 +37,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.VolleyMultipartRequest;
 import com.example.appdispatcher.ui.detail.ProgressDoneViewModel;
+import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -64,7 +66,10 @@ public class DoneFabFragment extends Fragment {
     public static final String ROOT_URL = "http://seoforworld.com/api/v1/file-upload.php";
     public static final int PICKFILE_RESULT_CODE = 1;
     public static final int REQUEST_PERMISSIONS = 100;
+    public static final String ID_JOB = "id_job";
+    public static final String GET_ID_JOB = "get_id_job";
     public List<ProgressDoneViewModel> pList = new ArrayList<>();
+    ProgressTaskAdapter pAdapter;
     EditText etsum, etroot, etcounter;
     TextView tvIdJob, textViewSelected;
     Button btn_upload;
@@ -255,13 +260,11 @@ public class DoneFabFragment extends Fragment {
 //                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
                 Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
 
-//                int LAUNCH_SECOND_ACTIVITY = 1;
-//                Intent intent = new Intent(getActivity(), ScrollingActivityDetailTask.class);
-//                intent.putExtra(ID_JOB, id_job);
-//                intent.putExtra(GET_ID_JOB, "id_job_done");
-//                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
-//                startActivity(intent);
-                getActivity().finish();
+                int LAUNCH_SECOND_ACTIVITY = 1;
+                Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
+                intent.putExtra(ID_JOB, id_job);
+                intent.putExtra(GET_ID_JOB, "id_job_req_fab");
+                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
             }
 
         },
