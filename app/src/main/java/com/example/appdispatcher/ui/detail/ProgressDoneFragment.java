@@ -121,7 +121,6 @@ public class ProgressDoneFragment extends Fragment {
         pAdapter = new ProgressTaskAdapter(pList);
         recyclerView.setAdapter(pAdapter);
 
-
         FloatingActionButton Request = getActivity().findViewById(R.id.request);
         Request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +146,6 @@ public class ProgressDoneFragment extends Fragment {
                 btn_submit = mView.findViewById(R.id.btnSubmit);
                 etTask = mView.findViewById(R.id.eTextTask);
 
-
                 btn_submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -155,7 +153,6 @@ public class ProgressDoneFragment extends Fragment {
                         id_jobb = tvidJob.getText().toString().trim();
                         detail_activity = etTask.getText().toString().trim();
                         if (etTask.getText().toString().length() == 0) {
-                            Log.i("panjang etask", String.valueOf(etTask.getText().toString().length()));
                             etTask.setError("Task Should not be empty!");
                         } else {
                             progressjob();
@@ -173,6 +170,7 @@ public class ProgressDoneFragment extends Fragment {
             OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
+
         } else if (getJob.equals("id_job_req_fab")) {
             String id_job = getActivity().getIntent().getStringExtra(RequestFabFragment.ID_JOB);
             fillDetail(id_job);
@@ -199,7 +197,6 @@ public class ProgressDoneFragment extends Fragment {
         return root;
     }
 
-
     public void fillDetail(String id_job) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -210,6 +207,7 @@ public class ProgressDoneFragment extends Fragment {
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.progreesjob_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                floatingActionsMenu.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
 
                 shimmerFrameLayout.stopShimmerAnimation();

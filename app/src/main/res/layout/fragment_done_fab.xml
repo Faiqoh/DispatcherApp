@@ -15,9 +15,25 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:paddingBottom="@dimen/padding_10"
+            android:padding="@dimen/padding_10"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/submit_request_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/padding_10"
+                android:text="SUBMIT DONE"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:text="This form is submit with done job!" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/CV1"
@@ -132,6 +148,22 @@
                         android:src="@drawable/group_347" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Just JPEG, PNG are accepted"
+                        android:textColor="@color/red"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Image size should be within 10 mb"
+                        android:textColor="@color/red"
+                        android:textSize="10sp" />
+
+                    <TextView
                         android:id="@+id/textviewSelected"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -142,16 +174,15 @@
                         android:hint="No Image Selected"
                         android:textStyle="bold" />
 
-
                     <Button
                         android:id="@+id/btn_upload"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/IdProf"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="bottom|center"
                         android:layout_marginTop="30dp"
-                        android:text="Submit"
+                        android:text="SUBMIT"
                         android:textAppearance="?android:textAppearanceSmall"
                         android:textColor="@color/white"
                         android:background="@drawable/roundedbutton"
@@ -168,8 +199,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/IdProf"
                 android:visibility="gone" />
-
-
         </LinearLayout>
 
 
