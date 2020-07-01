@@ -47,6 +47,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class DetailProjectFragment extends Fragment {
     ArrayList<ProgressDoneViewModel> pList = new ArrayList<>();
     ProgressTaskAdapter pAdapter;
     ImageView cat_backend, logo_success;
-    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvname, tv_idjob;
+    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvname, tv_idjob, tv_price;
     Button btn_apply, btn_accept, btn_cancel;
     Animation fromsmall, tonothing, fromnothing, forlogo;
     LinearLayout mykonten, overbox, modal_success;
@@ -120,6 +121,7 @@ public class DetailProjectFragment extends Fragment {
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
         cardViewApplied = root.findViewById(R.id.cardviewdetailapply);
         cardViewheader = root.findViewById(R.id.cardViewHeader);
+        tv_price = root.findViewById(R.id.tv_price);
 
         if (lead != null) {
             String id_job = lead.getId_job();
@@ -172,6 +174,8 @@ public class DetailProjectFragment extends Fragment {
     private void fillDetail(String id_job) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        final Locale localeID = new Locale("in", "ID");
+        final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
@@ -208,7 +212,7 @@ public class DetailProjectFragment extends Fragment {
                     textLevel.setText(job.getJSONObject("level").getString("level_name"));
                     textDate.setText(dateFormat.format(date_start) + " - " + dateFormat.format(date_end));
                     textPIc.setText(job.getJSONObject("pic").getString("pic_name") + "(" + job.getJSONObject("pic").getString("pic_phone") + ")");
-
+                    tv_price.setText(formatRupiah.format((Double.parseDouble(job.getString("job_price")))));
 
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();

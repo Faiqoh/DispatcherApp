@@ -1,19 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingBottom="60dp">
 
-    <TextView
-        android:id="@+id/text_account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/headerhome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/colorPrimary" />
+
+            <ImageView
+                android:layout_width="165dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/header" />
+
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedaccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/headerhome">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Rama Agastya"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_name"
+                    android:layout_marginLeft="15dp"
+                    android:maxLines="3"
+                    android:minLines="1"
+                    android:text="agastya@sinergy.co.id"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/text_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_detail"
+                    android:layout_margin="15dp"
+                    android:text="085225168102"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/btn_apply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center|bottom"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/roundedbutton"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Edit Profile"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_number"
+                    android:layout_margin="8dp"
+                    android:padding="10dp">
+
+                    <RelativeLayout
+                        android:id="@+id/head_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/ivjob"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/files" />
+
+                        <TextView
+                            android:id="@+id/textViewjob"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toEndOf="@+id/ivjob"
+                            android:layout_toRightOf="@+id/ivjob"
+                            android:text="Job Applied: " />
+
+                        <TextView
+                            android:id="@+id/textViewtotal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_toEndOf="@+id/textViewjob"
+                            android:layout_toRightOf="@+id/textViewjob"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="3 Jobs" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/textViewtotal"
+                            android:paddingTop="10dp"
+                            android:src="@drawable/line" />
+
+                        <ImageView
+                            android:id="@+id/ivskill"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_below="@+id/ivjob"
+                            android:layout_marginTop="19dp"
+                            android:src="@drawable/star" />
+
+                        <TextView
+                            android:id="@+id/textViewskill"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/textViewjob"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_toEndOf="@+id/ivskill"
+                            android:layout_toRightOf="@+id/ivskill"
+                            android:text="Skills: " />
+
+                        <TextView
+                            android:id="@+id/textViewskill2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/textViewtotal"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_toEndOf="@+id/textViewskill"
+                            android:layout_toRightOf="@+id/textViewskill"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Backend Developer" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/textViewskill"
+                            android:paddingTop="10dp"
+                            android:src="@drawable/line" />
+
+                        <ImageView
+                            android:id="@+id/ivcard"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_below="@+id/ivskill"
+                            android:layout_marginTop="19dp"
+                            android:src="@drawable/card" />
+
+                        <TextView
+                            android:id="@+id/textViewfee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/textViewskill"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_toEndOf="@+id/ivcard"
+                            android:layout_toRightOf="@+id/ivcard"
+                            android:text="Engineer's Fee: " />
+
+                        <TextView
+                            android:id="@+id/textViewfee2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/textViewskill2"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_toEndOf="@+id/textViewfee"
+                            android:layout_toRightOf="@+id/textViewfee"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Rp.25000000,00" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cv1"
+                    android:layout_margin="8dp"
+                    android:padding="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/ivdate"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/calender" />
+
+                        <TextView
+                            android:id="@+id/textViewdate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toEndOf="@+id/ivdate"
+                            android:layout_toRightOf="@+id/ivdate"
+                            android:text="Join Date: " />
+
+                        <TextView
+                            android:id="@+id/textViewdate2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_toEndOf="@+id/textViewdate"
+                            android:layout_toRightOf="@+id/textViewdate"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="10 Agustus 2020" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/textViewdate"
+                            android:paddingTop="10dp"
+                            android:src="@drawable/line" />
+
+                        <ImageView
+                            android:id="@+id/ivaddress"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_below="@+id/ivdate"
+                            android:layout_marginTop="19dp"
+                            android:src="@drawable/maps" />
+
+                        <TextView
+                            android:id="@+id/textViewaddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/textViewdate"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_toEndOf="@+id/ivaddress"
+                            android:layout_toRightOf="@+id/ivaddress"
+                            android:text="Address: " />
+
+                        <TextView
+                            android:id="@+id/textViewaddress2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/textViewdate"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_toEndOf="@+id/textViewaddress"
+                            android:layout_toRightOf="@+id/textViewaddress"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Jl. Puri Indah Blok A2/3 No. 33-35, Kembangan Selatan" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:layout_width="300dp"
+                    android:layout_height="38dp"
+                    android:layout_below="@+id/cv2"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/padding_10"
+                    android:background="@drawable/roundedbutton"
+                    android:backgroundTint="#F54040"
+                    android:text="Logout"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
