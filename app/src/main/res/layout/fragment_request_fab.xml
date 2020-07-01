@@ -13,10 +13,27 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:padding="@dimen/padding_10">
+
+            <TextView
+                android:id="@+id/submit_request_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/padding_10"
+                android:text="SUBMIT REQUEST"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:text="This form is submit by your request!" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/CV1"
@@ -43,7 +60,6 @@
                     android:minLines="2"
                     android:padding="20dp"
                     android:textSize="13dp" />
-
 
             </androidx.cardview.widget.CardView>
 
@@ -121,14 +137,31 @@
                         android:text=" Upload picture" />
 
                     <ImageView
+                        android:layout_marginTop="@dimen/padding_10"
+                        android:backgroundTint="@color/white"
                         android:id="@+id/IdProf"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_below="@+id/eTextTask3"
-                        android:layout_marginTop="20dp"
                         android:layout_toEndOf="@+id/tvUpload"
                         android:layout_toRightOf="@+id/tvUpload"
                         android:src="@drawable/group_347" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Just JPEG, PNG are accepted"
+                        android:textColor="@color/red"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Image size should be within 10 mb"
+                        android:textColor="@color/red"
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/textviewSelected"
@@ -144,7 +177,7 @@
 
                     <Button
                         android:id="@+id/btn_upload"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/IdProf"
                         android:layout_centerHorizontal="true"
@@ -152,7 +185,7 @@
                         android:layout_marginTop="30dp"
                         android:background="@drawable/roundedbutton"
                         android:backgroundTint="@color/colorPrimary"
-                        android:text="Submit"
+                        android:text="SUBMIT"
                         android:textAppearance="?android:textAppearanceSmall"
                         android:textColor="@color/white"
                         android:textStyle="bold" />

@@ -62,7 +62,7 @@ public class RequestFabFragment extends Fragment {
     public static final int REQUEST_PERMISSIONS = 100;
     ProgressTaskAdapter pAdapter;
     TextView tvIdJob, tvIdUser, textViewSelected;
-    Button btn_upload;
+    Button btn_upload, btn_save;
     String name, nominal, reason, id_job, id_user;
     ImageView imgIdProf;
     ScrollView scrollView;
@@ -119,9 +119,39 @@ public class RequestFabFragment extends Fragment {
             }
         });
 
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name = etname.getText().toString().trim();
+                nominal = etnominal.getText().toString().trim();
+                reason = etreason.getText().toString().trim();
+                id_job = tvIdJob.getText().toString().trim();
+                if (etname.getText().toString().trim().length() == 0) {
+                    etname.setError("Name Item Should not be empty !");
+                } else if (etnominal.getText().toString().trim().length() == 0) {
+                    etnominal.setError("Nominal Item Should not be empty !");
+                } else if (etreason.getText().toString().trim().length() == 0) {
+                    etreason.setError("Reason Item Should not be empty !");
+                } else if (filePath == null) {
+                    Toast.makeText(getActivity(), "Image Item Should not be empty!", Toast.LENGTH_SHORT).show();
+                } else if (filePath != null) {
+                    File file = new File(filePath);
+                    if (file.length() > 10000000) {
+                        Toast.makeText(getActivity(), "Your image more than 10mb, please upload less than 10mb!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        submit(bitmap);
+                    }
+                } else {
+                    submit(bitmap);
+                }
+            }
+
+        });
+
         return view;
 
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -132,23 +162,12 @@ public class RequestFabFragment extends Fragment {
             filePath = getPath(picUri);
             File file = new File(filePath);
             filaName = file.getName();
-            Log.i("fileName", filaName);
+            Log.i("file length", String.valueOf(Integer.parseInt(String.valueOf(file.length()))));
             if (filePath != null) {
                 try {
                     textViewSelected.setText("File Selected");
                     Log.i("filePath", String.valueOf(filePath));
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), picUri);
-                    btn_upload.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            name = etname.getText().toString().trim();
-                            nominal = etnominal.getText().toString().trim();
-                            reason = etreason.getText().toString().trim();
-                            id_job = tvIdJob.getText().toString().trim();
-                            submit(bitmap);
-                        }
-                    });
-
                     imgIdProf.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();

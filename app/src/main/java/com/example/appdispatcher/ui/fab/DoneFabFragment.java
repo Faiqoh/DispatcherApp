@@ -130,6 +130,34 @@ public class DoneFabFragment extends Fragment {
                 startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
             }
         });
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                summary = etsum.getText().toString().trim();
+                root = etroot.getText().toString().trim();
+                counter = etcounter.getText().toString().trim();
+                id_job = tvIdJob.getText().toString().trim();
+
+                if (etsum.getText().toString().trim().length() == 0) {
+                    etsum.setError("Summary Item Should not be empty !");
+                } else if (etroot.getText().toString().trim().length() == 0) {
+                    etroot.setError("Root Cause Item Should not be empty !");
+                } else if (etcounter.getText().toString().trim().length() == 0) {
+                    etcounter.setError("Counter Measure Item Should not be empty !");
+                } else if (filePath == null) {
+                    Toast.makeText(getActivity(), "Image Item Should not be empty!", Toast.LENGTH_SHORT).show();
+                } else if (filePath != null) {
+                    File file = new File(filePath);
+                    if (file.length() > 10000000) {
+                        Toast.makeText(getActivity(), "Your image more than 10mb, please upload less than 10mb!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        submit(bitmap);
+                    }
+                } else {
+                    submit(bitmap);
+                }
+            }
+        });
 
         return view;
     }
@@ -149,17 +177,6 @@ public class DoneFabFragment extends Fragment {
                     textViewSelected.setText("File Selected");
                     Log.i("filePath", String.valueOf(filePath));
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), picUri);
-                    btn_upload.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            summary = etsum.getText().toString().trim();
-                            root = etroot.getText().toString().trim();
-                            counter = etcounter.getText().toString().trim();
-                            id_job = tvIdJob.getText().toString().trim();
-                            submit(bitmap);
-                        }
-                    });
-
                     imgIdProf.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
