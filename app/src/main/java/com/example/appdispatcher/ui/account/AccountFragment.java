@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -90,11 +91,13 @@ public class AccountFragment extends Fragment {
     private void fillaccount() {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getUser_withToken, null, new Response.Listener<JSONObject>() {
+        final Locale localeID = new Locale("in", "ID");
+        final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getuserwithToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONObject jUser = response.getJSONObject("users");
+                    JSONObject jUser = response.getJSONObject("user");
                     Log.i("users", jUser.toString());
 
                     tvname.setText(jUser.getString("name"));
@@ -102,8 +105,11 @@ public class AccountFragment extends Fragment {
                     tvno.setText(jUser.getString("phone"));
                     tvaddress.setText(jUser.getString("address"));
                     Glide.with(getActivity()).load(jUser.getString("photo_image_url")).into(ivuser);
-                    Date join_date = inputFormat.parse(jUser.getString("created_at"));
+                    Date join_date = inputFormat.parse(jUser.getString("date_of_join"));
                     tvdate.setText(dateFormat.format(join_date));
+                    tvjobs.setText(jUser.getString("job_engineer_count"));
+                    tvskill.setText(jUser.getString("category_engineer"));
+                    tvfee.setText(formatRupiah.format((Double.parseDouble(jUser.getString("fee_engineer_count")))));
 
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();
