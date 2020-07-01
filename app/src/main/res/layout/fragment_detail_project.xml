@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="Job applied succes!!"
+                android:text="Job applied success!!"
                 android:textColor="#343434"
                 android:textSize="18sp"
                 android:textStyle="bold" />

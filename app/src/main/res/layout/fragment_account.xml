@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeRefreshLayout"
     android:layout_height="match_parent"
     android:background="#ffffff"
@@ -22,9 +23,13 @@
                 android:background="@color/colorPrimary" />
 
             <ImageView
-                android:layout_width="165dp"
+                android:id="@+id/ivuser"
                 android:layout_height="150dp"
                 android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
                 android:src="@drawable/header" />
 
         </RelativeLayout>
@@ -49,7 +54,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/text_detail"
+                    android:id="@+id/text_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_name"
@@ -63,7 +68,7 @@
                     android:id="@+id/text_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_detail"
+                    android:layout_below="@+id/text_email"
                     android:layout_margin="15dp"
                     android:text="085225168102"
                     android:textSize="13sp" />
@@ -115,8 +120,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginLeft="4dp"
                             android:layout_toEndOf="@+id/textViewjob"
                             android:layout_toRightOf="@+id/textViewjob"
                             android:ellipsize="end"
@@ -154,8 +159,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/textViewtotal"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginLeft="4dp"
                             android:layout_marginTop="20dp"
                             android:layout_toEndOf="@+id/textViewskill"
                             android:layout_toRightOf="@+id/textViewskill"
@@ -194,8 +199,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/textViewskill2"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginLeft="4dp"
                             android:layout_marginTop="20dp"
                             android:layout_toEndOf="@+id/textViewfee"
                             android:layout_toRightOf="@+id/textViewfee"
@@ -240,8 +245,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginLeft="4dp"
                             android:layout_toEndOf="@+id/textViewdate"
                             android:layout_toRightOf="@+id/textViewdate"
                             android:ellipsize="end"
@@ -279,8 +284,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/textViewdate"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginLeft="4dp"
                             android:layout_marginTop="20dp"
                             android:layout_toEndOf="@+id/textViewaddress"
                             android:layout_toRightOf="@+id/textViewaddress"
