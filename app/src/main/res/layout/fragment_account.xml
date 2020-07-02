@@ -214,7 +214,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cv2"
+                    android:id="@+id/cardview2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview1"
@@ -302,7 +302,7 @@
                     android:id="@+id/btn_logout"
                     android:layout_width="300dp"
                     android:layout_height="38dp"
-                    android:layout_below="@+id/cv2"
+                    android:layout_below="@+id/cardview2"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/padding_10"
