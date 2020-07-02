@@ -59,7 +59,7 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
         View view = inflater.inflate(R.layout.fragment_accepted, container, false);
 
         RecyclerView recyclerViewPendingJobList = view.findViewById(R.id.recyclerViewPending);
-        LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewPendingJobList.setLayoutManager(layoutManagerPendingJobList);
         pList.clear();
         fillDatJobPendingList();
@@ -72,26 +72,29 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
 
         rvAccepted = view.findViewById(R.id.relativeLayoutAccepted);
 
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            boolean isNavigationHide = false;
+//        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+//        layoutParams.setBehavior(new BottomNavigationViewBehavior());
 
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY < oldScrollY) { // up
-                    animateNavigation(false);
-                }
-                if (scrollY > oldScrollY) { // down
-                    animateNavigation(true);
-                }
-            }
-
-            private void animateNavigation(boolean hide) {
-                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
-                isNavigationHide = hide;
-                int moveY = hide ? (2 * navigation.getHeight()) : 0;
-                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
-            }
-        });
+//        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            boolean isNavigationHide = false;
+//
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                if (scrollY < oldScrollY) { // up
+//                    animateNavigation(false);
+//                }
+//                if (scrollY > oldScrollY) { // down
+//                    animateNavigation(true);
+//                }
+//            }
+//
+//            private void animateNavigation(boolean hide) {
+//                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
+//                isNavigationHide = hide;
+//                int moveY = hide ? (2 * navigation.getHeight()) : 0;
+//                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+//            }
+//        });
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshAccepted);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

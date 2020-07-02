@@ -113,7 +113,7 @@ public class RequestFabFragment extends Fragment {
 
             private void showFileChooser() {
                 Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-                chooseFile.setType("*/*");
+                chooseFile.setType("image/*");
                 chooseFile = Intent.createChooser(chooseFile, "Choose a file");
                 startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
             }

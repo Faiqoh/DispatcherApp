@@ -91,6 +91,26 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         imageViewOtof = root.findViewById(R.id.imageViewlistjob);
         navigation = getActivity().findViewById(R.id.nav_view);
 
+        RecyclerView recyclerViewJobCategory = root.findViewById(R.id.recyclerViewJobCategory);
+        LinearLayoutManager layoutManagerJobCategory = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewJobCategory.setLayoutManager(layoutManagerJobCategory);
+        cAdapter = new JobCategoryAdapter(this, cList);
+        recyclerViewJobCategory.setAdapter(cAdapter);
+        fillDataJobCategory();
+
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewlistjob);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new JobListAdapter(this, mList);
+        recyclerView.setAdapter(mAdapter);
+        fillDataListJob();
+
+        RecyclerView recyclerView2 = root.findViewById(R.id.recyclerViewrecomendjob);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView2.setLayoutManager(layoutManager2);
+        rAdapter = new RecomenJobAdapter(rList);
+        recyclerView2.setAdapter(rAdapter);
+
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
         layoutParams.setBehavior(new BottomNavigationViewBehavior());
 
@@ -114,29 +134,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 //                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
 //            }
 //        });
-
-        RecyclerView recyclerViewJobCategory = root.findViewById(R.id.recyclerViewJobCategory);
-        LinearLayoutManager layoutManagerJobCategory = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewJobCategory.setLayoutManager(layoutManagerJobCategory);
-        cAdapter = new JobCategoryAdapter(this, cList);
-        recyclerViewJobCategory.setAdapter(cAdapter);
-        fillDataJobCategory();
-
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewlistjob);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new JobListAdapter(this, mList);
-        recyclerView.setAdapter(mAdapter);
-//        fillData();
-        fillDataListJob();
-
-        RecyclerView recyclerView2 = root.findViewById(R.id.recyclerViewrecomendjob);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity());
-        recyclerView2.setLayoutManager(layoutManager2);
-        rAdapter = new RecomenJobAdapter(rList);
-        recyclerView2.setAdapter(rAdapter);
-//        fillData2();
-
         tvSeeAllJobCategory = root.findViewById(R.id.text_see_all);
         tvSeeAllJobList = root.findViewById(R.id.text_see_all2);
         tvSeeAllJobCategory.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +175,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                 ft.commit();
 
                 mList.clear();
-
                 cList.clear();
 
             }

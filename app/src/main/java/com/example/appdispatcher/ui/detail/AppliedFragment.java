@@ -71,7 +71,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_applied, container, false);
         RecyclerView recyclerViewPendingJobList = view.findViewById(R.id.recyclerViewApplied);
-        LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewPendingJobList.setLayoutManager(layoutManagerPendingJobList);
         fillDataJobAppliedList();
         aList.clear();
@@ -167,13 +167,6 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                 }
             });
 
-
-//            AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-//            View mView = getLayoutInflater().inflate(R.layout.activity_filter_layout_detail_task, null);
-//            mBuilder.setView(mView);
-
-//            Window window = dialog.getWindow();
-//            window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         }
 
         return super.onOptionsItemSelected(item);

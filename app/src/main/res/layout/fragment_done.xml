@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/refreshdone"
-    android:paddingBottom="60dp">
+    android:id="@+id/refreshdone">
 
     <RelativeLayout
         android:id="@+id/relativelayoutDone"
@@ -24,7 +23,7 @@
             <!-- Adding 7 rows of placeholders -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <include layout="@layout/data_placeholder_detail_progress_job" />
@@ -60,16 +59,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/imgNotFound"
-                android:layout_marginHorizontal="80dp"
+                android:layout_centerHorizontal="true"
                 android:text="Nothing Job Done..."
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_centerHorizontal="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textNotfound"
-                android:layout_marginHorizontal="80dp"
+                android:gravity="center_horizontal"
                 android:text="Your Job almost finish"
                 android:textStyle="bold" />
 

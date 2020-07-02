@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.PaymentAdapter;
+import com.example.appdispatcher.BottomNavigationViewBehavior;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
@@ -84,26 +86,29 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
         scrollView = root.findViewById(R.id.scroll_payment);
         navigation = getActivity().findViewById(R.id.nav_view);
 
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            boolean isNavigationHide = false;
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationViewBehavior());
 
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY < oldScrollY) { // up
-                    animateNavigation(false);
-                }
-                if (scrollY > oldScrollY) { // down
-                    animateNavigation(true);
-                }
-            }
-
-            private void animateNavigation(boolean hide) {
-                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
-                isNavigationHide = hide;
-                int moveY = hide ? (2 * navigation.getHeight()) : 0;
-                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
-            }
-        });
+//        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            boolean isNavigationHide = false;
+//
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                if (scrollY < oldScrollY) { // up
+//                    animateNavigation(false);
+//                }
+//                if (scrollY > oldScrollY) { // down
+//                    animateNavigation(true);
+//                }
+//            }
+//
+//            private void animateNavigation(boolean hide) {
+//                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
+//                isNavigationHide = hide;
+//                int moveY = hide ? (2 * navigation.getHeight()) : 0;
+//                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+//            }
+//        });
 
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

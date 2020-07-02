@@ -30,6 +30,7 @@ public class DetailFragment extends Fragment {
         return root;
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -40,7 +41,6 @@ public class DetailFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
 
             }
 
@@ -64,7 +64,10 @@ public class DetailFragment extends Fragment {
         adapter.addFragment(new OnProgressFragment(), "Progress");
         adapter.addFragment(new DoneFragment(), "Done");
 
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
         viewPager.setAdapter(adapter);
     }
+
 
 }

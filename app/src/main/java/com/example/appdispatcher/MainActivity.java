@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,9 +24,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.appdispatcher.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences mSetting;
     public String msg;
 
+    ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +58,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.i("Token", Token_account);
         }
-        setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+//        setContentView(R.layout.activity_main);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+//        BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -63,7 +71,13 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        NavigationUI.setupWithNavController(binding.navView, navController);
+
+        BadgeDrawable badge_detail = binding.navView.getOrCreateBadge(R.id.navigation_detail);
+        badge_detail.setBackgroundColor(Color.RED);
+        badge_detail.setBadgeTextColor(Color.WHITE);
+        badge_detail.setMaxCharacterCount(3);
+        badge_detail.setNumber(200);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("NotifApps", "NotifyApps", NotificationManager.IMPORTANCE_HIGH);
@@ -73,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
         getCurrentFirebaseToken();
         mQueue = Volley.newRequestQueue(this);
-
 
     }
 
@@ -143,4 +156,9 @@ public class MainActivity extends AppCompatActivity {
         finishAffinity();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
 }

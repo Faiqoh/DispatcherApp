@@ -4,14 +4,12 @@
     android:layout_height="wrap_content"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/refreshApplied"
-    android:paddingBottom="60dp">
+    android:id="@+id/refreshApplied">
 
     <RelativeLayout
         android:id="@+id/relativeLayoutApplied"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_container"
@@ -59,8 +57,8 @@
                 android:id="@+id/textNotfound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_alignBottom="@+id/imgNotFound"
-                android:layout_marginHorizontal="80dp"
                 android:text="Nothing Job Applied...."
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />

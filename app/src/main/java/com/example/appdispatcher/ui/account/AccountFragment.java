@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -43,7 +43,6 @@ import java.util.Map;
 
 public class AccountFragment extends Fragment {
 
-    NestedScrollView nestedScrollView;
     BottomNavigationView navigation;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     TextView tvname, tvemail, tvno, tvjobs, tvskill, tvfee, tvdate, tvaddress;
@@ -56,8 +55,9 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_account, container, false);
-        nestedScrollView = root.findViewById(R.id.nestedaccount);
         navigation = getActivity().findViewById(R.id.nav_view);
+
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
         tvname = root.findViewById(R.id.text_name);
         tvemail = root.findViewById(R.id.text_email);
@@ -70,26 +70,26 @@ public class AccountFragment extends Fragment {
         ivuser = root.findViewById(R.id.ivuser);
         btn_logout = root.findViewById(R.id.btn_logout);
 
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            boolean isNavigationHide = false;
-
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY < oldScrollY) { // up
-                    animateNavigation(false);
-                }
-                if (scrollY > oldScrollY) { // down
-                    animateNavigation(true);
-                }
-            }
-
-            private void animateNavigation(boolean hide) {
-                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
-                isNavigationHide = hide;
-                int moveY = hide ? (2 * navigation.getHeight()) : 0;
-                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
-            }
-        });
+//        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            boolean isNavigationHide = false;
+//
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                if (scrollY < oldScrollY) { // up
+//                    animateNavigation(false);
+//                }
+//                if (scrollY > oldScrollY) { // down
+//                    animateNavigation(true);
+//                }
+//            }
+//
+//            private void animateNavigation(boolean hide) {
+//                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
+//                isNavigationHide = hide;
+//                int moveY = hide ? (2 * navigation.getHeight()) : 0;
+//                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
+//            }
+//        });
 
         tvjobs.setOnClickListener(new View.OnClickListener() {
             @Override

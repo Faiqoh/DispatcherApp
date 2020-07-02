@@ -17,6 +17,7 @@
         android:background="@android:color/white">
 
         <com.google.android.material.tabs.TabLayout
+            style="@style/MyTabLayout"
             app:tabIndicatorColor="@color/colorPrimaryDark"
             android:id="@+id/tabLayoutDetail"
             android:layout_width="match_parent"
