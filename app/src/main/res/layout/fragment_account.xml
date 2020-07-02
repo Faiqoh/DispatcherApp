@@ -88,7 +88,7 @@
                     android:textSize="11sp" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cv1"
+                    android:id="@+id/cardview1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_number"
@@ -217,7 +217,7 @@
                     android:id="@+id/cv2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cv1"
+                    android:layout_below="@+id/cardview1"
                     android:layout_margin="8dp"
                     android:padding="10dp">
 
