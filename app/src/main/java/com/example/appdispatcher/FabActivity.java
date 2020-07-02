@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.appdispatcher.ui.account.DetailAccountFragment;
 import com.example.appdispatcher.ui.fab.DoneFabFragment;
 import com.example.appdispatcher.ui.fab.RequestFabFragment;
 
@@ -31,6 +32,11 @@ public class FabActivity extends AppCompatActivity {
             ft.replace(R.id.fab_fragment, new RequestFabFragment());
             ft.commit();
             getSupportActionBar().setTitle("Form Job Request");
+        } else if (getJob.equals("detail_engineer")) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fab_fragment, new DetailAccountFragment());
+            ft.commit();
+            getSupportActionBar().setTitle("Job Applied");
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

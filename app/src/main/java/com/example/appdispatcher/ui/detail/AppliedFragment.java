@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +34,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.JobAppliedAdapter;
+import com.example.appdispatcher.BottomNavigationViewBehavior;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -83,7 +85,10 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
         rvApplied = view.findViewById(R.id.relativeLayoutApplied);
         navigation = getActivity().findViewById(R.id.nav_view);
 
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationViewBehavior());
+
+        /*nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             boolean isNavigationHide = false;
 
             @Override
@@ -102,7 +107,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
                 int moveY = hide ? (2 * navigation.getHeight()) : 0;
                 navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
             }
-        });
+        });*/
 
         swipeRefreshLayout = view.findViewById(R.id.refreshApplied);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
