@@ -82,7 +82,7 @@ public class DetailAccountFragment extends Fragment {
                                 itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
                                 itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                                 itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
-
+                                itemCategory.setStatus(cat.getString("job_status"));
                                 aList.add(itemCategory);
 
                             }

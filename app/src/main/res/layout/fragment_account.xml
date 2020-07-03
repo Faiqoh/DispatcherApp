@@ -327,7 +327,7 @@
                 <Button
                     android:id="@+id/btn_logout"
                     android:layout_width="300dp"
-                    android:layout_height="38dp"
+                    android:layout_height="45dp"
                     android:layout_below="@+id/cardview2"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"

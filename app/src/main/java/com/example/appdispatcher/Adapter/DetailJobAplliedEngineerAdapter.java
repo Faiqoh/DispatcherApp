@@ -1,5 +1,6 @@
 package com.example.appdispatcher.Adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class DetailJobAplliedEngineerAdapter extends RecyclerView.Adapter<Detail
     @NonNull
     @Override
     public DetailJobAplliedEngineerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail_job_list, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail_job_list_engineer, parent, false);
         return new DetailJobAplliedEngineerAdapter.ViewHolder(v);
     }
 
@@ -44,6 +45,16 @@ public class DetailJobAplliedEngineerAdapter extends RecyclerView.Adapter<Detail
         holder.tvId_job.setText(appliedjoblist.id_job);
         holder.tvCategory.setText(appliedjoblist.category);
         Glide.with(context).load(appliedjoblist.getFoto()).into(holder.ivFoto);
+        if (appliedjoblist.getStatus().equals("Ready")) {
+            holder.tvstatus.setText(appliedjoblist.status);
+            holder.tvstatus.setBackgroundColor(Color.parseColor("#e3342f"));
+        } else if (appliedjoblist.getStatus().equals("Progress")) {
+            holder.tvstatus.setText(appliedjoblist.status);
+            holder.tvstatus.setBackgroundColor(Color.parseColor("#3490dc"));
+        } else if (appliedjoblist.getStatus().equals("Done")) {
+            holder.tvstatus.setText(appliedjoblist.status);
+            holder.tvstatus.setBackgroundColor(Color.parseColor("#38c172"));
+        }
     }
 
 
@@ -64,7 +75,7 @@ public class DetailJobAplliedEngineerAdapter extends RecyclerView.Adapter<Detail
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvLocation, tvCustomer, tvId_job, tvCategory;
+        TextView tvJudul, tvLocation, tvCustomer, tvId_job, tvCategory, tvstatus;
         RelativeLayout headsub;
 
         public ViewHolder(View itemView) {
@@ -76,6 +87,7 @@ public class DetailJobAplliedEngineerAdapter extends RecyclerView.Adapter<Detail
             tvId_job = itemView.findViewById(R.id.TvIdJob);
             headsub = itemView.findViewById(R.id.head_sub);
             tvCategory = itemView.findViewById(R.id.textViewCategory);
+            tvstatus = itemView.findViewById(R.id.tvstatus);
         }
     }
 
