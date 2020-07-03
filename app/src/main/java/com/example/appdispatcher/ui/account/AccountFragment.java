@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
@@ -49,15 +50,15 @@ public class AccountFragment extends Fragment {
     /*public List<AppliedViewModel> aList = new ArrayList<>();
     DetailJobAplliedEngineerAdapter aAdapter;*/
     public static final String GET_ID_JOB = "get_id_job";
-    ImageView ivuser, imgClose;
+    ImageView ivuser;
     Button btn_logout;
+    ShimmerFrameLayout shimmerFrameLayout;
+    NestedScrollView nestedScrollView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_account, container, false);
         navigation = getActivity().findViewById(R.id.nav_view);
-
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
         tvname = root.findViewById(R.id.text_name);
         tvemail = root.findViewById(R.id.text_email);
@@ -69,27 +70,8 @@ public class AccountFragment extends Fragment {
         tvaddress = root.findViewById(R.id.textViewaddress2);
         ivuser = root.findViewById(R.id.ivuser);
         btn_logout = root.findViewById(R.id.btn_logout);
-
-//        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            boolean isNavigationHide = false;
-//
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if (scrollY < oldScrollY) { // up
-//                    animateNavigation(false);
-//                }
-//                if (scrollY > oldScrollY) { // down
-//                    animateNavigation(true);
-//                }
-//            }
-//
-//            private void animateNavigation(boolean hide) {
-//                if (isNavigationHide && hide || !isNavigationHide && !hide) return;
-//                isNavigationHide = hide;
-//                int moveY = hide ? (2 * navigation.getHeight()) : 0;
-//                navigation.animate().translationY(moveY).setStartDelay(100).setDuration(300).start();
-//            }
-//        });
+        shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
+        nestedScrollView = root.findViewById(R.id.nestedaccount);
 
         tvjobs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,6 +180,9 @@ public class AccountFragment extends Fragment {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getuserwithToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                nestedScrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 try {
                     JSONObject jUser = response.getJSONObject("user");
                     Log.i("users", jUser.toString());
@@ -242,6 +227,18 @@ public class AccountFragment extends Fragment {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 
 }
