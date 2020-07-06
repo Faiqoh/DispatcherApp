@@ -270,15 +270,18 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
 
                                 ProgressDoneViewModel progress = new ProgressDoneViewModel();
                                 Date date_submit = inputFormat.parse(task.getString("date_time"));
-                                tempDetail_activity = tempDetail_activity + task.getString("detail_activity") + "\n";
+//                                tempDetail_activity = tempDetail_activity + task.getString("detail_activity") + "\n";
                                 progress.setDate(dateFormat.format(date_submit));
                                 floatingActionsMenu.collapse();
 
                                 if (!pList.contains(progress)) {
+                                    tempDetail_activity = task.getString("detail_activity") + "\n";
                                     progress.setDetail_activity(tempDetail_activity);
                                     progress.setDay("Day " + no++);
                                     pList.add(progress);
-                                    tempDetail_activity = "";
+                                } else {
+                                    tempDetail_activity += task.getString("detail_activity") + "\n";
+                                    pList.get(pList.size() - 1).setDetail_activity(tempDetail_activity);
                                 }
 
                             } else if (task.getInt("id_activity") == 6) {
