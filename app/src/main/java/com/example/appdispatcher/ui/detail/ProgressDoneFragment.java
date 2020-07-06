@@ -68,7 +68,6 @@ public class ProgressDoneFragment extends Fragment {
     private static ProgressDoneFragment instance = null;
 
     public List<ProgressDoneViewModel> pList = new ArrayList<>();
-    //    ProgressTaskAdapter pAdapter;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     public static final String ID_JOB = "id_job";
     public static final String GET_ID_JOB = "get_id_job";
@@ -272,22 +271,27 @@ public class ProgressDoneFragment extends Fragment {
 
                                 Date date_submit = inputFormat.parse(task.getString("date_time"));
                                 progress.setDetail_activity(task.getString("detail_activity"));
-                                progress.setDay("Day " + no++);
                                 progress.setDate(dateFormat.format(date_submit));
                                 floatingActionsMenu.collapse();
 
-                                pList.add(progress);
+                                if (!pList.contains(progress)) {
+                                    progress.setDay("Day " + no++);
+                                    pList.add(progress);
+                                }
 
                             } else if (task.getInt("id_activity") == 6) {
                                 ProgressDoneViewModel progress = new ProgressDoneViewModel();
 
                                 Date date_submit = inputFormat.parse(task.getString("date_time"));
                                 progress.setDetail_activity(task.getString("detail_activity"));
-                                progress.setDay("Day " + no++);
                                 progress.setDate(dateFormat.format(date_submit));
                                 floatingActionsMenu.setVisibility(View.GONE);
 
-                                pList.add(progress);
+                                if (!pList.contains(progress)) {
+                                    progress.setDay("Day " + no++);
+                                    pList.add(progress);
+                                }
+
                             }
                             pAdapter.notifyDataSetChanged();
                         }

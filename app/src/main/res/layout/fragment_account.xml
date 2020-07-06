@@ -6,8 +6,7 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    android:orientation="vertical"
-    android:paddingBottom="60dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -67,7 +66,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/headerhome">
+                    android:layout_below="@+id/headerhome"
+                    android:paddingBottom="40dp">
 
                     <TextView
                         android:id="@+id/text_name"

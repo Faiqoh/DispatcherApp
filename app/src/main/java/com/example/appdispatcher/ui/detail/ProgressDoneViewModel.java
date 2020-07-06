@@ -38,6 +38,15 @@ public class ProgressDoneViewModel implements Serializable {
         this.day = day;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        boolean isEqual = false;
+        if (o != null && o instanceof ProgressDoneViewModel) {
+            isEqual = this.getDate().equals(((ProgressDoneViewModel) o).getDate());
+        }
+        return isEqual;
+    }
+
     public void setId_job(String id_job) {
         this.id_job = id_job;
     }
