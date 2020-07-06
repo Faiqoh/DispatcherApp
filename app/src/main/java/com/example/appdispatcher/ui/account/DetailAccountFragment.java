@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.example.appdispatcher.Adapter.DetailJobAplliedEngineerAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.AppliedViewModel;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +38,8 @@ public class DetailAccountFragment extends Fragment {
 
     public List<AppliedViewModel> aList = new ArrayList<>();
     DetailJobAplliedEngineerAdapter aAdapter;
+    NestedScrollView nestedScrollView;
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +53,8 @@ public class DetailAccountFragment extends Fragment {
         aAdapter = new DetailJobAplliedEngineerAdapter(this, aList);
         rvdetail.setAdapter(aAdapter);
         filldata();
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
+        nestedScrollView = view.findViewById(R.id.nested_detail_account);
         return view;
 
     }
@@ -57,6 +63,9 @@ public class DetailAccountFragment extends Fragment {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                nestedScrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 JSONObject jObj = response;
                 try {
                     JSONArray jray = jObj.getJSONArray("job");
@@ -117,5 +126,17 @@ public class DetailAccountFragment extends Fragment {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 }
