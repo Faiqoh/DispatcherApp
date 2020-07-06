@@ -63,7 +63,7 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 
-public class ProgressDoneFragment extends Fragment {
+public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapter.PListAdapter {
 
     private static ProgressDoneFragment instance = null;
 
@@ -263,20 +263,22 @@ public class ProgressDoneFragment extends Fragment {
                     JSONArray jray = jObj.getJSONObject("job").getJSONArray("progress");
                     if (response.length() > 0) {
                         int no = 1;
+                        String tempDetail_activity = "";
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject task = jray.getJSONObject(i);
                             if (task.getInt("id_activity") == 5) {
 
                                 ProgressDoneViewModel progress = new ProgressDoneViewModel();
-
                                 Date date_submit = inputFormat.parse(task.getString("date_time"));
-                                progress.setDetail_activity(task.getString("detail_activity"));
+                                tempDetail_activity = tempDetail_activity + task.getString("detail_activity") + "\n";
                                 progress.setDate(dateFormat.format(date_submit));
                                 floatingActionsMenu.collapse();
 
                                 if (!pList.contains(progress)) {
+                                    progress.setDetail_activity(tempDetail_activity);
                                     progress.setDay("Day " + no++);
                                     pList.add(progress);
+                                    tempDetail_activity = "";
                                 }
 
                             } else if (task.getInt("id_activity") == 6) {
@@ -458,11 +460,11 @@ public class ProgressDoneFragment extends Fragment {
         super.onStop();
     }
 
-    /*@Override
+    @Override
     public void doClick(int pos) {
         Intent intent = new Intent(getContext(), FabActivity.class);
         intent.putExtra(ID_JOB, pAdapter.getItem(pos));
-        intent.putExtra(GET_ID_JOB, "id_job_progress");
+        intent.putExtra(GET_ID_JOB, "date_progress");
         startActivity(intent);
-    }*/
+    }
 }
