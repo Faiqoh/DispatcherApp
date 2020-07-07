@@ -1,15 +1,17 @@
 package com.example.appdispatcher.util;
 
 public class server {
-    public static final String getJobCategory = "https://development.sinergy-dev.xyz:2096/dashboard/getJobCategory";
+    //    public static final String url = "https://eod-api.sinergy.co.id";
+    public static final String url = "https://development.sinergy-dev.xyz:2096";
+    public static final String getJobCategory = url + "/dashboard/getJobCategory";
     public static final String getJobList = "https://development.sinergy-dev.xyz:2096/dashboard/getJobList";
     public static final String getUser = "https://development.sinergy-dev.xyz:2096/dashboard/getDashboard";
     public static final String getJobListSummary = "https://development.sinergy-dev.xyz:2096/dashboard/getJobListSumary/?id_job=1";
-    public static final String getJobListSumm = "https://development.sinergy-dev.xyz:2096/dashboard/getJobListAndSumary";
-    public static final String getAllCategory = "https://development.sinergy-dev.xyz:2096/dashboard/getJobCategoryAll";
+    public static final String getJobListSumm = url + "/dashboard/getJobListAndSumary";
+    public static final String getAllCategory = url + "/dashboard/getJobCategoryAll";
 
     //Halaman detail
-    public static final String getJobOpen = "https://development.sinergy-dev.xyz:2096/job/getJobOpen";
+    public static final String getJobOpen = url + "/job/getJobOpen";
 
     //Job progress
     public static final String getJobProgress = "https://development.sinergy-dev.xyz:2096/job/getJobProgress";
@@ -32,19 +34,19 @@ public class server {
     public static final String getdetailpayment = "https://development.sinergy-dev.xyz:2096/payment/getJobPaymentDetail";
 
     // Link API With Token
-    public static final String postSaveToken = "https://development.sinergy-dev.xyz:2096/api/api_token";
+    public static final String postSaveToken = url + "/api/api_token";
 
-    public static final String getUser_withToken = "https://development.sinergy-dev.xyz:2096/api/dashboard/getDashboard";
-    public static final String login_url = "https://development.sinergy-dev.xyz:2096/api/api_login";
-    public static final String getJob_withToken = "https://sinergy-dev.xyz:2096/api/job/getJobByCategory";
-    public static final String getpayment_withToken = "https://sinergy-dev.xyz:2096/api/payment/getJobPayment";
-    public static final String JobStart_WithToken = "https://sinergy-dev.xyz:2096/api/job/postJobStart";
-    public static final String JobApply_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobApply";
-    public static final String progreesjob_withToken = "https://sinergy-dev.xyz:2096/api/job/getJobProgress";
-    public static final String postJobUpdate_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobUpdate";
-    public static final String request_item_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobRequestItem";
-    public static final String jobdone_withToken = "https://sinergy-dev.xyz:2096/api/job/postJobFinish";
-    public static final String getdetailpayment_withToken = "https://sinergy-dev.xyz:2096/api/payment/getJobPaymentDetail";
-    public static final String getuserwithToken = "https://sinergy-dev.xyz:2096/api/users/getProfileDetail";
+    public static final String getUser_withToken = url + "/api/dashboard/getDashboard";
+    public static final String login_url = url + "/api/api_login";
+    public static final String getJob_withToken = url + "api/job/getJobByCategory";
+    public static final String getpayment_withToken = url + "api/payment/getJobPayment";
+    public static final String JobStart_WithToken = url + "/api/job/postJobStart";
+    public static final String JobApply_withToken = url + "/api/job/postJobApply";
+    public static final String progreesjob_withToken = url + "/api/job/getJobProgress";
+    public static final String postJobUpdate_withToken = url + "/api/job/postJobUpdate";
+    public static final String request_item_withToken = url + "/api/job/postJobRequestItem";
+    public static final String jobdone_withToken = url + "/api/job/postJobFinish";
+    public static final String getdetailpayment_withToken = url + "/api/payment/getJobPaymentDetail";
+    public static final String getuserwithToken = url + "/api/users/getProfileDetail";
 
 }
