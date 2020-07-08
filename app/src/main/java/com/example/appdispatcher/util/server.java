@@ -38,8 +38,8 @@ public class server {
 
     public static final String getUser_withToken = url + "/api/dashboard/getDashboard";
     public static final String login_url = url + "/api/api_login";
-    public static final String getJob_withToken = url + "api/job/getJobByCategory";
-    public static final String getpayment_withToken = url + "api/payment/getJobPayment";
+    public static final String getJob_withToken = url + "/api/job/getJobByCategory";
+    public static final String getpayment_withToken = url + "/api/payment/getJobPayment";
     public static final String JobStart_WithToken = url + "/api/job/postJobStart";
     public static final String JobApply_withToken = url + "/api/job/postJobApply";
     public static final String progreesjob_withToken = url + "/api/job/getJobProgress";

@@ -334,9 +334,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
                         android:src="@drawable/layer_5" />
 
@@ -347,6 +348,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="15dp"
                         android:text="1 Januari 2020 - 25 Mei 2020"
+                        android:layout_marginStart="5dp"
                         android:textSize="11sp" />
 
                 </LinearLayout>
@@ -389,7 +391,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="24dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:src="@drawable/path_money" />
@@ -398,6 +400,7 @@
                         android:id="@+id/tv_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="15dp"
                         android:text="1100000"
