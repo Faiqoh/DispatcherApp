@@ -5,6 +5,9 @@
     <string name="title_payment">Payment</string>
     <string name="title_message">Message</string>
     <string name="title_account">Account</string>
+    <string name="start">GOT IT</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
     <!-- TODO: Remove or change this placeholder text -->

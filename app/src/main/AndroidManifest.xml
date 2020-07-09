@@ -17,7 +17,15 @@
         android:roundIcon="@mipmap/freelance_logoaja_round_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FabActivity"></activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".FabActivity" />
         <activity android:name=".FirebaseActivity" />
         <activity
             android:name=".ui.detail.ScrollingActivityDetailTask"
@@ -34,11 +42,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
