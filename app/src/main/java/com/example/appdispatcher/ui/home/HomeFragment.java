@@ -205,7 +205,7 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.item_logout) {
+        if (id == R.id.item_notif) {
 //            SharedPreferences blockSession = getActivity().getSharedPreferences("blockSession", 0);
 //            SharedPreferences.Editor blockEdit = blockSession.edit();
 //            blockEdit.clear();

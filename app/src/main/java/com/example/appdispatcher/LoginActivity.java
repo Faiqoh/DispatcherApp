@@ -39,9 +39,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        b1 = (Button) findViewById(R.id.buttonSubmitLogin);
-        ed1 = (EditText) findViewById(R.id.editTextTextEmailAddress);
-        ed2 = (EditText) findViewById(R.id.editTextTextPassword);
+        b1 = findViewById(R.id.buttonSubmitLogin);
+        ed1 = findViewById(R.id.editTextTextEmailAddress);
+        ed2 = findViewById(R.id.editTextTextPassword);
 
         mSetting = this.getSharedPreferences("Setting", Context.MODE_PRIVATE);
 
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.apply();
                         Log.i("preferences_setting", String.valueOf(mSetting));
                         Log.i("preferences_setting", mSetting.getString("Token", "missing"));
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
                     }
 
                 } catch (JSONException e) {

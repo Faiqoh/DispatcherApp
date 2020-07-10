@@ -146,7 +146,7 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        MenuItem item3 = menu.findItem(R.id.item_logout);
+        MenuItem item3 = menu.findItem(R.id.item_notif);
         item3.setVisible(false);
     }
 
