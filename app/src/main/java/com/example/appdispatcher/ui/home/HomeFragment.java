@@ -39,6 +39,7 @@ import com.example.appdispatcher.Adapter.JobCategoryAdapter;
 import com.example.appdispatcher.Adapter.JobListAdapter;
 import com.example.appdispatcher.Adapter.RecomenJobAdapter;
 import com.example.appdispatcher.BottomNavigationViewBehavior;
+import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetail;
 import com.example.appdispatcher.util.server;
@@ -206,16 +207,11 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.item_notif) {
-//            SharedPreferences blockSession = getActivity().getSharedPreferences("blockSession", 0);
-//            SharedPreferences.Editor blockEdit = blockSession.edit();
-//            blockEdit.clear();
-//            blockEdit.apply();
-//            //finish();       /****<-----commented out this line---****/
-//            Intent intent = new Intent(getActivity(), LoginActivity.class);
-//            startActivity(intent);
-//
-//            getActivity().finish();
+            Intent intent = new Intent(getContext(), FabActivity.class);
+            intent.putExtra(GET_ID_JOB, "notif");
+            startActivity(intent);
         }
+
         return super.onOptionsItemSelected(item);
     }
 

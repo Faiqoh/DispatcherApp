@@ -3,18 +3,14 @@ package com.example.appdispatcher;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by Faiqoh on 14/05/2017.
- */
-
 public class PrefManager {
     private static final String PREF_NAME = "androidhive-welcome";
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Context _context;
-    // shared pref mode
     int PRIVATE_MODE = 0;
+
 
     public PrefManager(Context context) {
         this._context = context;
@@ -29,5 +25,11 @@ public class PrefManager {
     public void setFirstTimeLaunch(boolean isFirstTime) {
         editor.putBoolean(IS_FIRST_TIME_LAUNCH, isFirstTime);
         editor.commit();
+    }
+
+    public boolean logout() {
+        editor.clear();
+        editor.apply();
+        return true;
     }
 }

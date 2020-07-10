@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.appdispatcher.ui.account.DetailAccountFragment;
 import com.example.appdispatcher.ui.fab.DoneFabFragment;
 import com.example.appdispatcher.ui.fab.RequestFabFragment;
+import com.example.appdispatcher.ui.home.NotifFragment;
 
 public class FabActivity extends AppCompatActivity {
 
@@ -37,6 +38,11 @@ public class FabActivity extends AppCompatActivity {
             ft.replace(R.id.fab_fragment, new DetailAccountFragment());
             ft.commit();
             getSupportActionBar().setTitle("Job Applied");
+        } else if (getJob.equals("notif")) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fab_fragment, new NotifFragment());
+            ft.commit();
+            getSupportActionBar().setTitle("Notification");
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

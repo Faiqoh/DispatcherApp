@@ -25,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.appdispatcher.FabActivity;
+import com.example.appdispatcher.LoginActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -41,6 +42,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 public class AccountFragment extends Fragment {
 
@@ -100,6 +104,20 @@ public class AccountFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                Log.i(TAG, "Now log out and start the activity login");
+                startActivity(new Intent(getContext(), LoginActivity.class));
+            }
+        });
+
+//        btn_logout.setOnClickListener(this);
 
         fillaccount();
 
@@ -220,7 +238,7 @@ public class AccountFragment extends Fragment {
                 // Barer di bawah ini akan di simpan local masing-masing device engineer
 
 //                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
-                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", MODE_PRIVATE);
                 headers.put("Authorization", mSetting.getString("Token", "missing"));
                 return headers;
             }
@@ -240,5 +258,4 @@ public class AccountFragment extends Fragment {
         shimmerFrameLayout.stopShimmerAnimation();
         super.onPause();
     }
-
 }

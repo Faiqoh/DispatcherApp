@@ -100,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(LoginActivity.this, "Error" + e.toString(), Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(LoginActivity.this, "Email atau password tidak sesuai", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -115,9 +114,6 @@ public class LoginActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(strReq);
-
-//        Intent intent = new Intent(this, ScrollingActivityDetailTask.class);
-//        startActivityForResult(intent, 1);
 
     }
 }

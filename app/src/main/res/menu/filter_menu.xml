@@ -12,7 +12,7 @@
         <item
             android:id="@+id/item_notif"
             android:icon="@drawable/ic_baseline_notifications_24"
-            android:title="Log Out"
+            android:title="Notif"
             app:showAsAction="always" />
     </group>
 </menu>
