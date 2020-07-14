@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
@@ -309,17 +310,43 @@
 
                     </LinearLayout>
 
-                    <Button
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="center|bottom"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/roundedbutton"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:text="Start"
-                    android:id="@+id/btn_start"
-                    android:textSize="11sp" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <Button
+                            android:id="@+id/btn_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/roundedbutton"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:text="Start"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tv_url"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+
+                        <Button
+                            android:id="@+id/btn_download"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="@dimen/padding_10"
+                            android:layout_marginTop="20dp"
+                            android:layout_toEndOf="@+id/btn_start"
+                            android:layout_toRightOf="@+id/btn_start"
+                            android:background="@drawable/roundedbutton"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:text="Download"
+                            android:textSize="11sp"
+                            tools:ignore="UnknownId" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
         </androidx.cardview.widget.CardView>

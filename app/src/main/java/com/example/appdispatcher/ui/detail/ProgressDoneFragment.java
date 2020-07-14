@@ -74,7 +74,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
     ImageView cat_backend;
     TextView textViewjob, textJobdesc, textRequirement, tvidUser, tvidJob, textview_mail, textview_share;
     EditText etTask;
-    Button btn_note, btn_submit, btn_done;
+    Button btn_submit, btn_download;
     ProgressTaskAdapter pAdapter;
     String id_user, id_jobb, detail_activity;
     ProgressBar progressBar, progressBarSubmit;
@@ -99,10 +99,8 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         textJobdesc = root.findViewById(R.id.job_desc_detail);
         textViewjob = root.findViewById(R.id.text_view_job);
         textRequirement = root.findViewById(R.id.requirement_detail);
-//        btn_note = root.findViewById(R.id.btnAddNote);
         tvidJob = root.findViewById(R.id.tv_idjob);
         tvidUser = root.findViewById(R.id.tv_id_user);
-//        btn_done = root.findViewById(R.id.btnDone);
         progressBar = root.findViewById(R.id.progressBarDone);
         progressBarSubmit = root.findViewById(R.id.progressBarSubmit);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);

@@ -1,8 +1,11 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,12 +53,13 @@ public class AppliedAcceptFragment extends Fragment {
 
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     ImageView cat_backend;
-    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvidUser, tvidJob, tv_price;
-    Button btn_start;
+    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvidUser, tvidJob, tv_price, tv_url;
+    Button btn_start, btn_download;
     String id_user, id_job;
     ProgressBar progressBar;
     ShimmerFrameLayout shimmerFrameLayout;
     CardView cardViewApplied, cardViewApplied2;
+    DownloadManager downloadManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -82,7 +86,8 @@ public class AppliedAcceptFragment extends Fragment {
         cardViewApplied = root.findViewById(R.id.cardviewApplied);
         cardViewApplied2 = root.findViewById(R.id.cardviewApplied2);
         tv_price = root.findViewById(R.id.tv_price);
-
+        btn_download = root.findViewById(R.id.btn_download);
+        tv_url = root.findViewById(R.id.tv_url);
 
         if (getJob.equals("id_list")) {
             AcceptedViewModel detail = (AcceptedViewModel) getActivity().getIntent().getSerializableExtra(AcceptedFragment.ID_JOB);
@@ -92,6 +97,7 @@ public class AppliedAcceptFragment extends Fragment {
             AppliedViewModel detail2 = (AppliedViewModel) getActivity().getIntent().getSerializableExtra(AppliedFragment.ID_JOB);
             String id_job = detail2.getId_job();
             btn_start.setVisibility(View.GONE);
+            btn_download.setVisibility(View.GONE);
             fillDetail(id_job);
         }
 
@@ -103,6 +109,16 @@ public class AppliedAcceptFragment extends Fragment {
                 id_user = tvidUser.getText().toString().trim();
                 id_job = tvidJob.getText().toString().trim();
                 startjob();
+            }
+        });
+
+        btn_download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = tv_url.getText().toString().trim();
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
 
@@ -149,6 +165,7 @@ public class AppliedAcceptFragment extends Fragment {
                     tvidJob.setText(job.getString("id"));
                     Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
                     tv_price.setText(formatRupiah.format((Double.parseDouble(job.getString("job_price")))));
+                    tv_url.setText(job.getString("letter_of_assignment"));
 
 
                 } catch (JSONException | ParseException e) {
