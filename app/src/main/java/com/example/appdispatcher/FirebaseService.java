@@ -2,10 +2,12 @@ package com.example.appdispatcher;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -21,6 +23,9 @@ import java.util.Map;
 
 public class FirebaseService extends FirebaseMessagingService {
 
+    DataHelper dbHelper;
+    int no = 5;
+
     @Override
     public void onNewToken(String token) {
         Log.d("TAG", "Refreshed token: " + token);
@@ -30,27 +35,32 @@ public class FirebaseService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        dbHelper = new DataHelper(this);
 
         Map<String, String> data = remoteMessage.getData();
         String dataPayload = data.get("data");
-
-
         /*
          * Cek jika notif berisi data payload
          * pengiriman data payload dapat dieksekusi secara background atau foreground
          */
-
         if (remoteMessage.getData().size() > 0) {
             Log.e("TAG", "Message data payload: " + remoteMessage.getData());
-
             try {
                 JSONObject jsonParse = new JSONObject(dataPayload);
                 showNotif(jsonParse.getString("title"), jsonParse.getString("message"));
             } catch (JSONException e) {
                 e.printStackTrace();
+                Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
             }
         }
 
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("insert into notif(no, title, message) values('" +
+                no++ + "','" +
+                remoteMessage.getNotification().getTitle() + "','" +
+                remoteMessage.getNotification().getBody() + "')");
+//        Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
+        Log.i("TAG", "Notif: " + remoteMessage.getNotification().getBody());
         /*
          * Cek jika notif berisi data notification payload
          * hanya dieksekusi ketika aplikasi bejalan secara foreground
