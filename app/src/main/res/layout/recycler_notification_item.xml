@@ -19,30 +19,29 @@
             <TextView
                 android:id="@+id/itemTitle"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/notificationImage"
                 android:layout_toRightOf="@+id/notificationImage"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/itemMessage"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/itemTitle"
                 android:layout_toEndOf="@+id/notificationImage"
                 android:layout_toRightOf="@+id/notificationImage"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/notificationImage"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@mipmap/freelance_logoaja"
                 android:scaleType="center" />
 
