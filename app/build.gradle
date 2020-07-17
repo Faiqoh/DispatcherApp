@@ -51,8 +51,5 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'net.gotev:uploadservice:2.1'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    annotationProcessor 'androidx.room:room-compiler:2.2.5'
-    implementation 'android.arch.persistence.room:runtime:1.1.1'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
 }
 apply plugin: 'com.google.gms.google-services'

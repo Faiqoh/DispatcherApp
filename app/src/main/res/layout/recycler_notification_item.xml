@@ -13,35 +13,39 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_10">
 
             <TextView
-                android:id="@+id/itemName"
+                android:id="@+id/itemTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="20dp"
                 android:layout_toEndOf="@+id/notificationImage"
                 android:layout_toRightOf="@+id/notificationImage"
-                android:padding="5dp"
-                android:text=""
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/itemNotif"
+                android:id="@+id/itemMessage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/itemName"
+                android:layout_height="40dp"
+                android:layout_below="@+id/itemTitle"
                 android:layout_toEndOf="@+id/notificationImage"
                 android:layout_toRightOf="@+id/notificationImage"
-                android:text=""
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/notificationImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="8dp"
-                android:background="@mipmap/ic_launcher" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@mipmap/freelance_logoaja"
+                android:scaleType="center" />
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

@@ -24,7 +24,6 @@ import java.util.Map;
 public class FirebaseService extends FirebaseMessagingService {
 
     DataHelper dbHelper;
-    int no = 5;
 
     @Override
     public void onNewToken(String token) {
@@ -54,13 +53,13 @@ public class FirebaseService extends FirebaseMessagingService {
             }
         }
 
+        //insert to local db
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.execSQL("insert into notif(no, title, message) values('" +
-                no++ + "','" +
+        db.execSQL("insert into notif(title, message) values('" +
                 remoteMessage.getNotification().getTitle() + "','" +
                 remoteMessage.getNotification().getBody() + "')");
-//        Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
-        Log.i("TAG", "Notif: " + remoteMessage.getNotification().getBody());
+
+
         /*
          * Cek jika notif berisi data notification payload
          * hanya dieksekusi ketika aplikasi bejalan secara foreground
