@@ -1,7 +1,6 @@
 package com.example.appdispatcher.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.title.setText(String.valueOf(titleList.get(position)));
         holder.message.setText(String.valueOf(messageList.get(position)));
-        Log.i("dataaaa", (String) titleList.get(position));
+//        Log.i("dataaaa", (String) titleList.get(position));
     }
 
     @Override
