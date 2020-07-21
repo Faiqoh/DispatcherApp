@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getCurrentFirebaseToken() {
+        Log.i(" cek Token", String.valueOf(FirebaseInstanceId.getInstance().getInstanceId()));
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override

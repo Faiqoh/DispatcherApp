@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         b1 = findViewById(R.id.buttonSubmitLogin);
         ed1 = findViewById(R.id.editTextTextEmailAddress);
         ed2 = findViewById(R.id.editTextTextPassword);
@@ -57,13 +56,10 @@ public class LoginActivity extends AppCompatActivity {
                     ed1.setError("Please Insert Email!");
                     ed2.setError("Please insert Password!");
                 }
+
+
             }
         });
-    }
-
-    boolean isEmail(EditText text) {
-        CharSequence email = text.getText().toString();
-        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
 
     private void login_fucntion(final String email, final String password) {
@@ -87,15 +83,14 @@ public class LoginActivity extends AppCompatActivity {
                     String success = jResponse.getString("success");
                     Log.i("jResponse", String.valueOf(jResponse));
 
-                    if (success.equals("200")) {
-
-                        SharedPreferences.Editor editor = mSetting.edit();
-                        editor.putString("Token", "Bearer " + jResponse.getString("token"));
-                        editor.apply();
-                        Log.i("preferences_setting", String.valueOf(mSetting));
-                        Log.i("preferences_setting", mSetting.getString("Token", "missing"));
-                        startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-                    }
+                    SharedPreferences.Editor editor = mSetting.edit();
+                    editor.putString("Token", "Bearer " + jResponse.getString("token"));
+                    editor.putString("ID", "id user" + jResponse.getString("id_user"));
+                    editor.apply();
+                    Log.i("preferences_setting", String.valueOf(mSetting));
+                    Log.i("preferences_setting", mSetting.getString("Token", "missing"));
+                    Log.i("preferences_setting", mSetting.getString("ID", "missing"));
+                    startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

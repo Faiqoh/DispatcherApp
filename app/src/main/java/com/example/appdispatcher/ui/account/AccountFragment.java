@@ -80,25 +80,6 @@ public class AccountFragment extends Fragment {
         tvjobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*final Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Light);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.activity_detail_engineer);
-                dialog.show();
-                RecyclerView rvdetail = dialog.findViewById(R.id.rvdetailengineer);
-                LinearLayoutManager layoutManagerdetail = new LinearLayoutManager(getActivity());
-                rvdetail.setLayoutManager(layoutManagerdetail);
-                aList.clear();
-                aAdapter = new DetailJobAplliedEngineerAdapter(this, aList);
-                rvdetail.setAdapter(aAdapter);
-                filldata();
-
-                imgClose = dialog.findViewById(R.id.dismissfilter);
-                imgClose.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });*/
                 Intent intent = new Intent(getContext(), FabActivity.class);
                 intent.putExtra(GET_ID_JOB, "detail_engineer");
                 startActivity(intent);
@@ -114,15 +95,30 @@ public class AccountFragment extends Fragment {
                 editor.apply();
                 Log.i(TAG, "Now log out and start the activity login");
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                /*File dir = getContext().getCacheDir();
+                if (dir != null && dir.isDirectory()){
+                    deleteDir(dir);
+                }*/
             }
         });
-
-//        btn_logout.setOnClickListener(this);
 
         fillaccount();
 
         return root;
     }
+
+    /*public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()){
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++){
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success){
+                    return false;
+                }
+            }
+        }
+        return dir.delete();
+    }*/
 
     /*private void filldata() {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken, null, new Response.Listener<JSONObject>() {
