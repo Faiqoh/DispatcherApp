@@ -7,8 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -16,7 +16,6 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -32,25 +31,34 @@ public class FirebaseService extends FirebaseMessagingService {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         dbHelper = new DataHelper(this);
 
         Map<String, String> data = remoteMessage.getData();
+        Log.i("cek", String.valueOf(data));
         String dataPayload = data.get("data");
+        Log.i("datapayload", String.valueOf(dataPayload));
         /*
          * Cek jika notif berisi data payload
          * pengiriman data payload dapat dieksekusi secara background atau foreground
          */
         if (remoteMessage.getData().size() > 0) {
             Log.e("TAG", "Message data payload: " + remoteMessage.getData());
-            try {
-                JSONObject jsonParse = new JSONObject(dataPayload);
-                showNotif(jsonParse.getString("title"), jsonParse.getString("message"));
+            JSONObject jsonParse = new JSONObject(remoteMessage.getData());
+//                showNotif(jsonParse.getString("title"), jsonParse.getString("message"));
+            Log.i("cek json", String.valueOf(jsonParse));
+            /*try {
+                SharedPreferences mSetting = this.getSharedPreferences("Setting", MODE_PRIVATE);
+                if (jsonParse.getString("id_user").equals(mSetting.getString("ID", "missing"))){
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    db.execSQL("insert into notif(title, message) values('" +
+                            remoteMessage.getNotification().getTitle() + "','" +
+                            remoteMessage.getNotification().getBody() + "')");
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
-            }
+            }*/
         }
 
         //insert to local db
@@ -58,7 +66,6 @@ public class FirebaseService extends FirebaseMessagingService {
         db.execSQL("insert into notif(title, message) values('" +
                 remoteMessage.getNotification().getTitle() + "','" +
                 remoteMessage.getNotification().getBody() + "')");
-
 
         /*
          * Cek jika notif berisi data notification payload

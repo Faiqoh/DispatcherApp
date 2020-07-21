@@ -95,6 +95,11 @@ public class AccountFragment extends Fragment {
                 editor.apply();
                 Log.i(TAG, "Now log out and start the activity login");
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                /*if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT){
+                    ((ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE)).clearApplicationUserData();
+                }*/
+
+
                 /*File dir = getContext().getCacheDir();
                 if (dir != null && dir.isDirectory()){
                     deleteDir(dir);
