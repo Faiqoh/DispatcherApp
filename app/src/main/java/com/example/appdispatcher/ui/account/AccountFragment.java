@@ -1,8 +1,10 @@
 package com.example.appdispatcher.ui.account;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,8 +53,6 @@ public class AccountFragment extends Fragment {
     BottomNavigationView navigation;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     TextView tvname, tvemail, tvno, tvjobs, tvskill, tvfee, tvdate, tvaddress;
-    /*public List<AppliedViewModel> aList = new ArrayList<>();
-    DetailJobAplliedEngineerAdapter aAdapter;*/
     public static final String GET_ID_JOB = "get_id_job";
     ImageView ivuser;
     Button btn_logout;
@@ -95,10 +95,10 @@ public class AccountFragment extends Fragment {
                 editor.apply();
                 Log.i(TAG, "Now log out and start the activity login");
                 startActivity(new Intent(getContext(), LoginActivity.class));
-                /*if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT){
+//                deleteCache(getContext());
+                if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
                     ((ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE)).clearApplicationUserData();
-                }*/
-
+                }
 
                 /*File dir = getContext().getCacheDir();
                 if (dir != null && dir.isDirectory()){
@@ -112,83 +112,29 @@ public class AccountFragment extends Fragment {
         return root;
     }
 
-    /*public static boolean deleteDir(File dir) {
-        if (dir != null && dir.isDirectory()){
+
+    /*public static void deleteCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            deleteDir(dir);
+        } catch (Exception e) { e.printStackTrace();}
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
-            for (int i = 0; i < children.length; i++){
+            for (int i = 0; i < children.length; i++) {
                 boolean success = deleteDir(new File(dir, children[i]));
-                if (!success){
+                if (!success) {
                     return false;
                 }
             }
+            return dir.delete();
+        } else if(dir!= null && dir.isFile()) {
+            return dir.delete();
+        } else {
+            return false;
         }
-        return dir.delete();
-    }*/
-
-    /*private void filldata() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                JSONObject jObj = response;
-                try {
-                    JSONArray jray = jObj.getJSONArray("job");
-                    if (response.length() > 0) {
-
-                        if (aList != null) {
-                            aList.clear();
-                        } else {
-                            aList = new ArrayList<>();
-                        }
-
-                        for (int i = 0; i < jray.length(); i++) {
-                            JSONObject cat = jray.getJSONObject(i);
-
-                            AppliedViewModel itemCategory = new AppliedViewModel();
-
-                            if (cat.getString("job_status").equals("Ready") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer")) ||
-                                    cat.getString("job_status").equals("Progress") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer")) ||
-                                    cat.getString("job_status").equals("Done") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
-                                itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
-                                itemCategory.setJudul(cat.getString("job_name"));
-                                itemCategory.setId_job(cat.getString("id"));
-                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
-
-                                aList.add(itemCategory);
-
-                            }
-                            aAdapter.notifyDataSetChanged();
-                        }
-
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
-                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-                headers.put("Authorization", mSetting.getString("Token", "missing"));
-                return headers;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
     }*/
 
     private void fillaccount() {

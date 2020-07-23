@@ -191,6 +191,19 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             }
         });
 
+        FloatingActionButton Support = getActivity().findViewById(R.id.support);
+        Support.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getContext(), FabActivity.class);
+                intent.putExtra(ID_JOB, tvidJob.getText().toString());
+                intent.putExtra(GET_ID_JOB, "id_job_support");
+                startActivity(intent);
+                floatingActionsMenu.collapse();
+            }
+        });
+
         return root;
     }
 

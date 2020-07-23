@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.appdispatcher.ui.account.DetailAccountFragment;
 import com.example.appdispatcher.ui.fab.DoneFabFragment;
 import com.example.appdispatcher.ui.fab.RequestFabFragment;
+import com.example.appdispatcher.ui.fab.SupportFabFragment;
 import com.example.appdispatcher.ui.home.NotifFragment;
 
 public class FabActivity extends AppCompatActivity {
@@ -43,6 +44,11 @@ public class FabActivity extends AppCompatActivity {
             ft.replace(R.id.fab_fragment, new NotifFragment());
             ft.commit();
             getSupportActionBar().setTitle("Notification");
+        } else if (getJob.equals("id_job_support")) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fab_fragment, new SupportFabFragment());
+            ft.commit();
+            getSupportActionBar().setTitle("Form Get Support");
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
