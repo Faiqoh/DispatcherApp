@@ -16,6 +16,7 @@ public class DetailSupportFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail_support, container, false);
+
         return view;
     }
 }
