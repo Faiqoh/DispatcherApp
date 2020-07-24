@@ -25,9 +25,9 @@
 
     <fragment
         android:id="@+id/navigation_message"
-        android:name="com.example.appdispatcher.ui.message.MessageFragment"
+        android:name="com.example.appdispatcher.ui.support.SupportFragment"
         android:label="@string/title_message"
-        tools:layout="@layout/fragment_message" />
+        tools:layout="@layout/fragment_support" />
 
     <fragment
         android:id="@+id/navigation_account"
