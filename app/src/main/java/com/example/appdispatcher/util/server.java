@@ -48,5 +48,6 @@ public class server {
     public static final String jobdone_withToken = url + "/api/job/postJobFinish";
     public static final String getdetailpayment_withToken = url + "/api/payment/getJobPaymentDetail";
     public static final String getuserwithToken = url + "/api/users/getProfileDetail";
+    public static final String postgetsupport_withtoken = url + "/api/job/postJobRequestSupport";
 
 }

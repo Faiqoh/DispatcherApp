@@ -76,7 +76,7 @@
                     android:text="Reason" />
 
                 <EditText
-                    android:id="@+id/eTextTask3"
+                    android:id="@+id/eTextTask2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/eTextTask2"
