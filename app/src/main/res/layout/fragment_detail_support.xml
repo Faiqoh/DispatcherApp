@@ -101,7 +101,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/job_desc_detail"
+                    android:id="@+id/tvproblem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -121,7 +121,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/requirement_detail"
+                    android:id="@+id/tvreason"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -141,7 +141,7 @@
                     android:textStyle="bold" />
 
                 <com.github.chrisbanes.photoview.PhotoView
-                    android:id="@+id/iv_payment"
+                    android:id="@+id/iv_support"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_gravity="center"

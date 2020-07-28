@@ -1,15 +1,38 @@
 package com.example.appdispatcher.ui.support;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.util.server;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetailSupportFragment extends Fragment {
+
+    TextView tvproblem, tvreason;
+    ImageView ivfoto;
+    String reason, problem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -17,6 +40,54 @@ public class DetailSupportFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail_support, container, false);
 
+        SupportViewModel detail = (SupportViewModel) getActivity().getIntent().getSerializableExtra(SupportFragment.ID_SUPPORT);
+        String id_support = detail.getId_support();
+        fillDetail(id_support);
+
+        tvproblem = view.findViewById(R.id.tvproblem);
+        tvreason = view.findViewById(R.id.tvreason);
+        ivfoto = view.findViewById(R.id.iv_support);
+
         return view;
+    }
+
+    private void fillDetail(String id_support) {
+        JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.getdetailsupport_withtoken + "?id_support=" + id_support, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    JSONObject job = response.getJSONObject("job_support");
+
+                    tvproblem.setText(job.getString("problem_support"));
+                    tvreason.setText(job.getString("reason_support"));
+                    Glide.with(getActivity()).load(job.getString("picture_support_url")).into(ivfoto);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(StrReq);
     }
 }

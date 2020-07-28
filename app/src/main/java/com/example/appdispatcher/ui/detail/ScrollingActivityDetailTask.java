@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail_project.DetailProjectFragment;
 import com.example.appdispatcher.ui.payment.DetailPaymentFragment;
+import com.example.appdispatcher.ui.support.DetailSupportFragment;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -58,6 +59,13 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             ft.replace(R.id.pending_fragment, new DetailProjectFragment());
             ft.commit();
             getSupportActionBar().setTitle("Detail Job");
+
+            floatingActionsMenu.setVisibility(View.GONE);
+        } else if (getJob.equals("id_support")) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.pending_fragment, new DetailSupportFragment());
+            ft.commit();
+            getSupportActionBar().setTitle("Detail Support");
 
             floatingActionsMenu.setVisibility(View.GONE);
         }

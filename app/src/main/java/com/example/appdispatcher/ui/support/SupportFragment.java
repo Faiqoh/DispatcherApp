@@ -44,7 +44,7 @@ import java.util.TimeZone;
 
 public class SupportFragment extends Fragment implements GetSupportAdapter.SupportAdapter {
 
-    public static final String ID_JOB = "id_job";
+    public static final String ID_SUPPORT = "id_support";
     public static final String GET_ID_JOB = "get_id_job";
     public List<SupportViewModel> sList = new ArrayList<>();
     GetSupportAdapter sAdapter;
@@ -134,7 +134,7 @@ public class SupportFragment extends Fragment implements GetSupportAdapter.Suppo
     @Override
     public void doClick(int pos) {
         Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
-        intent.putExtra(ID_JOB, sAdapter.getItem(pos));
+        intent.putExtra(ID_SUPPORT, sAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_support");
         startActivity(intent);
     }
