@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class SupportViewModel implements Serializable {
     public String judul;
-    public int foto;
+    public String foto;
     public String status_support;
     public String id_support;
     public String id_job;
@@ -18,11 +18,11 @@ public class SupportViewModel implements Serializable {
         this.judul = judul;
     }
 
-    public int getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(int foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
