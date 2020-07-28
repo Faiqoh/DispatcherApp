@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview"
     android:layout_width="match_parent"
@@ -21,9 +21,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/textlines" />
 
-
         <RelativeLayout
-            android:id="@+id/head_sub"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp">
@@ -43,7 +41,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/expandableLayout"
+            android:id="@+id/head_sub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="90dp"
@@ -86,4 +84,97 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-</LinearLayout>
+</LinearLayout>-->
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="6dp"
+    card_view:cardMaxElevation="10dp"
+    card_view:contentPadding="25dp">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/head_sub"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/imageViewlist"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/android" />
+
+            <TextView
+                android:id="@+id/textViewStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                android:maxLines="1"
+                android:text="Status"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/idSupport"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="30dp">
+
+                <TextView
+                    android:id="@+id/textViewJudul"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:text="Judul"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:maxLines="1"
+                    android:text="Date"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/TvIdJob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="id_job"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

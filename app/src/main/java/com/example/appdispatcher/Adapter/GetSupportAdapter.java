@@ -1,5 +1,6 @@
 package com.example.appdispatcher.Adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +42,20 @@ public class GetSupportAdapter extends RecyclerView.Adapter<GetSupportAdapter.Vi
     public void onBindViewHolder(@NonNull GetSupportAdapter.ViewHolder holder, int position) {
         SupportViewModel supportlist = sList.get(position);
         holder.tvJudul.setText(supportlist.judul);
-        holder.tvStatus.setText(supportlist.status_support);
+//        holder.tvStatus.setText(supportlist.status_support);
         holder.tvDate.setText(supportlist.date);
         holder.tvidSupport.setText(supportlist.id_support);
         Glide.with(context).load(supportlist.getFoto()).into(holder.ivFoto);
+        if (supportlist.getStatus_support().equals("Open")) {
+            holder.tvStatus.setText(supportlist.status_support);
+            holder.tvStatus.setBackgroundColor(Color.parseColor("#e3342f"));
+        } else if (supportlist.getStatus_support().equals("Progress")) {
+            holder.tvStatus.setText(supportlist.status_support);
+            holder.tvStatus.setBackgroundColor(Color.parseColor("#3490dc"));
+        } else if (supportlist.getStatus_support().equals("Close")) {
+            holder.tvStatus.setText(supportlist.status_support);
+            holder.tvStatus.setBackgroundColor(Color.parseColor("#38c172"));
+        }
     }
 
     @Override
@@ -72,13 +83,13 @@ public class GetSupportAdapter extends RecyclerView.Adapter<GetSupportAdapter.Vi
             ivFoto = itemView.findViewById(R.id.imageViewlist);
             tvJudul = itemView.findViewById(R.id.textViewJudul);
             tvDate = itemView.findViewById(R.id.textViewDate);
-            head_sub = itemView.findViewById(R.id.expandableLayout);
+            head_sub = itemView.findViewById(R.id.head_sub);
             tvidSupport = itemView.findViewById(R.id.idSupport);
             tvStatus = itemView.findViewById(R.id.textViewStatus);
 
             head_sub.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View view) {
                     sListAdapter.doClick(getAdapterPosition());
                 }
             });

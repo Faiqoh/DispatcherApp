@@ -32,8 +32,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -89,17 +91,19 @@ public class SupportFragment extends Fragment implements GetSupportAdapter.Suppo
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject sup = jray.getJSONObject(i);
 
+                            Date date_add = inputFormat.parse(sup.getString("date_add"));
+
                             SupportViewModel itemCategory = new SupportViewModel();
                             itemCategory.setId_support(sup.getString("id"));
                             itemCategory.setJudul(sup.getJSONObject("job").getString("job_name"));
                             itemCategory.setStatus_support(sup.getString("status"));
-                            itemCategory.setDate(sup.getString("date_add"));
+                            itemCategory.setDate(dateFormat.format(date_add));
                             itemCategory.setFoto(sup.getJSONObject("job_category").getString("category_image_url"));
                             sList.add(itemCategory);
                         }
                         sAdapter.notifyDataSetChanged();
                     }
-                } catch (JSONException e) {
+                } catch (JSONException | ParseException e) {
                     e.printStackTrace();
                 }
 
