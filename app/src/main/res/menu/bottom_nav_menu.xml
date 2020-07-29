@@ -23,7 +23,7 @@
         android:id="@+id/navigation_message"
         android:icon="@drawable/ic_message_black_24dp"
         android:background="@color/white"
-        android:title="@string/title_message" />
+        android:title="@string/title_support" />
 
     <item
         android:id="@+id/navigation_account"
