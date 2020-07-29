@@ -2,12 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_support"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         tools:ignore="MissingConstraints">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -18,5 +20,35 @@
             android:scrollbars="vertical" />
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_support"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        shimmer:duration="800"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/data_placeholder_payment" />
+
+            <include layout="@layout/data_placeholder_payment" />
+
+            <include layout="@layout/data_placeholder_payment" />
+
+            <include layout="@layout/data_placeholder_payment" />
+
+            <include layout="@layout/data_placeholder_payment" />
+
+            <include layout="@layout/data_placeholder_payment" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

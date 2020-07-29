@@ -26,6 +26,7 @@ import com.example.appdispatcher.Adapter.GetSupportAdapter;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +51,7 @@ public class SupportFragment extends Fragment implements GetSupportAdapter.Suppo
     GetSupportAdapter sAdapter;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     NestedScrollView nestedScrollView;
+    ShimmerFrameLayout shimmerFrameLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class SupportFragment extends Fragment implements GetSupportAdapter.Suppo
         View view = inflater.inflate(R.layout.fragment_support, container, false);
 
         nestedScrollView = view.findViewById(R.id.nested_support);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_support);
 
         RecyclerView rvsupport = view.findViewById(R.id.recyclerViewHistorySupp);
         LinearLayoutManager lmsupport = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -76,9 +79,11 @@ public class SupportFragment extends Fragment implements GetSupportAdapter.Suppo
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getsupport_withtoken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                nestedScrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
-                nestedScrollView.setVisibility(View.VISIBLE);
                 try {
                     JSONArray jray = jObj.getJSONArray("job_support");
                     if (response.length() > 0) {
@@ -137,5 +142,17 @@ public class SupportFragment extends Fragment implements GetSupportAdapter.Suppo
         intent.putExtra(ID_SUPPORT, sAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_support");
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 }
