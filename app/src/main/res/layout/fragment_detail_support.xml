@@ -59,6 +59,15 @@
                             android:text="Backend Developer"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
+                        <TextView
+                            android:id="@+id/tv_id_support"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="70dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:visibility="gone" />
+
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -116,24 +125,6 @@
                             android:minLines="1"
                             android:text="- Experience with building HTTP and RPC based services"
                             android:textSize="12sp" />
-
-                        <!--<TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:text="Bukti"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <com.github.chrisbanes.photoview.PhotoView
-                            android:id="@+id/iv_support"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/padding_10"
-                            android:src="@drawable/bg_grey_awas_ae_sek_gak_iso" />-->
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

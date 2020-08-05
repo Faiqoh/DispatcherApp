@@ -1,6 +1,7 @@
 package com.example.appdispatcher.ui.support;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,8 +27,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,12 +40,14 @@ import java.util.Map;
 
 public class DetailSupportFragment extends Fragment {
 
-    TextView tvproblem, tvreason, tvjob;
+    public static final String ID_JOB = "id_job";
     ImageView ivfoto, arrowBtn;
     ProgressBar progressBar;
     CardView cardView, cardView2;
     RelativeLayout expandable;
-
+    public static final String GET_ID_JOB = "get_id_job";
+    TextView tvproblem, tvreason, tvjob, tv_id_support;
+    FloatingActionButton floatingActionButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,12 +58,14 @@ public class DetailSupportFragment extends Fragment {
         tvproblem = view.findViewById(R.id.tvproblem);
         tvreason = view.findViewById(R.id.tvreason);
         ivfoto = view.findViewById(R.id.iv_support);
+        tv_id_support = view.findViewById(R.id.tv_id_support);
         progressBar = view.findViewById(R.id.progressBarsupport);
         cardView = view.findViewById(R.id.cvdesc);
         cardView2 = view.findViewById(R.id.cvdesc2);
         tvjob = view.findViewById(R.id.text_view_job);
         expandable = view.findViewById(R.id.rlexpandable);
         arrowBtn = view.findViewById(R.id.arrowBtn);
+        floatingActionButton = getActivity().findViewById(R.id.fab_message);
         arrowBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -72,6 +79,16 @@ public class DetailSupportFragment extends Fragment {
                     expandable.setVisibility(View.GONE);
                     arrowBtn.setBackgroundResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
                 }
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FabActivity.class);
+                intent.putExtra(ID_JOB, tv_id_support.getText().toString());
+                intent.putExtra(GET_ID_JOB, "id_support_detail");
+                startActivity(intent);
             }
         });
 
@@ -100,6 +117,7 @@ public class DetailSupportFragment extends Fragment {
                     tvjob.setText(job.getString("job_name"));
                     tvproblem.setText(sup.getString("problem_support"));
                     tvreason.setText(sup.getString("reason_support"));
+                    tv_id_support.setText(sup.getString("id"));
                     Glide.with(getActivity()).load(sup.getString("picture_support_url")).into(ivfoto);
 
                 } catch (JSONException e) {

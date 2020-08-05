@@ -13,11 +13,13 @@ import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail_project.DetailProjectFragment;
 import com.example.appdispatcher.ui.payment.DetailPaymentFragment;
 import com.example.appdispatcher.ui.support.DetailSupportFragment;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 public class ScrollingActivityDetailTask extends AppCompatActivity {
     FloatingActionsMenu floatingActionsMenu;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         floatingActionsMenu = findViewById(R.id.fab_menu);
+        floatingActionButton = findViewById(R.id.fab_message);
 
         String getJob = extras.getString("get_id_job");
 
@@ -40,6 +43,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             getSupportActionBar().setTitle("Detail Job");
 
             floatingActionsMenu.setVisibility(View.GONE);
+            floatingActionButton.setVisibility(View.GONE);
         } else if (getJob.equals("id_job_progress") || getJob.equals("id_job_done") || getJob.equals("id_job_req_fab")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new ProgressDoneFragment());
@@ -47,6 +51,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             getSupportActionBar().setTitle("Job Progress Detail");
 
             floatingActionsMenu.setVisibility(View.GONE);
+            floatingActionButton.setVisibility(View.GONE);
         } else if (getJob.equals("id_payment")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new DetailPaymentFragment());
@@ -54,6 +59,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             getSupportActionBar().setTitle("Detail Payment");
 
             floatingActionsMenu.setVisibility(View.GONE);
+            floatingActionButton.setVisibility(View.GONE);
         } else if (getJob.equals("id_job")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new DetailProjectFragment());
@@ -61,6 +67,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             getSupportActionBar().setTitle("Detail Job");
 
             floatingActionsMenu.setVisibility(View.GONE);
+            floatingActionButton.setVisibility(View.GONE);
         } else if (getJob.equals("id_support")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new DetailSupportFragment());
@@ -68,6 +75,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
             getSupportActionBar().setTitle("Detail Support");
 
             floatingActionsMenu.setVisibility(View.GONE);
+            floatingActionButton.setVisibility(View.VISIBLE);
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

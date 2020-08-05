@@ -12,6 +12,7 @@ import com.example.appdispatcher.ui.fab.DoneFabFragment;
 import com.example.appdispatcher.ui.fab.RequestFabFragment;
 import com.example.appdispatcher.ui.fab.SupportFabFragment;
 import com.example.appdispatcher.ui.home.NotifFragment;
+import com.example.appdispatcher.ui.support.ChatFragment;
 
 public class FabActivity extends AppCompatActivity {
 
@@ -49,6 +50,11 @@ public class FabActivity extends AppCompatActivity {
             ft.replace(R.id.fab_fragment, new SupportFabFragment());
             ft.commit();
             getSupportActionBar().setTitle("Form Get Support");
+        } else if (getJob.equals("id_support_detail")) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fab_fragment, new ChatFragment());
+            ft.commit();
+            getSupportActionBar().setTitle("Get Support");
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
