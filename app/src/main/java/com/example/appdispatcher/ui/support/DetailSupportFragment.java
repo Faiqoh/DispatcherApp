@@ -2,14 +2,19 @@ package com.example.appdispatcher.ui.support;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -33,9 +38,11 @@ import java.util.Map;
 public class DetailSupportFragment extends Fragment {
 
     TextView tvproblem, tvreason, tvjob;
-    ImageView ivfoto;
+    ImageView ivfoto, arrowBtn;
     ProgressBar progressBar;
-    CardView cardView;
+    CardView cardView, cardView2;
+    RelativeLayout expandable;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +55,25 @@ public class DetailSupportFragment extends Fragment {
         ivfoto = view.findViewById(R.id.iv_support);
         progressBar = view.findViewById(R.id.progressBarsupport);
         cardView = view.findViewById(R.id.cvdesc);
+        cardView2 = view.findViewById(R.id.cvdesc2);
         tvjob = view.findViewById(R.id.text_view_job);
+        expandable = view.findViewById(R.id.rlexpandable);
+        arrowBtn = view.findViewById(R.id.arrowBtn);
+        arrowBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onClick(View v) {
+                if (expandable.getVisibility() == View.GONE) {
+                    TransitionManager.beginDelayedTransition(cardView2, new AutoTransition());
+                    expandable.setVisibility(View.VISIBLE);
+                    arrowBtn.setBackgroundResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+                } else {
+                    TransitionManager.beginDelayedTransition(cardView2, new AutoTransition());
+                    expandable.setVisibility(View.GONE);
+                    arrowBtn.setBackgroundResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+                }
+            }
+        });
 
         SupportViewModel detail = (SupportViewModel) getActivity().getIntent().getSerializableExtra(SupportFragment.ID_SUPPORT);
         String id_support = detail.getId_support();

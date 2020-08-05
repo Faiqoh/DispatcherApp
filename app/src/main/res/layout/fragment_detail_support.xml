@@ -117,7 +117,7 @@
                             android:text="- Experience with building HTTP and RPC based services"
                             android:textSize="12sp" />
 
-                        <TextView
+                        <!--<TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -133,9 +133,60 @@
                             android:layout_height="200dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/padding_10"
-                            android:src="@drawable/bg_grey_awas_ae_sek_gak_iso" />
+                            android:src="@drawable/bg_grey_awas_ae_sek_gak_iso" />-->
 
                     </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvdesc2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvdesc">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10">
+
+                        <TextView
+                            android:id="@+id/tvbukti"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Bukti"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/arrowBtn"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlexpandable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="70dp"
+                        android:visibility="gone">
+
+                        <com.github.chrisbanes.photoview.PhotoView
+                            android:id="@+id/iv_support"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_below="@+id/tvbukti"
+                            android:layout_gravity="center"
+                            android:src="@drawable/bg_grey_awas_ae_sek_gak_iso"
+                            app:ignore="NotSibling" />
+
+                    </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
