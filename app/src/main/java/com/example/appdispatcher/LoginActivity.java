@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -19,9 +20,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.util.server;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,6 +41,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText ed1, ed2;
     SharedPreferences mSetting;
     String email, password;
+
+    FirebaseAuth auth;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         ed1 = findViewById(R.id.editTextTextEmailAddress);
         ed2 = findViewById(R.id.editTextTextPassword);
 
+        auth = FirebaseAuth.getInstance();
+
         mSetting = this.getSharedPreferences("Setting", Context.MODE_PRIVATE);
 
 
@@ -52,12 +67,59 @@ public class LoginActivity extends AppCompatActivity {
                 password = ed2.getText().toString().trim();
                 if (!email.isEmpty() || !password.isEmpty()) {
                     login_fucntion(email, password);
+                    login(email, password);
                 } else {
                     ed1.setError("Please Insert Email!");
                     ed2.setError("Please insert Password!");
                 }
 
 
+            }
+        });
+    }
+
+    private void login(final String email, final String password) {
+
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser firebaseUser = auth.getCurrentUser();
+                                assert firebaseUser != null;
+                                String userid = firebaseUser.getUid();
+
+                                reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+
+                                HashMap<String, String> hashMap = new HashMap<>();
+                                hashMap.put("id", userid);
+                                hashMap.put("email", email);
+
+                                reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(LoginActivity.this, "You can't login with this email or password", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
             }
         });
     }

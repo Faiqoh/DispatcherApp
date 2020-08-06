@@ -32,6 +32,7 @@ import com.example.appdispatcher.R;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,6 +90,7 @@ public class AccountFragment extends Fragment {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
@@ -99,6 +101,8 @@ public class AccountFragment extends Fragment {
                 if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
                     ((ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE)).clearApplicationUserData();
                 }
+
+
 
                 /*File dir = getContext().getCacheDir();
                 if (dir != null && dir.isDirectory()){
