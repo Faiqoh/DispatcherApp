@@ -147,6 +147,18 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
+                        <TextView
+                            android:id="@+id/id_engineer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvbukti"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="14sp"
+                            android:layout_marginRight="10dp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
                         <ImageView
                             android:id="@+id/arrowBtn"
                             android:layout_width="35dp"
