@@ -41,13 +41,14 @@ import java.util.Map;
 public class DetailSupportFragment extends Fragment {
 
     public static final String ID_JOB = "id_job";
+    public static final String ID_SUPPORT = "id_support";
     public static final String ID_ENGINEER = "id_engineer";
     ImageView ivfoto, arrowBtn;
     ProgressBar progressBar;
     CardView cardView, cardView2;
     RelativeLayout expandable;
     public static final String GET_ID_JOB = "get_id_job";
-    TextView tvproblem, tvreason, tvjob, tv_id_support, tv_id_engineer;
+    TextView tvproblem, tvreason, tvjob, tv_id_support, tv_id_engineer, tv_id_job;
     FloatingActionButton floatingActionButton;
 
     @Override
@@ -67,6 +68,7 @@ public class DetailSupportFragment extends Fragment {
         expandable = view.findViewById(R.id.rlexpandable);
         arrowBtn = view.findViewById(R.id.arrowBtn);
         tv_id_engineer = view.findViewById(R.id.id_engineer);
+        tv_id_job = view.findViewById(R.id.tv_id_job);
         floatingActionButton = getActivity().findViewById(R.id.fab_message);
         arrowBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -88,9 +90,10 @@ public class DetailSupportFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), FabActivity.class);
-                intent.putExtra(ID_JOB, tv_id_support.getText().toString());
+                intent.putExtra(ID_SUPPORT, tv_id_support.getText().toString());
                 intent.putExtra(GET_ID_JOB, "id_support_detail");
                 intent.putExtra(ID_ENGINEER, tv_id_engineer.getText().toString());
+                intent.putExtra(ID_JOB, tvjob.getText().toString());
                 startActivity(intent);
             }
         });
@@ -122,6 +125,7 @@ public class DetailSupportFragment extends Fragment {
                     tvreason.setText(sup.getString("reason_support"));
                     tv_id_support.setText(sup.getString("id"));
                     tv_id_engineer.setText(sup.getString("id_engineer"));
+                    tv_id_job.setText(sup.getString("id_job"));
                     Glide.with(getActivity()).load(sup.getString("picture_support_url")).into(ivfoto);
 
                 } catch (JSONException e) {

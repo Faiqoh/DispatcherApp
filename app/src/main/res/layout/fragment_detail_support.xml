@@ -93,6 +93,15 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_id_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="70dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:visibility="gone" />
+
+                        <TextView
                             android:id="@+id/tvproblem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
