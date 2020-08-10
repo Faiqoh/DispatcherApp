@@ -4,23 +4,39 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <RelativeLayout
-        android:layout_width="300dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:background="@drawable/background_right"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/show_message"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/background_right"
             android:padding="8dp"
             android:text="hello"
+            android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/show_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:gravity="bottom"
+            android:padding="8dp"
+            android:text="17:15"
+            android:textColor="@color/white"
+            android:textSize="7sp" />
+
+    </LinearLayout>
 
 </RelativeLayout>
