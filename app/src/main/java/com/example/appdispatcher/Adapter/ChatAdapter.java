@@ -21,6 +21,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     public static final int MSG_TYPE_LEFT = 0;
     public static final int MSG_TYPE_RIGHT = 1;
+    public static final int MSG_TYPE_CENTER = 2;
     FirebaseUser firebaseUser;
     private Context mContext;
     private List<ChatViewModel> mChat;
@@ -36,8 +37,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         if (viewType == MSG_TYPE_RIGHT) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_right, parent, false);
             return new ChatAdapter.ViewHolder(view);
-        } else {
+        } else if (viewType == MSG_TYPE_LEFT) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_left, parent, false);
+            return new ChatAdapter.ViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_center, parent, false);
             return new ChatAdapter.ViewHolder(view);
         }
     }
@@ -58,8 +62,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (mChat.get(position).getFrom().equals("engineer")) {
             return MSG_TYPE_RIGHT;
-        } else {
+        } else if (mChat.get(position).getFrom().equals("moderator")) {
             return MSG_TYPE_LEFT;
+        } else {
+            return MSG_TYPE_CENTER;
         }
     }
 

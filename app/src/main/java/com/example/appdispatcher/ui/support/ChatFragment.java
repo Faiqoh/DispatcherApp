@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -132,11 +133,21 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
+                String checker = "2020-01-01";
+                Log.i("isii", String.valueOf(dataSnapshot.getChildren()));
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    ChatViewModel chat = snapshot.getValue(ChatViewModel.class);
-//                    if (chat.getFrom().equals("engineer") || chat.getFrom().equals("moderator")) {
+//                    ChatViewModel chat = snapshot.getValue(ChatViewModel.class);
+                    ChatViewModel chat = new ChatViewModel(snapshot.child("from").getValue(String.class), snapshot.child("time").getValue(Integer.class), snapshot.child("message").getValue(String.class));
+                    java.util.Date time = new java.util.Date((long) chat.getTime() * 1000);
+                    String pattern = "d MMMM";
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                    String date = simpleDateFormat.format(time);
+                    if (!checker.equals(date)) {
+                        checker = date;
+                        ChatViewModel chat2 = new ChatViewModel("date", 2020, date);
+                        mChat.add(chat2);
+                    }
                     mChat.add(chat);
-//                    }
 
                     chatAdapter = new ChatAdapter(getContext(), mChat);
                     recyclerView.setAdapter(chatAdapter);

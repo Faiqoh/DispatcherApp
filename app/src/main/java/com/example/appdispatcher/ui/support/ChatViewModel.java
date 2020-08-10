@@ -4,15 +4,12 @@ public class ChatViewModel {
 
     private String from;
     private String message;
-    private String time;
+    private Integer time;
 
-    /*public ChatViewModel(String sender, String receiver, String message) {
-        this.sender = sender;
-        this.receiver = receiver;
+    public ChatViewModel(String from, Integer time, String message) {
+        this.from = from;
+        this.time = time;
         this.message = message;
-    }*/
-
-    public ChatViewModel() {
     }
 
     public String getMessage() {
@@ -31,11 +28,11 @@ public class ChatViewModel {
         this.from = from;
     }
 
-    /*public String getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Integer time) {
         this.time = time;
-    }*/
+    }
 }
