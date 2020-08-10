@@ -52,7 +52,7 @@ public class GetSupportAdapter extends RecyclerView.Adapter<GetSupportAdapter.Vi
         } else if (supportlist.getStatus_support().equals("Progress")) {
             holder.tvStatus.setText(supportlist.status_support);
             holder.tvStatus.setBackgroundColor(Color.parseColor("#3490dc"));
-        } else if (supportlist.getStatus_support().equals("Close")) {
+        } else if (supportlist.getStatus_support().equals("Done")) {
             holder.tvStatus.setText(supportlist.status_support);
             holder.tvStatus.setBackgroundColor(Color.parseColor("#38c172"));
         }

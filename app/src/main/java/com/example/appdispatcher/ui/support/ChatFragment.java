@@ -134,17 +134,28 @@ public class ChatFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
                 String checker = "2020-01-01";
-                Log.i("isii", String.valueOf(dataSnapshot.getChildren()));
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 //                    ChatViewModel chat = snapshot.getValue(ChatViewModel.class);
-                    ChatViewModel chat = new ChatViewModel(snapshot.child("from").getValue(String.class), snapshot.child("time").getValue(Integer.class), snapshot.child("message").getValue(String.class));
-                    java.util.Date time = new java.util.Date((long) chat.getTime() * 1000);
+                    java.util.Date time = new java.util.Date((long) snapshot.child("time").getValue(Integer.class) * 1000);
                     String pattern = "d MMMM";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                     String date = simpleDateFormat.format(time);
+
+                    String time2 = "HH mm";
+                    SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(time2);
+                    String date3 = simpleDateFormat2.format(time);
+
+                    ChatViewModel chat = new ChatViewModel(
+                            snapshot.child("from").getValue(String.class),
+                            snapshot.child("time").getValue(Integer.class),
+                            snapshot.child("message").getValue(String.class),
+                            date3
+                    );
+
+
                     if (!checker.equals(date)) {
                         checker = date;
-                        ChatViewModel chat2 = new ChatViewModel("date", 2020, date);
+                        ChatViewModel chat2 = new ChatViewModel("date", 2020, date, "");
                         mChat.add(chat2);
                     }
                     mChat.add(chat);
