@@ -56,7 +56,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (mChat.get(position).getSender().equals(firebaseUser.getUid())) {
+        if (mChat.get(position).getFrom().equals("engineer")) {
             return MSG_TYPE_RIGHT;
         } else {
             return MSG_TYPE_LEFT;

@@ -2,15 +2,15 @@ package com.example.appdispatcher.ui.support;
 
 public class ChatViewModel {
 
-    private String sender;
-    private String receiver;
+    private String from;
     private String message;
+    private String time;
 
-    public ChatViewModel(String sender, String receiver, String message) {
+    /*public ChatViewModel(String sender, String receiver, String message) {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
-    }
+    }*/
 
     public ChatViewModel() {
     }
@@ -23,19 +23,19 @@ public class ChatViewModel {
         this.message = message;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public String getFrom() {
+        return from;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
-    public String getSender() {
-        return sender;
+    /*public String getTime() {
+        return time;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
+    public void setTime(String time) {
+        this.time = time;
+    }*/
 }

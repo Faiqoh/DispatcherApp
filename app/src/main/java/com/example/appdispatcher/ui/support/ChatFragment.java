@@ -81,19 +81,21 @@ public class ChatFragment extends Fragment {
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference("Users");
+        /*reference = FirebaseDatabase.getInstance().getReference("Users");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                readMessage(firebaseUser.getUid(), "moderator");
+                readMessage("engineer", "moderator");
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        });*/
+
+        readMessage("engineer", "moderator");
 
         return view;
 
@@ -102,13 +104,13 @@ public class ChatFragment extends Fragment {
     private void sendMessage(String sender, String receiver, String message, String id_engineer) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        HashMap<String, Object> hashMap = new HashMap<>();
+        /*HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
         hashMap.put("id_engineer", id_engineer);
 
-        reference.child("Chats").push().setValue(hashMap);
+        reference.child("Chats").push().setValue(hashMap);*/
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
@@ -121,20 +123,20 @@ public class ChatFragment extends Fragment {
         reference.child("job_support/" + id_support + "/chat").push().setValue(hashMap2);
     }
 
-    private void readMessage(final String userid, final String moderator) {
+    private void readMessage(final String engineer, final String moderator) {
         mChat = new ArrayList<>();
 
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-        Log.i("isi userid", userid);
+        reference = FirebaseDatabase.getInstance().getReference("job_support/" + id_support + "/chat");
+        Log.i("isi userid", engineer);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ChatViewModel chat = snapshot.getValue(ChatViewModel.class);
-                    if (chat.getSender().equals(userid) || chat.getReceiver().equals(userid)) {
-                        mChat.add(chat);
-                    }
+//                    if (chat.getFrom().equals("engineer") || chat.getFrom().equals("moderator")) {
+                    mChat.add(chat);
+//                    }
 
                     chatAdapter = new ChatAdapter(getContext(), mChat);
                     recyclerView.setAdapter(chatAdapter);
