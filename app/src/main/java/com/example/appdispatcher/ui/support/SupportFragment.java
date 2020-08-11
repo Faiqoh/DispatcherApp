@@ -4,16 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -68,6 +71,27 @@ public class SupportFragment extends Fragment implements GetSupportAdapter.Suppo
         fillData();
         sAdapter = new GetSupportAdapter(this, sList);
         rvsupport.setAdapter(sAdapter);
+
+        final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshSupport);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+
+                sList.clear();
+                nestedScrollView.setVisibility(View.GONE);
+                shimmerFrameLayout.startShimmerAnimation();
+                fillData();
+
+            }
+        });
 
         return view;
     }

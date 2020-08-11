@@ -1,54 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshSupport"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_support"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:ignore="MissingConstraints">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewHistorySupp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:scrollbars="vertical" />
-
-    </androidx.core.widget.NestedScrollView>
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_view_support"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        shimmer:duration="800"
-        tools:ignore="MissingConstraints">
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_support"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:visibility="gone"
+            tools:ignore="MissingConstraints">
 
-            <include layout="@layout/data_placeholder_payment" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewHistorySupp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:scrollbars="vertical" />
 
-            <include layout="@layout/data_placeholder_payment" />
+        </androidx.core.widget.NestedScrollView>
 
-            <include layout="@layout/data_placeholder_payment" />
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_support"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            shimmer:duration="800"
+            tools:ignore="MissingConstraints">
 
-            <include layout="@layout/data_placeholder_payment" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <include layout="@layout/data_placeholder_payment" />
+                <include layout="@layout/data_placeholder_payment" />
 
-            <include layout="@layout/data_placeholder_payment" />
+                <include layout="@layout/data_placeholder_payment" />
 
-        </LinearLayout>
+                <include layout="@layout/data_placeholder_payment" />
 
-    </com.facebook.shimmer.ShimmerFrameLayout>
+                <include layout="@layout/data_placeholder_payment" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <include layout="@layout/data_placeholder_payment" />
+
+                <include layout="@layout/data_placeholder_payment" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
