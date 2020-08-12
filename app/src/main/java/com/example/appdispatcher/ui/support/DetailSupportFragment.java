@@ -127,6 +127,9 @@ public class DetailSupportFragment extends Fragment {
                     tv_id_engineer.setText(sup.getString("id_engineer"));
                     tv_id_job.setText(sup.getString("id_job"));
                     Glide.with(getActivity()).load(sup.getString("picture_support_url")).into(ivfoto);
+                    if (sup.getString("status").equals("Open") || sup.getString("status").equals("Done") || sup.getString("status").equals("Reject")) {
+                        floatingActionButton.setVisibility(View.GONE);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
