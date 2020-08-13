@@ -192,8 +192,8 @@ public class ChatFragment extends Fragment {
                 try {
                     JSONObject sup = response.getJSONObject("job_support");
                     if (sup.getString("status").equals("Done")) {
-                        et_send.setVisibility(View.GONE);
-                        btn_send.setVisibility(View.GONE);
+                        et_send.setEnabled(false);
+                        btn_send.setEnabled(false);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
