@@ -1,7 +1,6 @@
 package com.example.appdispatcher.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class ParentAllCategoryAdapter extends RecyclerView.Adapter<ParentAllCate
         holder.childRV.setLayoutManager(layoutManager);
         holder.childRV.setHasFixedSize(true);
 
-        Log.i("isinya", clist.details.get(0).foto);
+//        Log.i("isinya", clist.details.get(0).foto);
 //
         ChildAllCategoryAdapter childAllCategoryAdapter = new ChildAllCategoryAdapter(clist.details, context);
         holder.childRV.setAdapter(childAllCategoryAdapter);
