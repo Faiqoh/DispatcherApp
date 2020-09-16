@@ -109,7 +109,7 @@ public class DetailPaymentFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         cvFoto.setVisibility(View.GONE);
 
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getdetailpayment_withToken + "/?id_payment=" + id_payment, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getdetailpayment_withToken + "?id_payment=" + id_payment, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
