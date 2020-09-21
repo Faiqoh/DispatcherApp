@@ -121,7 +121,7 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
     }
 
     private void fillDatJobPendingList() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken + "?job_status=Ready", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 JSONObject jObj = response;
@@ -141,28 +141,30 @@ public class AcceptedFragment extends Fragment implements JobAcceptedAdapter.PJL
                             AcceptedViewModel itemCategory = new AcceptedViewModel();
 //                            cat.getJSONObject("working_engineer").getString("id_engineer");
 
-                            if (cat.getString("job_status").equals("Ready") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
+//                            if (cat.getString("job_status").equals("Ready") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
 
                                 itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
                                 itemCategory.setJudul(cat.getString("job_name"));
-                                itemCategory.setId_job(cat.getString("id"));
-                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            itemCategory.setId_job(cat.getString("id"));
+                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                            itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
-                                pList.add(itemCategory);
-                            }
+                            pList.add(itemCategory);
+//                            }
 
-                            if (pList.size() > 0) {
-                                Log.i("tes leng plist", String.valueOf(pList.size()));
-                                rvNotFound.setVisibility(View.GONE);
-                                rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
-                            } else {
-                                rvNotFound.setVisibility(View.VISIBLE);
-                            }
 
-                            pAdapter.notifyDataSetChanged();
                         }
+
+                        if (pList.size() > 0) {
+                            Log.i("tes leng plist", String.valueOf(pList.size()));
+                            rvNotFound.setVisibility(View.GONE);
+                            rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                        } else {
+                            rvNotFound.setVisibility(View.VISIBLE);
+                        }
+
+                        pAdapter.notifyDataSetChanged();
 
                     }
                 } catch (JSONException e) {
