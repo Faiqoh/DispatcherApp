@@ -107,7 +107,7 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
     }
 
     private void fillDataJobDoneList() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken + "?job_status=Done", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
@@ -133,7 +133,7 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
 
                                 DoneViewModel itemCategory = new DoneViewModel();
 
-                                if (cat.getString("job_status").equals("Done") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
+//                                if (cat.getString("job_status").equals("Done") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
                                     itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
                                     itemCategory.setJudul(cat.getString("job_name"));
                                     itemCategory.setId_job(cat.getString("id"));
@@ -142,7 +142,7 @@ public class DoneFragment extends Fragment implements JobDoneAdapter.DJListAdapt
                                     itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
                                     dList.add(itemCategory);
-                                }
+//                                }
                             }
 
                             if (dList.size() > 0) {

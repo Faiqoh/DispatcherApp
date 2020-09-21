@@ -108,7 +108,7 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
     }
 
     private void fillDataJobProgressList() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken + "?job_status=Progress", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
@@ -131,7 +131,7 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
                             JSONObject cat = jray.getJSONObject(i);
 
                             OnProgressViewModel itemCategory = new OnProgressViewModel();
-                            if (cat.getString("job_status").equals("Progress") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
+//                            if (cat.getString("job_status").equals("Progress") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
                                 itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
                                 itemCategory.setJudul(cat.getString("job_name"));
                                 itemCategory.setId_job(cat.getString("id"));
@@ -140,7 +140,7 @@ public class OnProgressFragment extends Fragment implements JobOnProgressAdapter
                                 itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
 
                                 pList.add(itemCategory);
-                            }
+//                            }
 
                             if (pList.size() > 0) {
                                 rvNotFound.setVisibility(View.GONE);
