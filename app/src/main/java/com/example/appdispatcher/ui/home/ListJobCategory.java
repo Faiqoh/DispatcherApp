@@ -99,7 +99,6 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                             JSONObject cat = jray.getJSONObject(i);
 
                             HomeViewModel itemCategory = new HomeViewModel();
-                            if (cat.getString("job_status").equals("Open")) {
                                 itemCategory.setId_job(cat.getString("id"));
                                 itemCategory.setCategory_name(cat.getJSONObject("category").getString("category_name"));
                                 itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
@@ -108,7 +107,6 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                                 itemCategory.setJob_name(cat.getString("job_name"));
 
                                 cList.add(itemCategory);
-                            }
                         }
                         cAdapter.notifyDataSetChanged();
                     }
