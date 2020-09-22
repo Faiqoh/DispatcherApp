@@ -56,11 +56,11 @@ public class AccountFragment extends Fragment {
     TextView tvname, tvemail, tvno, tvjobs, tvskill, tvfee, tvdate, tvaddress;
     public static final String GET_ID_JOB = "get_id_job";
     ImageView ivuser;
-    Button btn_logout;
+    Button btn_logout, btn_edit;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
+    public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_account, container, false);
         navigation = getActivity().findViewById(R.id.nav_view);
@@ -77,6 +77,16 @@ public class AccountFragment extends Fragment {
         btn_logout = root.findViewById(R.id.btn_logout);
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
         nestedScrollView = root.findViewById(R.id.nestedaccount);
+        btn_edit = root.findViewById(R.id.btn_edit);
+
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FabActivity.class);
+                intent.putExtra(GET_ID_JOB, "edit_profile");
+                startActivity(intent);
+            }
+        });
 
         tvjobs.setOnClickListener(new View.OnClickListener() {
             @Override

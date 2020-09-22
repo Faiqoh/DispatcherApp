@@ -131,7 +131,7 @@
                         android:textSize="13sp" />
 
                     <Button
-                        android:id="@+id/btn_apply"
+                        android:id="@+id/btn_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_alignParentRight="true"
