@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.account.EditAccountFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/headerhome"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@color/colorPrimary" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_centerInParent="true"
+                    app:cardCornerRadius="50dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/ivuser"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/header" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="#8f8f8f90"
+                    android:gravity="center_horizontal"
+                    android:text="Click for update"
+                    android:textAlignment="center" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headerhome"
+                android:layout_marginTop="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview1"
+                    android:layout_margin="8dp"
+                    android:padding="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/tvname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Full Name " />
+
+                        <ImageView
+                            android:id="@+id/row_down"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/path" />
+
+                        <TextView
+                            android:id="@+id/tvname2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_toStartOf="@+id/row_down"
+                            android:layout_toLeftOf="@+id/row_down"
+                            android:ellipsize="end"
+                            android:gravity="right"
+                            android:maxLines="1"
+                            android:text="Rama" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/tvname"
+                            android:paddingTop="15dp"
+                            android:src="@drawable/line" />
+
+                        <TextView
+                            android:id="@+id/tvemail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvname"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="30dp"
+                            android:text="Email " />
+
+                        <ImageView
+                            android:id="@+id/row_down2"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_below="@+id/tvname2"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="32dp"
+                            android:src="@drawable/path" />
+
+                        <TextView
+                            android:id="@+id/tvemail2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvname"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_toStartOf="@+id/row_down2"
+                            android:layout_toLeftOf="@+id/row_down2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="rama@gmail.com" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/tvemail"
+                            android:paddingTop="15dp"
+                            android:src="@drawable/line" />
+
+                        <TextView
+                            android:id="@+id/tvphone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvemail"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="30dp"
+                            android:text="Phone " />
+
+                        <ImageView
+                            android:id="@+id/row_down3"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_below="@+id/tvemail2"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="32dp"
+                            android:src="@drawable/path" />
+
+                        <TextView
+                            android:id="@+id/tvphone2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvemail"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_toStartOf="@+id/row_down2"
+                            android:layout_toLeftOf="@+id/row_down2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="085225168102" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/tvphone"
+                            android:paddingTop="15dp"
+                            android:src="@drawable/line" />
+
+                        <TextView
+                            android:id="@+id/tvaddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvphone"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Address " />
+
+                        <ImageView
+                            android:id="@+id/row_down4"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_below="@+id/tvphone2"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="32dp"
+                            android:src="@drawable/path" />
+
+                        <TextView
+                            android:id="@+id/tvaddress2"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvphone"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_toStartOf="@+id/row_down2"
+                            android:layout_toLeftOf="@+id/row_down2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Jl. Puri Indah Blok A2/3 Jakarta Barat" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
