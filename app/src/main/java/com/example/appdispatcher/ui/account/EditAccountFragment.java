@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.view.View.GONE;
 
 
 public class EditAccountFragment extends Fragment {
@@ -67,7 +68,26 @@ public class EditAccountFragment extends Fragment {
 
                 btn_submit = mView.findViewById(R.id.btnSubmit);
                 etName = mView.findViewById(R.id.eTextName);
+                etEmail = mView.findViewById(R.id.eTextEmail);
+                etPhone = mView.findViewById(R.id.eTextPhone);
+                etAddress = mView.findViewById(R.id.eTextAddress);
                 btn_cancel = mView.findViewById(R.id.btnCancel);
+                Button btn_submit4 = mView.findViewById(R.id.btnSubmit4);
+                Button btn_cancel4 = mView.findViewById(R.id.btnCancel4);
+                Button btn_submit3 = mView.findViewById(R.id.btnSubmit3);
+                Button btn_cancel3 = mView.findViewById(R.id.btnCancel3);
+                Button btn_submit2 = mView.findViewById(R.id.btnSubmit2);
+                Button btn_cancel2 = mView.findViewById(R.id.btnCancel2);
+
+                etEmail.setVisibility(GONE);
+                etPhone.setVisibility(GONE);
+                etAddress.setVisibility(GONE);
+                btn_cancel2.setVisibility(GONE);
+                btn_cancel4.setVisibility(GONE);
+                btn_cancel3.setVisibility(GONE);
+                btn_submit2.setVisibility(GONE);
+                btn_submit4.setVisibility(GONE);
+                btn_submit3.setVisibility(GONE);
 
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -96,24 +116,43 @@ public class EditAccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-                View mView = getLayoutInflater().inflate(R.layout.activity_edit_email, null);
+                View mView = getLayoutInflater().inflate(R.layout.activity_edit_name, null);
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
-                fillaccount3();
+                fillaccount2();
 
                 btn_submit = mView.findViewById(R.id.btnSubmit);
+                etName = mView.findViewById(R.id.eTextName);
                 etEmail = mView.findViewById(R.id.eTextEmail);
+                etPhone = mView.findViewById(R.id.eTextPhone);
+                etAddress = mView.findViewById(R.id.eTextAddress);
                 btn_cancel = mView.findViewById(R.id.btnCancel);
+                Button btn_submit4 = mView.findViewById(R.id.btnSubmit4);
+                Button btn_cancel4 = mView.findViewById(R.id.btnCancel4);
+                Button btn_submit3 = mView.findViewById(R.id.btnSubmit3);
+                Button btn_cancel3 = mView.findViewById(R.id.btnCancel3);
+                Button btn_submit2 = mView.findViewById(R.id.btnSubmit2);
+                Button btn_cancel2 = mView.findViewById(R.id.btnCancel2);
 
-                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                etName.setVisibility(GONE);
+                etPhone.setVisibility(GONE);
+                etAddress.setVisibility(GONE);
+                btn_cancel.setVisibility(GONE);
+                btn_cancel4.setVisibility(GONE);
+                btn_cancel3.setVisibility(GONE);
+                btn_submit.setVisibility(GONE);
+                btn_submit4.setVisibility(GONE);
+                btn_submit3.setVisibility(GONE);
+
+                btn_cancel2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                     }
                 });
 
-                btn_submit.setOnClickListener(new View.OnClickListener() {
+                btn_submit2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         id_user = tvidUser.getText().toString().trim();
@@ -133,24 +172,44 @@ public class EditAccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-                View mView = getLayoutInflater().inflate(R.layout.activity_edit_phone, null);
+                View mView = getLayoutInflater().inflate(R.layout.activity_edit_name, null);
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
-                fillaccount4();
+                fillaccount2();
 
                 btn_submit = mView.findViewById(R.id.btnSubmit);
+                etName = mView.findViewById(R.id.eTextName);
+                etEmail = mView.findViewById(R.id.eTextEmail);
                 etPhone = mView.findViewById(R.id.eTextPhone);
+                etAddress = mView.findViewById(R.id.eTextAddress);
                 btn_cancel = mView.findViewById(R.id.btnCancel);
+                Button btn_submit4 = mView.findViewById(R.id.btnSubmit4);
+                Button btn_cancel4 = mView.findViewById(R.id.btnCancel4);
+                Button btn_submit3 = mView.findViewById(R.id.btnSubmit3);
+                Button btn_cancel3 = mView.findViewById(R.id.btnCancel3);
+                Button btn_submit2 = mView.findViewById(R.id.btnSubmit2);
+                Button btn_cancel2 = mView.findViewById(R.id.btnCancel2);
 
-                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                etName.setVisibility(GONE);
+                etEmail.setVisibility(GONE);
+                etAddress.setVisibility(GONE);
+
+                btn_cancel.setVisibility(GONE);
+                btn_cancel2.setVisibility(GONE);
+                btn_cancel4.setVisibility(GONE);
+                btn_submit.setVisibility(GONE);
+                btn_submit2.setVisibility(GONE);
+                btn_submit4.setVisibility(GONE);
+
+                btn_cancel3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                     }
                 });
 
-                btn_submit.setOnClickListener(new View.OnClickListener() {
+                btn_submit3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         id_user = tvidUser.getText().toString().trim();
@@ -170,24 +229,44 @@ public class EditAccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-                View mView = getLayoutInflater().inflate(R.layout.activity_edit_address, null);
+                View mView = getLayoutInflater().inflate(R.layout.activity_edit_name, null);
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
-                fillaccount5();
+                fillaccount2();
 
-                btn_submit = mView.findViewById(R.id.btnSubmit);
+                etName = mView.findViewById(R.id.eTextName);
+                etEmail = mView.findViewById(R.id.eTextEmail);
+                etPhone = mView.findViewById(R.id.eTextPhone);
                 etAddress = mView.findViewById(R.id.eTextAddress);
+                btn_submit = mView.findViewById(R.id.btnSubmit);
                 btn_cancel = mView.findViewById(R.id.btnCancel);
+                Button btn_submit4 = mView.findViewById(R.id.btnSubmit4);
+                Button btn_cancel4 = mView.findViewById(R.id.btnCancel4);
+                Button btn_submit3 = mView.findViewById(R.id.btnSubmit3);
+                Button btn_cancel3 = mView.findViewById(R.id.btnCancel3);
+                Button btn_submit2 = mView.findViewById(R.id.btnSubmit2);
+                Button btn_cancel2 = mView.findViewById(R.id.btnCancel2);
 
-                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                etName.setVisibility(GONE);
+                etPhone.setVisibility(GONE);
+                etEmail.setVisibility(GONE);
+                btn_cancel.setVisibility(GONE);
+                btn_cancel2.setVisibility(GONE);
+                btn_cancel3.setVisibility(GONE);
+                btn_submit.setVisibility(GONE);
+                btn_submit2.setVisibility(GONE);
+                btn_submit3.setVisibility(GONE);
+
+
+                btn_cancel4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                     }
                 });
 
-                btn_submit.setOnClickListener(new View.OnClickListener() {
+                btn_submit4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         id_user = tvidUser.getText().toString().trim();
@@ -205,123 +284,6 @@ public class EditAccountFragment extends Fragment {
         return view;
     }
 
-    private void fillaccount5() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getuserwithToken, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONObject jUser = response.getJSONObject("user");
-                    etAddress.setText(jUser.getString("address"));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
-                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", MODE_PRIVATE);
-                headers.put("Authorization", mSetting.getString("Token", "missing"));
-                return headers;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
-    }
-
-    private void fillaccount4() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getuserwithToken, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONObject jUser = response.getJSONObject("user");
-                    etPhone.setText(jUser.getString("phone"));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
-                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", MODE_PRIVATE);
-                headers.put("Authorization", mSetting.getString("Token", "missing"));
-                return headers;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
-    }
-
-    private void fillaccount3() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getuserwithToken, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONObject jUser = response.getJSONObject("user");
-                    etEmail.setText(jUser.getString("email"));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-
-//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
-                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", MODE_PRIVATE);
-                headers.put("Authorization", mSetting.getString("Token", "missing"));
-                return headers;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
-    }
-
     private void fillaccount2() {
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getuserwithToken, null, new Response.Listener<JSONObject>() {
             @Override
@@ -329,6 +291,9 @@ public class EditAccountFragment extends Fragment {
                 try {
                     JSONObject jUser = response.getJSONObject("user");
                     etName.setText(jUser.getString("name"));
+                    etAddress.setText(jUser.getString("address"));
+                    etEmail.setText(jUser.getString("email"));
+                    etPhone.setText(jUser.getString("phone"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
