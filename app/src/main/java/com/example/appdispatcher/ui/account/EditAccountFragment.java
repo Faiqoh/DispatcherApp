@@ -1,6 +1,7 @@
 package com.example.appdispatcher.ui.account;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,7 +45,7 @@ public class EditAccountFragment extends Fragment {
     ImageView ivuser;
     EditText etName, etEmail, etPhone, etAddress;
     Button btn_submit, btn_cancel;
-    String id_user;
+    String id_user, name, phone, email, address;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,10 +104,11 @@ public class EditAccountFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         id_user = tvidUser.getText().toString().trim();
+                        name = etName.getText().toString().trim();
                         if (etName.getText().toString().length() == 0) {
                             etName.setError("Name Should not be empty!");
                         } else {
-
+                            profileupdate();
                             dialog.dismiss();
                         }
                     }
@@ -156,10 +161,11 @@ public class EditAccountFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         id_user = tvidUser.getText().toString().trim();
+                        email = etEmail.getText().toString().trim();
                         if (etEmail.getText().toString().length() == 0) {
                             etEmail.setError("Email Should not be empty!");
                         } else {
-
+                            profileupdateemail();
                             dialog.dismiss();
                         }
                     }
@@ -213,10 +219,11 @@ public class EditAccountFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         id_user = tvidUser.getText().toString().trim();
+                        phone = etPhone.getText().toString().trim();
                         if (etPhone.getText().toString().length() == 0) {
                             etPhone.setError("Phone Should not be empty!");
                         } else {
-
+                            profileupdatephone();
                             dialog.dismiss();
                         }
                     }
@@ -270,10 +277,11 @@ public class EditAccountFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         id_user = tvidUser.getText().toString().trim();
+                        address = etAddress.getText().toString().trim();
                         if (etAddress.getText().toString().length() == 0) {
                             etAddress.setError("Phone Should not be empty!");
                         } else {
-
+                            profileupdateaddress();
                             dialog.dismiss();
                         }
                     }
@@ -282,6 +290,218 @@ public class EditAccountFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void profileupdateemail() {
+        final JSONObject jobj = new JSONObject();
+        try {
+//            jobj.put("id_user", id_user);
+            jobj.put("email", email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.postProfileUpdate, jobj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONObject jObj = response;
+                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+                getActivity().finish();
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                        }
+                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
+
+        strReq.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(strReq);
+    }
+
+    private void profileupdatephone() {
+        final JSONObject jobj = new JSONObject();
+        try {
+            jobj.put("phone", phone);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.postProfileUpdate, jobj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONObject jObj = response;
+                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+                getActivity().finish();
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                        }
+                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
+
+        strReq.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(strReq);
+    }
+
+    private void profileupdateaddress() {
+
+        final JSONObject jobj = new JSONObject();
+        try {
+//            jobj.put("id_user", id_user);
+            jobj.put("address", address);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.postProfileUpdate, jobj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONObject jObj = response;
+                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+                getActivity().finish();
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                        }
+                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
+
+        strReq.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(strReq);
+    }
+
+    private void profileupdate() {
+        final JSONObject jobj = new JSONObject();
+        try {
+//            jobj.put("id_user", id_user);
+            jobj.put("name", name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.postProfileUpdate, jobj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONObject jObj = response;
+                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+                getActivity().finish();
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                        }
+                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
+
+        strReq.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(strReq);
     }
 
     private void fillaccount2() {

@@ -2,8 +2,8 @@ package com.example.appdispatcher.util;
 
 public class server {
     //    public static final String url = "https://eod-api.sinergy.co.id";
-//    public static final String url = "https://development.sinergy-dev.xyz:2053";
-    public static final String url = "https://eod-api.sifoma.id";
+    public static final String url = "https://development-api.sifoma.id";
+    //    public static final String url = "https://eod-api.sifoma.id";
     public static final String getJobCategory = url + "/dashboard/getJobCategory";
     public static final String getJobList = "https://development.sinergy-dev.xyz:2096/dashboard/getJobList";
     public static final String getUser = "https://development.sinergy-dev.xyz:2096/dashboard/getDashboard";
@@ -52,4 +52,5 @@ public class server {
     public static final String postgetsupport_withtoken = url + "/api/job/postJobRequestSupport";
     public static final String getsupport_withtoken = url + "/api/job/getJobSupport";
     public static final String getdetailsupport_withtoken = url + "/api/job/getJobSupportEach";
+    public static final String postProfileUpdate = url + "/api/users/postProfileUpdate";
 }
