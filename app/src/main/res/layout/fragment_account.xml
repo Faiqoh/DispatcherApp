@@ -223,7 +223,7 @@
                                 android:layout_toRightOf="@+id/textViewskill"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Backend Developer" />
+                                android:text="Backend" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
