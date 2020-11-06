@@ -10,11 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +66,7 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 
-public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapter.PListAdapter {
+public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapter.PListAdapter, AdapterView.OnItemSelectedListener {
 
     private static ProgressDoneFragment instance = null;
 
@@ -85,6 +88,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
     FloatingActionsMenu floatingActionsMenu;
     NestedScrollView NesteddetailTask;
     AppBarLayout appBarLayout;
+    Spinner spinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -134,6 +138,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         Progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                String[] progress_job = { "Waiting", "On Progress", "Migrate", "Troubleshoot", "Monitor"};
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
                 View mView = getLayoutInflater().inflate(R.layout.activity_request, null);
                 mBuilder.setView(mView);
@@ -142,6 +147,33 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
                 floatingActionsMenu.collapse();
                 btn_submit = mView.findViewById(R.id.btnSubmit);
                 etTask = mView.findViewById(R.id.eTextTask);
+                spinner = mView.findViewById(R.id.spinner_progress);
+
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mView.getContext(), R.array.progress_job,
+                        android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+                spinner.setAdapter(adapter);
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+                {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
+                    {
+                        String selected = parentView.getItemAtPosition(position).toString();
+                        Context context = parentView.getContext();
+                        CharSequence text = selected;
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        // your code here
+                    }
+                });
 
                 btn_submit.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -480,5 +512,15 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         intent.putExtra(ID_JOB, pAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "date_progress");
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

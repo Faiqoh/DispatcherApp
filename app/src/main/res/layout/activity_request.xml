@@ -5,11 +5,28 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSpinner"
+        android:text="Progress Job"
+        android:layout_margin="@dimen/padding_10"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/spinner_progress"
+        android:layout_margin="@dimen/padding_10"
+        android:layout_below="@+id/tvSpinner"
+        android:entries="@array/progress_job"/>
+
     <EditText
         android:id="@+id/eTextTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relativelayoutprogress"
+        android:layout_below="@+id/spinner_progress"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/padding_10"
         android:background="@drawable/roundedblack"
