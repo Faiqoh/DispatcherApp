@@ -73,11 +73,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        BadgeDrawable badge_detail = binding.navView.getOrCreateBadge(R.id.navigation_detail);
-        badge_detail.setBackgroundColor(Color.RED);
-        badge_detail.setBadgeTextColor(Color.WHITE);
-        badge_detail.setMaxCharacterCount(3);
-        badge_detail.setNumber(200);
+//        BadgeDrawable badge_detail = binding.navView.getOrCreateBadge(R.id.navigation_detail);
+//        badge_detail.setBackgroundColor(Color.RED);
+//        badge_detail.setBadgeTextColor(Color.WHITE);
+//        badge_detail.setMaxCharacterCount(3);
+//        badge_detail.setNumber(200);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("NotifApps", "NotifyApps", NotificationManager.IMPORTANCE_HIGH);
