@@ -159,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("preferences_setting", String.valueOf(mSetting));
                     Log.i("preferences_setting", mSetting.getString("Token", "missing"));
                     Log.i("preferences_setting", mSetting.getString("ID", "missing"));
-                    startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
+//                    startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
