@@ -103,14 +103,15 @@ public class AccountFragment extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
+//                editor.clear();
+                editor.remove("Token");
                 editor.apply();
                 Log.i(TAG, "Now log out and start the activity login");
                 startActivity(new Intent(getContext(), LoginActivity.class));
 //                deleteCache(getContext());
-                if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
-                    ((ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE)).clearApplicationUserData();
-                }
+//                if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
+//                    ((ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE)).clearApplicationUserData();
+//                }
 
 
 

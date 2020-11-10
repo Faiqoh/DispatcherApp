@@ -59,6 +59,11 @@ public class LoginActivity extends AppCompatActivity {
 
         mSetting = this.getSharedPreferences("Setting", Context.MODE_PRIVATE);
 
+        String Token_account = mSetting.getString("Token", "missing");
+        if (!Token_account.equals("missing")) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
+
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
