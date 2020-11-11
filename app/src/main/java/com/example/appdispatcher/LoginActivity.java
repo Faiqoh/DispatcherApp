@@ -71,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                 email = ed1.getText().toString().trim();
                 password = ed2.getText().toString().trim();
                 if (!email.isEmpty() || !password.isEmpty()) {
-                    login_fucntion(email, password);
-                    login(email, password);
+                    login_function(email, password);
+//                    login(email, password);
                 } else {
                     ed1.setError("Please Insert Email!");
                     ed2.setError("Please insert Password!");
@@ -83,16 +83,112 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void login(final String email, final String password) {
+//    private void login(final String email, final String password) {
+//
+//        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()) {
+////                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+////                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+////                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+////                    startActivity(intent);
+//                    Toast.makeText(LoginActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                } else {
+//                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if (task.isSuccessful()) {
+//                                FirebaseUser firebaseUser = auth.getCurrentUser();
+//                                assert firebaseUser != null;
+//                                String userid = firebaseUser.getUid();
+//
+//                                reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+//
+//                                HashMap<String, String> hashMap = new HashMap<>();
+//                                hashMap.put("id", userid);
+//                                hashMap.put("email", email);
+//
+//                                reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        if (task.isSuccessful()) {
+//                                            Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+////                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//                                    }
+//                                });
+//                            } else {
+//                                Toast.makeText(LoginActivity.this, "You can't login with this email or password", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//    }
+
+    private void login_function(final String email, final String password) {
+        Log.i("email", ed1.getText().toString());
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("email", email);
+            jsonBody.put("password", password);
+            Log.i("json", "success get");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i("json", String.valueOf(jsonBody));
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.login_url, jsonBody, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject jResponse = response.getJSONObject("response");
+                    String success = jResponse.getString("success");
+                    Log.i("jResponse", String.valueOf(jResponse));
+
+                    SharedPreferences.Editor editor = mSetting.edit();
+                    editor.putString("Token", "Bearer " + jResponse.getString("token"));
+                    editor.putString("ID", "id user" + jResponse.getString("id_user"));
+                    editor.apply();
+                    Log.i("preferences_setting", String.valueOf(mSetting));
+                    Log.i("preferences_setting", mSetting.getString("Token", "missing"));
+                    Log.i("preferences_setting", mSetting.getString("ID", "missing"));
+                    startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(LoginActivity.this, "Error" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("users", String.valueOf(error));
+                Toast.makeText(LoginActivity.this, "Email atau password tidak sesuai", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(strReq);
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+//                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
 //                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+                    Toast.makeText(LoginActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -129,55 +225,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void login_fucntion(final String email, final String password) {
-        Log.i("email", ed1.getText().toString());
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("email", email);
-            jsonBody.put("password", password);
-            Log.i("json", "success get");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Log.i("json", String.valueOf(jsonBody));
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.login_url, jsonBody, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONObject jResponse = response.getJSONObject("response");
-                    String success = jResponse.getString("success");
-                    Log.i("jResponse", String.valueOf(jResponse));
-
-                    SharedPreferences.Editor editor = mSetting.edit();
-                    editor.putString("Token", "Bearer " + jResponse.getString("token"));
-                    editor.putString("ID", "id user" + jResponse.getString("id_user"));
-                    editor.apply();
-                    Log.i("preferences_setting", String.valueOf(mSetting));
-                    Log.i("preferences_setting", mSetting.getString("Token", "missing"));
-                    Log.i("preferences_setting", mSetting.getString("ID", "missing"));
-//                    startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(LoginActivity.this, "Error" + e.toString(), Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("users", String.valueOf(error));
-                Toast.makeText(LoginActivity.this, "Email atau password tidak sesuai", Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(strReq);
 
     }
 }
