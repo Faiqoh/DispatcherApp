@@ -18,8 +18,8 @@
 
             <ImageView
                 android:id="@+id/notificationImage"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="33dp"
+                android:layout_height="20dp"
                 android:background="@mipmap/freelance_logoaja"
                 android:layout_marginTop="10dp" />
 
