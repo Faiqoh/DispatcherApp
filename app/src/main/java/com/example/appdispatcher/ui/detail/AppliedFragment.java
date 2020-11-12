@@ -137,40 +137,40 @@ public class AppliedFragment extends Fragment implements JobAppliedAdapter.AJLis
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.filter_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        inflater.inflate(R.menu.filter_menu, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
 
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        MenuItem item3 = menu.findItem(R.id.item_notif);
-        item3.setVisible(false);
-    }
+//    @Override
+//    public void onPrepareOptionsMenu(Menu menu) {
+//        super.onPrepareOptionsMenu(menu);
+//        MenuItem item3 = menu.findItem(R.id.item_notif);
+//        item3.setVisible(false);
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.item_filter) {
-            final Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Light);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.activity_filter_layout_detail_task);
-            dialog.show();
-
-            imgClose = dialog.findViewById(R.id.dismissfilter);
-            imgClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.item_filter) {
+//            final Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Light);
+//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dialog.setContentView(R.layout.activity_filter_layout_detail_task);
+//            dialog.show();
+//
+//            imgClose = dialog.findViewById(R.id.dismissfilter);
+//            imgClose.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    dialog.dismiss();
+//                }
+//            });
+//
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     private void fillDataJobAppliedList() {
