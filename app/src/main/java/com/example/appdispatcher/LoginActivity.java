@@ -1,5 +1,6 @@
 package com.example.appdispatcher;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -133,6 +134,11 @@ public class LoginActivity extends AppCompatActivity {
 //    }
 
     private void login_function(final String email, final String password) {
+        final ProgressDialog pd = new ProgressDialog(this, R.style.MyTheme);
+        pd.setCancelable(false);
+        pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        pd.show();
+
         Log.i("email", ed1.getText().toString());
         JSONObject jsonBody = new JSONObject();
         try {
@@ -160,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("preferences_setting", String.valueOf(mSetting));
                     Log.i("preferences_setting", mSetting.getString("Token", "missing"));
                     Log.i("preferences_setting", mSetting.getString("ID", "missing"));
+                    pd.dismiss();
                     startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
 
                 } catch (JSONException e) {
@@ -172,6 +179,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i("users", String.valueOf(error));
+                pd.dismiss();
                 Toast.makeText(LoginActivity.this, "Email atau password tidak sesuai", Toast.LENGTH_LONG).show();
 
             }
@@ -179,52 +187,6 @@ public class LoginActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(strReq);
-
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-//                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(intent);
-                    Toast.makeText(LoginActivity.this, "Successfully", Toast.LENGTH_SHORT).show();
-                    finish();
-                } else {
-                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser firebaseUser = auth.getCurrentUser();
-                                assert firebaseUser != null;
-                                String userid = firebaseUser.getUid();
-
-                                reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-
-                                HashMap<String, String> hashMap = new HashMap<>();
-                                hashMap.put("id", userid);
-                                hashMap.put("email", email);
-
-                                reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
-//                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(LoginActivity.this, "You can't login with this email or password", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            }
-        });
 
     }
 }
