@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
-                        android:text="Rama Agastya"
+                        android:text="-"
                         android:textSize="19sp"
                         android:textStyle="bold" />
 
@@ -102,7 +102,7 @@
                         android:layout_toRightOf="@+id/ivemail"
                         android:maxLines="3"
                         android:minLines="1"
-                        android:text="agastya@sinergy.co.id"
+                        android:text="-"
                         android:textSize="13sp" />
 
                     <ImageView
@@ -127,7 +127,7 @@
                         android:layout_marginBottom="15dp"
                         android:layout_toEndOf="@+id/ivno"
                         android:layout_toRightOf="@+id/ivno"
-                        android:text="085225168102"
+                        android:text="-"
                         android:textSize="13sp" />
 
                     <Button
@@ -183,7 +183,7 @@
                                 android:layout_toRightOf="@+id/textViewjob"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="3 Jobs" />
+                                android:text="0 Jobs" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -223,7 +223,7 @@
                                 android:layout_toRightOf="@+id/textViewskill"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Backend" />
+                                android:text="-" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -263,7 +263,7 @@
                                 android:layout_toRightOf="@+id/textViewfee"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Rp.25000000,00" />
+                                android:text="Rp.0,00" />
 
                         </RelativeLayout>
 
@@ -308,7 +308,7 @@
                                 android:layout_toRightOf="@+id/textViewdate"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="10 Agustus 2020" />
+                                android:text="-" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -348,7 +348,7 @@
                                 android:layout_toRightOf="@+id/textViewaddress"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Jl. Puri Indah Blok A2/3 No. 33-35, Kembangan Selatan" />
+                                android:text="-" />
 
                         </RelativeLayout>
 
