@@ -88,7 +88,7 @@ public class ChatFragment extends Fragment {
             public void onClick(View v) {
                 String msg = et_send.getText().toString();
                 if (!msg.equals("")) {
-                    sendMessage(firebaseUser.getUid(), "moderator", msg, id_engineer);
+                    sendMessage(msg);
                 } else {
                     Toast.makeText(getContext(), "You can't send empty message", Toast.LENGTH_SHORT).show();
                 }
@@ -116,7 +116,7 @@ public class ChatFragment extends Fragment {
 
     }
 
-    private void sendMessage(String sender, String receiver, String message, String id_engineer) {
+    private void sendMessage(String message) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
         /*HashMap<String, Object> hashMap = new HashMap<>();
