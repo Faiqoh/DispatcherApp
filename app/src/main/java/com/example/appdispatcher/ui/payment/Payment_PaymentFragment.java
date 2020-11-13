@@ -157,6 +157,7 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
                             itemCategory.setId_payment(cat.getString("id"));
                             itemCategory.setJudul(cat.getJSONObject("job").getString("job_name"));
                             itemCategory.setStatus_payment(cat.getJSONObject("lastest_progress").getString("activity"));
+                            itemCategory.setTime(cat.getString("date_huminize"));
                             if (cat.getJSONObject("lastest_progress").getString("activity").equals("Make Payment")) {
                                 itemCategory.setFoto(R.drawable.make_payment);
                             } else if (cat.getJSONObject("lastest_progress").getString("activity").equals("Update Payment")) {

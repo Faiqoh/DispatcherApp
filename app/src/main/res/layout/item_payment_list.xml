@@ -42,11 +42,10 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/expandableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:paddingLeft="90dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp">
@@ -66,12 +65,26 @@
                 android:id="@+id/textViewLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewJudul"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Location"
+                android:text=""
                 android:textSize="12dp" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/textViewTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/textViewLocation"
+                android:text="7 hours ago"
+                android:gravity="right"
+                android:layout_alignParentRight="true"
+                android:textSize="12dp" />
+
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 </LinearLayout>

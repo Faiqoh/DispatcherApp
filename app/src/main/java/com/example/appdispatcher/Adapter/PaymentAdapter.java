@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         holder.tvidPayment.setText(paymentlist.id_payment);
         ContextCompat.getDrawable(context.getContext(), paymentlist.foto);
         holder.ivFoto.setImageResource(paymentlist.foto);
+        holder.tvTime.setText(paymentlist.time);
     }
 
     @Override
@@ -63,8 +65,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvStatus, tvidPayment;
-        LinearLayout head_sub;
+        TextView tvJudul, tvStatus, tvidPayment, tvTime;
+        RelativeLayout head_sub;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -73,6 +75,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
             tvStatus = itemView.findViewById(R.id.textViewLocation);
             head_sub = itemView.findViewById(R.id.expandableLayout);
             tvidPayment = itemView.findViewById(R.id.idPayment);
+            tvTime = itemView.findViewById(R.id.textViewTime);
 
             head_sub.setOnClickListener(new View.OnClickListener() {
                 @Override

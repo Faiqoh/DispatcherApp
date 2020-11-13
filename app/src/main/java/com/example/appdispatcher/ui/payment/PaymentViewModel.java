@@ -7,6 +7,15 @@ public class PaymentViewModel implements Serializable {
     public int foto;
     public String status_payment;
     public String id_payment;
+    public String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getId_payment() {
         return id_payment;
