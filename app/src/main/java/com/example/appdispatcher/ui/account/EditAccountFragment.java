@@ -32,7 +32,12 @@ import com.example.appdispatcher.util.server;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -41,11 +46,12 @@ import static android.view.View.GONE;
 
 public class EditAccountFragment extends Fragment {
 
-    TextView tvname, tvemail, tvphone, tvaddress, tvidUser;
+    TextView tvname, tvemail, tvphone, tvaddress, tvidUser, tvdate_of_birth;
     ImageView ivuser;
     EditText etName, etEmail, etPhone, etAddress;
     Button btn_submit, btn_cancel;
     String id_user, name, phone, email, address;
+    public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +64,8 @@ public class EditAccountFragment extends Fragment {
         tvaddress = view.findViewById(R.id.tvaddress2);
         ivuser = view.findViewById(R.id.ivuser);
         tvidUser = view.findViewById(R.id.tv_id_user);
+        tvdate_of_birth = view.findViewById(R.id.tvdate_of_birth2);
+
         fillaccount();
 
         tvname.setOnClickListener(new View.OnClickListener() {
@@ -547,6 +555,8 @@ public class EditAccountFragment extends Fragment {
     }
 
     private void fillaccount() {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
+        final DateFormat date = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getuserwithToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -562,9 +572,12 @@ public class EditAccountFragment extends Fragment {
                     tvemail.setText(jUser.getString("email"));
                     tvphone.setText(jUser.getString("phone"));
                     tvaddress.setText(jUser.getString("address"));
+                    Date date_of_birth = date.parse(jUser.getString("date_of_birth"));
+                    tvdate_of_birth.setText(dateFormat.format(date_of_birth));
+
                     Glide.with(getActivity()).load(jUser.getString("photo_image_url")).into(ivuser);
 
-                } catch (JSONException e) {
+                } catch (JSONException | ParseException e) {
                     e.printStackTrace();
                 }
             }

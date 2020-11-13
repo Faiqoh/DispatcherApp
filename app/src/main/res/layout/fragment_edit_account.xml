@@ -104,8 +104,7 @@
                             android:layout_toLeftOf="@+id/row_down"
                             android:ellipsize="end"
                             android:gravity="right"
-                            android:maxLines="1"
-                            android:text="Rama" />
+                            android:maxLines="1" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -143,8 +142,7 @@
                             android:layout_toStartOf="@+id/row_down2"
                             android:layout_toLeftOf="@+id/row_down2"
                             android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="rama@gmail.com" />
+                            android:maxLines="1" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -182,8 +180,7 @@
                             android:layout_toStartOf="@+id/row_down2"
                             android:layout_toLeftOf="@+id/row_down2"
                             android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="085225168102" />
+                            android:maxLines="1" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -199,7 +196,6 @@
                             android:layout_below="@+id/tvphone"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="30dp"
-                            android:layout_marginBottom="10dp"
                             android:text="Address " />
 
                         <ImageView
@@ -222,8 +218,45 @@
                             android:layout_toStartOf="@+id/row_down2"
                             android:layout_toLeftOf="@+id/row_down2"
                             android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="Jl. Puri Indah Blok A2/3 Jakarta Barat" />
+                            android:maxLines="1" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/tvaddress"
+                            android:paddingTop="15dp"
+                            android:src="@drawable/line" />
+
+                        <TextView
+                            android:id="@+id/tvdate_of_birth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvaddress"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="30dp"
+                            android:text="Date of Birth " />
+
+                        <ImageView
+                            android:id="@+id/row_down5"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_below="@+id/tvaddress2"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="32dp"
+                            android:src="@drawable/path" />
+
+                        <TextView
+                            android:id="@+id/tvdate_of_birth2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvaddress"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_toStartOf="@+id/row_down2"
+                            android:layout_toLeftOf="@+id/row_down2"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
 
                     </RelativeLayout>
 
