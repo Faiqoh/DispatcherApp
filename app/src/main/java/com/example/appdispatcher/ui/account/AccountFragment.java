@@ -53,7 +53,7 @@ public class AccountFragment extends Fragment {
 
     BottomNavigationView navigation;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
-    TextView tvname, tvemail, tvno, tvjobs, tvskill, tvfee, tvdate, tvaddress;
+    TextView tvname, tvemail, tvno, tvjobs, tvskill, tvfee, tvdate, tvaddress, tvdate_of_birth;
     public static final String GET_ID_JOB = "get_id_job";
     ImageView ivuser;
     Button btn_logout, btn_edit;
@@ -78,6 +78,7 @@ public class AccountFragment extends Fragment {
         shimmerFrameLayout = root.findViewById(R.id.shimmer_view_container);
         nestedScrollView = root.findViewById(R.id.nestedaccount);
         btn_edit = root.findViewById(R.id.btn_edit);
+        tvdate_of_birth = root.findViewById(R.id.text_date_of_birth);
 
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +156,7 @@ public class AccountFragment extends Fragment {
     private void fillaccount() {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        final DateFormat date = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         final Locale localeID = new Locale("in", "ID");
         final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getuserwithToken, null, new Response.Listener<JSONObject>() {
@@ -177,6 +179,8 @@ public class AccountFragment extends Fragment {
                     tvjobs.setText(jUser.getString("job_engineer_count") + " Jobs");
                     tvskill.setText(jUser.getString("category_engineer"));
                     tvfee.setText(formatRupiah.format((Double.parseDouble(jUser.getString("fee_engineer_count")))));
+                    Date date_of_birth = date.parse(jUser.getString("date_of_birth"));
+                    tvdate_of_birth.setText(dateFormat.format(date_of_birth));
 
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();

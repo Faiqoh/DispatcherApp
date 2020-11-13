@@ -122,12 +122,37 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="15dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_toEndOf="@+id/ivno"
                         android:layout_toRightOf="@+id/ivno"
                         android:text="-"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:id="@+id/ivdate_of_birth"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_below="@+id/text_number"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/calender" />
+
+                    <TextView
+                        android:id="@+id/text_date_of_birth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_number"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toEndOf="@+id/ivno"
+                        android:layout_toRightOf="@+id/ivno"
+                        android:text="12 Januari 1995"
                         android:textSize="13sp" />
 
                     <Button
@@ -147,7 +172,7 @@
                         android:id="@+id/cardview1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/text_number"
+                        android:layout_below="@+id/text_date_of_birth"
                         android:layout_margin="8dp"
                         android:padding="10dp">
 
