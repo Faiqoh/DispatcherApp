@@ -207,8 +207,7 @@
                                 android:layout_toEndOf="@+id/textViewjob"
                                 android:layout_toRightOf="@+id/textViewjob"
                                 android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="0 Jobs" />
+                                android:maxLines="1" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -247,8 +246,7 @@
                                 android:layout_toEndOf="@+id/textViewskill"
                                 android:layout_toRightOf="@+id/textViewskill"
                                 android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="-" />
+                                android:maxLines="1" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -287,8 +285,7 @@
                                 android:layout_toEndOf="@+id/textViewfee"
                                 android:layout_toRightOf="@+id/textViewfee"
                                 android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Rp.0,00" />
+                                android:maxLines="1" />
 
                         </RelativeLayout>
 

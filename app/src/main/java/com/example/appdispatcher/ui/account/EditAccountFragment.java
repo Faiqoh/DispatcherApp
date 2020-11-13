@@ -1,6 +1,7 @@
 package com.example.appdispatcher.ui.account;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -46,11 +49,11 @@ import static android.view.View.GONE;
 
 public class EditAccountFragment extends Fragment {
 
-    TextView tvname, tvemail, tvphone, tvaddress, tvidUser, tvdate_of_birth;
+    TextView tvname, tvemail, tvphone, tvaddress, tvidUser, tvdate_of_birth, etDate;
     ImageView ivuser;
     EditText etName, etEmail, etPhone, etAddress;
     Button btn_submit, btn_cancel;
-    String id_user, name, phone, email, address;
+    String id_user, name, phone, email, address, date;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
 
     @Override
@@ -68,6 +71,91 @@ public class EditAccountFragment extends Fragment {
 
         fillaccount();
 
+        tvdate_of_birth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+                View mView = getLayoutInflater().inflate(R.layout.activity_edit_name, null);
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+                fillaccount2();
+
+                etName = mView.findViewById(R.id.eTextName);
+                etEmail = mView.findViewById(R.id.eTextEmail);
+                etPhone = mView.findViewById(R.id.eTextPhone);
+                etAddress = mView.findViewById(R.id.eTextAddress);
+                etDate = mView.findViewById(R.id.eTextDate);
+                btn_cancel = mView.findViewById(R.id.btnCancel);
+                btn_submit = mView.findViewById(R.id.btnSubmit);
+
+                Button btn_submit4 = mView.findViewById(R.id.btnSubmit4);
+                Button btn_cancel4 = mView.findViewById(R.id.btnCancel4);
+                Button btn_submit3 = mView.findViewById(R.id.btnSubmit3);
+                Button btn_cancel3 = mView.findViewById(R.id.btnCancel3);
+                Button btn_submit2 = mView.findViewById(R.id.btnSubmit2);
+                Button btn_cancel2 = mView.findViewById(R.id.btnCancel2);
+                Button btn_submit5 = mView.findViewById(R.id.btnSubmit5);
+                Button btn_cancel5 = mView.findViewById(R.id.btnCancel5);
+
+                etEmail.setVisibility(GONE);
+                etPhone.setVisibility(GONE);
+                etAddress.setVisibility(GONE);
+                etName.setVisibility(GONE);
+                btn_cancel2.setVisibility(GONE);
+                btn_cancel4.setVisibility(GONE);
+                btn_cancel3.setVisibility(GONE);
+                btn_submit2.setVisibility(GONE);
+                btn_submit4.setVisibility(GONE);
+                btn_submit3.setVisibility(GONE);
+                btn_cancel.setVisibility(GONE);
+                btn_submit.setVisibility(GONE);
+
+                final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy", Locale.US);
+
+                etDate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Calendar newCalendar = Calendar.getInstance();
+
+                        DatePickerDialog dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                Calendar newDate = Calendar.getInstance();
+                                newDate.set(year, monthOfYear, dayOfMonth);
+                                etDate.setText(dateFormatter.format(newDate.getTime()));
+                            }
+
+                        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                        dpd.show();
+                    }
+                });
+
+                btn_cancel5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btn_submit5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        id_user = tvidUser.getText().toString().trim();
+                        date = etDate.getText().toString().trim();
+                        if (etDate.getText().toString().length() == 0) {
+                            etDate.setError("Name Should not be empty!");
+                        } else {
+                            profileupdatedate();
+                            dialog.dismiss();
+                        }
+                    }
+
+                });
+            }
+        });
+
         tvname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,22 +172,30 @@ public class EditAccountFragment extends Fragment {
                 etPhone = mView.findViewById(R.id.eTextPhone);
                 etAddress = mView.findViewById(R.id.eTextAddress);
                 btn_cancel = mView.findViewById(R.id.btnCancel);
+                etDate = mView.findViewById(R.id.eTextDate);
+
                 Button btn_submit4 = mView.findViewById(R.id.btnSubmit4);
                 Button btn_cancel4 = mView.findViewById(R.id.btnCancel4);
                 Button btn_submit3 = mView.findViewById(R.id.btnSubmit3);
                 Button btn_cancel3 = mView.findViewById(R.id.btnCancel3);
                 Button btn_submit2 = mView.findViewById(R.id.btnSubmit2);
                 Button btn_cancel2 = mView.findViewById(R.id.btnCancel2);
+                Button btn_submit5 = mView.findViewById(R.id.btnSubmit5);
+                Button btn_cancel5 = mView.findViewById(R.id.btnCancel5);
 
                 etEmail.setVisibility(GONE);
                 etPhone.setVisibility(GONE);
                 etAddress.setVisibility(GONE);
+                etDate.setVisibility(GONE);
+
                 btn_cancel2.setVisibility(GONE);
                 btn_cancel4.setVisibility(GONE);
                 btn_cancel3.setVisibility(GONE);
                 btn_submit2.setVisibility(GONE);
                 btn_submit4.setVisibility(GONE);
                 btn_submit3.setVisibility(GONE);
+                btn_submit5.setVisibility(GONE);
+                btn_cancel5.setVisibility(GONE);
 
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -141,22 +237,28 @@ public class EditAccountFragment extends Fragment {
                 etPhone = mView.findViewById(R.id.eTextPhone);
                 etAddress = mView.findViewById(R.id.eTextAddress);
                 btn_cancel = mView.findViewById(R.id.btnCancel);
+
                 Button btn_submit4 = mView.findViewById(R.id.btnSubmit4);
                 Button btn_cancel4 = mView.findViewById(R.id.btnCancel4);
                 Button btn_submit3 = mView.findViewById(R.id.btnSubmit3);
                 Button btn_cancel3 = mView.findViewById(R.id.btnCancel3);
                 Button btn_submit2 = mView.findViewById(R.id.btnSubmit2);
                 Button btn_cancel2 = mView.findViewById(R.id.btnCancel2);
+                Button btn_submit5 = mView.findViewById(R.id.btnSubmit5);
+                Button btn_cancel5 = mView.findViewById(R.id.btnCancel5);
 
                 etName.setVisibility(GONE);
                 etPhone.setVisibility(GONE);
                 etAddress.setVisibility(GONE);
+                etDate.setVisibility(GONE);
                 btn_cancel.setVisibility(GONE);
                 btn_cancel4.setVisibility(GONE);
                 btn_cancel3.setVisibility(GONE);
                 btn_submit.setVisibility(GONE);
                 btn_submit4.setVisibility(GONE);
                 btn_submit3.setVisibility(GONE);
+                btn_submit5.setVisibility(GONE);
+                btn_cancel5.setVisibility(GONE);
 
                 btn_cancel2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -198,16 +300,20 @@ public class EditAccountFragment extends Fragment {
                 etPhone = mView.findViewById(R.id.eTextPhone);
                 etAddress = mView.findViewById(R.id.eTextAddress);
                 btn_cancel = mView.findViewById(R.id.btnCancel);
+                etDate = mView.findViewById(R.id.eTextDate);
                 Button btn_submit4 = mView.findViewById(R.id.btnSubmit4);
                 Button btn_cancel4 = mView.findViewById(R.id.btnCancel4);
                 Button btn_submit3 = mView.findViewById(R.id.btnSubmit3);
                 Button btn_cancel3 = mView.findViewById(R.id.btnCancel3);
                 Button btn_submit2 = mView.findViewById(R.id.btnSubmit2);
                 Button btn_cancel2 = mView.findViewById(R.id.btnCancel2);
+                Button btn_submit5 = mView.findViewById(R.id.btnSubmit5);
+                Button btn_cancel5 = mView.findViewById(R.id.btnCancel5);
 
                 etName.setVisibility(GONE);
                 etEmail.setVisibility(GONE);
                 etAddress.setVisibility(GONE);
+                etDate.setVisibility(GONE);
 
                 btn_cancel.setVisibility(GONE);
                 btn_cancel2.setVisibility(GONE);
@@ -215,6 +321,8 @@ public class EditAccountFragment extends Fragment {
                 btn_submit.setVisibility(GONE);
                 btn_submit2.setVisibility(GONE);
                 btn_submit4.setVisibility(GONE);
+                btn_submit5.setVisibility(GONE);
+                btn_cancel5.setVisibility(GONE);
 
                 btn_cancel3.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -254,6 +362,7 @@ public class EditAccountFragment extends Fragment {
                 etEmail = mView.findViewById(R.id.eTextEmail);
                 etPhone = mView.findViewById(R.id.eTextPhone);
                 etAddress = mView.findViewById(R.id.eTextAddress);
+                etDate = mView.findViewById(R.id.eTextDate);
                 btn_submit = mView.findViewById(R.id.btnSubmit);
                 btn_cancel = mView.findViewById(R.id.btnCancel);
                 Button btn_submit4 = mView.findViewById(R.id.btnSubmit4);
@@ -262,16 +371,21 @@ public class EditAccountFragment extends Fragment {
                 Button btn_cancel3 = mView.findViewById(R.id.btnCancel3);
                 Button btn_submit2 = mView.findViewById(R.id.btnSubmit2);
                 Button btn_cancel2 = mView.findViewById(R.id.btnCancel2);
+                Button btn_submit5 = mView.findViewById(R.id.btnSubmit5);
+                Button btn_cancel5 = mView.findViewById(R.id.btnCancel5);
 
                 etName.setVisibility(GONE);
                 etPhone.setVisibility(GONE);
                 etEmail.setVisibility(GONE);
+                etDate.setVisibility(GONE);
                 btn_cancel.setVisibility(GONE);
                 btn_cancel2.setVisibility(GONE);
                 btn_cancel3.setVisibility(GONE);
                 btn_submit.setVisibility(GONE);
                 btn_submit2.setVisibility(GONE);
                 btn_submit3.setVisibility(GONE);
+                btn_cancel5.setVisibility(GONE);
+                btn_submit5.setVisibility(GONE);
 
 
                 btn_cancel4.setOnClickListener(new View.OnClickListener() {
@@ -298,6 +412,58 @@ public class EditAccountFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void profileupdatedate() {
+        final JSONObject jobj = new JSONObject();
+        try {
+            jobj.put("email", date);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.postProfileUpdate, jobj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONObject jObj = response;
+                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+                getActivity().finish();
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                        }
+                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
+
+        strReq.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(strReq);
     }
 
     private void profileupdateemail() {
@@ -513,6 +679,8 @@ public class EditAccountFragment extends Fragment {
     }
 
     private void fillaccount2() {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
+        final DateFormat date = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getuserwithToken, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -522,8 +690,10 @@ public class EditAccountFragment extends Fragment {
                     etAddress.setText(jUser.getString("address"));
                     etEmail.setText(jUser.getString("email"));
                     etPhone.setText(jUser.getString("phone"));
+                    Date date_of_birth = date.parse(jUser.getString("date_of_birth"));
+                    etDate.setText(dateFormat.format(date_of_birth));
 
-                } catch (JSONException e) {
+                } catch (JSONException | ParseException e) {
                     e.printStackTrace();
                 }
             }
