@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
+import com.example.appdispatcher.InputFilterMinMax;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.VolleyMultipartRequest;
 import com.example.appdispatcher.util.server;
@@ -80,6 +82,7 @@ public class RequestFabFragment extends Fragment {
 
         etname = view.findViewById(R.id.eTextTask);
         etnominal = view.findViewById(R.id.eTextTask2);
+        etnominal.setFilters(new InputFilter[]{ new InputFilterMinMax(1, 999999999)});
         etreason = view.findViewById(R.id.eTextTask3);
         btn_upload = view.findViewById(R.id.btn_upload);
         tvIdJob = view.findViewById(R.id.tv_id_job);
