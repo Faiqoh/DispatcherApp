@@ -40,6 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class DetailPaymentFragment extends Fragment {
     public List<DetailPaymentViewModel> dpList = new ArrayList<>();
     DetailPaymentAdapter dpAdapter;
     ImageView iv_fto;
-    TextView tvjob, tv_idpayment;
+    TextView tvjob, tv_idpayment, tvnominal;
     ShimmerFrameLayout shimmerFrameLayout;
     ScrollView scrollView;
     RelativeLayout relativePayment;
@@ -82,6 +83,7 @@ public class DetailPaymentFragment extends Fragment {
         tv_idpayment = view.findViewById(R.id.tv_idpayment);
         progressBar = view.findViewById(R.id.progressBar1);
         cvFoto = view.findViewById(R.id.cardviewimage);
+        tvnominal = view.findViewById(R.id.nominal);
 
         iv_tf.setImageResource(R.drawable.bg_grey_awas_ae_sek_gak_iso);
 
@@ -105,6 +107,8 @@ public class DetailPaymentFragment extends Fragment {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
+        final Locale localeID = new Locale("in", "ID");
+        final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.VISIBLE);
         cvFoto.setVisibility(View.GONE);
@@ -128,6 +132,7 @@ public class DetailPaymentFragment extends Fragment {
                     detail.setFt_transfer(payment.getString("payment_invoice_URL"));
                     Glide.with(getActivity()).load(payment.getString("payment_invoice_URL")).into(iv_tf);
                     Glide.with(getActivity()).load(payment.getString("job_category_image")).into(iv_fto);
+                    tvnominal.setText(formatRupiah.format((Double.parseDouble(payment.getString("payment_nominal")))));
 
                     JSONArray progress = payment.getJSONArray("progress");
 
