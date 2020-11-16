@@ -41,6 +41,7 @@ import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.InputFilterMinMax;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.VolleyMultipartRequest;
+import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONException;
@@ -261,12 +262,10 @@ public class RequestFabFragment extends Fragment {
             @Override
             public void onResponse(NetworkResponse response) {
                 Log.i("response", response.toString());
-//                int LAUNCH_SECOND_ACTIVITY = 1;
-//                Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
-//                intent.putExtra(ID_JOB, id_job);
-//                intent.putExtra(GET_ID_JOB, "id_job_req_fab");
-//                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
-                getActivity().finish();
+                Intent a = new Intent(getContext(), ScrollingActivityDetailTask.class);
+                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(a);
+//                getActivity().finish();
             }
 
         },

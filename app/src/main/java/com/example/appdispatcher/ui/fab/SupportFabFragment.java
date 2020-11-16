@@ -38,6 +38,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.VolleyMultipartRequest;
+import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
 
 import org.json.JSONException;
@@ -252,7 +253,10 @@ public class SupportFabFragment extends Fragment {
 //                intent.putExtra(ID_JOB, id_job);
 //                intent.putExtra(GET_ID_JOB, "id_job_req_fab");
 //                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
-                getActivity().finish();
+                Intent a = new Intent(getContext(), ScrollingActivityDetailTask.class);
+                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(a);
+//                getActivity().finish();
             }
 
         },
