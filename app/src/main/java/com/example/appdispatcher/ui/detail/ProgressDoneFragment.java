@@ -303,7 +303,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             public void onResponse(JSONObject response) {
                 JSONObject jObj = response;
                 try {
-                    JSONArray jray = jObj.getJSONObject("job").getJSONArray("progress");
+                    JSONArray jray = jObj.getJSONArray("progress");
                     if (response.length() > 0) {
                         int no = 1;
                         String tempDetail_activity = "";

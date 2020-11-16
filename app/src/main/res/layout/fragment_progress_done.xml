@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:fitsSystemWindows="true"
-    app:ignore="NamespaceTypo">
+    app:ignore="NamespaceTypo"
+    android:id="@+id/progress_done_fragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
