@@ -45,6 +45,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
@@ -156,6 +157,7 @@ public class AccountFragment extends Fragment {
     private void fillaccount() {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         final DateFormat date = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         final Locale localeID = new Locale("in", "ID");
         final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
@@ -174,13 +176,13 @@ public class AccountFragment extends Fragment {
                     tvno.setText(jUser.getString("phone"));
                     tvaddress.setText(jUser.getString("address"));
                     Glide.with(getActivity()).load(jUser.getString("photo_image_url")).into(ivuser);
-                    Date join_date = inputFormat.parse(jUser.getString("date_of_join"));
-                    tvdate.setText(dateFormat.format(join_date));
                     tvjobs.setText(jUser.getString("job_engineer_count") + " Jobs");
                     tvskill.setText(jUser.getString("category_engineer"));
                     tvfee.setText(formatRupiah.format((Double.parseDouble(jUser.getString("fee_engineer_count")))));
                     Date date_of_birth = date.parse(jUser.getString("date_of_birth"));
                     tvdate_of_birth.setText(dateFormat.format(date_of_birth));
+                    Date join_date = inputFormat.parse(jUser.getString("date_of_join"));
+                    tvdate.setText(dateFormat.format(join_date));
 
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();
@@ -213,15 +215,15 @@ public class AccountFragment extends Fragment {
         requestQueue.add(strReq);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        shimmerFrameLayout.startShimmerAnimation();
-    }
-
-    @Override
-    public void onPause() {
-        shimmerFrameLayout.stopShimmerAnimation();
-        super.onPause();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        shimmerFrameLayout.startShimmerAnimation();
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        shimmerFrameLayout.stopShimmerAnimation();
+//        super.onPause();
+//    }
 }
