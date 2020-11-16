@@ -62,7 +62,7 @@ public class DetailPaymentFragment extends Fragment {
     RelativeLayout relativePayment;
     ProgressBar progressBar;
     PhotoView iv_tf;
-    CardView cvFoto;
+    CardView cvFoto, cvNominal;
 
     public static DetailPaymentFragment newInstance() {
         return new DetailPaymentFragment();
@@ -83,6 +83,7 @@ public class DetailPaymentFragment extends Fragment {
         tv_idpayment = view.findViewById(R.id.tv_idpayment);
         progressBar = view.findViewById(R.id.progressBar1);
         cvFoto = view.findViewById(R.id.cardviewimage);
+        cvNominal = view.findViewById(R.id.cvNominal);
         tvnominal = view.findViewById(R.id.nominal);
 
         iv_tf.setImageResource(R.drawable.bg_grey_awas_ae_sek_gak_iso);
@@ -112,6 +113,7 @@ public class DetailPaymentFragment extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.VISIBLE);
         cvFoto.setVisibility(View.GONE);
+        cvNominal.setVisibility(View.GONE);
 
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getdetailpayment_withToken + "?id_payment=" + id_payment, null, new Response.Listener<JSONObject>() {
             @Override
@@ -120,6 +122,7 @@ public class DetailPaymentFragment extends Fragment {
                 JSONObject jObj = response;
                 progressBar.setVisibility(View.GONE);
                 cvFoto.setVisibility(View.VISIBLE);
+                cvNominal.setVisibility(View.VISIBLE);
 
                 try {
                     JSONObject payment = jObj.getJSONObject("payment");
