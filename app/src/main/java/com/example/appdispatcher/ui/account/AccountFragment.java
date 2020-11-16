@@ -215,15 +215,15 @@ public class AccountFragment extends Fragment {
         requestQueue.add(strReq);
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        shimmerFrameLayout.startShimmerAnimation();
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        shimmerFrameLayout.stopShimmerAnimation();
-//        super.onPause();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
+    }
 }
