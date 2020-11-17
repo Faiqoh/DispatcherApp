@@ -10,6 +10,7 @@ public class server {
     public static final String getJobListSummary = "https://development.sinergy-dev.xyz:2096/dashboard/getJobListSumary/?id_job=1";
     public static final String getJobListSumm = url + "/dashboard/getJobListAndSumary";
     public static final String getAllCategory = url + "/dashboard/getJobCategoryAll";
+    public static final String getJobByEngineer = url + "/api/dashboard/getJobListAndSumaryEngineer";
 
     //Halaman detail
     public static final String getJobOpen = url + "/job/getJobOpen";

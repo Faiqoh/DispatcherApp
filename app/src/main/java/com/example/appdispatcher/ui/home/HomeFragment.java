@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -264,16 +265,11 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         requestQueue.add(strReq);
     }
 
-    private static String formatNumber(String number) {
-        DecimalFormat format = new DecimalFormat("###.###.##0,00");
-        return format.format(Double.parseDouble(number));
-    }
-
     private void fillDataListJob() {
         final Locale localeID = new Locale("in", "ID");
         final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobByEngineer, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
@@ -286,7 +282,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
                             JSONObject cat = jray.getJSONObject(i);
 
                             HomeViewModel itemCategory = new HomeViewModel();
-                            if (cat.getString("job_status").equals("Open")) {
                                 if (mList.size() < 5) {
                                     itemCategory.setJudul(cat.getJSONObject("category").getString("category_name"));
                                     itemCategory.setId_job(cat.getString("id"));
@@ -304,7 +299,6 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
 
                                     mList.add(itemCategory);
                                 }
-                            }
                         }
                         mAdapter.notifyDataSetChanged();
                     }
@@ -316,9 +310,30 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                error.printStackTrace();
+                NetworkResponse response = error.networkResponse;
+                String errorMsg = "";
+                if (response != null && response.data != null) {
+                    String errorString = new String(response.data);
+                    Log.i("log error", errorString);
+                }
+                Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
     }
