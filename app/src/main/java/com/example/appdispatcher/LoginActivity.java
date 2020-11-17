@@ -11,9 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,18 +22,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.util.server;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText ed1, ed2;
     SharedPreferences mSetting;
     String email, password;
+    public static Boolean validityToken = true;
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -51,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         b1 = findViewById(R.id.buttonSubmitLogin);
         ed1 = findViewById(R.id.editTextTextEmailAddress);
         ed2 = findViewById(R.id.editTextTextPassword);
@@ -59,12 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         mSetting = this.getSharedPreferences("Setting", Context.MODE_PRIVATE);
-
-        String Token_account = mSetting.getString("Token", "missing");
-        if (!Token_account.equals("missing")) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        }
-
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 //        });
 //    }
 
+
     private void login_function(final String email, final String password) {
         final ProgressDialog pd = new ProgressDialog(this, R.style.MyTheme);
         pd.setCancelable(false);
@@ -162,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = mSetting.edit();
                     editor.putString("Token", "Bearer " + jResponse.getString("token"));
                     editor.putString("ID", "id user" + jResponse.getString("id_user"));
+                    editor.putBoolean("isLoggedIn", true);
                     editor.apply();
                     Log.i("preferences_setting", String.valueOf(mSetting));
                     Log.i("preferences_setting", mSetting.getString("Token", "missing"));
