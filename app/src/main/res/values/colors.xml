@@ -12,6 +12,7 @@
     <color name="transparent">#00000000</color>
     <color name="blue">#48B0FF</color>
     <color name="red">#FF4848</color>
+    <color name="colorSplash">#defcff</color>
 
     <!-- dots active colors -->
     <color name="dot_light_screen1">#ffc800</color>

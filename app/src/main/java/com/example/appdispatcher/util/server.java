@@ -40,6 +40,7 @@ public class server {
 
     public static final String getUser_withToken = url + "/api/dashboard/getDashboard";
     public static final String login_url = url + "/api/api_login";
+    public static final String check_token = url + "/api/check_token";
     public static final String getJob_withToken = url + "/api/job/getJobByCategory";
     public static final String getpayment_withToken = url + "/api/payment/getJobPayment";
     public static final String JobStart_WithToken = url + "/api/job/postJobStart";

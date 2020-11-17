@@ -17,6 +17,14 @@
         android:roundIcon="@mipmap/freelance_logoaja_round_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -34,11 +42,11 @@
         <activity android:name=".ui.home.SeeAllActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
+<!--            <intent-filter>-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
 
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".MainActivity"
