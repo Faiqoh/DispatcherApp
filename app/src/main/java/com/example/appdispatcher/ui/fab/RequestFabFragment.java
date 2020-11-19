@@ -71,6 +71,7 @@ public class RequestFabFragment extends Fragment {
     ScrollView scrollView;
     private Bitmap bitmap;
     private String filePath, filaName;
+    private ProgressDialog pd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,6 +92,7 @@ public class RequestFabFragment extends Fragment {
         imgIdProf = view.findViewById(R.id.IdProf);
         textViewSelected = view.findViewById(R.id.textviewSelected);
         scrollView = view.findViewById(R.id.scrollingreqfab);
+        pd = new ProgressDialog(getActivity(), R.style.MyTheme);
         fillDetail(id_jobb);
 
         imgIdProf.setOnClickListener(new View.OnClickListener() {
@@ -251,7 +253,6 @@ public class RequestFabFragment extends Fragment {
     }
 
     private void submit(final Bitmap bitmap) {
-        ProgressDialog pd = new ProgressDialog(getActivity(), R.style.MyTheme);
         pd.setCancelable(false);
         pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         pd.show();
@@ -262,10 +263,13 @@ public class RequestFabFragment extends Fragment {
             @Override
             public void onResponse(NetworkResponse response) {
                 Log.i("response", response.toString());
-                Intent a = new Intent(getContext(), ScrollingActivityDetailTask.class);
-                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(a);
-//                getActivity().finish();
+                pd.dismiss();
+                Intent intent = getActivity().getIntent();
+                intent.putExtra(ID_JOB, id_job);
+                intent.putExtra(GET_ID_JOB, "id_job_progress");
+//                Log.i("id_job", id_job);
+                getActivity().setResult(1, intent);
+                getActivity().finish();
             }
 
         },
@@ -319,5 +323,13 @@ public class RequestFabFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(volleyMultipartRequest);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (pd != null && pd.isShowing()){
+            pd.dismiss();
+        }
+        super.onDestroy();
     }
 }

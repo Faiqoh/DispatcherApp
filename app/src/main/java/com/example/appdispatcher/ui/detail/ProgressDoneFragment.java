@@ -130,7 +130,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
                 Intent intent = new Intent(getContext(), FabActivity.class);
                 intent.putExtra(ID_JOB, tvidJob.getText().toString());
                 intent.putExtra(GET_ID_JOB, "id_job_request");
-                startActivity(intent);
+                getActivity().startActivityForResult(intent, 1);
                 floatingActionsMenu.collapse();
             }
         });
@@ -224,14 +224,9 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             @Override
             public void onClick(View view) {
 
-//                Intent intent = new Intent(getContext(), FabActivity.class);
-//                intent.putExtra(ID_JOB, tvidJob.getText().toString());
-//                intent.putExtra(GET_ID_JOB, "id_job_support");
-//                startActivity(intent);
                 Intent intent = new Intent(getContext(), FabActivity.class);
                 intent.putExtra(ID_JOB, tvidJob.getText().toString());
                 intent.putExtra(GET_ID_JOB, "id_job_support");
-//                startActivityForResult(intent, 1);
                 getActivity().startActivityForResult(intent, 1);
                 floatingActionsMenu.collapse();
             }
