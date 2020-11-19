@@ -65,7 +65,10 @@ public class SplashActivity extends AppCompatActivity {
                                 try {
                                     JSONObject jResponse = response.getJSONObject("response");
                                     if(jResponse.getString("success").equals("200")){
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        Intent a = new Intent(SplashActivity.this,MainActivity.class);
+                                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(a);
+//                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -78,7 +81,10 @@ public class SplashActivity extends AppCompatActivity {
                                 if (error.networkResponse.statusCode == 401){
                                     Toast toast = Toast.makeText(getApplicationContext(), "Your session is not valid, please try login one more time", Toast.LENGTH_LONG);
                                     toast.show();
-                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    Intent a = new Intent(SplashActivity.this,LoginActivity.class);
+                                    a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(a);
+//                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                 }
                             }
                         }){
@@ -95,7 +101,10 @@ public class SplashActivity extends AppCompatActivity {
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                     requestQueue.add(strReq);
                 } else {
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    Intent a = new Intent(SplashActivity.this,LoginActivity.class);
+                    a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(a);
+//                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
             }
         }, SPLASH_DISPLAY_LENGTH);
