@@ -305,9 +305,21 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
                                 progress.setDate(dateFormat.format(date_submit));
                                 floatingActionsMenu.setVisibility(View.GONE);
 
+//                                if (!pList.contains(progress)) {
+//                                    progress.setDay("Day " + no++);
+//                                    pList.add(progress);
+//                                }
+
                                 if (!pList.contains(progress)) {
+                                    tempDetail_activity = task.getString("detail_activity") + "\n";
+//                                    Log.i("tes detail activity1", "if");
+                                    progress.setDetail_activity(tempDetail_activity);
                                     progress.setDay("Day " + no++);
                                     pList.add(progress);
+                                } else {
+                                    tempDetail_activity += task.getString("detail_activity") + "\n";
+//                                        Log.i("tes detail activity3", "else");
+                                    pList.get(pList.size() - 1).setDetail_activity(tempDetail_activity);
                                 }
 
                             }
