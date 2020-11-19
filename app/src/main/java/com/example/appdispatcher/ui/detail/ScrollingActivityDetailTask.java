@@ -1,14 +1,18 @@
 package com.example.appdispatcher.ui.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail_project.DetailProjectFragment;
 import com.example.appdispatcher.ui.payment.DetailPaymentFragment;
@@ -44,7 +48,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
 
             floatingActionsMenu.setVisibility(View.GONE);
             floatingActionButton.setVisibility(View.GONE);
-        } else if (getJob.equals("id_job_progress") || getJob.equals("id_job_done") || getJob.equals("id_job_req_fab")) {
+        } else if (getJob.equals("id_job_progress") || getJob.equals("id_job_done")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new ProgressDoneFragment());
             ft.commit();
@@ -92,6 +96,25 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 1  && resultCode  == 1) {
+
+                String id_job = data.getStringExtra("id_job");
+                ProgressDoneFragment frag = (ProgressDoneFragment) getSupportFragmentManager().findFragmentById(R.id.pending_fragment);
+                frag.fillDetail(id_job);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

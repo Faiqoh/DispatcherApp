@@ -1,6 +1,7 @@
 package com.example.appdispatcher.ui.fab;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -38,6 +40,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.VolleyMultipartRequest;
+import com.example.appdispatcher.ui.detail.ProgressDoneFragment;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
 
@@ -66,6 +69,7 @@ public class SupportFabFragment extends Fragment {
     ScrollView scrollView;
     private Bitmap bitmap;
     private String filePath, fileName;
+    private ProgressDialog pd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +86,7 @@ public class SupportFabFragment extends Fragment {
         textViewSelected = view.findViewById(R.id.textviewSelected);
         scrollView = view.findViewById(R.id.scrollingsupfab);
         btn_upload = view.findViewById(R.id.btn_upload);
+        pd = new ProgressDialog(getActivity(), R.style.MyTheme);
 
         fillDetail(id_jobb);
 
@@ -198,7 +203,6 @@ public class SupportFabFragment extends Fragment {
         JsonObjectRequest StrReq = new JsonObjectRequest(Request.Method.GET, server.progreesjob_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-//                Log.i("response bisa", String.valueOf(response));
 
                 try {
                     JSONObject job = response.getJSONObject("job");
@@ -237,7 +241,6 @@ public class SupportFabFragment extends Fragment {
     }
 
     private void submit(final Bitmap bitmap) {
-        ProgressDialog pd = new ProgressDialog(getActivity(), R.style.MyTheme);
         pd.setCancelable(false);
         pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         pd.show();
@@ -248,15 +251,13 @@ public class SupportFabFragment extends Fragment {
             @Override
             public void onResponse(NetworkResponse response) {
                 Log.i("response", response.toString());
-//                int LAUNCH_SECOND_ACTIVITY = 1;
-//                Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
-//                intent.putExtra(ID_JOB, id_job);
-//                intent.putExtra(GET_ID_JOB, "id_job_req_fab");
-//                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
-                Intent a = new Intent(getContext(), ScrollingActivityDetailTask.class);
-                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(a);
-//                getActivity().finish();
+                pd.dismiss();
+                Intent intent = getActivity().getIntent();
+                intent.putExtra(ID_JOB, id_job);
+                intent.putExtra(GET_ID_JOB, "id_job_progress");
+//                Log.i("id_job", id_job);
+                getActivity().setResult(1, intent);
+                getActivity().finish();
             }
 
         },
@@ -309,5 +310,13 @@ public class SupportFabFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(volleyMultipartRequest);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (pd != null && pd.isShowing()){
+            pd.dismiss();
+        }
+        super.onDestroy();
     }
 }

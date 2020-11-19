@@ -74,6 +74,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
     public static final String ID_JOB = "id_job";
     public static final String GET_ID_JOB = "get_id_job";
+
     ImageView cat_backend;
     TextView textViewjob, textJobdesc, textRequirement, tvidUser, tvidJob, textview_mail, textview_share;
     EditText etTask;
@@ -199,11 +200,6 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
-
-        } else if (getJob.equals("id_job_req_fab")) {
-            String id_job = getActivity().getIntent().getStringExtra(RequestFabFragment.ID_JOB);
-            fillDetail(id_job);
-            Log.i("id_jobbsss", id_job);
         } else {
             DoneViewModel detail = (DoneViewModel) getActivity().getIntent().getSerializableExtra(DoneFragment.ID_JOB);
             String id_job = detail.getId_job();
@@ -228,10 +224,15 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             @Override
             public void onClick(View view) {
 
+//                Intent intent = new Intent(getContext(), FabActivity.class);
+//                intent.putExtra(ID_JOB, tvidJob.getText().toString());
+//                intent.putExtra(GET_ID_JOB, "id_job_support");
+//                startActivity(intent);
                 Intent intent = new Intent(getContext(), FabActivity.class);
                 intent.putExtra(ID_JOB, tvidJob.getText().toString());
                 intent.putExtra(GET_ID_JOB, "id_job_support");
-                startActivity(intent);
+//                startActivityForResult(intent, 1);
+                getActivity().startActivityForResult(intent, 1);
                 floatingActionsMenu.collapse();
             }
         });
@@ -262,6 +263,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
 
                 try {
                     JSONObject job = response.getJSONObject("job");
+                    JSONObject jObj = response;
 
                     JSONObject category = job.getJSONObject("category");
 
@@ -271,7 +273,53 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
                     tvidJob.setText(job.getString("id"));
                     Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
 
-                } catch (JSONException e) {
+                    JSONArray jray = jObj.getJSONArray("progress");
+                    pList.clear();
+                    if (response.length() > 0) {
+                        int no = 1;
+                        String tempDetail_activity = "";
+                        for (int i = 0; i < jray.length(); i++) {
+                            JSONObject task = jray.getJSONObject(i);
+                            if (task.getInt("id_activity") == 5) {
+
+                                ProgressDoneViewModel progress = new ProgressDoneViewModel();
+                                Date date_submit = inputFormat.parse(task.getString("date_time"));
+                                progress.setDate(dateFormat.format(date_submit));
+                                floatingActionsMenu.collapse();
+
+//                                Log.i("tes detail activity1", String.valueOf(task));
+
+                                if (!pList.contains(progress)) {
+                                    tempDetail_activity = task.getString("detail_activity") + "\n";
+//                                    Log.i("tes detail activity1", "if");
+                                    progress.setDetail_activity(tempDetail_activity);
+                                    progress.setDay("Day " + no++);
+                                    pList.add(progress);
+                                } else {
+                                        tempDetail_activity += task.getString("detail_activity") + "\n";
+//                                        Log.i("tes detail activity3", "else");
+                                        pList.get(pList.size() - 1).setDetail_activity(tempDetail_activity);
+                                }
+
+                            } else if (task.getInt("id_activity") == 6) {
+                                ProgressDoneViewModel progress = new ProgressDoneViewModel();
+
+                                Date date_submit = inputFormat.parse(task.getString("date_time"));
+                                progress.setDetail_activity(task.getString("detail_activity"));
+                                progress.setDate(dateFormat.format(date_submit));
+                                floatingActionsMenu.setVisibility(View.GONE);
+
+                                if (!pList.contains(progress)) {
+                                    progress.setDay("Day " + no++);
+                                    pList.add(progress);
+                                }
+
+                            }
+                            pAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                } catch (JSONException | ParseException e) {
                     e.printStackTrace();
                 }
             }
@@ -297,80 +345,6 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(StrReq);
-
-        JsonObjectRequest StrReq2 = new JsonObjectRequest(Request.Method.GET, server.progreesjob_withToken + "?id_job=" + id_job, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                JSONObject jObj = response;
-                try {
-                    JSONArray jray = jObj.getJSONArray("progress");
-                    if (response.length() > 0) {
-                        int no = 1;
-                        String tempDetail_activity = "";
-                        for (int i = 0; i < jray.length(); i++) {
-                            JSONObject task = jray.getJSONObject(i);
-                            if (task.getInt("id_activity") == 5) {
-
-                                ProgressDoneViewModel progress = new ProgressDoneViewModel();
-                                Date date_submit = inputFormat.parse(task.getString("date_time"));
-//                                tempDetail_activity = tempDetail_activity + task.getString("detail_activity") + "\n";
-                                progress.setDate(dateFormat.format(date_submit));
-                                floatingActionsMenu.collapse();
-
-                                if (!pList.contains(progress)) {
-                                    tempDetail_activity = task.getString("detail_activity") + "\n";
-                                    progress.setDetail_activity(tempDetail_activity);
-                                    progress.setDay("Day " + no++);
-                                    pList.add(progress);
-                                } else {
-                                    tempDetail_activity += task.getString("detail_activity") + "\n";
-                                    pList.get(pList.size() - 1).setDetail_activity(tempDetail_activity);
-                                }
-
-                            } else if (task.getInt("id_activity") == 6) {
-                                ProgressDoneViewModel progress = new ProgressDoneViewModel();
-
-                                Date date_submit = inputFormat.parse(task.getString("date_time"));
-                                progress.setDetail_activity(task.getString("detail_activity"));
-                                progress.setDate(dateFormat.format(date_submit));
-                                floatingActionsMenu.setVisibility(View.GONE);
-
-                                if (!pList.contains(progress)) {
-                                    progress.setDay("Day " + no++);
-                                    pList.add(progress);
-                                }
-
-                            }
-                            pAdapter.notifyDataSetChanged();
-                        }
-                    }
-                } catch (JSONException | ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("Accept", "applicaion/json");
-                // Barer di bawah ini akan di simpan local masing-masing device engineer
-                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-                headers.put("Authorization", mSetting.getString("Token", "missing"));
-                return headers;
-            }
-        };
-        RequestQueue requestQueue2 = Volley.newRequestQueue(getContext());
-        requestQueue2.add(StrReq2);
     }
 
     private void progressjob() {
