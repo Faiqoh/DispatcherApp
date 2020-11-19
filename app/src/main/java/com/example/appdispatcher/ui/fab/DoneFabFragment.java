@@ -80,6 +80,7 @@ public class DoneFabFragment extends Fragment {
     FloatingActionButton floatingActionsMenu;
     NestedScrollView nesteddetailtask;
     ScrollView scrollviewdone;
+    private ProgressDialog pd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,6 +101,7 @@ public class DoneFabFragment extends Fragment {
         floatingActionsMenu = getActivity().findViewById(R.id.fab_menu);
         nesteddetailtask = getActivity().findViewById(R.id.Nested_detail_task);
         scrollviewdone = view.findViewById(R.id.scrollviewdone);
+        pd = new ProgressDialog(getActivity(), R.style.MyTheme);
         fillDetail(id_jobb);
 
         imgIdProf.setOnClickListener(new View.OnClickListener() {
@@ -254,7 +256,6 @@ public class DoneFabFragment extends Fragment {
 
     private void submit(final Bitmap bitmap) {
 
-        ProgressDialog pd = new ProgressDialog(getActivity(), R.style.MyTheme);
         pd.setCancelable(false);
         pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         pd.show();
@@ -275,12 +276,13 @@ public class DoneFabFragment extends Fragment {
             @Override
             public void onResponse(NetworkResponse response) {
                 Log.i("response", response.toString());
-//                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-                Intent a = new Intent(getContext(), ScrollingActivityDetailTask.class);
-                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(a);
-//                getActivity().finish();
+                pd.dismiss();
+                Intent intent = getActivity().getIntent();
+                intent.putExtra(ID_JOB, id_job);
+                intent.putExtra(GET_ID_JOB, "id_job_progress");
+//                Log.i("id_job", id_job);
+                getActivity().setResult(1, intent);
+                getActivity().finish();
             }
 
         },
@@ -334,5 +336,13 @@ public class DoneFabFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(volleyMultipartRequest);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (pd != null && pd.isShowing()){
+            pd.dismiss();
+        }
+        super.onDestroy();
     }
 }

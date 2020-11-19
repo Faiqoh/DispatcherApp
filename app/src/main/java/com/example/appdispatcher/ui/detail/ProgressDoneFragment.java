@@ -127,11 +127,11 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         Request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), FabActivity.class);
-                intent.putExtra(ID_JOB, tvidJob.getText().toString());
-                intent.putExtra(GET_ID_JOB, "id_job_request");
-                getActivity().startActivityForResult(intent, 1);
-                floatingActionsMenu.collapse();
+            Intent intent = new Intent(getContext(), FabActivity.class);
+            intent.putExtra(ID_JOB, tvidJob.getText().toString());
+            intent.putExtra(GET_ID_JOB, "id_job_request");
+            getActivity().startActivityForResult(intent, 1);
+            floatingActionsMenu.collapse();
             }
         });
 
@@ -211,11 +211,11 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getContext(), FabActivity.class);
-                intent.putExtra(ID_JOB, tvidJob.getText().toString());
-                intent.putExtra(GET_ID_JOB, "id_job_done");
-                startActivity(intent);
-                floatingActionsMenu.collapse();
+            Intent intent = new Intent(getContext(), FabActivity.class);
+            intent.putExtra(ID_JOB, tvidJob.getText().toString());
+            intent.putExtra(GET_ID_JOB, "id_job_done");
+            getActivity().startActivityForResult(intent, 1);
+            floatingActionsMenu.collapse();
             }
         });
 
@@ -224,11 +224,11 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getContext(), FabActivity.class);
-                intent.putExtra(ID_JOB, tvidJob.getText().toString());
-                intent.putExtra(GET_ID_JOB, "id_job_support");
-                getActivity().startActivityForResult(intent, 1);
-                floatingActionsMenu.collapse();
+            Intent intent = new Intent(getContext(), FabActivity.class);
+            intent.putExtra(ID_JOB, tvidJob.getText().toString());
+            intent.putExtra(GET_ID_JOB, "id_job_support");
+            getActivity().startActivityForResult(intent, 1);
+            floatingActionsMenu.collapse();
             }
         });
 
