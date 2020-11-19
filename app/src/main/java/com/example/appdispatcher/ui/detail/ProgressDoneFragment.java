@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -360,13 +361,14 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
                 progressBarSubmit.setVisibility(View.GONE);
                 JSONObject jObj = response;
                 Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-//                startActivity(intent);
-//                int LAUNCH_SECOND_ACTIVITY = 1;
-//                Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
-//                intent.putExtra(ID_JOB, id_jobb);
-//                intent.putExtra(GET_ID_JOB, "id_job_req_fab");
-//                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
-                getActivity().finish();
+                Fragment frg = null;
+                frg = getFragmentManager().findFragmentById(R.id.pending_fragment);
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(frg);
+                ft.attach(frg);
+                ft.commit();
+
+//                getActivity().finish();
             }
         },
                 new Response.ErrorListener() {
