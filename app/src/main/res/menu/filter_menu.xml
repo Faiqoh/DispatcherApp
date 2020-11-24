@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <group android:id="@+id/filter">
-        <item
-            android:id="@+id/item_filter"
-            android:icon="@drawable/ic_outline_filter_list"
-            android:title="Item 1"
-            app:showAsAction="always" />
-    </group>
     <group android:id="@+id/notif">
         <item
             android:id="@+id/item_notif"
@@ -22,5 +15,18 @@
             android:icon="@drawable/ic_baseline_search_24"
             app:actionViewClass="android.widget.SearchView"
             app:showAsAction="always"/>
+    </group>
+    <group android:id="@+id/filter">
+        <item
+            android:id="@+id/item_filter"
+            android:icon="@drawable/ic_outline_filter_list"
+            android:title="Item 1"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/item_filter_date"
+            android:icon="@drawable/ic_baseline_filter_alt_24"
+            android:title="Item 1"
+            app:showAsAction="always" />
     </group>
 </menu>

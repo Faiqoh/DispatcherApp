@@ -202,6 +202,8 @@ public class HomeFragment extends Fragment implements JobListAdapter.JListAdapte
         super.onPrepareOptionsMenu(menu);
         MenuItem item3 = menu.findItem(R.id.item_filter);
         MenuItem item2 = menu.findItem(R.id.item_search);
+        MenuItem item4 = menu.findItem(R.id.item_filter_date);
+        item4.setVisible(false);
         item3.setVisible(false);
         item2.setVisible(false);
     }

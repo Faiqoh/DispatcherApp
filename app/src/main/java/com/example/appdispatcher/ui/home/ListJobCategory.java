@@ -31,7 +31,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.DetailJobCategoryAdapter;
+import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.ModalBottomSheet;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -102,6 +104,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.filter_menu, menu);
         MenuItem item = menu.findItem(R.id.item_search);
+        MenuItem item1 = menu.findItem(R.id.item_filter_date);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -117,6 +120,17 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
         });
 
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.item_filter_date) {
+            ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
+            modalBottomSheet.show(getFragmentManager(), "modal_filter_date");
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void filter(String s) {
