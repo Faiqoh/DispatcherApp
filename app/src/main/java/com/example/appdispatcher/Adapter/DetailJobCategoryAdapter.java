@@ -1,8 +1,11 @@
 package com.example.appdispatcher.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +18,8 @@ import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.home.HomeViewModel;
 import com.example.appdispatcher.ui.home.ListJobCategory;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCategoryAdapter.ViewHolder> {
@@ -22,7 +27,6 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
     List<HomeViewModel> categoryJob;
     DetailJobCategoryAdapter.CListAdapter mCListAdapter;
     private ListJobCategory context;
-
 
     public DetailJobCategoryAdapter(ListJobCategory context, List<HomeViewModel> recomendJob) {
         super();
@@ -40,7 +44,7 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
 
     @Override
     public void onBindViewHolder(@NonNull DetailJobCategoryAdapter.ViewHolder holder, int position) {
-        HomeViewModel recomend = categoryJob.get(position);
+        final HomeViewModel recomend = categoryJob.get(position);
         holder.tvJudul.setText(recomend.customer);
         Glide.with(context).load(recomend.getFoto()).into(holder.ivFoto);
         holder.tvLocation.setText(recomend.location);
@@ -54,11 +58,18 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
         if (categoryJob != null)
             return categoryJob.size();
         return 0;
+//        return filteredNameList.size();
     }
 
     public HomeViewModel getItem(int pos) {
         return categoryJob.get(pos);
     }
+
+    public void filterList(ArrayList<HomeViewModel> filteredList) {
+        categoryJob = filteredList;
+        notifyDataSetChanged();
+    }
+
 
     public interface CListAdapter {
         void doClick(int pos);

@@ -1,16 +1,22 @@
 package com.example.appdispatcher.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -88,6 +94,56 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
         }
 
         return root;
+    }
+
+
+    @SuppressLint("ResourceType")
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.filter_menu, menu);
+        MenuItem item = menu.findItem(R.id.item_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filter(s);
+                return true;
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void filter(String s) {
+        ArrayList<HomeViewModel> filteredList = new ArrayList<>();
+        for (HomeViewModel item : cList) {
+            if (item.getJob_name().toLowerCase().contains(s.toLowerCase()) || item.getCustomer().toLowerCase().contains(s.toLowerCase()) ||
+                item.getCategory_name().toLowerCase().contains(s.toLowerCase()) || item.getLocation().toLowerCase().contains(s.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        cAdapter.filterList(filteredList);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item3 = menu.findItem(R.id.item_notif);
+        MenuItem item2 = menu.findItem(R.id.item_filter);
+        item2.setVisible(false);
+        item3.setVisible(false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     private void fillData() {

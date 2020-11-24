@@ -15,4 +15,12 @@
             android:title="Notif"
             app:showAsAction="always" />
     </group>
+    <group android:id="@+id/search">
+        <item
+            android:id="@+id/item_search"
+            android:title="Search"
+            android:icon="@drawable/ic_baseline_search_24"
+            app:actionViewClass="android.widget.SearchView"
+            app:showAsAction="always"/>
+    </group>
 </menu>
