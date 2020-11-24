@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="Please select date"
         android:layout_centerHorizontal="true"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:id="@+id/tv_judul"/>
 
@@ -17,18 +17,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_judul"
-        android:layout_margin="20dp"
+        android:layout_margin="30dp"
         android:id="@+id/rvdate"
         android:layout_centerHorizontal="true">
 
-        <EditText
-            android:layout_width="150dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date_start"
             android:hint="Select start date"/>
 
-        <EditText
-            android:layout_width="150dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date_end"
             android:hint="Select end date"
