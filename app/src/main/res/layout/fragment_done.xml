@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/imgNotFound"
                 android:layout_centerHorizontal="true"
-                android:text="Nothing Job Done..."
+                android:text="No Job Done..."
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textNotfound"
                 android:gravity="center_horizontal"
-                android:text="Your Job almost finish"
+                android:text="Please Finish Your Job"
                 android:textStyle="bold" />
 
         </RelativeLayout>

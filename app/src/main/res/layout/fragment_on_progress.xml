@@ -58,8 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/imgNotFound"
-                android:layout_marginHorizontal="60dp"
-                android:text="Nothing Job On Progress..."
+                android:layout_centerHorizontal="true"
+                android:text="No Job On Progress..."
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
@@ -67,8 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textNotfound"
-                android:layout_marginHorizontal="80dp"
-                android:text="Please Starting Your Job"
+                android:gravity="center_horizontal"
+                android:text="Please Start Your Job"
                 android:textStyle="bold" />
 
         </RelativeLayout>

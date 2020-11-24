@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_alignBottom="@+id/imgNotFound"
-                android:text="Nothing Job Applied...."
+                android:text="No Job Applied..."
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
@@ -67,8 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textNotfound"
-                android:layout_marginHorizontal="80dp"
-                android:text="Please Apply On Your Jobdesk"
+                android:gravity="center_horizontal"
+                android:text="Please Apply Job"
                 android:textStyle="bold" />
 
         </RelativeLayout>

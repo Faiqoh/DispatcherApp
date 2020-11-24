@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_alignBottom="@+id/imgNotFound"
-                android:text="Nothing Job Accepted...."
+                android:text="No Job Accepted..."
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
