@@ -51,6 +51,8 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
         holder.tvIdJob.setText(recomend.id_job);
         holder.tvNameCategory.setText(recomend.category_name);
         holder.tvJobname.setText(recomend.job_name);
+        holder.tvend_date.setText(recomend.end_date);
+        holder.tvstart_date.setText(recomend.start_date);
     }
 
     @Override
@@ -77,7 +79,7 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvLocation, tvIdJob, tvNameCategory, tvJobname;
+        TextView tvJudul, tvLocation, tvIdJob, tvNameCategory, tvJobname, tvstart_date, tvend_date;
         RelativeLayout RLlistjob;
 
         public ViewHolder(View itemView) {
@@ -89,6 +91,8 @@ public class DetailJobCategoryAdapter extends RecyclerView.Adapter<DetailJobCate
             tvIdJob = itemView.findViewById(R.id.TvIdJob);
             tvNameCategory = itemView.findViewById(R.id.category_name);
             tvJobname = itemView.findViewById(R.id.jobname);
+            tvstart_date = itemView.findViewById(R.id.start_date);
+            tvend_date = itemView.findViewById(R.id.end_date);
 
             RLlistjob.setOnClickListener(new View.OnClickListener() {
                 @Override

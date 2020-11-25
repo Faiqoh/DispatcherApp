@@ -42,14 +42,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListJobCategory extends Fragment implements DetailJobCategoryAdapter.CListAdapter {
+public class ListJobCategory extends Fragment implements DetailJobCategoryAdapter.CListAdapter, ModalBottomSheet.ActionListener {
+
+    public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
 
     public static final String ID_JOB = "id_job";
     public static final String GET_ID_JOB_CATEGORY = "get_id_job_category";
@@ -128,6 +136,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
 
         if (id == R.id.item_filter_date) {
             ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
+            modalBottomSheet.setActionListener((ModalBottomSheet.ActionListener) getActivity());
             modalBottomSheet.show(getFragmentManager(), "modal_filter_date");
         }
         return super.onOptionsItemSelected(item);
@@ -161,6 +170,9 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     }
 
     private void fillData() {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
+        final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobByEngineer, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -175,6 +187,9 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
 
+                            Date date_start = inputFormat.parse(cat.getString("date_start"));
+                            Date date_end = inputFormat.parse(cat.getString("date_end"));
+
                             HomeViewModel itemCategory = new HomeViewModel();
                             itemCategory.setId_job(cat.getString("id"));
                             itemCategory.setCategory_name(cat.getJSONObject("category").getString("category_name"));
@@ -182,12 +197,14 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                             itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
                             itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
                             itemCategory.setJob_name(cat.getString("job_name"));
+                            itemCategory.setEnd_date(dateFormat.format(date_end));
+                            itemCategory.setStart_date(dateFormat.format(date_start));
 
                             cList.add(itemCategory);
                         }
                         cAdapter.notifyDataSetChanged();
                     }
-                } catch (JSONException e) {
+                } catch (JSONException | ParseException e) {
                     e.printStackTrace();
                 }
 
@@ -297,5 +314,10 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     public void onPause() {
         shimmerFrameLayout.stopShimmerAnimation();
         super.onPause();
+    }
+
+    @Override
+    public void onButtonClick(int id) {
+
     }
 }

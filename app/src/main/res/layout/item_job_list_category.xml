@@ -22,8 +22,8 @@
             <ImageView
                 android:layout_margin="20dp"
                 android:id="@+id/imageViewlistjob"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
                 android:scaleType="centerInside"
                 android:src="@drawable/android" />
 
@@ -71,6 +71,20 @@
                     android:layout_marginTop="5dp"
                     android:text="see more.."
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:visibility="gone"
