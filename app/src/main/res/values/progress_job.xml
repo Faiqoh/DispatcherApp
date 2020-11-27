@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="progress_job">
-        <item>Waiting</item>
-        <item>On Progress</item>
-        <item>Migrate</item>
-        <item>Troubleshoot</item>
-        <item>Monitor</item>
+        <item>Please select progress job</item>
+<!--        <item>Waiting</item>-->
+<!--        <item>On Progress</item>-->
+<!--        <item>Migrate</item>-->
+<!--        <item>Troubleshoot</item>-->
+<!--        <item>Monitor</item>-->
+        <item>Backup semua switch existing</item>
+        <item>Dokumentasi foto  switch Existing</item>
+        <item>Pelabelan kabel</item>
+        <item>Pre-UAT</item>
+        <item>Migrasi Switch Aggregate</item>
+        <item>Migrasi Switch Access</item>
+        <item>Final UAT</item>
+        <item>Dokumentasi Foto Switch Baru</item>
+        <item>Penuntasan Dokumen Administrasi</item>
     </string-array>
 </resources>
