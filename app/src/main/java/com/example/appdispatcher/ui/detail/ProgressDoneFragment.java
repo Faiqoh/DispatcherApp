@@ -140,58 +140,63 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         Progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                String[] progress_job = { "Waiting", "On Progress", "Migrate", "Troubleshoot", "Monitor"};
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-                View mView = getLayoutInflater().inflate(R.layout.activity_request, null);
-                mBuilder.setView(mView);
-                final AlertDialog dialog = mBuilder.create();
-                dialog.show();
+                Intent intent = new Intent(getContext(), FabActivity.class);
+                intent.putExtra(ID_JOB, tvidJob.getText().toString());
+                intent.putExtra(GET_ID_JOB, "id_progress_job");
+                getActivity().startActivityForResult(intent, 1);
                 floatingActionsMenu.collapse();
-                btn_submit = mView.findViewById(R.id.btnSubmit);
-                etTask = mView.findViewById(R.id.eTextTask);
-                spinner = mView.findViewById(R.id.spinner_progress);
-
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mView.getContext(), R.array.progress_job,
-                        android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-                spinner.setAdapter(adapter);
-
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
-                    {
-                        String selected = parentView.getItemAtPosition(position).toString();
-                        Context context = parentView.getContext();
-                        CharSequence text = selected;
-                        int duration = Toast.LENGTH_SHORT;
-
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        // your code here
-                    }
-                });
-
-                btn_submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        id_user = tvidUser.getText().toString().trim();
-                        id_jobb = tvidJob.getText().toString().trim();
-                        detail_activity = etTask.getText().toString().trim();
-                        if (etTask.getText().toString().length() == 0) {
-                            etTask.setError("Task Should not be empty!");
-                        } else {
-                            progressjob();
-                            dialog.dismiss();
-                        }
-                    }
-
-                });
+//                String[] progress_job = { "Waiting", "On Progress", "Migrate", "Troubleshoot", "Monitor"};
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+//                View mView = getLayoutInflater().inflate(R.layout.activity_request, null);
+//                mBuilder.setView(mView);
+//                final AlertDialog dialog = mBuilder.create();
+//                dialog.show();
+//                floatingActionsMenu.collapse();
+//                btn_submit = mView.findViewById(R.id.btnSubmit);
+//                etTask = mView.findViewById(R.id.eTextTask);
+//                spinner = mView.findViewById(R.id.spinner_progress);
+//
+//                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mView.getContext(), R.array.progress_job,
+//                        android.R.layout.simple_spinner_item);
+//                adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//                spinner.setAdapter(adapter);
+//
+//                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+//                {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
+//                    {
+//                        String selected = parentView.getItemAtPosition(position).toString();
+//                        Context context = parentView.getContext();
+//                        CharSequence text = selected;
+//                        int duration = Toast.LENGTH_SHORT;
+//
+//                        Toast toast = Toast.makeText(context, text, duration);
+//                        toast.show();
+//
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> parentView) {
+//                        // your code here
+//                    }
+//                });
+//
+//                btn_submit.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        id_user = tvidUser.getText().toString().trim();
+//                        id_jobb = tvidJob.getText().toString().trim();
+//                        detail_activity = etTask.getText().toString().trim();
+//                        if (etTask.getText().toString().length() == 0) {
+//                            etTask.setError("Task Should not be empty!");
+//                        } else {
+//                            progressjob();
+//                            dialog.dismiss();
+//                        }
+//                    }
+//
+//                });
 
             }
 
@@ -355,122 +360,69 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         requestQueue.add(StrReq);
     }
 
-    private void progressjob() {
-        progressBarSubmit.getIndeterminateDrawable().setColorFilter(getActivity().getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
-        progressBarSubmit.setVisibility(View.VISIBLE);
-        floatingActionsMenu.setVisibility(View.GONE);
-        final JSONObject jobj = new JSONObject();
-        try {
-            jobj.put("id_job", id_jobb);
-            jobj.put("detail_activity", detail_activity);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.postJobUpdate_withToken, jobj, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                progressBarSubmit.setVisibility(View.GONE);
-                JSONObject jObj = response;
-                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-                Fragment frg = null;
-                frg = getFragmentManager().findFragmentById(R.id.pending_fragment);
-                final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.detach(frg);
-                ft.attach(frg);
-                ft.commit();
-
-//                getActivity().finish();
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        NetworkResponse response = error.networkResponse;
-                        String errorMsg = "";
-                        if (response != null && response.data != null) {
-                            String errorString = new String(response.data);
-                            Log.i("log error", errorString);
-                        }
-                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("Accept", "applicaion/json");
-                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-                headers.put("Authorization", mSetting.getString("Token", "missing"));
-                return headers;
-            }
-        };
-
-        strReq.setRetryPolicy(new DefaultRetryPolicy(
-                0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
-    }
-
-    private void donejob() {
-        final JSONObject jobj = new JSONObject();
-        try {
-            jobj.put("id_job", id_jobb);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.jobdone_withToken, jobj, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.i("response", response.toString());
-                JSONObject jObj = response;
-                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
-                /*Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);*/
-                getActivity().finish();
-
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        NetworkResponse response = error.networkResponse;
-                        String errorMsg = "";
-                        if (response != null && response.data != null) {
-                            String errorString = new String(response.data);
-                            Log.i("log error", errorString);
-                        }
-                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("Accept", "applicaion/json");
-                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-                headers.put("Authorization", mSetting.getString("Token", "missing"));
-                return headers;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(strReq);
-    }
+//    private void progressjob() {
+//        progressBarSubmit.getIndeterminateDrawable().setColorFilter(getActivity().getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+//        progressBarSubmit.setVisibility(View.VISIBLE);
+//        floatingActionsMenu.setVisibility(View.GONE);
+//        final JSONObject jobj = new JSONObject();
+//        try {
+//            jobj.put("id_job", id_jobb);
+//            jobj.put("detail_activity", detail_activity);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        final JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST, server.postJobUpdate_withToken, jobj, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                progressBarSubmit.setVisibility(View.GONE);
+//                JSONObject jObj = response;
+//                Toast.makeText(getActivity(), "Successfully :)", Toast.LENGTH_LONG).show();
+//                Fragment frg = null;
+//                frg = getFragmentManager().findFragmentById(R.id.pending_fragment);
+//                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                ft.detach(frg);
+//                ft.attach(frg);
+//                ft.commit();
+//
+////                getActivity().finish();
+//            }
+//        },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        error.printStackTrace();
+//                        NetworkResponse response = error.networkResponse;
+//                        String errorMsg = "";
+//                        if (response != null && response.data != null) {
+//                            String errorString = new String(response.data);
+//                            Log.i("log error", errorString);
+//                        }
+//                        Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }) {
+//
+//            /**
+//             * Passing some request headers
+//             */
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                HashMap<String, String> headers = new HashMap<String, String>();
+//                //headers.put("Content-Type", "application/json");
+//                headers.put("Accept", "applicaion/json");
+//                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+//                headers.put("Authorization", mSetting.getString("Token", "missing"));
+//                return headers;
+//            }
+//        };
+//
+//        strReq.setRetryPolicy(new DefaultRetryPolicy(
+//                0,
+//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//        requestQueue.add(strReq);
+//    }
 
     @Override
     public void onResume() {

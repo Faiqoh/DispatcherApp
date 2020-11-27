@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.appdispatcher.ui.account.DetailAccountFragment;
 import com.example.appdispatcher.ui.account.EditAccountFragment;
 import com.example.appdispatcher.ui.fab.DoneFabFragment;
+import com.example.appdispatcher.ui.fab.ProgressJobFabFragment;
 import com.example.appdispatcher.ui.fab.RequestFabFragment;
 import com.example.appdispatcher.ui.fab.SupportFabFragment;
 import com.example.appdispatcher.ui.home.NotifFragment;
@@ -61,6 +62,11 @@ public class FabActivity extends AppCompatActivity {
             ft.replace(R.id.fab_fragment, new EditAccountFragment());
             ft.commit();
             getSupportActionBar().setTitle("Edit Profile");
+        } else if (getJob.equals("id_progress_job")){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fab_fragment, new ProgressJobFabFragment());
+            ft.commit();
+            getSupportActionBar().setTitle("Form Progress Job");
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
