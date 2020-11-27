@@ -1,10 +1,12 @@
 package com.example.appdispatcher.ui.home;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,8 +14,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,20 +37,25 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.DetailJobCategoryAdapter;
 import com.example.appdispatcher.FabActivity;
+import com.example.appdispatcher.PrefManager;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.ModalBottomSheet;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -55,9 +65,9 @@ import java.util.TimeZone;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListJobCategory extends Fragment implements DetailJobCategoryAdapter.CListAdapter, ModalBottomSheet.ActionListener {
+public class ListJobCategory extends Fragment implements DetailJobCategoryAdapter.CListAdapter {
 
-    public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
+    public static final String DATE_FORMAT_5 = "yyyy-MM-dd";
 
     public static final String ID_JOB = "id_job";
     public static final String GET_ID_JOB_CATEGORY = "get_id_job_category";
@@ -67,6 +77,8 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
     RelativeLayout rvNotFound;
+    private PrefManager prefManager;
+    String end_date, start_date;
 
     public ListJobCategory() {
         // Required empty public constructor
@@ -112,7 +124,6 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.filter_menu, menu);
         MenuItem item = menu.findItem(R.id.item_search);
-        MenuItem item1 = menu.findItem(R.id.item_filter_date);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -133,13 +144,89 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         if (id == R.id.item_filter_date) {
-            ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
-            modalBottomSheet.setActionListener((ModalBottomSheet.ActionListener) getActivity());
-            modalBottomSheet.show(getFragmentManager(), "modal_filter_date");
+            final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getActivity());
+            View sheetView = getActivity().getLayoutInflater().inflate(R.layout.modal_filter_date, null);
+            mBottomSheetDialog.setContentView(sheetView);
+            mBottomSheetDialog.show();
+            final TextView date_start = (TextView) sheetView.findViewById(R.id.date_start);
+            final TextView date_end = (TextView) sheetView.findViewById(R.id.date_end);
+            final Button btn_submit = (Button) sheetView.findViewById(R.id.btn_submit);
+            date_start.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Calendar newCalendar = Calendar.getInstance();
+
+                    DatePickerDialog dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            Calendar newDate = Calendar.getInstance();
+                            newDate.set(year, monthOfYear, dayOfMonth);
+                            date_start.setText(dateFormatter.format(newDate.getTime()));
+                            start_date = date_start.getText().toString().trim();
+                        }
+
+                    },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                    dpd.show();
+                }
+            });
+
+            date_end.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Calendar newCalendar = Calendar.getInstance();
+
+                    DatePickerDialog dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            Calendar newDate = Calendar.getInstance();
+                            newDate.set(year, monthOfYear, dayOfMonth);
+                            date_end.setText(dateFormatter.format(newDate.getTime()));
+                            end_date = date_end.getText().toString().trim();
+                        }
+
+                    },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                    dpd.show();
+                }
+            });
+
+            btn_submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        filterdate();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    mBottomSheetDialog.dismiss();
+                }
+            });
+
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void filterdate() throws ParseException {
+        ArrayList<HomeViewModel> filteredList = new ArrayList<>();
+
+        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        Date start_date_format = dateFormatter.parse(start_date);
+        Date end_date_format = dateFormatter.parse(end_date);
+
+        for (HomeViewModel item : cList) {
+            Date start_date_format2 = dateFormatter.parse(item.start_date);
+            Date end_date_format2 = dateFormatter.parse(item.end_date);
+
+            if ((start_date_format.compareTo(start_date_format2) * start_date_format2.compareTo(end_date_format) >= 0) && (start_date_format.compareTo(end_date_format2) * end_date_format2.compareTo(end_date_format) >= 0)){
+                filteredList.add(item);
+            }
+        }
+
+        cAdapter.filterList(filteredList);
     }
 
     private void filter(String s) {
@@ -314,10 +401,5 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     public void onPause() {
         shimmerFrameLayout.stopShimmerAnimation();
         super.onPause();
-    }
-
-    @Override
-    public void onButtonClick(int id) {
-
     }
 }
