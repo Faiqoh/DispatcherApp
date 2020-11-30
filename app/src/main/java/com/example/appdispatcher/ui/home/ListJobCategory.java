@@ -49,6 +49,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -168,6 +169,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                             newDate.set(year, monthOfYear, dayOfMonth);
                             date_start.setText(dateFormatter.format(newDate.getTime()));
                             start_date = date_start.getText().toString().trim();
+                            date_start.setError(null);
                         }
 
                     },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -188,6 +190,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                             newDate.set(year, monthOfYear, dayOfMonth);
                             date_end.setText(dateFormatter.format(newDate.getTime()));
                             end_date = date_end.getText().toString().trim();
+                            date_end.setError(null);
                         }
 
                     },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -199,11 +202,18 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
                 @Override
                 public void onClick(View view) {
                     try {
-                        filterdate();
+                        if (date_start.getText().toString().equals("Select start date")) {
+                            date_start.setError("Please select start date");
+                        } else if (date_end.getText().toString().equals("Select end date")) {
+                            date_end.setError("Please select end date");
+                        } else {
+                            filterdate();
+                            mBottomSheetDialog.dismiss();
+                        }
+
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    mBottomSheetDialog.dismiss();
                 }
             });
 

@@ -25,13 +25,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date_start"
-            android:hint="Select start date"/>
+            android:text="Select start date"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date_end"
-            android:hint="Select end date"
+            android:text="Select end date"
             android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
