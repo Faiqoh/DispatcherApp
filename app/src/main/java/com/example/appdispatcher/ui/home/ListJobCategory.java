@@ -76,7 +76,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     DetailJobCategoryAdapter cAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
-    RelativeLayout rvNotFound;
+    RelativeLayout rvNotFound, rvJobList;
     private PrefManager prefManager;
     String end_date, start_date;
 
@@ -97,6 +97,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
         shimmerFrameLayout = root.findViewById(R.id.shimer_view_detail_job_list);
         nestedScrollView = root.findViewById(R.id.nested_detail_job_list);
         rvNotFound = root.findViewById(R.id.RvNotFound);
+        rvJobList = root.findViewById(R.id.rvJobList);
 
         // Inflate the layout for this fragment
         RecyclerView recyclerView2 = root.findViewById(R.id.recyclerViewlistJobCategory);
@@ -223,6 +224,13 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
 
             if ((start_date_format.compareTo(start_date_format2) * start_date_format2.compareTo(end_date_format) >= 0) && (start_date_format.compareTo(end_date_format2) * end_date_format2.compareTo(end_date_format) >= 0)){
                 filteredList.add(item);
+            }
+
+            if (filteredList.size() > 0) {
+                rvNotFound.setVisibility(View.GONE);
+                rvJobList.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+            } else {
+                rvNotFound.setVisibility(View.VISIBLE);
             }
         }
 
