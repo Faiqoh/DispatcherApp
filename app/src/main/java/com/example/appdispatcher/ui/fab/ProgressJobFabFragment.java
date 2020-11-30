@@ -164,6 +164,8 @@ public class ProgressJobFabFragment extends Fragment {
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
                     errorText.setText("Please select progress job");
+                } else if (filePath == null) {
+                    Toast.makeText(getActivity(), "Image Item Should not be empty!", Toast.LENGTH_SHORT).show();
                 } else if (filePath != null) {
                     File file = new File(filePath);
                     if (file.length() > 10000000) {
