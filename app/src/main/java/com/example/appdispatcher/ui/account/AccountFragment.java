@@ -191,7 +191,7 @@ public class AccountFragment extends Fragment {
     private void fillaccount() {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+//        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         final DateFormat date = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         final Locale localeID = new Locale("in", "ID");
         final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
