@@ -1,13 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fab.RequestDoneFabFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".FabActivity">
 
-    <TextView
+    <ScrollView
+        android:id="@+id/scrollingreqfab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_10">
+
+            <TextView
+                android:id="@+id/submit_request_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/padding_10"
+                android:text="SUBMIT REQUEST"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:text="This form is submit by your request!" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CV1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentPadding="@dimen/padding_10">
+
+                <TextView
+                    android:id="@+id/tvNama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Name" />
+
+                <TextView
+                    android:id="@+id/tvNama2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundedblack"
+                    android:maxHeight="200dp"
+                    android:padding="20dp"
+                    android:textSize="13dp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CV2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/CV1"
+                app:contentPadding="@dimen/padding_10">
+
+                <TextView
+                    android:id="@+id/tvNominal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Nominal" />
+
+                <TextView
+                    android:id="@+id/tvNominal2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvRoot"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundedblack"
+                    android:maxHeight="200dp"
+                    android:padding="20dp"
+                    android:textSize="13dp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CV3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentPadding="@dimen/padding_10">
+
+                <TextView
+                    android:id="@+id/tvAlasan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Reason" />
+
+                <TextView
+                    android:id="@+id/tvAlasan2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/eTextTask2"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundedblack"
+                    android:maxHeight="200dp"
+                    android:padding="20dp"
+                    android:textSize="13dp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CV4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentPadding="@dimen/padding_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPicture"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/eTextTask3"
+                        android:text=" Picture" />
+
+                    <ImageView
+                        android:layout_marginTop="@dimen/padding_10"
+                        android:backgroundTint="@color/white"
+                        android:id="@+id/imgUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@+id/eTextTask3"
+                        android:layout_toEndOf="@+id/tvUpload"
+                        android:layout_toRightOf="@+id/tvUpload" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CV5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentPadding="@dimen/padding_10">
+
+                <TextView
+                    android:id="@+id/tvNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Note" />
+
+                <EditText
+                    android:id="@+id/etNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/eTextTask2"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundedblack"
+                    android:hint="Add Note Here..."
+                    android:inputType="textMultiLine"
+                    android:maxHeight="400dp"
+                    android:minLines="2"
+                    android:padding="20dp"
+                    android:textSize="13dp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CV6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentPadding="@dimen/padding_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/eTextTask3"
+                        android:text=" Upload picture" />
+
+                    <ImageView
+                        android:layout_marginTop="@dimen/padding_10"
+                        android:backgroundTint="@color/white"
+                        android:id="@+id/IdProf"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@+id/eTextTask3"
+                        android:layout_toEndOf="@+id/tvUpload"
+                        android:layout_toRightOf="@+id/tvUpload"
+                        android:src="@drawable/group_347" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Just JPEG, PNG are accepted"
+                        android:textColor="@color/red"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Image size should be within 10 mb"
+                        android:textColor="@color/red"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/textviewSelected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:hint="No Image Selected"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+
+                    <Button
+                        android:id="@+id/btn_upload"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/IdProf"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/roundedbutton"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="SUBMIT"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_id_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/IdProf"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
