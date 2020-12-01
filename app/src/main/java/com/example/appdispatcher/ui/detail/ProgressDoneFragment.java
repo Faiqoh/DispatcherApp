@@ -77,7 +77,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
     public static final String GET_ID_JOB = "get_id_job";
 
     ImageView cat_backend;
-    TextView textViewjob, textJobdesc, textRequirement, tvidUser, tvidJob, textview_mail, textview_share;
+    TextView textViewjob, textJobdesc, textRequirement, tvidUser, tvidJob, textview_mail, textview_share, tv_status_request;
     EditText etTask;
     Button btn_submit, btn_download;
     ProgressTaskAdapter pAdapter;
@@ -117,6 +117,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         floatingActionsMenu = getActivity().findViewById(R.id.fab_menu);
         NesteddetailTask = getActivity().findViewById(R.id.Nested_detail_task);
         appBarLayout = getActivity().findViewById(R.id.app_bar);
+        tv_status_request = root.findViewById(R.id.tv_status_request);
 
         final RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -128,11 +129,19 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         Request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Intent intent = new Intent(getContext(), FabActivity.class);
-            intent.putExtra(ID_JOB, tvidJob.getText().toString());
-            intent.putExtra(GET_ID_JOB, "id_job_request");
-            getActivity().startActivityForResult(intent, 1);
-            floatingActionsMenu.collapse();
+                if (tv_status_request.getText().toString().equals("Done")){
+                    Intent intent = new Intent(getContext(), FabActivity.class);
+                    intent.putExtra(ID_JOB, tvidJob.getText().toString());
+                    intent.putExtra(GET_ID_JOB, "id_job_request_done");
+                    getActivity().startActivityForResult(intent, 1);
+                    floatingActionsMenu.collapse();
+                } else {
+                    Intent intent = new Intent(getContext(), FabActivity.class);
+                    intent.putExtra(ID_JOB, tvidJob.getText().toString());
+                    intent.putExtra(GET_ID_JOB, "id_job_request");
+                    getActivity().startActivityForResult(intent, 1);
+                    floatingActionsMenu.collapse();
+                }
             }
         });
 
@@ -267,12 +276,14 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
                     JSONObject jObj = response;
 
                     JSONObject category = job.getJSONObject("category");
+                    JSONObject history_request = job.getJSONObject("latest_job_request");
 
                     textViewjob.setText(job.getString("job_name"));
                     textJobdesc.setText(job.getString("job_description"));
                     textRequirement.setText(job.getString("job_requrment"));
                     tvidJob.setText(job.getString("id"));
                     Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
+                    tv_status_request.setText(history_request.getString("status_item"));
 
                     JSONArray jray = jObj.getJSONArray("progress");
                     pList.clear();

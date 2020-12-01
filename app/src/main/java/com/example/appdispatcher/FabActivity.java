@@ -11,6 +11,7 @@ import com.example.appdispatcher.ui.account.DetailAccountFragment;
 import com.example.appdispatcher.ui.account.EditAccountFragment;
 import com.example.appdispatcher.ui.fab.DoneFabFragment;
 import com.example.appdispatcher.ui.fab.ProgressJobFabFragment;
+import com.example.appdispatcher.ui.fab.RequestDoneFabFragment;
 import com.example.appdispatcher.ui.fab.RequestFabFragment;
 import com.example.appdispatcher.ui.fab.SupportFabFragment;
 import com.example.appdispatcher.ui.home.NotifFragment;
@@ -67,6 +68,11 @@ public class FabActivity extends AppCompatActivity {
             ft.replace(R.id.fab_fragment, new ProgressJobFabFragment());
             ft.commit();
             getSupportActionBar().setTitle("Form Progress Job");
+        } else if (getJob.equals("id_job_request_done")){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fab_fragment, new RequestDoneFabFragment());
+            ft.commit();
+            getSupportActionBar().setTitle("Form Job Request");
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
