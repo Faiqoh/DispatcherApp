@@ -55,7 +55,6 @@ public class ChatInitiateModeratorFragment extends Fragment implements ChatIniti
     public static final String ID_CHAT = "id_chat";
     public static final String GET_ID_JOB = "get_id_job";
     public static final String GET_CHAT = "get_chat";
-    public static final String ID_ENGINEER = "id_engineer";
     public List<SupportViewModel> sList = new ArrayList<>();
     ChatInitiateAdapter sAdapter;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
@@ -176,7 +175,6 @@ public class ChatInitiateModeratorFragment extends Fragment implements ChatIniti
         intent.putExtra(ID_CHAT, sAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_support_detail");
         intent.putExtra(GET_CHAT, "initiate_chat");
-//        intent.putExtra(ID_ENGINEER, );
         startActivity(intent);
     }
 
