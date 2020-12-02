@@ -5,7 +5,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
-    <fragment
+    <fragmentch
         android:id="@+id/navigation_home"
         android:name="com.example.appdispatcher.ui.home.HomeFragment"
         android:label="@string/title_home"
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_message"
-        android:name="com.example.appdispatcher.ui.support.SupportFragment"
+        android:name="com.example.appdispatcher.ui.support.SupportParentFragment"
         android:label="@string/title_support"
         tools:layout="@layout/fragment_support" />
 
