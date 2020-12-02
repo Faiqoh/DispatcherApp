@@ -57,7 +57,7 @@ public class ChatFragment extends Fragment {
     ChatAdapter chatAdapter;
     List<ChatViewModel> mChat;
 
-    String id_support;
+    String id_support, id_chat, id_engineer, status;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,12 +99,20 @@ public class ChatFragment extends Fragment {
 
             readMessage("engineer", "moderator");
         } else if (getChat.equals("initiate_chat")){
+            SupportViewModel detail = (SupportViewModel) getActivity().getIntent().getSerializableExtra(ChatInitiateModeratorFragment.ID_CHAT);
+            id_chat = detail.getId_support();
+            id_engineer = detail.getId_engineer();
+            status = detail.getStatus_support();
+            if (status.equals("Close")){
+                btn_send.setEnabled(false);
+                et_send.setEnabled(false);
+            }
             btn_send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String msg = et_send.getText().toString();
                     if (!msg.equals("")) {
-                        sendMessage(msg);
+                        sendMessage2(msg);
                     } else {
                         Toast.makeText(getContext(), "You can't send empty message", Toast.LENGTH_SHORT).show();
                     }
@@ -112,7 +120,7 @@ public class ChatFragment extends Fragment {
                 }
             });
 
-            readMessage("engineer", "moderator");
+            readMessage2("engineer", "moderator");
         }
 
         return view;
@@ -122,14 +130,6 @@ public class ChatFragment extends Fragment {
     private void sendMessage(String message) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        /*HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("sender", sender);
-        hashMap.put("receiver", receiver);
-        hashMap.put("message", message);
-        hashMap.put("id_engineer", id_engineer);
-
-        reference.child("Chats").push().setValue(hashMap);*/
-
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
         HashMap<String, Object> hashMap2 = new HashMap<>();
@@ -137,22 +137,34 @@ public class ChatFragment extends Fragment {
         hashMap2.put("message", message);
         hashMap2.put("time", timestamp.getTime() / 1000);
 
-//        Log.i("firebase chat", "job_support/" + id_support + "/chat");
         reference.child("job_support/" + id_support + "/chat").push().setValue(hashMap2);
+    }
+
+    private void sendMessage2(String message) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        HashMap<String, Object> hashMap2 = new HashMap<>();
+        hashMap2.put("fromID", id_engineer);
+        hashMap2.put("message", message);
+        hashMap2.put("from", "engineer");
+        hashMap2.put("fromType", "engineer");
+        hashMap2.put("time", timestamp.getTime() / 1000);
+
+        reference.child("chat_moderator/" + id_chat + "/chat").push().setValue(hashMap2);
     }
 
     private void readMessage(final String engineer, final String moderator) {
         mChat = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("job_support/" + id_support + "/chat");
-        Log.i("isi userid", engineer);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
                 String checker = "2020-01-01";
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    ChatViewModel chat = snapshot.getValue(ChatViewModel.class);
                     java.util.Date time = new java.util.Date((long) snapshot.child("time").getValue(Integer.class) * 1000);
                     String pattern = "d MMMM";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -224,5 +236,52 @@ public class ChatFragment extends Fragment {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(StrReq);
+    }
+
+    private void readMessage2(final String engineer, final String moderator) {
+        mChat = new ArrayList<>();
+
+        reference = FirebaseDatabase.getInstance().getReference("chat_moderator/" + id_chat + "/chat");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mChat.clear();
+                String checker = "2020-01-01";
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    java.util.Date time = new java.util.Date((long) snapshot.child("time").getValue(Integer.class) * 1000);
+                    String pattern = "d MMMM";
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                    String date = simpleDateFormat.format(time);
+
+                    String time2 = "HH mm";
+                    SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(time2);
+                    String date3 = simpleDateFormat2.format(time);
+
+                    ChatViewModel chat = new ChatViewModel(
+                            snapshot.child("from").getValue(String.class),
+                            snapshot.child("time").getValue(Integer.class),
+                            snapshot.child("message").getValue(String.class),
+                            date3
+                    );
+
+
+                    if (!checker.equals(date)) {
+                        checker = date;
+                        ChatViewModel chat2 = new ChatViewModel("date", 2020, date, "");
+                        mChat.add(chat2);
+                    }
+                    mChat.add(chat);
+
+                    chatAdapter = new ChatAdapter(getContext(), mChat);
+                    recyclerView.setAdapter(chatAdapter);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
