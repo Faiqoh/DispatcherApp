@@ -46,6 +46,7 @@ public class ChatInitiateAdapter extends RecyclerView.Adapter<ChatInitiateAdapte
 //        holder.tvStatus.setText(supportlist.status_support);
         holder.tvDate.setText(supportlist.date);
         holder.tvidSupport.setText(supportlist.id_support);
+        holder.tvidEngineer.setText(supportlist.id_engineer);
         Glide.with(context).load(supportlist.getFoto()).into(holder.ivFoto);
         if (supportlist.getStatus_support().equals("Open")) {
             holder.tvStatus.setText(supportlist.status_support);
@@ -80,7 +81,7 @@ public class ChatInitiateAdapter extends RecyclerView.Adapter<ChatInitiateAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvJudul, tvDate, tvidSupport, tvStatus;
+        TextView tvJudul, tvDate, tvidSupport, tvStatus, tvidEngineer;
         RelativeLayout head_sub;
 
         public ViewHolder(@NonNull View itemView) {
@@ -91,6 +92,7 @@ public class ChatInitiateAdapter extends RecyclerView.Adapter<ChatInitiateAdapte
             head_sub = itemView.findViewById(R.id.head_sub);
             tvidSupport = itemView.findViewById(R.id.idSupport);
             tvStatus = itemView.findViewById(R.id.textViewStatus);
+            tvidEngineer = itemView.findViewById(R.id.id_engineer);
 
             head_sub.setOnClickListener(new View.OnClickListener() {
                 @Override

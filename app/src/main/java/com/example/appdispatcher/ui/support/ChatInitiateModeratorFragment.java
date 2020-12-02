@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -51,9 +52,10 @@ import java.util.TimeZone;
 
 public class ChatInitiateModeratorFragment extends Fragment implements ChatInitiateAdapter.cListAdapter{
 
-    public static final String ID_SUPPORT = "id_support";
+    public static final String ID_CHAT = "id_chat";
     public static final String GET_ID_JOB = "get_id_job";
     public static final String GET_CHAT = "get_chat";
+    public static final String ID_ENGINEER = "id_engineer";
     public List<SupportViewModel> sList = new ArrayList<>();
     ChatInitiateAdapter sAdapter;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
@@ -122,6 +124,8 @@ public class ChatInitiateModeratorFragment extends Fragment implements ChatIniti
                             sList = new ArrayList<>();
                         }
 
+
+
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject chat = jray.getJSONObject(i);
 
@@ -129,6 +133,7 @@ public class ChatInitiateModeratorFragment extends Fragment implements ChatIniti
 
                             SupportViewModel itemCategory = new SupportViewModel();
                             itemCategory.setId_support(chat.getString("id"));
+                            itemCategory.setId_engineer(chat.getJSONObject("job").getJSONObject("working_engineer").getString("id_engineer"));
                             itemCategory.setJudul(chat.getJSONObject("job").getString("job_name"));
                             itemCategory.setStatus_support(chat.getString("status"));
                             itemCategory.setDate(dateFormat.format(date_add));
@@ -168,9 +173,10 @@ public class ChatInitiateModeratorFragment extends Fragment implements ChatIniti
     @Override
     public void doClick(int pos) {
         Intent intent = new Intent(getContext(), FabActivity.class);
-        intent.putExtra(ID_SUPPORT, sAdapter.getItem(pos));
+        intent.putExtra(ID_CHAT, sAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_support_detail");
         intent.putExtra(GET_CHAT, "initiate_chat");
+//        intent.putExtra(ID_ENGINEER, );
         startActivity(intent);
     }
 

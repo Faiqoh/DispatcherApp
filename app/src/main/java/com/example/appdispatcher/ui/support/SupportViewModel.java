@@ -9,6 +9,15 @@ public class SupportViewModel implements Serializable {
     public String id_support;
     public String id_job;
     public String date;
+    public String id_engineer;
+
+    public String getId_engineer() {
+        return id_engineer;
+    }
+
+    public void setId_engineer(String id_engineer) {
+        this.id_engineer = id_engineer;
+    }
 
     public String getJudul() {
         return judul;
