@@ -78,39 +78,42 @@ public class ChatFragment extends Fragment {
         Intent intent = getActivity().getIntent();
 
         Bundle extras = getActivity().getIntent().getExtras();
-        final String id_engineer = extras.getString("id_engineer");
-        id_support = extras.getString("id_support");
-        Log.i("id support", id_support);
-        final String id_job = extras.getString("id_job");
 
-        btn_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String msg = et_send.getText().toString();
-                if (!msg.equals("")) {
-                    sendMessage(msg);
-                } else {
-                    Toast.makeText(getContext(), "You can't send empty message", Toast.LENGTH_SHORT).show();
+        String getChat = extras.getString("get_chat");
+
+        if (getChat.equals("get_support_chat")){
+            id_support = extras.getString("id_support");
+            Log.i("id support", id_support);
+            btn_send.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String msg = et_send.getText().toString();
+                    if (!msg.equals("")) {
+                        sendMessage(msg);
+                    } else {
+                        Toast.makeText(getContext(), "You can't send empty message", Toast.LENGTH_SHORT).show();
+                    }
+                    et_send.setText("");
                 }
-                et_send.setText("");
-            }
-        });
+            });
 
-        /*reference = FirebaseDatabase.getInstance().getReference("Users");
+            readMessage("engineer", "moderator");
+        } else if (getChat.equals("initiate_chat")){
+            btn_send.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String msg = et_send.getText().toString();
+                    if (!msg.equals("")) {
+                        sendMessage(msg);
+                    } else {
+                        Toast.makeText(getContext(), "You can't send empty message", Toast.LENGTH_SHORT).show();
+                    }
+                    et_send.setText("");
+                }
+            });
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                readMessage("engineer", "moderator");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
-
-        readMessage("engineer", "moderator");
+            readMessage("engineer", "moderator");
+        }
 
         return view;
 

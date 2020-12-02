@@ -56,4 +56,6 @@ public class server {
     public static final String getdetailsupport_withtoken = url + "/api/job/getJobSupportEach";
     public static final String postProfileUpdate = url + "/api/users/postProfileUpdate";
     public static final String postUpdateRequest = url + "/api/job/postJobRequestSupportSuccess";
+    public static final String getChatModerator = url + "/api/job/getChatModerator";
+
 }

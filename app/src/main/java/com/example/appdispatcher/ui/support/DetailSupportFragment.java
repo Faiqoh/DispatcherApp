@@ -43,6 +43,7 @@ public class DetailSupportFragment extends Fragment {
     public static final String ID_JOB = "id_job";
     public static final String ID_SUPPORT = "id_support";
     public static final String ID_ENGINEER = "id_engineer";
+    public static final String GET_CHAT = "get_chat";
     ImageView ivfoto, arrowBtn;
     ProgressBar progressBar;
     CardView cardView, cardView2;
@@ -94,6 +95,7 @@ public class DetailSupportFragment extends Fragment {
                 intent.putExtra(GET_ID_JOB, "id_support_detail");
                 intent.putExtra(ID_ENGINEER, tv_id_engineer.getText().toString());
                 intent.putExtra(ID_JOB, tvjob.getText().toString());
+                intent.putExtra(GET_CHAT, "get_support_chat");
                 startActivity(intent);
             }
         });

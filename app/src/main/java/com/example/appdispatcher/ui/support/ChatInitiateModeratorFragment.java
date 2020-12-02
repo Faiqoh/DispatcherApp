@@ -27,6 +27,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appdispatcher.Adapter.ChatInitiateAdapter;
 import com.example.appdispatcher.Adapter.GetSupportAdapter;
+import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.util.server;
@@ -48,10 +49,11 @@ import java.util.Map;
 import java.util.TimeZone;
 
 
-public class ChatInitiateModeratorFragment extends Fragment implements ChatInitiateAdapter.ChatInitiateModeratorAdapter{
+public class ChatInitiateModeratorFragment extends Fragment implements ChatInitiateAdapter.cListAdapter{
 
     public static final String ID_SUPPORT = "id_support";
     public static final String GET_ID_JOB = "get_id_job";
+    public static final String GET_CHAT = "get_chat";
     public List<SupportViewModel> sList = new ArrayList<>();
     ChatInitiateAdapter sAdapter;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
@@ -103,7 +105,7 @@ public class ChatInitiateModeratorFragment extends Fragment implements ChatIniti
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getsupport_withtoken, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getChatModerator, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 nestedScrollView.setVisibility(View.VISIBLE);
@@ -112,7 +114,7 @@ public class ChatInitiateModeratorFragment extends Fragment implements ChatIniti
                 Log.i("response job list", response.toString());
                 JSONObject jObj = response;
                 try {
-                    JSONArray jray = jObj.getJSONArray("job_support");
+                    JSONArray jray = jObj.getJSONArray("chat");
                     if (response.length() > 0) {
                         if (sList != null) {
                             sList.clear();
@@ -121,16 +123,16 @@ public class ChatInitiateModeratorFragment extends Fragment implements ChatIniti
                         }
 
                         for (int i = 0; i < jray.length(); i++) {
-                            JSONObject sup = jray.getJSONObject(i);
+                            JSONObject chat = jray.getJSONObject(i);
 
-                            Date date_add = inputFormat.parse(sup.getString("date_add"));
+                            Date date_add = inputFormat.parse(chat.getString("date_update"));
 
                             SupportViewModel itemCategory = new SupportViewModel();
-                            itemCategory.setId_support(sup.getString("id"));
-                            itemCategory.setJudul(sup.getJSONObject("job").getString("job_name"));
-                            itemCategory.setStatus_support(sup.getString("status"));
+                            itemCategory.setId_support(chat.getString("id"));
+                            itemCategory.setJudul(chat.getJSONObject("job").getString("job_name"));
+                            itemCategory.setStatus_support(chat.getString("status"));
                             itemCategory.setDate(dateFormat.format(date_add));
-                            itemCategory.setFoto(sup.getJSONObject("job_category").getString("category_image_url"));
+                            itemCategory.setFoto(chat.getJSONObject("job_category").getString("category_image_url"));
                             sList.add(itemCategory);
                         }
                         sAdapter.notifyDataSetChanged();
@@ -165,9 +167,10 @@ public class ChatInitiateModeratorFragment extends Fragment implements ChatIniti
 
     @Override
     public void doClick(int pos) {
-        Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
+        Intent intent = new Intent(getContext(), FabActivity.class);
         intent.putExtra(ID_SUPPORT, sAdapter.getItem(pos));
-        intent.putExtra(GET_ID_JOB, "id_support");
+        intent.putExtra(GET_ID_JOB, "id_support_detail");
+        intent.putExtra(GET_CHAT, "initiate_chat");
         startActivity(intent);
     }
 

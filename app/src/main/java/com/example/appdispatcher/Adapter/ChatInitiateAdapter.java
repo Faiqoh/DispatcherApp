@@ -23,13 +23,13 @@ public class ChatInitiateAdapter extends RecyclerView.Adapter<ChatInitiateAdapte
 
     List<SupportViewModel> sList;
     private ChatInitiateModeratorFragment context;
-    ChatInitiateModeratorAdapter sListAdapter;
+    cListAdapter cListAdapter;
 
     public ChatInitiateAdapter(ChatInitiateModeratorFragment context, List<SupportViewModel> sList) {
         super();
         this.sList = sList;
         this.context = context;
-        sListAdapter = context;
+        cListAdapter = context;
     }
 
     @NonNull
@@ -56,6 +56,9 @@ public class ChatInitiateAdapter extends RecyclerView.Adapter<ChatInitiateAdapte
         } else if (supportlist.getStatus_support().equals("Done")) {
             holder.tvStatus.setText(supportlist.status_support);
             holder.tvStatus.setBackgroundColor(Color.parseColor("#38c172"));
+        } else if (supportlist.getStatus_support().equals("Close")) {
+            holder.tvStatus.setText(supportlist.status_support);
+            holder.tvStatus.setBackgroundColor(Color.parseColor("#38c172"));
         }
     }
 
@@ -70,7 +73,7 @@ public class ChatInitiateAdapter extends RecyclerView.Adapter<ChatInitiateAdapte
         return sList.get(pos);
     }
 
-    public interface ChatInitiateModeratorAdapter {
+    public interface cListAdapter {
         void doClick(int pos);
     }
 
@@ -88,6 +91,13 @@ public class ChatInitiateAdapter extends RecyclerView.Adapter<ChatInitiateAdapte
             head_sub = itemView.findViewById(R.id.head_sub);
             tvidSupport = itemView.findViewById(R.id.idSupport);
             tvStatus = itemView.findViewById(R.id.textViewStatus);
+
+            head_sub.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cListAdapter.doClick(getAdapterPosition());
+                }
+            });
 
         }
     }
