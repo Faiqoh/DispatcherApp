@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/imgNotFound"
                 android:layout_marginHorizontal="70dp"
-                android:text="Nothing job at this page"
+                android:text="Currently no job available"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
@@ -70,8 +70,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textNotfound"
                 android:layout_marginHorizontal="80dp"
-                android:text="Please waiting for this job..."
-                android:textStyle="bold" />
+                android:text="(keep updated for new available job)"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 
