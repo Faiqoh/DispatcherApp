@@ -38,7 +38,7 @@ public class DataHelper extends SQLiteOpenHelper {
     }
 
     public Cursor readAllData() {
-        String query = "SELECT * FROM " + TABLE_NAME;
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COLUMN_NO + " DESC";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
