@@ -157,13 +157,15 @@ public class ProgressJobFabFragment extends Fragment {
             public void onClick(View v) {
                 progress = spinner_progress.getSelectedItem().toString().trim() + " - " + etProgress.getText().toString().trim();
                 id_job = tvIdJob.getText().toString().trim();
-                if (etProgress.getText().toString().trim().length() == 0) {
-                    etProgress.setError("Progress Job Should not be empty !");
-                } else if (spinner_progress.getSelectedItem().toString().trim() == "Please select progress job") {
+                if (spinner_progress.getSelectedItem().toString().equals("Please select progress job")) {
                     TextView errorText = (TextView)spinner_progress.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
                     errorText.setText("Please select progress job");
+//                    ((TextView)spinner_progress.getSelectedView()).setError("Error message");
+//                    Toast.makeText(getActivity(), "Please select progress job", Toast.LENGTH_SHORT).show();
+                } else if (etProgress.getText().toString().trim().length() == 0) {
+                    etProgress.setError("Progress Job Should not be empty !");
                 } else if (filePath == null) {
                     Toast.makeText(getActivity(), "Image Item Should not be empty!", Toast.LENGTH_SHORT).show();
                 } else if (filePath != null) {
@@ -179,6 +181,8 @@ public class ProgressJobFabFragment extends Fragment {
             }
 
         });
+
+        Log.d("cek spinner",spinner_progress.getSelectedItem().toString());
 
         return view;
     }
