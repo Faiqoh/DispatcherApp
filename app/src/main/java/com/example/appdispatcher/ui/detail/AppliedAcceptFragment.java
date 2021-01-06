@@ -106,7 +106,7 @@ public class AppliedAcceptFragment extends Fragment {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id_user = tvidUser.getText().toString().trim();
+//                id_user = tvidUser.getText().toString().trim();
                 id_job = tvidJob.getText().toString().trim();
                 startjob();
             }
