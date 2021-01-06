@@ -92,6 +92,8 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
     AppBarLayout appBarLayout;
     Spinner spinner;
 
+    FloatingActionButton request, approval, done, job_progress, support;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,28 +127,34 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         pAdapter = new ProgressTaskAdapter(pList);
         recyclerView.setAdapter(pAdapter);
 
-        FloatingActionButton Request = getActivity().findViewById(R.id.request);
-        Request.setOnClickListener(new View.OnClickListener() {
+        request = getActivity().findViewById(R.id.request);
+        request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tv_status_request.getText().toString().equals("Done")){
-                    Intent intent = new Intent(getContext(), FabActivity.class);
-                    intent.putExtra(ID_JOB, tvidJob.getText().toString());
-                    intent.putExtra(GET_ID_JOB, "id_job_request_done");
-                    getActivity().startActivityForResult(intent, 1);
-                    floatingActionsMenu.collapse();
-                } else {
-                    Intent intent = new Intent(getContext(), FabActivity.class);
-                    intent.putExtra(ID_JOB, tvidJob.getText().toString());
-                    intent.putExtra(GET_ID_JOB, "id_job_request");
-                    getActivity().startActivityForResult(intent, 1);
-                    floatingActionsMenu.collapse();
-                }
+                Intent intent = new Intent(getContext(), FabActivity.class);
+                intent.putExtra(ID_JOB, tvidJob.getText().toString());
+                intent.putExtra(GET_ID_JOB, "id_job_request");
+                getActivity().startActivityForResult(intent, 1);
+                floatingActionsMenu.collapse();
             }
         });
 
-        FloatingActionButton Progress = getActivity().findViewById(R.id.progress);
-        Progress.setOnClickListener(new View.OnClickListener() {
+        approval = getActivity().findViewById(R.id.approval);
+        approval.setVisibility(View.GONE);
+        approval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FabActivity.class);
+                intent.putExtra(ID_JOB, tvidJob.getText().toString());
+                intent.putExtra(GET_ID_JOB, "id_job_request_done");
+                getActivity().startActivityForResult(intent, 1);
+                floatingActionsMenu.collapse();
+            }
+        });
+
+
+        job_progress = getActivity().findViewById(R.id.progress);
+        job_progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 Intent intent = new Intent(getContext(), FabActivity.class);
@@ -221,8 +229,8 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             fillDetail(id_job);
         }
 
-        FloatingActionButton Done = getActivity().findViewById(R.id.done);
-        Done.setOnClickListener(new View.OnClickListener() {
+        done = getActivity().findViewById(R.id.done);
+        done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -234,8 +242,8 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             }
         });
 
-        FloatingActionButton Support = getActivity().findViewById(R.id.support);
-        Support.setOnClickListener(new View.OnClickListener() {
+        support = getActivity().findViewById(R.id.support);
+        support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -284,6 +292,22 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
                     tvidJob.setText(job.getString("id"));
                     Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
                     tv_status_request.setText(history_request.getString("status_item"));
+
+                    Log.d("cek status", tv_status_request.getText().toString().trim());
+
+                    if (tv_status_request.getText().toString().trim().length() == 0){
+                        request.setVisibility(View.VISIBLE);
+                    } else if (tv_status_request.getText().toString().trim().equals("Done")){
+                        approval.setVisibility(View.VISIBLE);
+                        request.setVisibility(View.GONE);
+                    } else if (tv_status_request.getText().toString().trim().equals("Requested")){
+                        approval.setVisibility(View.GONE);
+                        request.setVisibility(View.GONE);
+                    } else if (tv_status_request.getText().toString().trim().equals("Success")){
+                        approval.setVisibility(View.GONE);
+                        request.setVisibility(View.VISIBLE);
+                    }
+
 
                     JSONArray jray = jObj.getJSONArray("progress");
                     pList.clear();
