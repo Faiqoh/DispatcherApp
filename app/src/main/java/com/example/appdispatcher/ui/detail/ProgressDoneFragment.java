@@ -53,6 +53,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 
 /**
@@ -77,7 +79,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
     public static final String GET_ID_JOB = "get_id_job";
 
     ImageView cat_backend;
-    TextView textViewjob, textJobdesc, textRequirement, tvidUser, tvidJob, textview_mail, textview_share, tv_status_request;
+    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvidUser, tvidJob, textview_mail, textview_share, tv_status_request, tv_price;
     EditText etTask;
     Button btn_submit, btn_download;
     ProgressTaskAdapter pAdapter;
@@ -120,6 +122,12 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         NesteddetailTask = getActivity().findViewById(R.id.Nested_detail_task);
         appBarLayout = getActivity().findViewById(R.id.app_bar);
         tv_status_request = root.findViewById(R.id.tv_status_request);
+        textBuilding = root.findViewById(R.id.building);
+        textloc = root.findViewById(R.id.location);
+        textLevel = root.findViewById(R.id.level);
+        textDate = root.findViewById(R.id.date_job);
+        textPIc = root.findViewById(R.id.pic_job);
+        tv_price = root.findViewById(R.id.tv_price);
 
         final RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -261,6 +269,9 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
     public void fillDetail(String id_job) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_5);
         final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        final Locale localeID = new Locale("in", "ID");
+        final NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
         progressBar.getIndeterminateDrawable().setColorFilter(getActivity().getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.VISIBLE);
@@ -286,12 +297,21 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
                     JSONObject category = job.getJSONObject("category");
                     JSONObject history_request = job.getJSONObject("latest_job_request");
 
+                    Date date_start = inputFormat.parse(job.getString("date_start"));
+                    Date date_end = inputFormat.parse(job.getString("date_end"));
+
                     textViewjob.setText(job.getString("job_name"));
                     textJobdesc.setText(job.getString("job_description"));
                     textRequirement.setText(job.getString("job_requrment"));
                     tvidJob.setText(job.getString("id"));
+                    textBuilding.setText(job.getJSONObject("customer").getString("customer_name"));
+                    textloc.setText(job.getJSONObject("location").getString("location_name"));
+                    textLevel.setText(job.getJSONObject("level").getString("level_name"));
+                    textDate.setText(dateFormat.format(date_start) + " - " + dateFormat.format(date_end));
+                    textPIc.setText(job.getJSONObject("pic").getString("pic_name") + "(" + job.getJSONObject("pic").getString("pic_phone") + ")");
                     Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
                     tv_status_request.setText(history_request.getString("status_item"));
+                    tv_price.setText(formatRupiah.format((Double.parseDouble(job.getString("job_price")))));
 
                     Log.d("cek status", tv_status_request.getText().toString().trim());
 
