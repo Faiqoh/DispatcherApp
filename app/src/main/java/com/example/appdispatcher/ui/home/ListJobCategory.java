@@ -346,7 +346,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     }
 
     private void fillData2(final Integer id_category) {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobListSumm, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJobByEngineer, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("response job list", response.toString());
@@ -362,24 +362,22 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
 
                             HomeViewModel itemCategory = new HomeViewModel();
                             if (cat.getInt("id_category") == id_category) {
-                                if (cat.getString("job_status").equals("Open")) {
-                                    itemCategory.setId_job(cat.getString("id"));
-                                    itemCategory.setCategory_name(cat.getJSONObject("category").getString("category_name"));
-                                    itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
-                                    itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
-                                    itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
-                                    itemCategory.setJob_name(cat.getString("job_name"));
+                                itemCategory.setId_job(cat.getString("id"));
+                                itemCategory.setCategory_name(cat.getJSONObject("category").getString("category_name"));
+                                itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                                itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                                itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                                itemCategory.setJob_name(cat.getString("job_name"));
 
-                                    cList.add(itemCategory);
+                                cList.add(itemCategory);
 
-                                    Log.i("cek total list", String.valueOf(cList.size()));
-                                    if (cList.size() > 0) {
-                                        rvNotFound.setVisibility(View.GONE);
-                                        nestedScrollView.setVisibility(View.VISIBLE);
-                                    } else {
-                                        nestedScrollView.setVisibility(View.GONE);
-                                        rvNotFound.setVisibility(View.VISIBLE);
-                                    }
+                                Log.i("cek total list", String.valueOf(cList.size()));
+                                if (cList.size() > 0) {
+                                    rvNotFound.setVisibility(View.GONE);
+                                    nestedScrollView.setVisibility(View.VISIBLE);
+                                } else {
+                                    nestedScrollView.setVisibility(View.GONE);
+                                    rvNotFound.setVisibility(View.VISIBLE);
                                 }
                             }
                             cAdapter.notifyDataSetChanged();
@@ -394,9 +392,30 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                error.printStackTrace();
+                NetworkResponse response = error.networkResponse;
+                String errorMsg = "";
+                if (response != null && response.data != null) {
+                    String errorString = new String(response.data);
+                    Log.i("log error", errorString);
+                }
+                Toast.makeText(getActivity(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
     }
