@@ -136,9 +136,7 @@ public class RequestDoneFabFragment extends Fragment {
             public void onClick(View v) {
                 note = etNote.getText().toString().trim();
                 id_job = tv_id_job.getText().toString().trim();
-                if (etNote.getText().toString().trim().length() == 0) {
-                    etNote.setError("Name Item Should not be empty !");
-                } else if (filePath == null) {
+                if (filePath == null) {
                     Toast.makeText(getActivity(), "Image Item Should not be empty!", Toast.LENGTH_SHORT).show();
                 } else if (filePath != null) {
                     File file = new File(filePath);
@@ -293,7 +291,11 @@ public class RequestDoneFabFragment extends Fragment {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_job", id_job);
-                params.put("note_success", note);
+                if (etNote.getText().toString().trim().length() == 0) {
+                    params.put("note_success", "-");
+                } else {
+                    params.put("note_success", note);
+                }
                 return params;
             }
 
