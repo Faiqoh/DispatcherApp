@@ -8,6 +8,7 @@ public class server {
 
     // Ini buat production
 //    public static final String url = "https://eod-api.sifoma.id";
+
     public static final String getJobCategory = url + "/dashboard/getJobCategory";
     public static final String getJobList = "https://development.sinergy-dev.xyz:2096/dashboard/getJobList";
     public static final String getUser = "https://development.sinergy-dev.xyz:2096/dashboard/getDashboard";
@@ -18,26 +19,6 @@ public class server {
 
     //Halaman detail
     public static final String getJobOpen = url + "/job/getJobOpen";
-
-    //Job progress
-    public static final String getJobProgress = "https://development.sinergy-dev.xyz:2096/job/getJobProgress";
-
-    //job aplly
-    public static final String applyjob = "https://development.sinergy-dev.xyz:2096/job/postJobApply";
-    public static final String getJobStatus = "https://development.sinergy-dev.xyz:2096/job/getJobByCategory";
-
-    //job start
-    public static final String startjob = "https://development.sinergy-dev.xyz:2096/job/postJobStart";
-
-    //progress job
-    public static final String progreesjob = "https://development.sinergy-dev.xyz:2096/job/postJobUpdate";
-
-    //job done
-    public static final String jobdone = "https://development.sinergy-dev.xyz:2096/job/postJobFinish";
-
-    public static final String getpayment = "https://development.sinergy-dev.xyz:2096/payment/getJobPayment";
-
-    public static final String getdetailpayment = "https://development.sinergy-dev.xyz:2096/payment/getJobPaymentDetail";
 
     // Link API With Token
     public static final String postSaveToken = url + "/api/api_token";
