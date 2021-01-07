@@ -125,7 +125,7 @@ public class ProgressJobFabFragment extends Fragment {
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.progress_job,
                         android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_progress.setAdapter(adapter);
 
         spinner_progress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
