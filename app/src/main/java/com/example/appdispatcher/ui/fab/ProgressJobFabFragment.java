@@ -1,14 +1,17 @@
 package com.example.appdispatcher.ui.fab;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -96,22 +100,23 @@ public class ProgressJobFabFragment extends Fragment {
         imgIdProf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-                    if ((ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                            Manifest.permission.READ_EXTERNAL_STORAGE))) {
-
-                    } else {
-                        ActivityCompat.requestPermissions(getActivity(),
-                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
-                                REQUEST_PERMISSIONS);
-                    }
-                } else {
-                    Log.e("Else", "Else");
-                    showFileChooser();
-                }
+//                if ((ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+//                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+//                    if ((ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+//                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+//                            Manifest.permission.READ_EXTERNAL_STORAGE))) {
+//
+//                    } else {
+//                        ActivityCompat.requestPermissions(getActivity(),
+//                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+//                                REQUEST_PERMISSIONS);
+//                    }
+//                } else {
+//                    Log.e("Else", "Else");
+//                    showFileChooser();
+//                }
+                selectImage(getActivity());
 
             }
 
@@ -162,12 +167,8 @@ public class ProgressJobFabFragment extends Fragment {
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
                     errorText.setText("Please select progress job");
-//                    ((TextView)spinner_progress.getSelectedView()).setError("Error message");
-//                    Toast.makeText(getActivity(), "Please select progress job", Toast.LENGTH_SHORT).show();
                 } else if (etProgress.getText().toString().trim().length() == 0) {
                     etProgress.setError("Progress Job Should not be empty !");
-                } else if (filePath == null) {
-                    Toast.makeText(getActivity(), "Image Item Should not be empty!", Toast.LENGTH_SHORT).show();
                 } else if (filePath != null) {
                     File file = new File(filePath);
                     if (file.length() > 10000000) {
@@ -185,6 +186,55 @@ public class ProgressJobFabFragment extends Fragment {
         Log.d("cek spinner",spinner_progress.getSelectedItem().toString());
 
         return view;
+    }
+
+    private void selectImage(FragmentActivity activity) {
+        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Choose your picture");
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                if (options[item].equals("Take Photo")) {
+                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePicture, 0);
+
+                } else if (options[item].equals("Choose from Gallery")) {
+                    if ((ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+                        if ((ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                                Manifest.permission.READ_EXTERNAL_STORAGE))) {
+
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    REQUEST_PERMISSIONS);
+                        }
+                    } else {
+                        Log.e("Else", "Else");
+                        showFileChooser();
+                    }
+                } else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+
+
+            }
+
+            private void showFileChooser() {
+                Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+                chooseFile.setType("image/*");
+                chooseFile = Intent.createChooser(chooseFile, "Choose a file");
+                startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
+            }
+        });
+        builder.show();
     }
 
     private void fillDetail(String id_job) {
@@ -253,13 +303,17 @@ public class ProgressJobFabFragment extends Fragment {
                         Toast.LENGTH_LONG).show();
             }
         }
+        else if (requestCode == 0){
+            Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+            imgIdProf.setImageBitmap(selectedImage);
+        }
     }
 
-    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
-        return byteArrayOutputStream.toByteArray();
-    }
+//    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+//        return byteArrayOutputStream.toByteArray();
+//    }
 
     private String getPath(Uri picUri) {
         Cursor cursor = getActivity().getContentResolver().query(picUri, null, null, null, null);
@@ -278,12 +332,17 @@ public class ProgressJobFabFragment extends Fragment {
         return path;
     }
 
-    private void submit(final Bitmap bitmap) {
+    private void submit(Bitmap bitmap) {
         pd.setCancelable(false);
         pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         pd.show();
 
         scrollView.setVisibility(View.GONE);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap = ((BitmapDrawable) imgIdProf.getDrawable()).getBitmap();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+        final byte[] image = byteArrayOutputStream.toByteArray();
 
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, server.postJobUpdate_withToken, new Response.Listener<NetworkResponse>() {
             @Override
@@ -328,7 +387,7 @@ public class ProgressJobFabFragment extends Fragment {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
-                params.put("documentation_progress", new DataPart(imagename + ".jpeg", getFileDataFromDrawable(bitmap)));
+                params.put("documentation_progress", new DataPart(imagename + ".jpeg", image));
                 return params;
             }
 
