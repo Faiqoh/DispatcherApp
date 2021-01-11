@@ -257,7 +257,7 @@ public class ProgressJobFabFragment extends Fragment {
 
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 
@@ -293,7 +293,7 @@ public class ProgressJobFabFragment extends Fragment {
                 Intent intent = getActivity().getIntent();
                 intent.putExtra(ID_JOB, id_job);
                 intent.putExtra(GET_ID_JOB, "id_job_progress");
-//                Log.i("id_job", id_job);
+//                Log.i("cek size image", String.valueOf(Integer.parseInt(String.valueOf(file.length()))));
                 getActivity().setResult(1, intent);
                 getActivity().finish();
             }
@@ -328,7 +328,7 @@ public class ProgressJobFabFragment extends Fragment {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
-                params.put("documentation_progress", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                params.put("documentation_progress", new DataPart(imagename + ".jpeg", getFileDataFromDrawable(bitmap)));
                 return params;
             }
 

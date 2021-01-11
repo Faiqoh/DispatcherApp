@@ -188,7 +188,7 @@ public class RequestFabFragment extends Fragment {
 
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 
@@ -304,7 +304,7 @@ public class RequestFabFragment extends Fragment {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
-                params.put("documentation_item", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                params.put("documentation_item", new DataPart(imagename + ".jpeg", getFileDataFromDrawable(bitmap)));
                 return params;
             }
 
