@@ -304,6 +304,7 @@ public class ProgressJobFabFragment extends Fragment {
             }
         }
         else if (requestCode == 0){
+            textViewSelected.setText("File Selected");
             Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
             imgIdProf.setImageBitmap(selectedImage);
 //            Uri picUri = data.getData();

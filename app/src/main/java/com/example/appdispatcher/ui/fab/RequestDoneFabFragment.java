@@ -275,6 +275,7 @@ public class RequestDoneFabFragment extends Fragment {
                         Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == 0){
+            textViewSelected.setText("File Selected");
             Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
             imgIdProf.setImageBitmap(selectedImage);
         }
