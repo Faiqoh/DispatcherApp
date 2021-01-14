@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Engineer on Demand"
+                android:id="@+id/tv_judul"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_judul"
+                android:layout_marginTop="5dp"
+                android:id="@+id/line1"
+                android:src="@drawable/line" />
+
+            <ImageView
+                android:id="@+id/ivemail"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/line1"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_baseline_email_24" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/ivemail"
+                android:layout_toRightOf="@+id/ivemail"
+                android:text="app@sinergy.co.id" />
+
+            <ImageView
+                android:id="@+id/iv_web"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/ivemail"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/web" />
+
+            <TextView
+                android:id="@+id/tv_web"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivemail"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/iv_web"
+                android:layout_toRightOf="@+id/iv_web"
+                android:text="www.sinergy.co.id" />
+
+            <TextView
+                android:id="@+id/tv_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="App version: 1.04"
+                android:layout_marginTop="20dp"
+                android:textSize="11dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/tv_web"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

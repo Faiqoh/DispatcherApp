@@ -62,7 +62,7 @@ public class AccountFragment extends Fragment {
 
     BottomNavigationView navigation;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
-    TextView tvname, tvemail, tvno, tvjobs, tvskill, tvfee, tvdate, tvaddress, tvdate_of_birth;
+    TextView tvname, tvemail, tvno, tvjobs, tvskill, tvfee, tvdate, tvaddress, tvdate_of_birth, tv_about;
     public static final String GET_ID_JOB = "get_id_job";
     ImageView ivuser;
     Button btn_logout, btn_edit;
@@ -88,6 +88,7 @@ public class AccountFragment extends Fragment {
         nestedScrollView = root.findViewById(R.id.nestedaccount);
         btn_edit = root.findViewById(R.id.btn_edit);
         tvdate_of_birth = root.findViewById(R.id.text_date_of_birth);
+        tv_about = root.findViewById(R.id.tv_about);
 
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +105,17 @@ public class AccountFragment extends Fragment {
                 Intent intent = new Intent(getContext(), FabActivity.class);
                 intent.putExtra(GET_ID_JOB, "detail_engineer");
                 startActivity(intent);
+            }
+        });
+
+        tv_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+                View mView = getLayoutInflater().inflate(R.layout.layout_about, null);
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
             }
         });
 
