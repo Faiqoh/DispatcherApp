@@ -9,12 +9,17 @@ import android.util.Log;
 public class DataHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "notifikasi.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String TABLE_NAME = "notif";
     private static final String COLUMN_NO = "id";
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_MESSAGE = "message";
+    private static final String COLUMN_DATE = "created_at";
     private Context context;
+
+    private static final String DATABASE_ALTER_TEAM_1 = "ALTER TABLE "
+            + TABLE_NAME + " ADD COLUMN " + COLUMN_DATE + " DATETIME DEFAULT '2021-01-01 00:00:00';";
+
 
     public DataHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -26,15 +31,19 @@ public class DataHelper extends SQLiteOpenHelper {
         String sql = "CREATE TABLE " + TABLE_NAME +
                 " (" + COLUMN_NO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TITLE + " TEXT, " +
-                COLUMN_MESSAGE + " TEXT);";
+                COLUMN_MESSAGE + " TEXT, "  +
+                COLUMN_DATE + " DATETIME DEFAULT CURRENT_TIMESTAMP);";
 
         Log.d("Data", "onCreate: " + sql);
         db.execSQL(sql);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
+        if (oldVersion < 2) {
+            db.execSQL(DATABASE_ALTER_TEAM_1);
+        }
     }
 
     public Cursor readAllData() {

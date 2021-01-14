@@ -18,6 +18,9 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 public class FirebaseService extends FirebaseMessagingService {
@@ -63,9 +66,10 @@ public class FirebaseService extends FirebaseMessagingService {
 
         //insert to local db
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.execSQL("insert into notif(title, message) values('" +
+        db.execSQL("insert into notif(title, message, created_at) values('" +
                 remoteMessage.getNotification().getTitle() + "','" +
-                remoteMessage.getNotification().getBody() + "')");
+                remoteMessage.getNotification().getBody() + "', '"+
+                getDateTime() + "')");
 
         /*
          * Cek jika notif berisi data notification payload
@@ -76,7 +80,13 @@ public class FirebaseService extends FirebaseMessagingService {
             Log.e("TAG", "Message Notification Body: " + remoteMessage.getNotification().getBody());
             showNotif(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
         }
+    }
 
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
