@@ -306,6 +306,13 @@ public class ProgressJobFabFragment extends Fragment {
         else if (requestCode == 0){
             Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
             imgIdProf.setImageBitmap(selectedImage);
+//            Uri picUri = data.getData();
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), picUri);
+//                imgIdProf.setImageBitmap(bitmap);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
@@ -341,7 +348,7 @@ public class ProgressJobFabFragment extends Fragment {
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap = ((BitmapDrawable) imgIdProf.getDrawable()).getBitmap();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         final byte[] image = byteArrayOutputStream.toByteArray();
 
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, server.postJobUpdate_withToken, new Response.Listener<NetworkResponse>() {

@@ -75,7 +75,7 @@
                     android:id="@+id/tvRoot"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Root Cause" />
+                    android:text="Review" />
 
                 <EditText
                     android:id="@+id/eTextTask2"
@@ -84,7 +84,7 @@
                     android:layout_below="@+id/tvRoot"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/roundedblack"
-                    android:hint="Add Root Cause Here..."
+                    android:hint="Add Review Here..."
                     android:inputType="textMultiLine"
                     android:maxHeight="400dp"
                     android:minLines="2"
@@ -102,7 +102,7 @@
                     android:id="@+id/tvCounter"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Counter Measure" />
+                    android:text="Suggest" />
 
                 <EditText
                     android:id="@+id/eTextTask3"
@@ -111,7 +111,7 @@
                     android:layout_below="@+id/eTextTask2"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/roundedblack"
-                    android:hint="Add Counter Measure Here..."
+                    android:hint="Add Suggest Here..."
                     android:inputType="textMultiLine"
                     android:maxHeight="400dp"
                     android:minLines="2"

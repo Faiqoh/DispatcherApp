@@ -333,7 +333,7 @@
                             android:layout_toRightOf="@+id/btn_start"
                             android:background="@drawable/roundedbutton"
                             android:backgroundTint="@color/colorPrimary"
-                            android:text="Download"
+                            android:text="Show LoA"
                             android:textSize="11sp"
                             tools:ignore="UnknownId" />
 
