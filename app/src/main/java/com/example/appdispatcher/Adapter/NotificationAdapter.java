@@ -14,12 +14,13 @@ import com.example.appdispatcher.R;
 import java.util.ArrayList;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
-    private ArrayList titleList, messageList;
+    private ArrayList titleList, messageList, dateList;
     private Context context;
 
-    public NotificationAdapter(Context context, ArrayList titleList, ArrayList messageList) {
+    public NotificationAdapter(Context context, ArrayList titleList, ArrayList messageList, ArrayList dateList) {
         this.titleList = titleList;
         this.messageList = messageList;
+        this.dateList = dateList;
         this.context = context;
     }
 
@@ -34,7 +35,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.title.setText(String.valueOf(titleList.get(position)));
         holder.message.setText(String.valueOf(messageList.get(position)));
-//        Log.i("dataaaa", (String) titleList.get(position));
+        holder.datetime.setText(String.valueOf(dateList.get(position)));
     }
 
     @Override
@@ -43,12 +44,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, message;
+        public TextView title, message, datetime;
 
         ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.itemTitle);
             message = itemView.findViewById(R.id.itemMessage);
+            datetime = itemView.findViewById(R.id.itemdate_time);
         }
     }
 }

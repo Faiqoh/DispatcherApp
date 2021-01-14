@@ -25,10 +25,9 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:paddingLeft="55dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp">
@@ -43,12 +42,35 @@
 
             <TextView
                 android:id="@+id/itemMessage"
+                android:layout_below="@+id/itemTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:textStyle="bold" />
-        </LinearLayout>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_baseline_access_time_24"
+                android:layout_below="@+id/itemMessage"
+                android:id="@+id/iv_time"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/itemdate_time"
+                android:layout_below="@+id/itemMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_toEndOf="@+id/iv_time"
+                android:layout_toRightOf="@+id/iv_time"
+                android:textSize="11dp"/>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
