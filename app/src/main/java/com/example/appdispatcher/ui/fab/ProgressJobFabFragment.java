@@ -3,6 +3,7 @@ package com.example.appdispatcher.ui.fab;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -57,7 +59,10 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -356,6 +361,63 @@ public class ProgressJobFabFragment extends Fragment {
             textViewSelected.setText("File Selected");
             Bitmap selectedImage = BitmapFactory.decodeFile(currentPhotoPath);
             imgIdProf.setImageBitmap(selectedImage);
+
+            Bitmap bitmap = selectedImage;
+
+            if (android.os.Build.VERSION.SDK_INT >= 29){
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/" + getString(R.string.app_name));
+                values.put(MediaStore.Images.Media.IS_PENDING, true);
+                // RELATIVE_PATH and IS_PENDING are introduced in API 29.
+
+                Uri uri = getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                if (uri != null) {
+                    try {
+                        saveImageToStream(bitmap, getContext().getContentResolver().openOutputStream(uri));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    values.put(MediaStore.Images.Media.IS_PENDING, false);
+                    getContext().getContentResolver().update(uri, values, null, null);
+                }
+            } else {
+                File directory = new File(Environment.getExternalStorageDirectory().toString() + '/' + getString(R.string.app_name));
+
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                String fileName = System.currentTimeMillis() + ".png";
+                File file = new File(directory, fileName);
+                try {
+                    saveImageToStream(bitmap, new FileOutputStream(file));
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+                    getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private ContentValues contentValues() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+        values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+        }
+        return values;
+    }
+
+    private void saveImageToStream(Bitmap bitmap, OutputStream outputStream) {
+        if (outputStream != null) {
+            try {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
