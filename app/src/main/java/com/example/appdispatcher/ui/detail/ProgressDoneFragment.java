@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -79,7 +80,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
     public static final String GET_ID_JOB = "get_id_job";
 
     ImageView cat_backend;
-    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvidUser, tvidJob, textview_mail, textview_share, tv_status_request, tv_price;
+    TextView textViewjob, textJobdesc, textRequirement, textBuilding, textloc, textLevel, textDate, textPIc, tvidUser, tvidJob, textview_mail, textview_share, tv_status_request, tv_price, tv_url;
     EditText etTask;
     Button btn_submit, btn_download;
     ProgressTaskAdapter pAdapter;
@@ -94,7 +95,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
     AppBarLayout appBarLayout;
     Spinner spinner;
 
-    FloatingActionButton request, approval, done, job_progress, support;
+    FloatingActionButton request, approval, done, job_progress, support, show;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,6 +129,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
         textDate = root.findViewById(R.id.date_job);
         textPIc = root.findViewById(R.id.pic_job);
         tv_price = root.findViewById(R.id.tv_price);
+        tv_url = root.findViewById(R.id.tv_url);
 
         final RecyclerView recyclerView = root.findViewById(R.id.recyclerViewprogresstask);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -160,6 +162,16 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             }
         });
 
+        show = getActivity().findViewById(R.id.show);
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = tv_url.getText().toString().trim();
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
 
         job_progress = getActivity().findViewById(R.id.progress);
         job_progress.setOnClickListener(new View.OnClickListener() {
@@ -312,6 +324,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
                     Glide.with(getActivity()).load(category.getString("category_image_url")).into(cat_backend);
                     tv_status_request.setText(history_request.getString("status_item"));
                     tv_price.setText(formatRupiah.format((Double.parseDouble(job.getString("job_price")))));
+                    tv_url.setText(job.getString("letter_of_assignment"));
 
                     Log.d("cek status", tv_status_request.getText().toString().trim());
 
