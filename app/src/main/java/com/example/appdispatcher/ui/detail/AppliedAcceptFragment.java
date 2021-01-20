@@ -33,6 +33,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail2.Detail2Fragment;
+import com.example.appdispatcher.ui.detail2.Detail2ViewModel;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -68,6 +70,7 @@ public class AppliedAcceptFragment extends Fragment {
         Bundle extras = getActivity().getIntent().getExtras();
 
         String getJob = extras.getString("get_id_job");
+        String getStatus = extras.getString("status_job");
 
         cat_backend = root.findViewById(R.id.cat_backend);
         textJobdesc = root.findViewById(R.id.job_desc_detail);
@@ -92,6 +95,16 @@ public class AppliedAcceptFragment extends Fragment {
         if (getJob.equals("id_list")) {
             AcceptedViewModel detail = (AcceptedViewModel) getActivity().getIntent().getSerializableExtra(AcceptedFragment.ID_JOB);
             String id_job = detail.getId_job();
+            fillDetail(id_job);
+        } else if (getStatus.equals("Ready")) {
+            Detail2ViewModel detail = (Detail2ViewModel) getActivity().getIntent().getSerializableExtra(Detail2Fragment.ID_JOB);
+            String id_job = detail.getId_job();
+            fillDetail(id_job);
+        } else if(getStatus.equals("Open")) {
+            Detail2ViewModel detail2 = (Detail2ViewModel) getActivity().getIntent().getSerializableExtra(Detail2Fragment.ID_JOB);
+            String id_job = detail2.getId_job();
+            btn_start.setVisibility(View.GONE);
+            btn_download.setVisibility(View.GONE);
             fillDetail(id_job);
         } else {
             AppliedViewModel detail2 = (AppliedViewModel) getActivity().getIntent().getSerializableExtra(AppliedFragment.ID_JOB);

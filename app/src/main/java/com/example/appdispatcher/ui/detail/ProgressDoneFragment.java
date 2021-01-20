@@ -42,6 +42,8 @@ import com.bumptech.glide.Glide;
 import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
+import com.example.appdispatcher.ui.detail2.Detail2Fragment;
+import com.example.appdispatcher.ui.detail2.Detail2ViewModel;
 import com.example.appdispatcher.ui.fab.RequestFabFragment;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -105,6 +107,7 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
 
         Bundle extras = getActivity().getIntent().getExtras();
         String getJob = extras.getString("get_id_job");
+        String getStatus = extras.getString("status_job");
 
         cat_backend = root.findViewById(R.id.cat_backend);
         textJobdesc = root.findViewById(R.id.job_desc_detail);
@@ -241,6 +244,14 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
 
         if (getJob.equals("id_job_progress")) {
             OnProgressViewModel detail = (OnProgressViewModel) getActivity().getIntent().getSerializableExtra(OnProgressFragment.ID_JOB);
+            String id_job = detail.getId_job();
+            fillDetail(id_job);
+        } else if (getStatus.equals("Progress")) {
+            Detail2ViewModel detail = (Detail2ViewModel) getActivity().getIntent().getSerializableExtra(Detail2Fragment.ID_JOB);
+            String id_job = detail.getId_job();
+            fillDetail(id_job);
+        } else if (getStatus.equals("Done")) {
+            Detail2ViewModel detail = (Detail2ViewModel) getActivity().getIntent().getSerializableExtra(Detail2Fragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
         } else {

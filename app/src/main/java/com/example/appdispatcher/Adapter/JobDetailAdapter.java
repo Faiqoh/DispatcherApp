@@ -68,7 +68,16 @@ public class JobDetailAdapter extends RecyclerView.Adapter<JobDetailAdapter.View
             holder.tvStatus.setText(appliedjoblist.status);
             holder.tvStatus.setBackgroundColor(Color.parseColor("#38c172"));
         }
-
+        holder.headsub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context.getActivity(), ScrollingActivityDetailTask.class);
+                intent.putExtra(ID_JOB, appliedjoblist);
+                intent.putExtra(STATUS_JOB, appliedjoblist.status);
+                intent.putExtra(GET_ID_JOB, "id_list2");
+                dListAdapter.startActivity(intent);
+            }
+        });
     }
 
     @Override

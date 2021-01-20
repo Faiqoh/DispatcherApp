@@ -34,13 +34,14 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
         CollapsingToolbarLayout toolBarLayout = findViewById(R.id.toolbar_layout);
         toolBarLayout.setTitle(getTitle());
 
-        Bundle extras = getIntent().getExtras();
         floatingActionsMenu = findViewById(R.id.fab_menu);
         floatingActionButton = findViewById(R.id.fab_message);
 
+        Bundle extras = getIntent().getExtras();
         String getJob = extras.getString("get_id_job");
+        String statusJob = extras.getString("status_job");
 
-        if (getJob.equals("id_list") || getJob.equals("id_job_applied")) {
+        if (getJob.equals("id_list") || getJob.equals("id_job_applied") || statusJob.equals("Open") || statusJob.equals("Ready")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new AppliedAcceptFragment());
             ft.commit();
@@ -48,7 +49,7 @@ public class ScrollingActivityDetailTask extends AppCompatActivity {
 
             floatingActionsMenu.setVisibility(View.GONE);
             floatingActionButton.setVisibility(View.GONE);
-        } else if (getJob.equals("id_job_progress") || getJob.equals("id_job_done")) {
+        } else if (getJob.equals("id_job_progress") || getJob.equals("id_job_done") || statusJob.equals("Progress") || statusJob.equals("Done")) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.pending_fragment, new ProgressDoneFragment());
             ft.commit();
