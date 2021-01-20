@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <group android:id="@+id/notif">
-        <item
-            android:id="@+id/item_notif"
-            android:icon="@drawable/ic_baseline_notifications_24"
-            android:title="Notif"
-            app:showAsAction="always" />
-    </group>
     <group android:id="@+id/search">
         <item
             android:id="@+id/item_search"
@@ -15,6 +8,13 @@
             android:icon="@drawable/ic_baseline_search_24"
             app:actionViewClass="android.widget.SearchView"
             app:showAsAction="always"/>
+    </group>
+    <group android:id="@+id/notif">
+        <item
+            android:id="@+id/item_notif"
+            android:icon="@drawable/ic_baseline_notifications_24"
+            android:title="Notif"
+            app:showAsAction="always" />
     </group>
     <group android:id="@+id/filter">
         <item

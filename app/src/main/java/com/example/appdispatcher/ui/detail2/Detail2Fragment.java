@@ -3,6 +3,7 @@ package com.example.appdispatcher.ui.detail2;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,6 +41,7 @@ import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.AcceptedViewModel;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
+import com.example.appdispatcher.ui.home.HomeViewModel;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -56,7 +59,7 @@ public class Detail2Fragment extends Fragment{
 
     public static final String ID_JOB = "id_job";
     public static final String GET_ID_JOB = "get_id_job";
-    public List<Detail2ViewModel> dList = new ArrayList<>();
+    ArrayList<Detail2ViewModel> dList = new ArrayList<>();
     JobDetailAdapter dAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
@@ -69,10 +72,8 @@ public class Detail2Fragment extends Fragment{
         View view = inflater.inflate(R.layout.detail2_fragment, container, false);
 
         RecyclerView recyclerViewPendingJobList = view.findViewById(R.id.recyclerViewPending);
-        LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManagerPendingJobList = new LinearLayoutManager(getActivity());
         recyclerViewPendingJobList.setLayoutManager(layoutManagerPendingJobList);
-        dList.clear();
-        fillDatJobPendingList();
         dAdapter = new JobDetailAdapter(this, dList);
         recyclerViewPendingJobList.setAdapter(dAdapter);
         navigation = getActivity().findViewById(R.id.nav_view);
@@ -81,6 +82,7 @@ public class Detail2Fragment extends Fragment{
         rvNotFound = view.findViewById(R.id.RvNotFound);
 
         rvAccepted = view.findViewById(R.id.relativeLayoutAccepted);
+        fillDatJobPendingList();
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refreshAccepted);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -112,22 +114,26 @@ public class Detail2Fragment extends Fragment{
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.filter_menu, menu);
+        MenuItem item = menu.findItem(R.id.item_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filter(s);
+                return true;
+            }
+        });
 
         super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        MenuItem item3 = menu.findItem(R.id.item_filter);
-        MenuItem item2 = menu.findItem(R.id.item_search);
-        MenuItem item4 = menu.findItem(R.id.item_filter_date);
-        item4.setVisible(false);
-        item3.setVisible(false);
-        item2.setVisible(false);
     }
 
     @Override
@@ -140,6 +146,38 @@ public class Detail2Fragment extends Fragment{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void filter(String s) {
+        ArrayList<Detail2ViewModel> filteredList = new ArrayList<>();
+        for (Detail2ViewModel item : dList) {
+            if (item.getJudul().toLowerCase().contains(s.toLowerCase()) || item.getCustomer().toLowerCase().contains(s.toLowerCase()) ||
+                    item.getCategory().toLowerCase().contains(s.toLowerCase()) || item.getLocation().toLowerCase().contains(s.toLowerCase()) ||
+                    item.getStatus().toLowerCase().contains(s.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        if(!s.toLowerCase().equals("")){
+            dAdapter.filterList(filteredList);
+        } else {
+            dAdapter.filterList(dList);
+        }
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item3 = menu.findItem(R.id.item_filter);
+        MenuItem item4 = menu.findItem(R.id.item_filter_date);
+        item4.setVisible(false);
+        item3.setVisible(false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     private void fillDatJobPendingList() {
@@ -161,10 +199,6 @@ public class Detail2Fragment extends Fragment{
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
                             Detail2ViewModel itemCategory = new Detail2ViewModel();
-//                            cat.getJSONObject("working_engineer").getString("id_engineer");
-
-//                            if (cat.getString("job_status").equals("Ready") && cat.getJSONObject("working_engineer").getString("id_engineer").equals(jObj.getString("id_engineer"))) {
-
                             itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
                             itemCategory.setJudul(cat.getString("job_name"));
                             itemCategory.setId_job(cat.getString("id"));
@@ -174,13 +208,10 @@ public class Detail2Fragment extends Fragment{
                             itemCategory.setStatus(cat.getString("job_status"));
 
                             dList.add(itemCategory);
-//                            }
-
-
                         }
 
                         if (dList.size() > 0) {
-                            Log.i("tes leng plist", String.valueOf(dList.size()));
+//                            Log.i("tes leng plist", String.valueOf(dList.size()));
                             rvNotFound.setVisibility(View.GONE);
                             rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
                         } else {

@@ -18,7 +18,10 @@ import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
 import com.example.appdispatcher.ui.detail2.Detail2Fragment;
 import com.example.appdispatcher.ui.detail2.Detail2ViewModel;
+import com.example.appdispatcher.ui.home.HomeViewModel;
+import com.example.appdispatcher.ui.home.ListJobCategory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobDetailAdapter extends RecyclerView.Adapter<JobDetailAdapter.ViewHolder> {
@@ -31,9 +34,9 @@ public class JobDetailAdapter extends RecyclerView.Adapter<JobDetailAdapter.View
     public static final String STATUS_JOB = "status_job";
     public static final String GET_ID_JOB = "get_id_job";
 
-    public JobDetailAdapter(Detail2Fragment context, List<Detail2ViewModel> dList) {
+    public JobDetailAdapter(Detail2Fragment context, List<Detail2ViewModel> recomendJob) {
         super();
-        this.dList = dList;
+        this.dList = recomendJob;
         this.context = context;
         dListAdapter = context;
     }
@@ -45,9 +48,8 @@ public class JobDetailAdapter extends RecyclerView.Adapter<JobDetailAdapter.View
         return new ViewHolder(v);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull JobDetailAdapter.ViewHolder holder, int position) {
         final Detail2ViewModel appliedjoblist = dList.get(position);
         holder.tvJudul.setText(appliedjoblist.judul);
         holder.tvLocation.setText(appliedjoblist.location);
@@ -82,13 +84,18 @@ public class JobDetailAdapter extends RecyclerView.Adapter<JobDetailAdapter.View
 
     @Override
     public int getItemCount() {
-        if (dList != null)
+//        if (dList != null)
             return dList.size();
-        return 0;
+//        return 0;
     }
 
     public Detail2ViewModel getItem(int pos) {
         return dList.get(pos);
+    }
+
+    public void filterList(ArrayList<Detail2ViewModel> filteredList) {
+        dList = filteredList;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -109,6 +116,6 @@ public class JobDetailAdapter extends RecyclerView.Adapter<JobDetailAdapter.View
             tvStatus.setVisibility(View.VISIBLE);
         }
     }
-
 }
+
 
