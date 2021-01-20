@@ -28,17 +28,17 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/android" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="30dp">
+<!--            <LinearLayout-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingLeft="30dp">-->
 
                 <TextView
                     android:id="@+id/textViewCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
+                    android:layout_marginLeft="60dp"
                     android:text="PT. Sinergy Informasi Pratama"
                     android:textStyle="bold" />
 
@@ -46,21 +46,24 @@
                     android:id="@+id/textViewJudul"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
+                    android:layout_below="@+id/textViewCategory"
+                    android:layout_marginLeft="60dp"
                     android:text="PT. Sinergy Informasi Pratama" />
 
                 <TextView
                     android:id="@+id/textViewCustomer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
+                    android:layout_below="@+id/textViewJudul"
+                    android:layout_marginLeft="60dp"
                     android:text="PT. Sinergy Informasi Pratama" />
 
                 <TextView
                     android:id="@+id/textViewLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
+                    android:layout_below="@+id/textViewCustomer"
+                    android:layout_marginLeft="60dp"
                     android:text="Jakarta Barat, Indonesia" />
 
                 <TextView
@@ -74,7 +77,16 @@
                     android:textStyle="bold"
                     android:visibility="gone" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewLocation"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/white"
+                    android:visibility="gone"/>
+
+<!--            </LinearLayout>-->
 
         </RelativeLayout>
 
