@@ -16,12 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -56,7 +58,7 @@ public class JobProgressFragment extends Fragment{
     JobDetailAdapter dAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
     NestedScrollView nestedScrollView;
-    RelativeLayout rvAccepted, rvNotFound;
+    RelativeLayout rvNotFound, rvAccepted;
     BottomNavigationView navigation;
 
     @Override
@@ -174,7 +176,12 @@ public class JobProgressFragment extends Fragment{
     }
 
     private void fillDatJobPendingList() {
-        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken , null, new Response.Listener<JSONObject>() {
+        if (dList != null) {
+            dList.clear();
+        } else {
+            dList = new ArrayList<>();
+        }
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken + "?job_status=Open", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 JSONObject jObj = response;
@@ -184,11 +191,6 @@ public class JobProgressFragment extends Fragment{
                 try {
                     JSONArray jray = jObj.getJSONArray("job");
                     if (response.length() > 0) {
-                        if (dList != null) {
-                            dList.clear();
-                        } else {
-                            dList = new ArrayList<>();
-                        }
                         for (int i = 0; i < jray.length(); i++) {
                             JSONObject cat = jray.getJSONObject(i);
                             JobProgressViewModel itemCategory = new JobProgressViewModel();
@@ -204,7 +206,7 @@ public class JobProgressFragment extends Fragment{
                         }
 
                         if (dList.size() > 0) {
-//                            Log.i("tes leng plist", String.valueOf(dList.size()));
+                            Log.i("cek status open ", String.valueOf(dList.size()));
                             rvNotFound.setVisibility(View.GONE);
                             rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
                         } else {
@@ -240,5 +242,128 @@ public class JobProgressFragment extends Fragment{
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(strReq);
+
+        JsonObjectRequest strReq2 = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken + "?job_status=Ready", null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONObject jObj = response;
+                nestedScrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                try {
+                    JSONArray jray = jObj.getJSONArray("job");
+                    if (response.length() > 0) {
+                        for (int i = 0; i < jray.length(); i++) {
+                            JSONObject cat = jray.getJSONObject(i);
+                            JobProgressViewModel itemCategory = new JobProgressViewModel();
+                            itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                            itemCategory.setJudul(cat.getString("job_name"));
+                            itemCategory.setId_job(cat.getString("id"));
+                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                            itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            itemCategory.setStatus(cat.getString("job_status"));
+
+                            dList.add(itemCategory);
+                        }
+
+                        if (dList.size() > 0) {
+                            rvNotFound.setVisibility(View.GONE);
+                            rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                        } else {
+                            rvNotFound.setVisibility(View.VISIBLE);
+                        }
+
+                        dAdapter.notifyDataSetChanged();
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
+        RequestQueue requestQueue2 = Volley.newRequestQueue(getContext());
+        requestQueue2.add(strReq2);
+
+        JsonObjectRequest strReq3 = new JsonObjectRequest(Request.Method.GET, server.getJob_withToken + "?job_status=Progress", null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONObject jObj = response;
+                nestedScrollView.setVisibility(View.VISIBLE);
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                try {
+                    JSONArray jray = jObj.getJSONArray("job");
+                    if (response.length() > 0) {
+                        for (int i = 0; i < jray.length(); i++) {
+                            JSONObject cat = jray.getJSONObject(i);
+                            JobProgressViewModel itemCategory = new JobProgressViewModel();
+                            itemCategory.setCategory(cat.getJSONObject("category").getString("category_name"));
+                            itemCategory.setJudul(cat.getString("job_name"));
+                            itemCategory.setId_job(cat.getString("id"));
+                            itemCategory.setFoto(cat.getJSONObject("category").getString("category_image_url"));
+                            itemCategory.setCustomer(cat.getJSONObject("customer").getString("customer_name"));
+                            itemCategory.setLocation(cat.getJSONObject("location").getString("long_location"));
+                            itemCategory.setStatus(cat.getString("job_status"));
+
+                            dList.add(itemCategory);
+                        }
+
+                        if (dList.size() > 0) {
+                            Log.i("cek status progress", String.valueOf(dList.size()));
+                            rvNotFound.setVisibility(View.GONE);
+                            rvAccepted.setBackgroundColor(getResources().getColor(R.color.colorBackgroundTwo));
+                        } else {
+                            rvNotFound.setVisibility(View.VISIBLE);
+                        }
+
+                        dAdapter.notifyDataSetChanged();
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("Accept", "applicaion/json");
+                // Barer di bawah ini akan di simpan local masing-masing device engineer
+
+//                headers.put("Authorization", "Bearer 14a1105cf64a44f47dd6d53f6b3beb79b65c1e929a6ee94a5c7ad30528d02c3e");
+                SharedPreferences mSetting = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+                headers.put("Authorization", mSetting.getString("Token", "missing"));
+                return headers;
+            }
+        };
+        RequestQueue requestQueue3 = Volley.newRequestQueue(getContext());
+        requestQueue3.add(strReq3);
     }
 }
