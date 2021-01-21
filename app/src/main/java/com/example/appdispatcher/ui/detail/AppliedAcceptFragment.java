@@ -33,8 +33,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.detail2.Detail2Fragment;
-import com.example.appdispatcher.ui.detail2.Detail2ViewModel;
+import com.example.appdispatcher.ui.detail2.JobProgressFragment;
+import com.example.appdispatcher.ui.detail2.JobProgressViewModel;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -97,11 +97,11 @@ public class AppliedAcceptFragment extends Fragment {
             String id_job = detail.getId_job();
             fillDetail(id_job);
         } else if (getStatus.equals("Ready")) {
-            Detail2ViewModel detail = (Detail2ViewModel) getActivity().getIntent().getSerializableExtra(Detail2Fragment.ID_JOB);
+            JobProgressViewModel detail = (JobProgressViewModel) getActivity().getIntent().getSerializableExtra(JobProgressFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
         } else if(getStatus.equals("Open")) {
-            Detail2ViewModel detail2 = (Detail2ViewModel) getActivity().getIntent().getSerializableExtra(Detail2Fragment.ID_JOB);
+            JobProgressViewModel detail2 = (JobProgressViewModel) getActivity().getIntent().getSerializableExtra(JobProgressFragment.ID_JOB);
             String id_job = detail2.getId_job();
             btn_start.setVisibility(View.GONE);
             btn_download.setVisibility(View.GONE);

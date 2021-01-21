@@ -2,7 +2,7 @@ package com.example.appdispatcher.ui.detail2;
 
 import java.io.Serializable;
 
-public class Detail2ViewModel implements Serializable {
+public class JobProgressViewModel implements Serializable {
     public String judul;
     public String foto;
     public String location;

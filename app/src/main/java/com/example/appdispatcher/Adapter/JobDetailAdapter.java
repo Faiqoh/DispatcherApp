@@ -2,7 +2,6 @@ package com.example.appdispatcher.Adapter;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,25 +15,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.appdispatcher.R;
 import com.example.appdispatcher.ui.detail.ScrollingActivityDetailTask;
-import com.example.appdispatcher.ui.detail2.Detail2Fragment;
-import com.example.appdispatcher.ui.detail2.Detail2ViewModel;
-import com.example.appdispatcher.ui.home.HomeViewModel;
-import com.example.appdispatcher.ui.home.ListJobCategory;
+import com.example.appdispatcher.ui.detail2.JobProgressFragment;
+import com.example.appdispatcher.ui.detail2.JobProgressViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class JobDetailAdapter extends RecyclerView.Adapter<JobDetailAdapter.ViewHolder> {
 
-    List<Detail2ViewModel> dList;
-    Detail2Fragment dListAdapter;
-    private Detail2Fragment context;
+    List<JobProgressViewModel> dList;
+    JobProgressFragment dListAdapter;
+    private JobProgressFragment context;
 
     public static final String ID_JOB = "id_job";
     public static final String STATUS_JOB = "status_job";
     public static final String GET_ID_JOB = "get_id_job";
 
-    public JobDetailAdapter(Detail2Fragment context, List<Detail2ViewModel> recomendJob) {
+    public JobDetailAdapter(JobProgressFragment context, List<JobProgressViewModel> recomendJob) {
         super();
         this.dList = recomendJob;
         this.context = context;
@@ -50,7 +47,7 @@ public class JobDetailAdapter extends RecyclerView.Adapter<JobDetailAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull JobDetailAdapter.ViewHolder holder, int position) {
-        final Detail2ViewModel appliedjoblist = dList.get(position);
+        final JobProgressViewModel appliedjoblist = dList.get(position);
         holder.tvJudul.setText(appliedjoblist.judul);
         holder.tvLocation.setText(appliedjoblist.location);
         holder.tvCustomer.setText(appliedjoblist.customer);
@@ -89,11 +86,11 @@ public class JobDetailAdapter extends RecyclerView.Adapter<JobDetailAdapter.View
 //        return 0;
     }
 
-    public Detail2ViewModel getItem(int pos) {
+    public JobProgressViewModel getItem(int pos) {
         return dList.get(pos);
     }
 
-    public void filterList(ArrayList<Detail2ViewModel> filteredList) {
+    public void filterList(ArrayList<JobProgressViewModel> filteredList) {
         dList = filteredList;
         notifyDataSetChanged();
     }

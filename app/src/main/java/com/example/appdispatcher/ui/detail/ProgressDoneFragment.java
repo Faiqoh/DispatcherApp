@@ -1,6 +1,5 @@
 package com.example.appdispatcher.ui.detail;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,18 +18,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,9 +36,8 @@ import com.bumptech.glide.Glide;
 import com.example.appdispatcher.Adapter.ProgressTaskAdapter;
 import com.example.appdispatcher.FabActivity;
 import com.example.appdispatcher.R;
-import com.example.appdispatcher.ui.detail2.Detail2Fragment;
-import com.example.appdispatcher.ui.detail2.Detail2ViewModel;
-import com.example.appdispatcher.ui.fab.RequestFabFragment;
+import com.example.appdispatcher.ui.detail2.JobProgressFragment;
+import com.example.appdispatcher.ui.detail2.JobProgressViewModel;
 import com.example.appdispatcher.util.server;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -247,11 +240,11 @@ public class ProgressDoneFragment extends Fragment implements ProgressTaskAdapte
             String id_job = detail.getId_job();
             fillDetail(id_job);
         } else if (getStatus.equals("Progress")) {
-            Detail2ViewModel detail = (Detail2ViewModel) getActivity().getIntent().getSerializableExtra(Detail2Fragment.ID_JOB);
+            JobProgressViewModel detail = (JobProgressViewModel) getActivity().getIntent().getSerializableExtra(JobProgressFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
         } else if (getStatus.equals("Done")) {
-            Detail2ViewModel detail = (Detail2ViewModel) getActivity().getIntent().getSerializableExtra(Detail2Fragment.ID_JOB);
+            JobProgressViewModel detail = (JobProgressViewModel) getActivity().getIntent().getSerializableExtra(JobProgressFragment.ID_JOB);
             String id_job = detail.getId_job();
             fillDetail(id_job);
         } else {
