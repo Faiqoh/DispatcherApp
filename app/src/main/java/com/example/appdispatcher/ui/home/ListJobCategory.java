@@ -73,6 +73,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
     public static final String ID_JOB = "id_job";
     public static final String GET_ID_JOB_CATEGORY = "get_id_job_category";
     public static final String GET_ID_JOB = "get_id_job";
+    public static final String STATUS_JOB = "status_job";
     ArrayList<HomeViewModel> cList = new ArrayList<>();
     DetailJobCategoryAdapter cAdapter;
     ShimmerFrameLayout shimmerFrameLayout;
@@ -425,6 +426,7 @@ public class ListJobCategory extends Fragment implements DetailJobCategoryAdapte
         Intent intent = new Intent(getActivity(), ScrollingActivityDetailTask.class);
         intent.putExtra(ID_JOB, cAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_job");
+        intent.putExtra(STATUS_JOB, "status_job");
         startActivity(intent);
     }
 

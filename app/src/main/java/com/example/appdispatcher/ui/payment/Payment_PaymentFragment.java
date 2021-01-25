@@ -54,6 +54,7 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
     PaymentAdapter payAdapter;
     //    public static final String ID_JOB = "id_job";
     public static final String GET_ID_JOB = "get_id_job";
+    public static final String STATUS_JOB = "status_job";
     ShimmerFrameLayout shimmerFrameLayout;
     SwipeRefreshLayout swipeRefreshLayout;
     TextView idpayment;
@@ -202,6 +203,7 @@ public class Payment_PaymentFragment extends Fragment implements PaymentAdapter.
         Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
         intent.putExtra(GET_ID_PAYMENT, payAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_payment");
+        intent.putExtra(STATUS_JOB, "status_job");
         startActivity(intent);
     }
 

@@ -50,6 +50,7 @@ public class SupportFragment extends Fragment implements GetSupportAdapter.Suppo
 
     public static final String ID_SUPPORT = "id_support";
     public static final String GET_ID_JOB = "get_id_job";
+    public static final String STATUS_JOB = "status_job";
     public List<SupportViewModel> sList = new ArrayList<>();
     GetSupportAdapter sAdapter;
     public static final String DATE_FORMAT_5 = "dd MMMM yyyy";
@@ -165,6 +166,7 @@ public class SupportFragment extends Fragment implements GetSupportAdapter.Suppo
         Intent intent = new Intent(getContext(), ScrollingActivityDetailTask.class);
         intent.putExtra(ID_SUPPORT, sAdapter.getItem(pos));
         intent.putExtra(GET_ID_JOB, "id_support");
+        intent.putExtra(STATUS_JOB, "status_job");
         startActivity(intent);
     }
 

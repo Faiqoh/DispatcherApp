@@ -30,7 +30,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:text="After finishing the job, don't forget to report the job fow review."
+            android:text="After finishing the job, don't forget to report the job for review."
             android:textAlignment="center"
             android:textSize="16dp"
             android:textStyle="bold" />
